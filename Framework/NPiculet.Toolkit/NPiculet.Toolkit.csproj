@@ -86,14 +86,10 @@
     <Compile Include="Xml\XmlNodeExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libs\Jil.dll" />
-    <Content Include="Libs\Jil.xml" />
     <Content Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.xml" />
     <Content Include="Libs\protobuf-net.dll" />
     <Content Include="Libs\protobuf-net.xml" />
-    <Content Include="Libs\Sigil.dll" />
-    <Content Include="Libs\Sigil.xml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
