@@ -203,5 +203,10 @@ namespace NPiculet.Data
 			}
 			return sql;
 		}
+
+		public override IQueryObject CloneEmpty()
+		{
+			return new OracleQueryObject();
+		}
 	}
 }

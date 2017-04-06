@@ -115,5 +115,9 @@ namespace NPiculet.Data
 		{
 			return this.TableName + ",Fields:" + this.Fields.Count;
 		}
+
+		public override IExecuteObject CloneEmpty() {
+			return new OracleExecuteObject();
+		}
 	}
 }

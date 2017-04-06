@@ -75,5 +75,32 @@ namespace NPiculet.Data
 
 		#endregion
 
+		#region 克隆新对象
+
+		/// <summary>
+		/// 克隆一个新对象
+		/// </summary>
+		/// <returns></returns>
+		public override IDbHelper CloneNew()
+		{
+			return new SqliteHelper(base.CurrentConnectionType, base.CurrentConnectionString);
+		}
+
+		#endregion
+
+		#region 常用方法
+
+		/// <summary>
+		/// 获取数据值，并预处理
+		/// </summary>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public override object GetDataValue(object val)
+		{
+			return val;
+		}
+
+		#endregion
+
 	}
 }

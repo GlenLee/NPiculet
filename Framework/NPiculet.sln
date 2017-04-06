@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Data", "NPiculet.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Test", "NPiculet.Test\NPiculet.Test.csproj", "{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Pack", "NPiculet.Pack\NPiculet.Pack.csproj", "{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

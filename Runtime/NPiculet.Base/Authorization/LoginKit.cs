@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Web;
-using NPiculet.Cache;
+using NPiculet.Core;
 using NPiculet.Logic.Business;
 using NPiculet.Plugin;
 using NPiculet.Toolkit;
@@ -139,7 +139,7 @@ namespace NPiculet.Logic.Sys {
 		{
 			string code = GetSessionCode(_MEMBER_SESSION_CODE_KEY, LoginKit.MemberLoginTimeout);
 			CacheManager<Member> cache = new CacheManager<Member>();
-			return cache.Get(code);
+			return cache.Get(code).Value;
 		}
 
 		/// <summary>
@@ -149,7 +149,7 @@ namespace NPiculet.Logic.Sys {
 		public static Member GetCurrentMember(string userSessionCode)
 		{
 			CacheManager<Member> cache = new CacheManager<Member>();
-			return cache.Get(userSessionCode);
+			return cache.Get(userSessionCode).Value;
 		}
 
 		#endregion
@@ -229,7 +229,7 @@ namespace NPiculet.Logic.Sys {
 		{
 			string code = GetSessionCode(_ADMIN_SESSION_CODE_KEY, LoginKit.AdminLoginTimeout);
 			CacheManager<Administrator> cache = new CacheManager<Administrator>();
-			return cache.Get(code);
+			return cache.Get(code).Value;
 		}
 
 		/// <summary>
@@ -239,7 +239,7 @@ namespace NPiculet.Logic.Sys {
 		public static Administrator GetCurrentAdmin(string userSessionCode)
 		{
 			CacheManager<Administrator> cache = new CacheManager<Administrator>();
-			return cache.Get(userSessionCode);
+			return cache.Get(userSessionCode).Value;
 		}
 
 		#endregion
@@ -363,11 +363,11 @@ namespace NPiculet.Logic.Sys {
 			if (string.IsNullOrEmpty(userSessionCode)) return null;
 
 			var memberCache = new CacheManager<Member>();
-			var member = memberCache.Get(userSessionCode);
+			var member = memberCache.Get(userSessionCode).Value;
 			if (member != null) return member;
 
 			var adminCache = new CacheManager<Administrator>();
-			var admin = adminCache.Get(userSessionCode);
+			var admin = adminCache.Get(userSessionCode).Value;
 			if (admin != null) return admin;
 
 			return null;

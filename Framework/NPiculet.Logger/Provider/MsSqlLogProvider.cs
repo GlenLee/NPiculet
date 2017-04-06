@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using NPiculet.Data;
 
 namespace NPiculet.Log
 {
