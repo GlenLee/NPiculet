@@ -1,0 +1,93 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="ContentPage.master.cs" Inherits="web_ContentPage" %>
+<%@ Register src="uc/WebQuote.ascx" tagname="WebQuote" tagprefix="uc1" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<uc1:WebQuote ID="WebQuote1" runat="server" />
+</head>
+
+<body>
+
+<div class="ui-layout">
+	<div class="ui-header">
+		<div class="ui grid">
+			<div class="eight wide column">
+				<div class="top-login">
+					登录 | 注册 您好，欢迎光临鹏游惠！
+				</div>
+			</div>
+			<div class="eight wide column">
+				<div class="tr top-link">
+					我的订单 | 收藏夹 | 关于我们
+				</div>
+			</div>
+			<div class="four wide column">
+				<div style="width:220px;height:90px;background:url(../styles/ticket/images/logo.png) no-repeat;margin:10px 30px;"></div>
+			</div>
+			<div class="eight wide column">
+				<div class="ui action input" style="width:400px;margin:30px auto;">
+					<input type="text" placeholder="输入线路名称，如：昆明-大理">
+					<div class="ui button" style="padding:0 10px;color:#fff;background-color:#666;"><i class="large icon search"></i></div>
+				</div>
+			</div>
+			<div class="four wide column">
+				<div style="width:227px;height:107px;background:url(../styles/ticket/images/logo-girls.png) no-repeat;margin-top:10px;"></div>
+			</div>
+		</div>
+	</div>
+	<!-- Header END -->
+
+	<div class="ui-nav">
+		<div class="ui-menu">
+			<div class="ui menu">
+				<a class="item">机票查询<i class="caret down icon"></i></a>
+
+				<div class="right menu">
+					<a class="item">首页</a>
+					<a class="item">航班动态</a>
+					<a class="item">活动专区</a>
+					<a class="item">关于我们</a>
+					<a class="item">个人中心</a>
+					<a class="item">登录</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Nav END -->
+
+	<div class="ui-body"><asp:ContentPlaceHolder runat="server" ID="content"></asp:ContentPlaceHolder></div>
+	<!-- Body END -->
+
+	<div class="ui-footer">
+		<footer>
+			<p class="copyright">骤羽科技 © 版权所有</p>
+			<div class="ui grid" style="margin:0 160px;">
+				<div class="three wide column">
+					<div class="footer-link">关于我们</div>
+				</div>
+				<div class="three wide column">
+					<div class="footer-link">订购指南</div>
+				</div>
+				<div class="three wide column">
+					<div class="footer-link">支付方式</div>
+				</div>
+				<div class="three wide column">
+					<div class="footer-link">售后服务</div>
+				</div>
+				<div class="four wide column" style="background-color:rgba(255,255,255,.3)">
+					<a href="#">订阅</a><br/>
+					<a href="#">扫描二维码，订阅微信公众号</a>
+					<a href="#">掌握第一手信息</a>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- Footer END -->
+</div>
+
+</body>
+
+</html>

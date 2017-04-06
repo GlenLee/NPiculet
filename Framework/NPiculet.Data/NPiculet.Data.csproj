@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{02318AD4-7AEC-47B3-8785-2964311FA2E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NPiculet.Data</RootNamespace>
+    <AssemblyName>NPiculet.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NPiculet.Data.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.3.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataDao\ColumnAttribute.cs" />
+    <Compile Include="DataDao\DataDao.cs" />
+    <Compile Include="DataDao\IBusiness.cs" />
+    <Compile Include="DataDao\IModel.cs" />
+    <Compile Include="DataDao\ModelBase.cs" />
+    <Compile Include="DataDao\SavedEventArgs.cs" />
+    <Compile Include="Helper\DbHelper.cs" />
+    <Compile Include="Helper\MySQL\MySqlExecuteObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helper\MySQL\MySqlHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helper\MySQL\MySqlQueryObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helper\SqlClient\SqlClientExecuteObject.cs" />
+    <Compile Include="Helper\SqlClient\SqlClientHelper.cs" />
+    <Compile Include="Helper\SqlClient\SqlClientQueryObject.cs" />
+    <Compile Include="Enum\DataType.cs" />
+    <Compile Include="Interface\AbstractDbHelper.cs" />
+    <Compile Include="Interface\AbstractExecuteObject.cs" />
+    <Compile Include="Interface\AbstractQueryObject.cs" />
+    <Compile Include="Interface\Enum.cs" />
+    <Compile Include="Interface\Field.cs" />
+    <Compile Include="Interface\IDbExe.cs" />
+    <Compile Include="Interface\IDbHelper.cs" />
+    <Compile Include="Interface\IExecuteObject.cs" />
+    <Compile Include="Interface\IQueryObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\Mono.Security.dll" />
+    <Content Include="Libs\MySql.Data.dll" />
+    <Content Include="Libs\MySql.Data.Entity.dll" />
+    <Content Include="Libs\MySql.Data.Entity.EF6.dll" />
+    <Content Include="Libs\MySql.Web.dll" />
+    <Content Include="Libs\Npgsql.dll" />
+    <Content Include="Libs\Npgsql.xml" />
+    <Content Include="Libs\x64\System.Data.SQLite.dll" />
+    <Content Include="Libs\x64\System.Data.SQLite.Linq.dll" />
+    <Content Include="Libs\x64\System.Data.SQLite.Linq.pdb" />
+    <Content Include="Libs\x64\System.Data.SQLite.Linq.xml" />
+    <Content Include="Libs\x64\System.Data.SQLite.pdb" />
+    <Content Include="Libs\x64\System.Data.SQLite.xml" />
+    <Content Include="Libs\x86\System.Data.SQLite.dll" />
+    <Content Include="Libs\x86\System.Data.SQLite.Linq.dll" />
+    <Content Include="Libs\x86\System.Data.SQLite.Linq.pdb" />
+    <Content Include="Libs\x86\System.Data.SQLite.Linq.xml" />
+    <Content Include="Libs\x86\System.Data.SQLite.pdb" />
+    <Content Include="Libs\x86\System.Data.SQLite.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

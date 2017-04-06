@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7844966D-FCD7-401F-9F47-9A9D980CFDAC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NPiculet.Logic</RootNamespace>
+    <AssemblyName>NPiculet.Logic</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.5.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NPiculet.Library\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.5.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NPiculet.Library\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6">
+      <HintPath>..\NPiculet.Library\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\NPiculet.Library\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPiculet.Pack">
+      <HintPath>..\NPiculet.Library\NPiculet.Pack.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>..\NPiculet.Library\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logic\BusinessCustom\CmsContentGroupBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\CmsContentPageBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\CmsDictGroupBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\CmsDictItemBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\CmsNoticeInfoBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\CmsNoticeRecordBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\CmsRegionInfoBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysActionDetailBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysActionLogBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysAdminInfoBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysAuthorizationBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysConfigBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysLinkUserOrgBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysLinkUserRoleBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysMemberDataBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysMemberInfoBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysMenuBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysOrgGroupBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysOrgInfoBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysRoleInfoBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysUserDataBus_Custom.cs" />
+    <Compile Include="Logic\BusinessCustom\SysUserInfoBus_Custom.cs" />
+    <Compile Include="Logic\Business\CmsContentGroupBus.cs" />
+    <Compile Include="Logic\Business\CmsContentPageBus.cs" />
+    <Compile Include="Logic\Business\CmsDictGroupBus.cs" />
+    <Compile Include="Logic\Business\CmsDictItemBus.cs" />
+    <Compile Include="Logic\Business\CmsNoticeInfoBus.cs" />
+    <Compile Include="Logic\Business\CmsNoticeRecordBus.cs" />
+    <Compile Include="Logic\Business\CmsRegionInfoBus.cs" />
+    <Compile Include="Logic\Business\SysActionDetailBus.cs" />
+    <Compile Include="Logic\Business\SysActionLogBus.cs" />
+    <Compile Include="Logic\Business\SysAdminInfoBus.cs" />
+    <Compile Include="Logic\Business\SysAuthorizationBus.cs" />
+    <Compile Include="Logic\Business\SysConfigBus.cs" />
+    <Compile Include="Logic\Business\SysLinkUserOrgBus.cs" />
+    <Compile Include="Logic\Business\SysLinkUserRoleBus.cs" />
+    <Compile Include="Logic\Business\SysMemberDataBus.cs" />
+    <Compile Include="Logic\Business\SysMemberInfoBus.cs" />
+    <Compile Include="Logic\Business\SysMenuBus.cs" />
+    <Compile Include="Logic\Business\SysOrgGroupBus.cs" />
+    <Compile Include="Logic\Business\SysOrgInfoBus.cs" />
+    <Compile Include="Logic\Business\SysRoleInfoBus.cs" />
+    <Compile Include="Logic\Business\SysUserDataBus.cs" />
+    <Compile Include="Logic\Business\SysUserInfoBus.cs" />
+    <Compile Include="Logic\Model\CmsContentGroup.cs" />
+    <Compile Include="Logic\Model\CmsContentPage.cs" />
+    <Compile Include="Logic\Model\CmsDictGroup.cs" />
+    <Compile Include="Logic\Model\CmsDictItem.cs" />
+    <Compile Include="Logic\Model\CmsNoticeInfo.cs" />
+    <Compile Include="Logic\Model\CmsNoticeRecord.cs" />
+    <Compile Include="Logic\Model\CmsRegionInfo.cs" />
+    <Compile Include="Logic\Model\SysActionDetail.cs" />
+    <Compile Include="Logic\Model\SysActionLog.cs" />
+    <Compile Include="Logic\Model\SysAdminInfo.cs" />
+    <Compile Include="Logic\Model\SysAuthorization.cs" />
+    <Compile Include="Logic\Model\SysConfig.cs" />
+    <Compile Include="Logic\Model\SysLinkUserOrg.cs" />
+    <Compile Include="Logic\Model\SysLinkUserRole.cs" />
+    <Compile Include="Logic\Model\SysMemberData.cs" />
+    <Compile Include="Logic\Model\SysMemberInfo.cs" />
+    <Compile Include="Logic\Model\SysMenu.cs" />
+    <Compile Include="Logic\Model\SysOrgGroup.cs" />
+    <Compile Include="Logic\Model\SysOrgInfo.cs" />
+    <Compile Include="Logic\Model\SysRoleInfo.cs" />
+    <Compile Include="Logic\Model\SysUserData.cs" />
+    <Compile Include="Logic\Model\SysUserInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NPiculet.Library\NPiculet.Library.csproj">
+      <Project>{5af1f7ef-259a-4b00-b7ed-c145515e9885}</Project>
+      <Name>NPiculet.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

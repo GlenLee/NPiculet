@@ -1,0 +1,38 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Dialog.master.cs" Inherits="modules_Dialog" %>
+<%@ Register TagPrefix="uc" TagName="CssScriptQuote" Src="~/modules/common/CssScriptQuote.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head" runat="server">
+	<title>AdminPage</title>
+	<link href="~/styles/default/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="~/styles/default/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+	<link href="~/styles/site.css" rel="stylesheet" type="text/css" />
+	<link href="~/styles/default/dialog.css" rel="stylesheet" type="text/css" />
+	<script src="<%= ResolveClientUrl("~/scripts/jquery-1.11.0.js") %>" type="text/javascript"></script>
+	<script src="<%= ResolveClientUrl("~/scripts/jquery.easyui.min.js") %>" type="text/javascript"></script>
+	<script src="<%= ResolveClientUrl("~/scripts/locale/easyui-lang-zh_CN.js") %>" type="text/javascript"></script>
+	<script src="<%= ResolveClientUrl("~/scripts/site.js") %>" type="text/javascript"></script>
+	<style type="text/css">
+
+	</style>
+	<asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
+</head>
+
+<body>
+
+	<form id="frm" runat="server" class="ui-dialog">
+
+		<header class="toolbar">
+			<span class="title"><%= this.GetTitle() %></span>
+			<span class="fun">
+				<asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
+			</span>
+		</header>
+		<section>
+			<asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
+		</section>
+
+	</form>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Core", "NPiculet.Core\NPiculet.Core.csproj", "{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Toolkit", "NPiculet.Toolkit\NPiculet.Toolkit.csproj", "{1F9612AE-598C-45F8-A194-296BA5799746}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "WebSite\", "{22EFFDF9-9094-4F52-B24E-53F5519F453D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		ProjectReferences = "{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}|NPiculet.Core.dll;{02318AD4-7AEC-47B3-8785-2964311FA2E4}|NPiculet.Data.dll;{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}|NPiculet.Logger.dll;{1F9612AE-598C-45F8-A194-296BA5799746}|NPiculet.Toolkit.dll;{2496B863-F79B-4D1B-B990-1AE6534AA1E2}|NPiculet.WebToolkit.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/WebSite"
+		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/WebSite"
+		Release.AspNetCompiler.PhysicalPath = "WebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "36308"
+		SlnRelativePath = "WebSite\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Logger", "NPiculet.Logger\NPiculet.Logger.csproj", "{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.WebToolkit", "NPiculet.WebToolkit\NPiculet.WebToolkit.csproj", "{2496B863-F79B-4D1B-B990-1AE6534AA1E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Test", "NPiculet.Test\NPiculet.Test.csproj", "{B7295778-8907-4469-B523-D85C1F4D0361}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34DA3EB3-2B7C-4980-9F84-017D9C79CC44}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Data", "NPiculet.Data\NPiculet.Data.csproj", "{02318AD4-7AEC-47B3-8785-2964311FA2E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F9612AE-598C-45F8-A194-296BA5799746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F9612AE-598C-45F8-A194-296BA5799746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F9612AE-598C-45F8-A194-296BA5799746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F9612AE-598C-45F8-A194-296BA5799746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
