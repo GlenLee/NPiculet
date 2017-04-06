@@ -1,4 +1,4 @@
-namespace NPiculet.Core.Status
+namespace NPiculet.Core
 {
 	public partial interface IStatus
 	{

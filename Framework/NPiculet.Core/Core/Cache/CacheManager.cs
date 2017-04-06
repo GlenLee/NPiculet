@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Timers;
 
-namespace NPiculet.Sys
+namespace NPiculet.Core
 {
 	public class CacheManager<T> : ICache<T>
 	{

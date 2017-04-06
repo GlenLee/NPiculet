@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace NPiculet.Core
+namespace NPiculet.Plugin
 {
 	public class PluginConfigSection : ConfigurationSection
 	{

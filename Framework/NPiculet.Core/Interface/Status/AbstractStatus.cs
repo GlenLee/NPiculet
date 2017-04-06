@@ -1,4 +1,4 @@
-namespace NPiculet.Core.Status
+namespace NPiculet.Core
 {
 	public abstract partial class AbstractStatus : IStatus
 	{

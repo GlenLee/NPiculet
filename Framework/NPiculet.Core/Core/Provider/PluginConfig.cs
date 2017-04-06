@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using NPiculet.Log;
 
-namespace NPiculet.Core
+namespace NPiculet.Plugin
 {
 	public class PluginConfig : ConfigurationElement
 	{

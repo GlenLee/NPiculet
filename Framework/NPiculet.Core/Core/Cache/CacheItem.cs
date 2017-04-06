@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Schema;
 
-namespace NPiculet.Sys
+namespace NPiculet.Core
 {
 	/// <summary>
 	/// 缓存的存取行为。

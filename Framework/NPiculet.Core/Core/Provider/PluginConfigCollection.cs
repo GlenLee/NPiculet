@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Configuration.Provider;
 
-namespace NPiculet.Core
+namespace NPiculet.Plugin
 {
 	public class PluginConfigCollection : ConfigurationElementCollection
 	{
