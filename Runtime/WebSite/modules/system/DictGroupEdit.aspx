@@ -2,23 +2,27 @@
 <%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc1" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
-	<a href="DictGroupList.aspx">返回</a>
-	<asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click">保存</asp:LinkButton>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><a href="DictGroupList.aspx"><i class="sui-icon icon-tb-back"></i>返回</a></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" Runat="Server">
     <uc1:Prompt ID="promptControl" runat="server" />
     <asp:PlaceHolder ID="container" runat="server">
-		<table border="0" cellpadding="2" cellspacing="0" class="admin-edit-table">
+		<table class="sui-table table-primary">
 			<tr>
 				<td class="th">字典组名称</td>
-				<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="textbox" Width="200px" MaxLength="32"></asp:TextBox>
+				<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Name"></asp:RequiredFieldValidator>
 			</tr>
 			<tr>
 				<td class="th">字典组编码</td>
-				<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="textbox" Width="200px" MaxLength="32"></asp:TextBox>
+				<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Code"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
@@ -42,7 +46,7 @@
             <tr>
 				<td class="th">备注</td>
 				<td class="td">
-                    <asp:TextBox ID="Memo" runat="server" CssClass="textbox" Width="99%"></asp:TextBox>
+                    <asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%"></asp:TextBox>
                 </td>
 			</tr>
 		</table>

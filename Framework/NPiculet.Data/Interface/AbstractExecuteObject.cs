@@ -6,6 +6,7 @@
 */
 using System;
 using System.Collections.Generic;
+using NPiculet.Error;
 
 namespace NPiculet.Data
 {
@@ -134,7 +135,7 @@ namespace NPiculet.Data
 				case ExecuteType.Update: return CreateUpdateSQL();
 				case ExecuteType.Delete: return CreateDeleteSQL();
 				default:
-					throw new Exception("没有产生任何执行语句字符串，这是因为执行状态为：ExecuteType.None");
+					throw new LogicException("没有产生任何执行语句字符串，这是因为执行状态为：ExecuteType.None");
 			}
 		}
 

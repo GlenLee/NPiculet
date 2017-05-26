@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NPiculet.WebToolkit</RootNamespace>
     <AssemblyName>NPiculet.WebToolkit</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -64,11 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NPiculet.Toolkit\NPiculet.Toolkit.csproj">
-      <Project>{1F9612AE-598C-45F8-A194-296BA5799746}</Project>
+      <Project>{1f9612ae-598c-45f8-a194-296ba5799746}</Project>
       <Name>NPiculet.Toolkit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

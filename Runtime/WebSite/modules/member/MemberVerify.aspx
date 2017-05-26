@@ -38,7 +38,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="admin-list-table">
+		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>

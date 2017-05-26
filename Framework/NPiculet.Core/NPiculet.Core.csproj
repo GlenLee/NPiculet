@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NPiculet.Core</RootNamespace>
     <AssemblyName>NPiculet.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -45,16 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Cache\CacheManager.cs" />
-    <Compile Include="Core\Cache\CacheItem.cs" />
-    <Compile Include="Core\Error\LogicException.cs" />
-    <Compile Include="Core\Error\CoreException.cs" />
-    <Compile Include="Core\Error\PluginException.cs" />
-    <Compile Include="Core\Plugin\PluginManager.cs" />
-    <Compile Include="Core\Plugin\PluginRegistry.cs" />
-    <Compile Include="Core\Provider\PluginConfigCollection.cs" />
-    <Compile Include="Core\Provider\PluginConfig.cs" />
-    <Compile Include="Core\Provider\PluginConfigSection.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
+    <Compile Include="Cache\CacheItem.cs" />
+    <Compile Include="Error\LogicException.cs" />
+    <Compile Include="Error\CoreException.cs" />
+    <Compile Include="Error\PluginException.cs" />
+    <Compile Include="Plugin\PluginManager.cs" />
+    <Compile Include="Plugin\PluginRegistry.cs" />
+    <Compile Include="Provider\PluginConfigCollection.cs" />
+    <Compile Include="Provider\PluginConfig.cs" />
+    <Compile Include="Provider\PluginConfigSection.cs" />
     <Compile Include="Interface\Cache\ICache.cs" />
     <Compile Include="Interface\Plugin\Enum.cs" />
     <Compile Include="Interface\Plugin\IPlugin.cs" />
@@ -64,16 +64,7 @@
     <Compile Include="Interface\Status\IStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Status\" />
-    <Folder Include="Enum\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NPiculet.Logger\NPiculet.Logger.csproj">
-      <Project>{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}</Project>
-      <Name>NPiculet.Logger</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

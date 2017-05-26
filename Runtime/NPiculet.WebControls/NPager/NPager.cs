@@ -19,6 +19,17 @@ namespace NPiculet.WebControls
 		/// 当前页码
 		/// </summary>
 		[Browsable(true)]
+		[Category("Pagination"), DefaultValue(0), Description("模式")]
+		public string Mode
+		{
+			get { return Convert.ToString(ViewState["__NPager__Mode"]); }
+			set { ViewState["__NPager__Mode"] = value; }
+		}
+
+		/// <summary>
+		/// 当前页码
+		/// </summary>
+		[Browsable(true)]
 		[Category("Pagination"), DefaultValue(0), Description("当前页码")]
 		public int CurrentPage
 		{
@@ -111,11 +122,12 @@ namespace NPiculet.WebControls
 		/// <param name="output"></param>
 		private void RenderPagination(HtmlTextWriter output)
 		{
-			if (_manager == null)
-			_manager = new PaginationManager(PaginationManager.PaginationMode.Dynamic);
+			var mode = this.Mode == "Simple" ? PaginationManager.PaginationMode.Simple : PaginationManager.PaginationMode.Dynamic;
+			if (_manager == null) _manager = new PaginationManager(mode);
 			_manager.PageSize = this.PageSize;
 			_manager.CurrentPage = this.CurrentPage;
 			_manager.RecordCount = this.RecordCount;
+			_manager.FixCss = "sui-pagination pagination-large";
 			//manager.FirstString = "<i class=\"step backward icon\"></i>";
 			//manager.PrevString = "<i class=\"caret left icon\"></i>";
 			//manager.NextString = "<i class=\"caret right icon\"></i>";
@@ -124,7 +136,7 @@ namespace NPiculet.WebControls
 			_manager.NextStaticString = "";
 			//跳转页链接，参数：{0}页面地址、{1}当前页码、{2}链接文字
 			//public string PageUrlString = "<a href=\"{0}?Page={1}\">{2}</a>";
-			_manager.PageUrlString = "<a class=\"item\" href=\"" + Page.ClientScript.GetPostBackClientHyperlink(this, "{1}") + "\">{2}</a>";
+			_manager.PageUrlString = "<li class=\"item{3}\"><a href=\"" + Page.ClientScript.GetPostBackClientHyperlink(this, "{1}") + "\">{2}</a></li>";
 			output.Write(_manager.Show());
 		}
 

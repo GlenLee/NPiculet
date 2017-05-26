@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Data;
 using System.Web;
-using System.Web.Caching;
 
 namespace NPiculet.Toolkit
 {
@@ -43,12 +42,12 @@ namespace NPiculet.Toolkit
 		/// <param name="obj">储存的对象</param>
 		/// <param name="expirySpan">过期间隔</param>
 		/// <param name="cacheItemPriority">缓存回收的优先级</param>
-		private static void SaveCache(string cacheKey, object obj, TimeSpan expirySpan, CacheItemPriority cacheItemPriority)
+		private static void SaveCache(string cacheKey, object obj, TimeSpan expirySpan, System.Web.Caching.CacheItemPriority cacheItemPriority)
 		{
 			if (IsExist(cacheKey)) {
-				HttpContext.Current.Cache.Insert(cacheKey, obj, null, Cache.NoAbsoluteExpiration, expirySpan, cacheItemPriority, null);
+				HttpContext.Current.Cache.Insert(cacheKey, obj, null, System.Web.Caching.Cache.NoAbsoluteExpiration, expirySpan, cacheItemPriority, null);
 			} else {
-				HttpContext.Current.Cache.Add(cacheKey, obj, null, Cache.NoAbsoluteExpiration, expirySpan, cacheItemPriority, null);
+				HttpContext.Current.Cache.Add(cacheKey, obj, null, System.Web.Caching.Cache.NoAbsoluteExpiration, expirySpan, cacheItemPriority, null);
 			}
 		}
 
@@ -61,7 +60,7 @@ namespace NPiculet.Toolkit
 		/// <param name="obj">对象</param>
 		public static void SetCahceObject(string cacheKey, object obj)
 		{
-			SaveCache(cacheKey, obj, TimeSpan.FromMinutes(30), CacheItemPriority.Normal);
+			SaveCache(cacheKey, obj, TimeSpan.FromMinutes(30), System.Web.Caching.CacheItemPriority.Normal);
 		}
 
 		/// <summary>
@@ -72,7 +71,7 @@ namespace NPiculet.Toolkit
 		/// <param name="expirySpan">过期间隔</param>
 		public static void SetCahceObject(string cacheKey, object obj, TimeSpan expirySpan)
 		{
-			SaveCache(cacheKey, obj, expirySpan, CacheItemPriority.Normal);
+			SaveCache(cacheKey, obj, expirySpan, System.Web.Caching.CacheItemPriority.Normal);
 		}
 
 		/// <summary>
@@ -82,7 +81,7 @@ namespace NPiculet.Toolkit
 		/// <param name="obj">对象</param>
 		/// <param name="expirySpan">过期间隔</param>
 		/// <param name="cacheItemPriority">缓存回收的优先级</param>
-		public static void SetCahceObject(string cacheKey, object obj, TimeSpan expirySpan, CacheItemPriority cacheItemPriority)
+		public static void SetCahceObject(string cacheKey, object obj, TimeSpan expirySpan, System.Web.Caching.CacheItemPriority cacheItemPriority)
 		{
 			SaveCache(cacheKey, obj, expirySpan, cacheItemPriority);
 		}
@@ -93,7 +92,7 @@ namespace NPiculet.Toolkit
 		/// <param name="cacheKey">缓存的索引键</param>
 		/// <param name="obj">对象</param>
 		/// <param name="cacheItemPriority">缓存回收的优先级</param>
-		public static void SetCahceObject(string cacheKey, object obj, CacheItemPriority cacheItemPriority)
+		public static void SetCahceObject(string cacheKey, object obj, System.Web.Caching.CacheItemPriority cacheItemPriority)
 		{
 			SaveCache(cacheKey, obj, TimeSpan.FromMinutes(30), cacheItemPriority);
 		}

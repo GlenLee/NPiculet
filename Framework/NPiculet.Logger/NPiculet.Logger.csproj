@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NPiculet.Logger</RootNamespace>
     <AssemblyName>NPiculet.Logger</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -52,12 +52,19 @@
     <Compile Include="Provider\LogProvider.cs" />
     <Compile Include="Provider\LogProviderCollection.cs" />
     <Compile Include="Provider\LogProviderSection.cs" />
+    <Compile Include="Provider\MsSqlLogProvider.cs" />
     <Compile Include="Provider\XmlLogProvider.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NPiculet.Data\NPiculet.Data.csproj">
+      <Project>{02318ad4-7aec-47b3-8785-2964311fa2e4}</Project>
+      <Name>NPiculet.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

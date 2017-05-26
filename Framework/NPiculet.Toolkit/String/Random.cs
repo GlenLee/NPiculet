@@ -159,11 +159,24 @@ namespace NPiculet.Toolkit
 		/// <summary>
 		/// 获取一个新的 GUID 字符串
 		/// </summary>
+		/// <param name="length">长度，默认32位</param>
 		/// <param name="upper">是否大写</param>
 		/// <returns></returns>
-		public static string GetGUID(bool upper = false)
+		public static string GetGUID(int length = 32, bool upper = false)
 		{
-			string guid = Guid.NewGuid().ToString();
+			string guid;
+			if (length == 32) {
+				guid = Guid.NewGuid().ToString().Replace("-", "");
+			} else if (length < 32) {
+				guid = Guid.NewGuid().ToString().Replace("-", "").Substring(0, length);
+			} else {
+				guid = string.Empty;
+				int count = length % 32 > 0 ? length / 32 + 1 : length / 32;
+				for (int i = 0; i < count; i++) {
+					guid += Guid.NewGuid().ToString().Replace("-", "");
+				}
+				guid = guid.Substring(0, length);
+			}
 			return upper ? guid.ToUpper() : guid.ToLower();
 		}
 	}

@@ -2,40 +2,50 @@
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
-	<a href="UserEdit.aspx">新增</a>
-	<asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton>
-	<asp:LinkButton runat="server" ID="btnResetPass" Text="重设密码"></asp:LinkButton>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><a href="UserEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><asp:LinkButton runat="server" ID="btnDel"><i class="sui-icon icon-tb-delete"></i>删除</asp:LinkButton></li>
+			<li><asp:LinkButton runat="server" ID="btnResetPass"><i class="sui-icon icon-tb-edit"></i>重设密码</asp:LinkButton></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
-	<div class="searchbar-wrap">
-		<table cellpadding="0" cellspacing="0" class="admin-search-table">
-			<tr>
-				<td>权限</td>
-				<td>
-					<asp:DropDownList runat="server" ID="dropFlag">
-						<asp:ListItem Value="0">全部</asp:ListItem>
-						<asp:ListItem Value="1">普通用户</asp:ListItem>
-						<asp:ListItem Value="2">管理员</asp:ListItem>
-					</asp:DropDownList>
-				</td>
-				<td></td>
-				<td>
-					<asp:TextBox ID="txtKeywords" runat="server"></asp:TextBox>
-					<asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/>
-				</td>
-			</tr>
-		</table>
-	</div>
+	<ul class="searchbar-wrap">
+		<li>
+			<table class="admin-search-table">
+				<tr>
+					<td>类型</td>
+					<td>
+						<asp:DropDownList runat="server" ID="ddlType" CssClass="scinput">
+							<asp:ListItem Value="">全部</asp:ListItem>
+							<asp:ListItem Value="0">企业用户</asp:ListItem>
+							<asp:ListItem Value="1">协会会员</asp:ListItem>
+						</asp:DropDownList>
+					</td>
+					<td>关键字</td>
+					<td>
+						<asp:TextBox ID="txtKeywords" runat="server"></asp:TextBox>
+						<asp:LinkButton ID="btnSearch" runat="server" OnClick="btnSearch_Click"><i class="sui-icon icon-tb-search"></i>搜索</asp:LinkButton>
+					</td>
+				</tr>
+			</table>
+		</li>
+	</ul>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="admin-list-table">
+		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
-			<asp:BoundField DataField="Account" HeaderText="帐号" >
+			<asp:TemplateField HeaderText="类型">
+				<HeaderStyle Width="80px" />
+				<ItemTemplate><%# GetTypeString() %></ItemTemplate>
+			</asp:TemplateField>
+			<asp:BoundField DataField="Account" HeaderText="帐号">
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="Password" HeaderText="密码" Visible="False">
@@ -50,7 +60,7 @@
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="操作">
-				<HeaderStyle Width="100"></HeaderStyle>
+				<HeaderStyle Width="140"></HeaderStyle>
 				<ItemTemplate>
 					<a href="AuthSet.aspx?key=<%# Eval("Id") %>&m=User&p=UserList.aspx" CssClass="btn btn-default" >授权</a> |
 					<a href="UserEdit.aspx?key=<%# Eval("Id") %>" CssClass="btn btn-default" >编辑</a> |

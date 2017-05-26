@@ -4,16 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head" runat="server">
 	<title>AdminPage</title>
-	<link href="~/styles/default/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="~/styles/default/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
-	<link href="~/styles/site.css" rel="stylesheet" type="text/css" />
-	<link href="~/styles/default/dialog.css" rel="stylesheet" type="text/css" />
-	<script src="<%= ResolveClientUrl("~/scripts/jquery-1.11.0.js") %>" type="text/javascript"></script>
-	<script src="<%= ResolveClientUrl("~/scripts/jquery.easyui.min.js") %>" type="text/javascript"></script>
-	<script src="<%= ResolveClientUrl("~/scripts/locale/easyui-lang-zh_CN.js") %>" type="text/javascript"></script>
-	<script src="<%= ResolveClientUrl("~/scripts/site.js") %>" type="text/javascript"></script>
+    <uc:CssScriptQuote ID="CssScriptQuote1" runat="server" />
 	<style type="text/css">
-
+		.dialog-toolbar {padding:6px 4px;background-color:#3B90DC;}
+		.dialog-toolbar a { display:inline-block;padding:3px 10px;color:#fff;border:1px dotted #fff; }
 	</style>
 	<asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
 </head>
@@ -22,11 +16,8 @@
 
 	<form id="frm" runat="server" class="ui-dialog">
 
-		<header class="toolbar">
-			<span class="title"><%= this.GetTitle() %></span>
-			<span class="fun">
-				<asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
-			</span>
+		<header class="dialog-toolbar">
+			<asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
 		</header>
 		<section>
 			<asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>

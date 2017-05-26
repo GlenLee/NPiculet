@@ -14,6 +14,9 @@ public partial class modules_system_DictItemList : AdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
 	{
+		//修改表头
+		BindTableHeader();
+		//绑定数据
 		if (!Page.IsPostBack) {
 	        BindDictGroup();
 
@@ -37,7 +40,18 @@ public partial class modules_system_DictItemList : AdminPage
 		};
     }
 
-    private readonly CmsDictItemBus _bus = new CmsDictItemBus();
+	private void BindTableHeader()
+	{
+		string colnumNames = WebParmKit.GetQuery("cols", "");
+		if (!string.IsNullOrEmpty(colnumNames)) {
+			string[] cols = colnumNames.Split(',');
+			for (int i = 0; i < cols.Length; i++) {
+				this.list.Columns[i].HeaderText = cols[i];
+			}
+		}
+	}
+
+	private readonly CmsDictItemBus _bus = new CmsDictItemBus();
 
 	private void BindDictGroup()
 	{
@@ -66,7 +80,7 @@ public partial class modules_system_DictItemList : AdminPage
 	    this.NPager1.RecordCount = count;
 
 		this.list.DataSource = _bus.GetDictItemData(this.NPager1.CurrentPage, this.NPager1.PageSize, this.ddlDictGroup.SelectedValue, this.txtKeywords.Text);
-        this.list.DataBind();
+		this.list.DataBind();
 
         BindKit.BindOnClientClick(this.list, "Delete", "return confirm('确定要删除吗？');");
     }

@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.Linq.Mapping;
 using System.Reflection;
+using NPiculet.Error;
 
 namespace NPiculet.Data
 {
@@ -112,12 +113,12 @@ namespace NPiculet.Data
 			Assembly ass = Assembly.GetExecutingAssembly();
 			IDbHelper helper = ass.CreateInstance(className, false, BindingFlags.Default, null, new object[] { serverType, connString }, null, null) as IDbHelper;
 			if (helper == null) {
-				throw new Exception("未能实例化数据库 Helper 对象！");
+				throw new LogicException("未能实例化数据库 Helper 对象！");
 			}
 			if (!_helperList.ContainsKey(key))
 				_helperList[key] = helper;
 			return helper.CloneNew();
-			//throw new Exception("配置文件 ConnectionString 节的 ProviderName 信息不正确！没有实现关于此数据连接类型的 DbHelper 插件！");
+			//throw new LogicException("配置文件 ConnectionString 节的 ProviderName 信息不正确！没有实现关于此数据连接类型的 DbHelper 插件！");
 		}
 
 		/// <summary>
@@ -163,7 +164,7 @@ namespace NPiculet.Data
 			object obj = ass.CreateInstance(className);
 			IExecuteObject instance = obj as IExecuteObject;
 			if (instance == null) {
-				throw new Exception("未能实例化数据库 ExecuteObject 对象！");
+				throw new LogicException("未能实例化数据库 ExecuteObject 对象！");
 			}
 			instance.ExecuteType = type;
 			if (!_executeList.ContainsKey(serverType))
@@ -245,7 +246,7 @@ namespace NPiculet.Data
 			object obj = ass.CreateInstance(className);
 			IQueryObject instance = obj as IQueryObject;
 			if (instance == null) {
-				throw new Exception("未能实例化数据库 QueryObject 对象！");
+				throw new LogicException("未能实例化数据库 QueryObject 对象！");
 			}
 			if (!_queryList.ContainsKey(serverType))
 				_queryList[serverType] = instance;
@@ -283,6 +284,18 @@ namespace NPiculet.Data
 				}
 			}
 			return q;
+		}
+
+		/// <summary>
+		/// 创建查询参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public static IDbDataParameter CreateParameter(string name, object val) {
+			using (IDbHelper db = DbHelper.Create()) {
+				return db.CreateParameter(name, val);
+			}
 		}
 
 		#endregion

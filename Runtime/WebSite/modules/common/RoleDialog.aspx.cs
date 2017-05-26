@@ -37,23 +37,4 @@ public partial class modules_common_RoleDialog : NormalPage
 		this.list.DataSource = dt;
 		this.list.DataBind();
 	}
-
-	protected void btnOk_Click(object sender, EventArgs e)
-	{
-		string result = "";
-
-		//foreach (GridViewRow row in this.list.Rows) {
-		//    CheckBox cb = row.FindControl("cb") as CheckBox;
-		//    if (cb != null) {
-		//        if (!string.IsNullOrEmpty(result)) result += ",";
-		//        result += cb.Value;
-		//    }
-		//}
-
-		if (!string.IsNullOrEmpty(result)) {
-			this.JavaSrcipt("ok('" + result + "');");
-		} else {
-			this.Alert("您还没有选中任何数据！");
-		}
-	}
 }

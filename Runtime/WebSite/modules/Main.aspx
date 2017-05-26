@@ -6,10 +6,10 @@
 	<title>管理后台</title>
 </head>
 
-<frameset rows="100,*" frameborder="no" border="0" framespacing="0">
-	<frame src="Header.aspx" name="headFrame" scrolling="No" noresize="noresize" id="headFrame" title="headFrame" />
-	<frameset cols="220,*" frameborder="no" border="0" framespacing="0">
-		<frame src="WaitingList.aspx" name="sideFrame" scrolling="auto" noresize="noresize" id="sideFrame" title="sideFrame" />
+<frameset rows="45,*" frameborder="no" border="0" framespacing="0">
+	<frame src="Header.aspx" name="headFrame" scrolling="no" noresize="noresize" id="headFrame" title="headFrame" />
+	<frameset cols="187,*" frameborder="no" border="0" framespacing="0">
+		<frame src="Sidebar.aspx" name="sideFrame" scrolling="auto" noresize="noresize" id="sideFrame" title="sideFrame" />
 		<frame src="DashBoard.aspx" name="mainFrame" id="mainFrame" scrolling="auto" title="mainFrame" />
 	</frameset>
 </frameset>

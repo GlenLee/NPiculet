@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NPiculet.Sys</RootNamespace>
+    <AssemblyName>NPiculet.Sys</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\NPiculet.Sys.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF5, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.Entity.6.7.9\lib\net45\MySql.Data.Entity.EF5.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPiculet.Pack">
+      <HintPath>..\NPiculet.Base\NPiculet.Pack.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authorization\Administrator.cs" />
+    <Compile Include="Authorization\Certificate.cs" />
+    <Compile Include="Authorization\CertificateKit.cs" />
+    <Compile Include="Authorization\Member.cs" />
+    <Compile Include="Authorization\Organization.cs" />
+    <Compile Include="Authorization\Role.cs" />
+    <Compile Include="Authorization\User.cs" />
+    <Compile Include="Authorization\UserIdentity.cs" />
+    <Compile Include="Authorization\UserPrincipal.cs" />
+    <Compile Include="Base\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Base\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessCustom\BasAttachmentBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysActionDetailBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysActionLogBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysAdminInfoBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysAuthorizationBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysConfigBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysLinkUserOrgBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysLinkUserRoleBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysMemberDataBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysMemberInfoBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysMenuBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysOrgGroupBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysOrgInfoBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysRoleInfoBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysUserDataBus_Custom.cs" />
+    <Compile Include="BusinessCustom\SysUserInfoBus_Custom.cs" />
+    <Compile Include="Business\BasAttachmentBus.cs" />
+    <Compile Include="Business\SysActionDetailBus.cs" />
+    <Compile Include="Business\SysActionLogBus.cs" />
+    <Compile Include="Business\SysAdminInfoBus.cs" />
+    <Compile Include="Business\SysAuthorizationBus.cs" />
+    <Compile Include="Business\SysConfigBus.cs" />
+    <Compile Include="Business\SysLinkUserOrgBus.cs" />
+    <Compile Include="Business\SysLinkUserRoleBus.cs" />
+    <Compile Include="Business\SysMemberDataBus.cs" />
+    <Compile Include="Business\SysMemberInfoBus.cs" />
+    <Compile Include="Business\SysMenuBus.cs" />
+    <Compile Include="Business\SysOrgGroupBus.cs" />
+    <Compile Include="Business\SysOrgInfoBus.cs" />
+    <Compile Include="Business\SysRoleInfoBus.cs" />
+    <Compile Include="Business\SysUserDataBus.cs" />
+    <Compile Include="Business\SysUserInfoBus.cs" />
+    <Compile Include="Common\Cache\CacheItem.cs" />
+    <Compile Include="Common\Cache\CacheManager.cs" />
+    <Compile Include="Common\Cache\ICache.cs" />
+    <Compile Include="Common\Interface\IAgency.cs" />
+    <Compile Include="Common\Interface\IRole.cs" />
+    <Compile Include="Common\System\Auth\AuthDescriptor.cs" />
+    <Compile Include="Common\System\Auth\AuthManager.cs" />
+    <Compile Include="Common\System\ConfigManager.cs" />
+    <Compile Include="Common\System\Exception\ExceptionDescriptor.cs" />
+    <Compile Include="Common\System\Exception\ExceptionManager.cs" />
+    <Compile Include="Common\System\Auth\IAuthModule.cs" />
+    <Compile Include="Common\System\Exception\IExceptionModule.cs" />
+    <Compile Include="Common\System\Log\ILoggerModule.cs" />
+    <Compile Include="Common\System\Log\LoggerDescriptor.cs" />
+    <Compile Include="Common\System\Log\LoggerManager.cs" />
+    <Compile Include="Authorization\LoginKit.cs" />
+    <Compile Include="Model\BasAttachment.cs" />
+    <Compile Include="Model\SysActionDetail.cs" />
+    <Compile Include="Model\SysActionLog.cs" />
+    <Compile Include="Model\SysAdminInfo.cs" />
+    <Compile Include="Model\SysAuthorization.cs" />
+    <Compile Include="Model\SysConfig.cs" />
+    <Compile Include="Model\SysLinkUserOrg.cs" />
+    <Compile Include="Model\SysLinkUserRole.cs" />
+    <Compile Include="Model\SysMemberData.cs" />
+    <Compile Include="Model\SysMemberInfo.cs" />
+    <Compile Include="Model\SysMenu.cs" />
+    <Compile Include="Model\SysOrgGroup.cs" />
+    <Compile Include="Model\SysOrgInfo.cs" />
+    <Compile Include="Model\SysRoleInfo.cs" />
+    <Compile Include="Model\SysUserData.cs" />
+    <Compile Include="Model\SysUserInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NPiculet.Base\NPiculet.Base.csproj">
+      <Project>{5af1f7ef-259a-4b00-b7ed-c145515e9885}</Project>
+      <Name>NPiculet.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

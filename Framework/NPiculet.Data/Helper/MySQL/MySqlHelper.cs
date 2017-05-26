@@ -2,6 +2,7 @@
 using System.Data;
 using MySql.Data.MySqlClient;
 using MySql.Data.Types;
+using NPiculet.Error;
 
 namespace NPiculet.Data
 {
@@ -60,7 +61,7 @@ namespace NPiculet.Data
 				da.Update(dt);
 				this.Command.Transaction.Commit();
 			} catch (Exception ex) {
-				throw new Exception("批量插入数据时出现错误：" + ex.Message + "\r\n" + sql, ex);
+				throw new LogicException("批量插入数据时出现错误：" + ex.Message + "\r\n" + sql, ex);
 			}
 		}
 
@@ -95,6 +96,19 @@ namespace NPiculet.Data
 				return ((MySqlDecimal)val).Value;
 			}
 			return val;
+		}
+
+		/// <summary>
+		/// 创建参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public override IDbDataParameter CreateParameter(string name, object val) {
+			MySqlParameter param = new MySqlParameter();
+			param.ParameterName = name;
+			param.Value = val;
+			return param;
 		}
 
 		#endregion

@@ -1,0 +1,12 @@
+﻿使用说明：
+
+<input type="text" name="test" id="test" value=""/>
+
+$('.test').appendDtpicker({
+	"locale": "cn",
+	"dateOnly": true, //只显示日期，不显示时间
+	"closeOnSelected": true,
+	"todayButton": true,
+	"minTime": "07:30",
+	"maxDate": "2020-12-31"
+});

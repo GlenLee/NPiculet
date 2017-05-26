@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -9,18 +9,18 @@ namespace NPiculet.Toolkit
 	{
 		private Hashtable ht = new Hashtable();
 
-		#region ç»Ÿè®¡è¡¨æ ¼å•å…ƒæ ¼
+		#region Í³¼Æ±í¸ñµ¥Ôª¸ñ
 		
 		/// <summary>
-		/// ç»Ÿè®¡è¡¨æ ¼åˆ—å«æœ‰æ•°å­—çš„å•å…ƒæ ¼ã€‚
+		/// Í³¼Æ±í¸ñÁĞº¬ÓĞÊı×ÖµÄµ¥Ôª¸ñ¡£
 		/// </summary>
-		/// <param name="row">è¡¨æ ¼è¡Œ</param>
-		/// <param name="notTotalIndex">ä¸ç»Ÿè®¡çš„åˆ—ç´¢å¼•</param>
-		/// <param name="resultFormat">è¾“å‡ºæ•°å­—çš„æ ¼å¼</param>
+		/// <param name="row">±í¸ñĞĞ</param>
+		/// <param name="notTotalIndex">²»Í³¼ÆµÄÁĞË÷Òı</param>
+		/// <param name="resultFormat">Êä³öÊı×ÖµÄ¸ñÊ½</param>
 		public void TotalTableColumns(GridViewRow row, int[] notTotalIndex, string resultFormat)
 		{
 			if (row.RowType == DataControlRowType.DataRow) {
-				//è‡ªåŠ¨ç»Ÿè®¡æ€»å’Œ
+				//×Ô¶¯Í³¼Æ×ÜºÍ
 				for (int i = 0; i < row.Cells.Count; i++) {
 					bool doTotal = true;
 					if (notTotalIndex != null) {
@@ -41,7 +41,7 @@ namespace NPiculet.Toolkit
 						} else {
 							val = tc.Text;
 						}
-						val = val.Replace("ï¿¥", "").Replace(",", "");
+						val = val.Replace("£¤", "").Replace(",", "");
 						decimal result;
 						if (decimal.TryParse(val, out result)) {
 							if (ht.ContainsKey(key)) {
@@ -62,26 +62,26 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ç»Ÿè®¡è¡¨æ ¼åˆ—å«æœ‰æ•°å­—çš„å•å…ƒæ ¼ã€‚
+		/// Í³¼Æ±í¸ñÁĞº¬ÓĞÊı×ÖµÄµ¥Ôª¸ñ¡£
 		/// </summary>
-		/// <param name="row">è¡¨æ ¼è¡Œ</param>
-		/// <param name="notTotalIndex">ä¸ç»Ÿè®¡çš„åˆ—ç´¢å¼•</param>
+		/// <param name="row">±í¸ñĞĞ</param>
+		/// <param name="notTotalIndex">²»Í³¼ÆµÄÁĞË÷Òı</param>
 		public void TotalTableColumns(GridViewRow row, int[] notTotalIndex)
 		{
 			TotalTableColumns(row, notTotalIndex, "0.######");
 		}
 
 		/// <summary>
-		/// ç»Ÿè®¡è¡¨æ ¼è¡Œä¸­å«æœ‰æ•°æ®çš„å•å…ƒæ ¼ã€‚
+		/// Í³¼Æ±í¸ñĞĞÖĞº¬ÓĞÊı¾İµÄµ¥Ôª¸ñ¡£
 		/// </summary>
-		/// <param name="row">è¡¨æ ¼è¡Œ</param>
-		/// <param name="resultColumnIndex">ç»Ÿè®¡ç»“æœè¾“å‡ºçš„åˆ—ç´¢å¼•</param>
-		/// <param name="notTotalIndex">ä¸ç»Ÿè®¡çš„åˆ—ç´¢å¼•</param>
-		/// <param name="containNames">åªç»Ÿè®¡åŒ…å«çš„åˆ—ç´¢å¼•ï¼Œå¦‚æœè®¾ç½®ä¸ºç©ºå­—ç¬¦å°†ç»Ÿè®¡å…¨éƒ¨åˆ—</param>
+		/// <param name="row">±í¸ñĞĞ</param>
+		/// <param name="resultColumnIndex">Í³¼Æ½á¹ûÊä³öµÄÁĞË÷Òı</param>
+		/// <param name="notTotalIndex">²»Í³¼ÆµÄÁĞË÷Òı</param>
+		/// <param name="containNames">Ö»Í³¼Æ°üº¬µÄÁĞË÷Òı£¬Èç¹ûÉèÖÃÎª¿Õ×Ö·û½«Í³¼ÆÈ«²¿ÁĞ</param>
 		public void TotalTableRows(GridViewRow row, int resultColumnIndex, int[] notTotalIndex, string[] containNames)
 		{
 			decimal result = 0;
-			//è‡ªåŠ¨ç»Ÿè®¡æ€»å’Œ
+			//×Ô¶¯Í³¼Æ×ÜºÍ
 			for (int i = 0; i < row.Cells.Count; i++) {
 				bool doTotal = true;
 				if (notTotalIndex != null) {
@@ -115,7 +115,7 @@ namespace NPiculet.Toolkit
 					} else {
 						val = tc.Text;
 					}
-					val = val.Replace("ï¿¥", "").Replace(",", "");
+					val = val.Replace("£¤", "").Replace(",", "");
 					decimal tmp;
 					if (decimal.TryParse(val, out tmp)) {
 						result += tmp;
@@ -127,30 +127,30 @@ namespace NPiculet.Toolkit
 
 		#endregion
 
-		#region åˆå¹¶å•å…ƒæ ¼
+		#region ºÏ²¢µ¥Ôª¸ñ
 		
 		/// <summary>
-		/// åˆå¹¶ GridView çš„çºµå‘å€¼ç›¸åŒçš„å•å…ƒæ ¼
+		/// ºÏ²¢ GridView µÄ×İÏòÖµÏàÍ¬µÄµ¥Ôª¸ñ
 		/// </summary>
-		/// <param name="gv">æ•°æ®è¡¨æ§ä»¶</param>
-		/// <param name="mergerColumnIndex">éœ€è¦åˆå¹¶çš„åˆ—ç´¢å¼•</param>
-		/// <param name="compareColumnIndexs">å®é™…æ¯”è¾ƒå€¼çš„åˆ—ç´¢å¼•</param>
+		/// <param name="gv">Êı¾İ±í¿Ø¼ş</param>
+		/// <param name="mergerColumnIndex">ĞèÒªºÏ²¢µÄÁĞË÷Òı</param>
+		/// <param name="compareColumnIndexs">Êµ¼Ê±È½ÏÖµµÄÁĞË÷Òı</param>
 		public static void MergeRow(GridView gv, int mergerColumnIndex, params int[] compareColumnIndexs)
 		{
-			//å¾ªç¯ï¼Œiå¾ªç¯å½“å‰è¡Œï¼Œjå¾ªç¯æœ¬è¡Œä¹‹åå¾…æ¯”è¾ƒçš„è¡Œ
+			//Ñ­»·£¬iÑ­»·µ±Ç°ĞĞ£¬jÑ­»·±¾ĞĞÖ®ºó´ı±È½ÏµÄĞĞ
 			int i = 0, j = 0;
-			//å®šä¹‰æ¯”è¾ƒå­—ç¬¦ä¸²
+			//¶¨Òå±È½Ï×Ö·û´®
 			string[] compareStrings = new string[compareColumnIndexs.Length + 1];
-			//å¾ªç¯æ ¼å¼å½“å‰è¡Œ
+			//Ñ­»·¸ñÊ½µ±Ç°ĞĞ
 			for (i = 0; i < gv.Rows.Count; i++) {
-				//éœ€è¦åˆå¹¶çš„è¡Œæ•°
+				//ĞèÒªºÏ²¢µÄĞĞÊı
 				int _RowSpan = 1;
-				//è¯»å–æ¯”è¾ƒå­—ç¬¦ä¸²
+				//¶ÁÈ¡±È½Ï×Ö·û´®
 				compareStrings[0] = gv.Rows[i].Cells[mergerColumnIndex].Text;
 				for (int x = 0; x < compareColumnIndexs.Length; x++) {
 					compareStrings[x + 1] = gv.Rows[i].Cells[compareColumnIndexs[x]].Text;
 				}
-				//å¾ªç¯æ¯”è¾ƒå½“å‰è¡Œçš„å€¼å’Œä¹‹åè¡Œçš„å€¼
+				//Ñ­»·±È½Ïµ±Ç°ĞĞµÄÖµºÍÖ®ºóĞĞµÄÖµ
 				for (j = i + 1; j < gv.Rows.Count; j++) {
 					bool isSame = true;
 					if (compareStrings[0] != gv.Rows[j].Cells[mergerColumnIndex].Text) {
@@ -176,7 +176,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// åˆå¹¶ GridView çš„çºµå‘å€¼ç›¸åŒçš„å•å…ƒæ ¼
+		/// ºÏ²¢ GridView µÄ×İÏòÖµÏàÍ¬µÄµ¥Ôª¸ñ
 		/// </summary>
 		/// <param name="gridView"></param>
 		public static void MergeRows(GridView gridView)
@@ -196,17 +196,17 @@ namespace NPiculet.Toolkit
 
 		#endregion
 
-		#region æ¸…é™¤ç©ºæ•°æ®
+		#region Çå³ı¿ÕÊı¾İ
 
 		/// <summary>
-		/// å¦‚æœå•å…ƒæ ¼ä¸­æ•°å€¼ä¸º0ï¼Œåˆ™æ¸…é™¤æ˜¾ç¤ºã€‚
+		/// Èç¹ûµ¥Ôª¸ñÖĞÊıÖµÎª0£¬ÔòÇå³ıÏÔÊ¾¡£
 		/// </summary>
-		/// <param name="gv">GridViewæ§ä»¶</param>
+		/// <param name="gv">GridView¿Ø¼ş</param>
 		public static void ClearZero(GridView gv)
 		{
-			//å¾ªç¯è¡Œ
+			//Ñ­»·ĞĞ
 			foreach (GridViewRow row in gv.Rows) {
-				//å¾ªç¯å•å…ƒæ ¼
+				//Ñ­»·µ¥Ôª¸ñ
 				foreach (TableCell cell in row.Cells) {
 					decimal numeric;
 					bool isNumeric = decimal.TryParse(cell.Text, out numeric);
@@ -218,15 +218,15 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// å¦‚æœå•å…ƒæ ¼ä¸­çš„å€¼å’Œå¯¹æ¯”å€¼ç›¸åŒï¼Œåˆ™æ¸…é™¤æ˜¾ç¤ºã€‚
+		/// Èç¹ûµ¥Ôª¸ñÖĞµÄÖµºÍ¶Ô±ÈÖµÏàÍ¬£¬ÔòÇå³ıÏÔÊ¾¡£
 		/// </summary>
-		/// <param name="gv">GridViewæ§ä»¶</param>
-		/// <param name="val">å¯¹æ¯”å€¼</param>
+		/// <param name="gv">GridView¿Ø¼ş</param>
+		/// <param name="val">¶Ô±ÈÖµ</param>
 		public static void ClearValue(GridView gv, string val)
 		{
-			//å¾ªç¯è¡Œ
+			//Ñ­»·ĞĞ
 			foreach (GridViewRow row in gv.Rows) {
-				//å¾ªç¯å•å…ƒæ ¼
+				//Ñ­»·µ¥Ôª¸ñ
 				foreach (TableCell cell in row.Cells) {
 					if (cell.Text == val) {
 						cell.Text = String.Empty;

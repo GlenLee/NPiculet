@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using NPiculet.Core;
+using NPiculet.Cache;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using NPiculet.Error;
 
 namespace NPiculet.Test
 {
@@ -130,7 +131,7 @@ namespace NPiculet.Test
 			CacheManager<T> target = new CacheManager<T>();
 			target.Set(key, value);
 
-			Assert.AreEqual(value, target.Get(key));
+			Assert.AreEqual(value, target.Get(key).Value);
 			Assert.IsTrue(target.Keys.Contains(key));
 
 			target.Remove(key);
@@ -175,7 +176,7 @@ namespace NPiculet.Test
 		{
 			CacheManager<T> target = new CacheManager<T>(); // TODO: 初始化为适当的值
 			target.Set(key, value);
-			Assert.AreEqual(value, target.Get(key));
+			Assert.AreEqual(value, target.Get(key).Value);
 		}
 
 		[TestMethod()]
@@ -195,30 +196,52 @@ namespace NPiculet.Test
 		{
 			CacheManager<int> target = new CacheManager<int>();
 			target.Clear();
-			target.Set("xxx", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.Delay);
-			Assert.AreEqual(1, target.Get("xxx"));
-			Assert.AreEqual(1, target.Get("xxx"));
-			Assert.AreEqual(1, target.Get("xxx"));
+			target.Set("xxx", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.Delay); //500ms过期的缓存
+			Assert.AreEqual(1, target.Get("xxx").Value);
+			Assert.AreEqual(1, target.Get("xxx").Value);
+			Assert.AreEqual(1, target.Get("xxx").Value);
 			Thread.Sleep(500);
-			Assert.AreEqual(0, target.Get("xxx"));
+			int val = -999;
+			try {
+				val = target.Get("xxx").Value;
+			} catch (CoreException cex) {
+				Assert.AreEqual(-999, val);
+			} catch (Exception ex) {
+				Assert.Fail("没有正确抛出异常！说明缓存未被销毁！");
+			}
 
-			target.Set("yyy", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.NeverExpire);
-			Assert.AreEqual(1, target.Get("yyy"));
+			target.Set("yyy", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.NeverExpire); //永不过期的缓存，设置时间应该无效
+			Assert.AreEqual(1, target.Get("yyy").Value);
 			Thread.Sleep(500);
-			Assert.AreEqual(1, target.Get("yyy"));
+			Assert.AreEqual(1, target.Get("yyy").Value);
 			Thread.Sleep(100);
-			Assert.AreEqual(1, target.Get("yyy"));
+			Assert.AreEqual(1, target.Get("yyy").Value);
 
-			target.Set("zzz", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.Once);
-			Assert.AreEqual(1, target.Get("zzz"));
-			Assert.AreEqual(0, target.Get("zzz"));
+			target.Set("zzz", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.Once); //仅能访问一次的缓存
+			Assert.AreEqual(1, target.Get("zzz").Value);
+			val = -999;
+			try {
+				val = target.Get("zzz").Value;
+			} catch (CoreException cex) {
+				Assert.AreEqual(-999, val);
+			} catch (Exception ex) {
+				Assert.Fail("没有正确抛出异常！说明缓存未被销毁！");
+			}
 
-			target.Set("fixed", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.FixedTime);
-			Assert.AreEqual(1, target.Get("fixed"));
+			target.Set("fixed", 1, new TimeSpan(0, 0, 0, 0, 500), CacheBehavior.FixedTime); //固定过期时间的缓存
+			Assert.AreEqual(1, target.Get("fixed").Value);
 			Thread.Sleep(300);
-			Assert.AreEqual(1, target.Get("fixed"));
+			Assert.AreEqual(1, target.Get("fixed").Value);
 			Thread.Sleep(300);
-			Assert.AreEqual(0, target.Get("fixed"));
+
+			val = -999;
+			try {
+				val = target.Get("fixed").Value;
+			} catch (CoreException cex) {
+				Assert.AreEqual(-999, val);
+			} catch (Exception ex) {
+				Assert.Fail("没有正确抛出异常！说明缓存未被销毁！");
+			}
 		}
 
 		[TestMethod()]

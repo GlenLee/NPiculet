@@ -4,7 +4,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
-	<a href="NewsEdit.aspx?code=<%= this.GroupCode %>">新增</a>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><a href="NewsEdit.aspx?code=<%= this.GroupCode %>">新增</a></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="searchbar" Runat="Server">
@@ -12,7 +16,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" AllowPaging="True" CssClass="admin-list-table" PageSize="15">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" AllowPaging="True" CssClass="sui-table table-primary" PageSize="15">
 		<Columns>
 			<asp:BoundField DataField="Title" HeaderText="标题" />
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="发布时间" >

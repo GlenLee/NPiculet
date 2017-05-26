@@ -8,8 +8,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
-	<%= GetBackUrl() %>
-	<asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()">保存</asp:LinkButton>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><%= GetBackUrl() %></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="searchbar" Runat="Server">
@@ -18,7 +22,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table border="0" cellpadding="2" cellspacing="0" class="admin-edit-table">
+		<table class="sui-table table-primary">
 			<tr>
 				<td class="th">栏目</td>
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
@@ -26,7 +30,7 @@
 			<tr<%= GetStyle() %>>
 				<td class="th">标题</td>
 				<td class="td">
-					<asp:TextBox ID="InfoTitle" runat="server" CssClass="textbox" Width="500px" MaxLength="256"></asp:TextBox>
+					<asp:TextBox ID="InfoTitle" runat="server" CssClass="input-large" Width="500px" MaxLength="256"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="InfoTitle" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>

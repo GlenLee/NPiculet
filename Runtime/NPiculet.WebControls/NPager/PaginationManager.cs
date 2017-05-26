@@ -49,6 +49,10 @@ namespace NPiculet.WebControls
 			/// 静态页码展示，页码会固定显示一个区间，比如：1-10页，直到跳转到11页才会显示11-20页。
 			/// </summary>
 			Static,
+			/// <summary>
+			/// 简单页码展示，仅展示上一页和下一页。
+			/// </summary>
+			Simple,
 		}
 
 		/// <summary>
@@ -78,7 +82,7 @@ namespace NPiculet.WebControls
 		/// <summary> 分页大小 </summary>
 		public int PageSize = 10;
 		/// <summary> 统计描述，文字中参数：{0}当前页、{1}总页数、{2}总记录数 </summary>
-		public string TotalString = "<a class=\"item\">第{0}/{1}页 共{2}条记录</a>";
+		public string TotalString = "<li><a class=\"item\">第{0}/{1}页 共{2}条记录</a><li>";
 		/// <summary> 传值，格式：&valuename1=value1&valuename2=value2 </summary>
 		public string RefererString = String.Empty;
 		/// <summary> 统计描述的显示位置 </summary>
@@ -86,7 +90,7 @@ namespace NPiculet.WebControls
 		/// <summary> 页面地址 </summary>
 		public string PageUrl = String.Empty;
 		/// <summary> 跳转页链接，参数：{0}页面地址、{1}当前页码、{2}链接文字 </summary>
-		public string PageUrlString = "<a class=\"item{3}\" href=\"{0}?Page={1}\">{2}</a>";
+		public string PageUrlString = "<li><a class=\"item{3}\" href=\"{0}?Page={1}\">{2}</a></li>";
 
 		#endregion
 
@@ -148,7 +152,7 @@ namespace NPiculet.WebControls
 		/// <returns></returns>
 		private string CreatePageItem(string text, bool actived = false)
 		{
-			return "<a class=\"item" + (actived ? " " + CurrentPageCss : "") + "\">" + text + "</a>";
+			return "<li class=\"item" + (actived ? " " + CurrentPageCss : "") + "\"><a>" + text + "</a></li>";
 		}
 
 		/// <summary>
@@ -253,6 +257,15 @@ namespace NPiculet.WebControls
 		}
 
 		/// <summary>
+		/// 创建分段显示的页码。
+		/// </summary>
+		/// <returns></returns>
+		public void CreateSimplePages()
+		{
+			this.CreateInfos();
+		}
+
+		/// <summary>
 		/// 输出生成的页码。
 		/// </summary>
 		/// <returns></returns>
@@ -275,9 +288,14 @@ namespace NPiculet.WebControls
 				case PaginationMode.Static:
 					this.CreateStaticPages();
 					break;
+				case PaginationMode.Simple:
+					this.CreateSimplePages();
+					break;
 			}
 			//生成页码
-			this.CreatePages();
+			if (this.Mode != PaginationMode.Simple) {
+				this.CreatePages();
+			}
 			//组合字符串
 			str = strfront + str + strback;
 			//显示通用信息
@@ -285,7 +303,7 @@ namespace NPiculet.WebControls
 			//返回结果
 			string html = "<div class=\"npager";
 			if (!string.IsNullOrWhiteSpace(FixCss)) html += " " + FixCss;
-			html += "\">" + str + "</div>";
+			html += "\"><ul>" + str + "</ul></div>";
 			return html;
 		}
 
@@ -307,7 +325,7 @@ namespace NPiculet.WebControls
 			} else {
 				if (ShowNoLinkText) {
 					if (text.Length > 0) {
-						return "<a class=\"item disable\">" + text + "</a>";
+						return "<li><a class=\"item disable\">" + text + "</a></li>";
 					}
 				}
 				return String.Empty;

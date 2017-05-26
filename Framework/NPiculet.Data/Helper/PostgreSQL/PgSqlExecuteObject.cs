@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using NPiculet.Error;
 
 namespace NPiculet.Data
 {
@@ -78,7 +79,7 @@ namespace NPiculet.Data
 				sqlBuilder.AppendFormat(" WHERE {0}", this.Where);
 			} else {
 				if (String.IsNullOrEmpty(this.PrimaryKey) || this.PrimaryValue == null) {
-					throw new Exception("禁止更新全表数据！请检查主键或过滤条件，如确实需要更新全表，可使用 1=1 作为条件。");
+					throw new LogicException("禁止更新全表数据！请检查主键或过滤条件，如确实需要更新全表，可使用 1=1 作为条件。");
 				}
 				sqlBuilder.AppendFormat(" WHERE {0}={1}", Wrap(this.PrimaryKey), this.ParmToken + this.PrimaryKey);
 			}
@@ -98,7 +99,7 @@ namespace NPiculet.Data
 				sqlBuilder.AppendFormat(" WHERE {0}", this.Where);
 			} else {
 				if (String.IsNullOrEmpty(this.PrimaryKey) || this.PrimaryValue == null) {
-					throw new Exception("禁止删除全表数据！请检查主键或过滤条件，如确实需要删除全表，可使用 1=1 作为条件。");
+					throw new LogicException("禁止删除全表数据！请检查主键或过滤条件，如确实需要删除全表，可使用 1=1 作为条件。");
 				}
 				sqlBuilder.AppendFormat(" WHERE {0}={1}{0}", Wrap(this.PrimaryKey), this.ParmToken + this.PrimaryKey);
 			}

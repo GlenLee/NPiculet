@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NPiculet.CMS</RootNamespace>
     <AssemblyName>NPiculet.CMS</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,28 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.5.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NPiculet.Library\MySql.Data.dll</HintPath>
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data.Entity, Version=6.5.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data.Entity.EF5, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\NPiculet.Library\MySql.Data.Entity.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.Entity.EF6">
-      <HintPath>..\NPiculet.Library\MySql.Data.Entity.EF6.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\NPiculet.Library\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\MySql.Data.Entity.6.7.9\lib\net45\MySql.Data.Entity.EF5.dll</HintPath>
     </Reference>
     <Reference Include="NPiculet.Pack">
-      <HintPath>..\NPiculet.Library\NPiculet.Pack.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>..\NPiculet.Library\protobuf-net.dll</HintPath>
+      <HintPath>..\NPiculet.Base\NPiculet.Pack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,46 +65,27 @@
     <Compile Include="BusinessCustom\CmsAdvInfoBus_Custom.cs" />
     <Compile Include="BusinessCustom\CmsContentGroupBus_Custom.cs" />
     <Compile Include="BusinessCustom\CmsContentPageBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsDictGroupBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsDictItemBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsNoticeInfoBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsNoticeRecordBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsRegionInfoBus_Custom.cs" />
     <Compile Include="Business\CmsAdvInfoBus.cs" />
     <Compile Include="Business\CmsContentGroupBus.cs" />
     <Compile Include="Business\CmsContentPageBus.cs" />
-    <Compile Include="Business\CmsDictGroupBus.cs" />
-    <Compile Include="Business\CmsDictItemBus.cs" />
-    <Compile Include="Business\CmsNoticeInfoBus.cs" />
-    <Compile Include="Business\CmsNoticeRecordBus.cs" />
-    <Compile Include="Business\CmsRegionInfoBus.cs" />
-    <Compile Include="Dict\DictDescriptor.cs" />
-    <Compile Include="Dict\DictGroup.cs" />
-    <Compile Include="Dict\DictItem.cs" />
-    <Compile Include="Dict\DictManager.cs" />
-    <Compile Include="Dict\IDictModule.cs" />
-    <Compile Include="Info\INoticeModule.cs" />
-    <Compile Include="Info\NoticeDescriptor.cs" />
-    <Compile Include="Info\NoticeManager.cs" />
     <Compile Include="Model\CmsAdvInfo.cs" />
     <Compile Include="Model\CmsContentGroup.cs" />
     <Compile Include="Model\CmsContentPage.cs" />
-    <Compile Include="Model\CmsDictGroup.cs" />
-    <Compile Include="Model\CmsDictItem.cs" />
-    <Compile Include="Model\CmsNoticeInfo.cs" />
-    <Compile Include="Model\CmsNoticeRecord.cs" />
-    <Compile Include="Model\CmsRegionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\NPiculet.Base\NPiculet.Base.csproj">
-      <Project>{7c06bb77-1a52-43c4-b6b6-4f72c256ab2a}</Project>
+      <Project>{5af1f7ef-259a-4b00-b7ed-c145515e9885}</Project>
       <Name>NPiculet.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NPiculet.Library\NPiculet.Library.csproj">
-      <Project>{5af1f7ef-259a-4b00-b7ed-c145515e9885}</Project>
-      <Name>NPiculet.Library</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

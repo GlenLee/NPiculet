@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using NPiculet.Error;
 using Oracle.ManagedDataAccess.Client;
 
 namespace NPiculet.Data
@@ -32,6 +33,28 @@ namespace NPiculet.Data
 
 		#endregion
 
+		#region 特有数据处理方法
+
+		protected override string ProcessSqlString(string sql)
+		{
+			return sql.Replace("`", "");
+		}
+
+		#endregion
+
+		#region 克隆新对象
+
+		/// <summary>
+		/// 克隆一个新对象
+		/// </summary>
+		/// <returns></returns>
+		public override IDbHelper CloneNew()
+		{
+			return new OracleHelper(base.CurrentConnectionType, base.CurrentConnectionString);
+		}
+
+		#endregion
+
 		#region 批量增加数据
 
 		/// <summary>
@@ -59,38 +82,32 @@ namespace NPiculet.Data
 				da.Update(dt);
 				this.Command.Transaction.Commit();
 			} catch (Exception ex) {
-				throw new Exception("批量插入数据时出现错误：" + ex.Message + "\r\n" + sql, ex);
+				throw new LogicException("批量插入数据时出现错误：" + ex.Message + "\r\n" + sql, ex);
 			}
-		}
-
-		#endregion
-
-		#region 克隆新对象
-
-		/// <summary>
-		/// 克隆一个新对象
-		/// </summary>
-		/// <returns></returns>
-		public override IDbHelper CloneNew()
-		{
-			return new OracleHelper(base.CurrentConnectionType, base.CurrentConnectionString);
 		}
 
 		#endregion
 
 		#region 常用方法
 
-		/// <summary>
-		/// 获取数据值，并预处理
-		/// </summary>
-		/// <param name="val"></param>
-		/// <returns></returns>
-		public override object GetDataValue(object val)
-		{
+		public override object GetDataValue(object val) {
 			return val;
 		}
 
-		#endregion
+		/// <summary>
+		/// 创建参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public override IDbDataParameter CreateParameter(string name, object val)
+		{
+			OracleParameter param = new OracleParameter();
+			param.ParameterName = name;
+			param.Value = val;
+			return param;
+		}
 
+		#endregion
 	}
 }

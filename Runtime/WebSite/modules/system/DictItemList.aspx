@@ -2,19 +2,27 @@
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
-    <a href="DictItemEdit.aspx?group=<%= Request.QueryString["group"] %>&fix=<%= Request.QueryString["fix"] %>">新增</a>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
-	<div class="searchbar-wrap">
-		<asp:DropDownList runat="server" ID="ddlDictGroup"/>
-		<asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称或编码"></asp:TextBox>
-		<asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/>
+	<div class="tools">
+		<ul class="toolbar">
+			<li>
+				<a href="DictItemEdit.aspx?group=<%= Request.QueryString["group"] %>&fix=<%= Request.QueryString["fix"] %>">
+					<i class="sui-icon icon-tb-add"></i>新增
+				</a>
+			</li>
+		</ul>
 	</div>
 </asp:Content>
 
+<asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
+	<ul class="searchbar-wrap">
+		<li><asp:DropDownList runat="server" ID="ddlDictGroup"/></li>
+		<li>关键字：<asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称或编码"></asp:TextBox></li>
+		<li><asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/></li>
+	</ul>
+</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id" OnRowDeleting="list_RowDeleting"  CssClass="admin-list-table">
+	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id" OnRowDeleting="list_RowDeleting"  CssClass="sui-table table-primary">
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
 			<asp:BoundField DataField="GroupName" HeaderText="字典组">
@@ -27,6 +35,9 @@
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
             <asp:BoundField DataField="Value" HeaderText="属性值">
+			</asp:BoundField>
+			<asp:BoundField DataField="OrderBy" HeaderText="排序">
+				<HeaderStyle Width="70px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:D}" HeaderText="创建时间">
 		        <HeaderStyle Width="140px" />

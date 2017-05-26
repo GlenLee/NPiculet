@@ -22,7 +22,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	
-	<asp:GridView runat="server" ID="logs" Width="100%" AutoGenerateColumns="False" CssClass="admin-list-table">
+	<asp:GridView runat="server" ID="logs" Width="100%" AutoGenerateColumns="False" CssClass="sui-table table-primary">
 		<Columns>
 			<asp:TemplateField HeaderText="序号">
 				<HeaderStyle Width="50px" />

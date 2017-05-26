@@ -1,12 +1,40 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "WebSite\", "{22EFFDF9-9094-4F52-B24E-53F5519F453D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Test", "NPiculet.Test\NPiculet.Test.csproj", "{B7295778-8907-4469-B523-D85C1F4D0361}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34DA3EB3-2B7C-4980-9F84-017D9C79CC44}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Service", "NPiculet.Service\NPiculet.Service.csproj", "{1CFDD0BB-DD60-4004-82A1-E02C83A1C5C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.CMS", "NPiculet.CMS\NPiculet.CMS.csproj", "{59509836-713E-4F99-A9F1-2DD4C696E5D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.WebControls", "NPiculet.WebControls\NPiculet.WebControls.csproj", "{53A8BD6F-096D-4C61-8504-F257F93F5ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Base", "NPiculet.Base\NPiculet.Base.csproj", "{5AF1F7EF-259A-4B00-B7ED-C145515E9885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Sys", "NPiculet.Sys\NPiculet.Sys.csproj", "{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "http://localhost:45173", "{22EFFDF9-9094-4F52-B24E-53F5519F453D}"
+	ProjectSection(SvnOrigin) = preProject
+		@Keys = Enlist,Svn.Uri
+		Enlist = Required
+		Svn.Uri = WebSite/
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		ProjectReferences = "{5AF1F7EF-259A-4B00-B7ED-C145515E9885}|NPiculet.Library.dll;{59509836-713e-4f99-a9f1-2dd4c696e5d9}|NPiculet.CMS.dll;{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}|NPiculet.Base.dll;{53a8bd6f-096d-4c61-8504-f257f93f5abc}|NPiculet.WebControls.dll;{1cfdd0bb-dd60-4004-82a1-e02c83a1c5c2}|NPiculet.Service.dll;"
+		SccProjectName = "Svn"
+		SccAuxPath = "Svn"
+		SccLocalPath = "Svn"
+		SccProvider = "SubversionScc"
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.2"
+		ProjectReferences = "{53a8bd6f-096d-4c61-8504-f257f93f5abc}|NPiculet.WebControls.dll;{7c06bb77-1a52-43c4-b6b6-4f72c256ab2a}|NPiculet.Sys.dll;{1cfdd0bb-dd60-4004-82a1-e02c83a1c5c2}|;{59509836-713e-4f99-a9f1-2dd4c696e5d9}|NPiculet.CMS.dll;{5af1f7ef-259a-4b00-b7ed-c145515e9885}|NPiculet.Base.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"
@@ -21,39 +49,22 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "WebSite\", "{22E
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "45173"
 		SlnRelativePath = "WebSite\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Test", "NPiculet.Test\NPiculet.Test.csproj", "{B7295778-8907-4469-B523-D85C1F4D0361}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34DA3EB3-2B7C-4980-9F84-017D9C79CC44}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Service", "NPiculet.Service\NPiculet.Service.csproj", "{1CFDD0BB-DD60-4004-82A1-E02C83A1C5C2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Base", "NPiculet.Base\NPiculet.Base.csproj", "{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Library", "NPiculet.Library\NPiculet.Library.csproj", "{5AF1F7EF-259A-4B00-B7ED-C145515E9885}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.CMS", "NPiculet.CMS\NPiculet.CMS.csproj", "{59509836-713E-4F99-A9F1-2DD4C696E5D9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.WebControls", "NPiculet.WebControls\NPiculet.WebControls.csproj", "{53A8BD6F-096D-4C61-8504-F257F93F5ABC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Common", "NPiculet.Common\NPiculet.Common.csproj", "{BC0D3728-718C-4B21-B8B2-2766013EBB41}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{B7295778-8907-4469-B523-D85C1F4D0361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7295778-8907-4469-B523-D85C1F4D0361}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7295778-8907-4469-B523-D85C1F4D0361}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,14 +73,6 @@ Global
 		{1CFDD0BB-DD60-4004-82A1-E02C83A1C5C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CFDD0BB-DD60-4004-82A1-E02C83A1C5C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CFDD0BB-DD60-4004-82A1-E02C83A1C5C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59509836-713E-4F99-A9F1-2DD4C696E5D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59509836-713E-4F99-A9F1-2DD4C696E5D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59509836-713E-4F99-A9F1-2DD4C696E5D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,6 +81,22 @@ Global
 		{53A8BD6F-096D-4C61-8504-F257F93F5ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53A8BD6F-096D-4C61-8504-F257F93F5ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53A8BD6F-096D-4C61-8504-F257F93F5ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF1F7EF-259A-4B00-B7ED-C145515E9885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C06BB77-1A52-43C4-B6B6-4F72C256AB2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

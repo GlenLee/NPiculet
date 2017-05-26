@@ -9,7 +9,7 @@ using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
-public partial class modules_info_InfoGroupSet : System.Web.UI.Page
+public partial class modules_news_InfoGroupSet : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{

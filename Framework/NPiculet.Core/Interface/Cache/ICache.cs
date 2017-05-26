@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NPiculet.Core
+namespace NPiculet.Cache
 {
 	public partial interface ICache<T>
 	{

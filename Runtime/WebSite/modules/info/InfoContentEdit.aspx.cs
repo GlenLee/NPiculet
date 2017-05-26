@@ -25,7 +25,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			var group = _groupBus.QueryModel("GroupCode='" + this.GroupCode + "'");
 			this.GroupName.Text = group.GroupName;
 
-			if (Request.QueryString["m"] == "content") {
+			if (this.GroupType.ToLower() == "content") {
 				this.InfoTitle.Text = group.GroupName;
 				this.pThumb.Visible = false;
 			}
@@ -63,7 +63,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				ShowThumb(model.Thumb);
 			}
 		}
-		if (Request.QueryString["m"] == "content") {
+		if (this.GroupType.ToLower() == "content") {
 			string whereString = "GroupCode='" + this.GroupCode + "'";
 
 			var model = _pageBus.QueryModel(whereString);
@@ -97,7 +97,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				ShowThumb(model.Thumb);
 			}
 
-			if (Request.QueryString["m"] == "content") {
+			if (this.GroupType.ToLower() == "content") {
 				model.Title = this.InfoTitle.Text;
 				if (!_pageBus.Update(model, "GroupCode='" + this.GroupCode + "'")) {
 					model.GroupCode = this.GroupCode;
@@ -145,14 +145,14 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	protected string GetBackUrl()
 	{
 		if (this.GroupType == "List") {
-			return "<a href=\"InfoPageList.aspx?code=" + this.GroupCode + "\">返回</a>";
+			return "<a href=\"InfoPageList.aspx?code=" + this.GroupCode + "\"><i class=\"sui-icon icon-tb-back\"></i>返回</a>";
 		}
 		return "";
 	}
 
 	protected string GetStyle()
 	{
-		if (Request.QueryString["m"] == "content") {
+		if (this.GroupType.ToLower() == "content") {
 			return " style=\"display:none;\"";
 		}
 		return "";

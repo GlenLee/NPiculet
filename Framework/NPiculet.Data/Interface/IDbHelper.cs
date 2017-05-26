@@ -205,6 +205,14 @@ namespace NPiculet.Data
 		/// <returns></returns>
 		object GetDataValue(object val);
 
+		/// <summary>
+		/// 创建参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		IDbDataParameter CreateParameter(string name, object val);
+
 		#endregion
 	}
 }

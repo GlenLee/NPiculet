@@ -1,68 +1,187 @@
-﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="member_Login" %>
+﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="modules_Login" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><%= GetPlatformName() %></title>
-	<link href="../styles/fonts/font-awesome.css" rel="stylesheet" type="text/css" />
-	<script src="../scripts/kissy/seed.js" type="text/javascript"></script>
+	<title>欢迎登录<%= GetPlatformName() %></title>
+	<script src="../scripts/lib/jquery-1.11.3.min.js"></script>
+	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
+	<script src="../styles/sui/js/sui.min.js"></script>
 	<style type="text/css">
-		* { font-family:"微软雅黑","Microsoft YaHei",'Helvetica Neue', Helvetica, Arial, sans-serif; }
-		html, body { width:100%;height:100%;padding:0;margin:0; }
-		html, body { background-color:#333333; }
-		.login-wrap { padding-top:60px; }
-		.login-header { text-align:center;padding:10px;color:#ffffff; }
-		.login-content { width:320px;margin:0 auto;padding:15px 60px 0 60px;background-color:#ffffff;border-radius:10px; }
-
-		.form-group  { padding:10px;text-align:center; }
-		.form-group span:before { color:#999999;width:30px;font-size:20px; }
-		.form-control { border:1px solid #dddddd;border-radius:3px;padding:5px;width:240px;height:26px;line-height:26px; }
-
-		.btn-login { border-radius:3px;border:1px solid #ccc;padding:6px 12px;color:#ffffff;
-			background-color:#0076A3;
-			background-image: -webkit-linear-gradient(top,#00ADED,#0076A3);
-			background-image: -moz-linear-gradient( top, #00ADED, #0076A3);
-			background-image: -o-linear-gradient( top, #00ADED, #0076A3);
-			background-image: linear-gradient(top,#00ADED,#0076A3);
-		}
+		html, body { padding:0;margin:0;width:100%;height:100%;background-color: #1abc9c; }
+		div, p, input, select { box-sizing:border-box; }
+a, a:hover { text-decoration:none; }
+.login {
+    color: #ffffff;
+    position: relative;
+}
+.login-screen {
+	position:relative;
+	width:580px;
+	margin:0 auto;
+	padding: 150px 0 30px 0;
+}
+.login-icon {
+    position: absolute;
+    top: 160px;
+    left: 0;
+    width: 96px;
+}
+.login-icon > img {
+    display: block;
+    margin-bottom: 6px;
+    width: 100%;
+}
+.login-icon > h4 {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 34px;
+    text-align: center;
+    opacity: .95;
+}
+h4, h5, h6 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.login-form {
+    width: 320px;
+    background-color: #edeff1;
+	margin:0 0 0 140px;
+    padding: 24px 23px 20px;
+    position: relative;
+    border-radius: 6px;
+}
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.form-group > i {
+	position:absolute;
+	top:10px;
+	right:10px;
+	font-size:22px;
+	color:#999;
+}
+.login-form .login-field {
+    border-color: transparent;
+    font-size: 17px;
+    text-indent: 3px;
+}
+.login-form .login-field-icon {
+    color: #bfc9ca;
+    font-size: 16px;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    -webkit-transition: all .25s;
+    transition: all .25s;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.form-control, .select2-search input[type="text"] {
+    border: 2px solid #bdc3c7;
+    color: #34495e;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.467;
+    padding: 8px 12px;
+    height: 42px;
+    border-radius: 6px;
+    box-shadow: none;
+    -webkit-transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+    transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+}
+.login-form .login-field-icon {
+    color: #bfc9ca;
+    font-size: 16px;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    -webkit-transition: all .25s;
+    transition: all .25s;
+}
+label {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 2.3;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.flat-btn-block {
+	display:inline-block;
+    white-space: normal;
+}
+.btn-lg, .btn-group-lg > .btn {
+    padding: 10px 19px;
+    font-size: 17px;
+    line-height: 1.471;
+    border-radius: 6px;
+}
+.btn-primary {
+    color: #ffffff;
+    background-color: #1abc9c;
+}
+.login-link {
+    color: #bfc9ca;
+    display: block;
+    font-size: 13px;
+    margin-top: 15px;
+    text-align: center;
+}
 	</style>
+	<script src="../scripts/lib/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script src="js/lib/layer/layer.js" type="text/javascript"></script>
+	<%--<script src="js/cloud.js" type="text/javascript"></script>--%>
 	<script type="text/javascript">
 		if (window.top.location.href != window.location.href) {
 			window.top.location.href = window.location.href;
 		}
 	</script>
 </head>
- 
+
 <body>
 
-<div class="login-wrap">
+	<form id="frm" runat="server">
 
-	<!-- login-header start -->
-	<div class="login-header">
-		<h1 style="text-align:center;font-size:x-large;padding:10px;"><%= GetPlatformName() %></h1>
-	</div>
-	<!-- login-header end -->
-	<!-- login-content start -->
-	<div class="login-content">
-		<!-- login-form start -->
-		<form id="frm" runat="server" style="padding:20px 0;">
-			<div class="form-group">
-				<span class="fa fa-user"></span>
-				<asp:TextBox ID="txtAccount" runat="server" CssClass="form-control" placeholder="请输入登录帐号"></asp:TextBox>
-			</div>
-			<div class="form-group">
-				<span class="fa fa-key"></span>
-				<asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="请输入登录密码"></asp:TextBox>
-			</div>
-			<div style="padding:20px 5px;text-align:center;">
-				<asp:Button ID="btnLogin" runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;" CssClass="btn-login" onclick="btnLogin_Click" />
-			</div>
-		</form>
-		<!-- login-form end -->
-	</div>
-	<!-- login-content end -->
+		<div class="login">
+			<div class="login-screen">
+				<div class="login-icon">
+					<img src="../styles/images/npiculet-logo-login.png" />
+					<h4><%= GetPlatformName() %></h4>
+				</div>
 
-</div>
+				<div class="login-form">
+					<div class="form-group">
+						<asp:TextBox ID="txtAccount" runat="server" CssClass="form-control login-field" placeholder="请输入登录帐号"></asp:TextBox>
+						<i class="sui-icon icon-tb-my"></i>
+					</div>
+
+					<div class="form-group">
+						<asp:TextBox ID="txtPassword" runat="server" CssClass="form-control login-field" TextMode="Password" placeholder="请输入登录密码"></asp:TextBox>
+						<i class="sui-icon icon-tb-unlock"></i>
+					</div>
+
+					<asp:LinkButton ID="btnLogin" runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;" CssClass="btn-primary btn-lg flat-btn-block" OnClick="btnLogin_Click" />
+				</div>
+			</div>
+		</div>
+	</form>
 
 </body>
 </html>

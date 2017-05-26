@@ -1,229 +1,386 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="_default" %>
-<%@ Register TagPrefix="uc1" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
-<!DOCTYPE html>
-<html>
-<head runat="server">
-	<title></title>
-	<uc1:WebQuote ID="WebQuote1" runat="server" />
-	<link href="styles/ticket/home.css" rel="stylesheet" type="text/css" />
-</head>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/IndexPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
-<body>
-	<div class="ui-layout">
-		<div class="ui-header">
-			<div class="ui grid">
-				<div class="eight wide column">
-					<div class="top-login">
-						登录 | 注册 您好，欢迎光临！
-					</div>
-				</div>
-				<div class="eight wide column">
-					<div class="tr top-link">
-						我的订单 | 收藏夹 | 关于我们
-					</div>
-				</div>
-				<div class="four wide column">
-					<div style="width:220px;height:90px;background:url(styles/ticket/images/logo.png) no-repeat;margin:10px 30px;"></div>
-				</div>
-				<div class="eight wide column">
-					<div class="ui action input" style="width:400px;margin:30px auto;">
-						<input type="text" placeholder="输入XXXXX">
-						<div class="ui button" style="padding:0 10px;color:#fff;background-color:#666;"><i class="large icon search"></i></div>
-					</div>
-				</div>
-				<div class="four wide column">
-					<div style="width:227px;height:107px;background:url(styles/ticket/images/logo-girls.png) no-repeat;margin-top:10px;"></div>
-				</div>
-			</div>
-		</div>
-		<!-- Header END -->
+<%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc1" TagName="NavMenu" %>
+<%@ Register Src="~/web/uc/MemberLoginOfIndex.ascx" TagPrefix="mli" TagName="MemberLogin" %>
+<%@ Register Src="~/web/uc/MemberSimpleInfo.ascx" TagPrefix="mli" TagName="MemberInfo" %>
+<%@ Register Src="~/web/uc/FriendLinks.ascx" TagPrefix="fl" TagName="FriendLinks" %>
 
-		<div class="ui-nav">
-			<div class="ui-menu">
-				<div class="ui menu">
-					<a class="item">查询<i class="caret down icon"></i></a>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+	<style type="text/css">
+		.carousel-inner {
+			height: 250px;
+		}
 
-					<div class="right menu">
-						<a class="item">首页</a>
-						<a class="item">XXX</a>
-						<a class="item">XXX</a>
-						<a class="item">关于我们</a>
-						<a class="item">个人中心</a>
-						<a class="item">登录</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Nav END -->
+		.sui-form {
+			margin: 0;
+		}
+	</style>
+</asp:Content>
 
-		<div class="ui-body home">
+<asp:Content runat="server" ContentPlaceHolderID="nav">
+	<uc1:NavMenu runat="server" ID="NavMenu" Active="0" />
+</asp:Content>
 
-			<div class="home-banner">
-				<img src="styles/ticket/images/banner2.png" />
-				<form>
-					查询表单
+<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
+	<div id="conetentBody" runat="server" class="sui-form">
+		<div class="ui-body-row sui-row-fluid">
+			<div class="span3">
+				<form id="LoginForm" runat="server" class="sui-form">
+					<!-- Widget 开始 -->
+					<asp:PlaceHolder runat="server" ID="indexLoginForm">
+						<mli:MemberLogin runat="server"></mli:MemberLogin>
+					</asp:PlaceHolder>
+					<asp:PlaceHolder runat="server" ID="indexUserInfo">
+						<mli:MemberInfo runat="server"></mli:MemberInfo>
+					</asp:PlaceHolder>
 				</form>
+				<!-- Widget 结束 -->
 			</div>
-
-			<div class="home-banner-1">
-				<img src="styles/ticket/icon/split-icon-ticket.png" />
-				<img src="styles/ticket/icon/split-icon-web.png" />
-				<img src="styles/ticket/icon/split-icon-cart.png" />
-				<img src="styles/ticket/icon/split-icon-info.png" />
-				<img src="styles/ticket/icon/split-icon-other.png" />
+			<div class="span6">
+				<!-- 滚动图片 开始 -->
+				<div id="myCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						<li data-target="#myCarousel" data-slide-to="1"></li>
+						<li data-target="#myCarousel" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+						<asp:Repeater ID="AdvertisingOfTop" runat="server">
+							<ItemTemplate>
+								<div class="<%#Container.ItemIndex == 0 ? "active" : "" %> item">
+									<a href="<%# Eval("Url") %>" target="_blank">
+										<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Image"))) %>" alt="" />
+									</a>
+									<div class="carousel-caption">
+										<h4><%#Eval("Description") %></h4>
+									</div>
+								</div>
+							</ItemTemplate>
+						</asp:Repeater>
+					</div>
+					<a href="#myCarousel" data-slide="prev" class="carousel-control left">‹</a><a href="#myCarousel" data-slide="next" class="carousel-control right">›</a>
+				</div>
+				<!-- 滚动图片 结束 -->
 			</div>
-
-			<div class="ui grid">
-				<div class="four wide column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>限时抢购
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
+			<div class="span3">
+				<!-- Widget 开始 -->
+				<div class="ui-widget blue-icon" style="height: 250px">
+					<div class="title">
+						&nbsp;&nbsp;会员展示
+						<a href="web/PageAssociatorShow.aspx">MORE</a>
+					</div>
+					<div class="content">
+						<ul>
+							<asp:Repeater ID="AssociatorShowList" runat="server">
+								<ItemTemplate>
+									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
 					</div>
 				</div>
-				<div class="eight wide column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>热销产品
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="four wide column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
+				<!-- Widget 结束 -->
 			</div>
-
-			<div class="section-title"><i class="flag icon"></i>热门推荐</div>
-			<div class="ui four column grid">
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="section-title"><i class="flag icon"></i>热门推荐</div>
-			<div class="ui four column grid">
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="widget">
-						<div class="title">
-							<i class="wait icon"></i>促销专区
-						</div>
-						<div class="content">
-							<img src="styles/ticket/images/banner1.png" style="width:280px;height:120px;" />
-						</div>
-					</div>
-				</div>
-			</div>
-
 		</div>
-		<!-- Body END -->
-
-		<div class="ui-footer">
-			<footer>
-				<p class="copyright">骤羽科技 © 版权所有</p>
-				<div class="ui grid" style="margin:0 160px;">
-					<div class="three wide column">
-						<div class="footer-link">关于我们</div>
+		<div class="ui-body-row sui-row-fluid">
+			<div class="span3">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title square">
+						&nbsp;&nbsp;法律专栏
+						<a href="web/PageLaw.aspx">MORE</a>
 					</div>
-					<div class="three wide column">
-						<div class="footer-link">订购指南</div>
-					</div>
-					<div class="three wide column">
-						<div class="footer-link">支付方式</div>
-					</div>
-					<div class="three wide column">
-						<div class="footer-link">售后服务</div>
-					</div>
-					<div class="four wide column" style="background-color:rgba(255,255,255,.3)">
-						<a href="#">订阅</a><br/>
-						<a href="#">扫描二维码，订阅微信公众号</a>
-						<a href="#">掌握第一手信息</a>
+					<div class="content" style="min-height: 300px;">
+						<ul>
+							<asp:Repeater ID="LawList" runat="server">
+								<ItemTemplate>
+									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
 					</div>
 				</div>
-			</footer>
+				<!-- Widget 结束 -->
+			</div>
+			<div class="span6">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title square">
+						&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;闻
+						<a href="web/PageNew.aspx">MORE</a>
+					</div>
+					<div class="content" style="min-height: 300px;">
+						<div class="sui-row">
+							<div class="span3">
+								<div style="padding: 0 10px 10px 10px;">
+									<asp:HyperLink ID="hotNewsImgLink" runat="server">
+										<asp:Image runat="server" ID="hotNewsImg" BorderWidth="0" />
+									</asp:HyperLink>
+								</div>
+							</div>
+							<div class="span8">
+								<asp:HyperLink ID="hotNewsTitleLink" runat="server">
+									<asp:Label runat="server" ID="hotNewsTitle" Font-Size="Medium" ForeColor="#2A7BC4" />
+								</asp:HyperLink>
+								<br />
+								<asp:HyperLink ID="hotNewsInfo" runat="server"></asp:HyperLink>
+							</div>
+							<div class="span12">
+								<div style="text-align: right; padding-right: 20px;">
+									<asp:HyperLink ID="hotNewsTitleMore" runat="server" Style="color: #FF9934">【查看详情】</asp:HyperLink>
+								</div>
+								<hr class="split" />
+							</div>
+							<div class="span12">
+								<ul>
+									<asp:Repeater ID="newslist" runat="server">
+										<ItemTemplate>
+											<li class="sui-row-fluid">
+												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
+												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
+											</li>
+										</ItemTemplate>
+									</asp:Repeater>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+			<div class="span3">
+				<!-- Widget 开始 -->
+				<div class="ui-widget ui-news">
+					<div class="title square">
+						&nbsp;&nbsp;综合资讯 <a href="web/PageConsultNews.aspx">MORE</a>
+					</div>
+					<div class="content" style="min-height: 300px;">
+						<ul>
+							<asp:Repeater ID="ConsultNewsList" runat="server">
+								<ItemTemplate>
+									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a><%# IsNewIcon() %></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
 		</div>
-		<!-- Footer END -->
+
+		<!-- 人才库 -->
+		<div class="ui-body-row sui-row-fluid">
+			<div class="span12">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title shading">
+						<span>&nbsp;&nbsp;人才库</span> <a href="web/PageJobSeeker.aspx">MORE</a>
+					</div>
+					<div class="content">
+						<div class="sui-row">
+							<!-- 热招职位 -->
+							<div class="ui-job-widget span6">
+								<h4 class="sui-row-fluid">
+									<div class="span9">
+										<img src="styles/images/job1.png" alt="" />&nbsp;&nbsp;热招职位
+										<%--<a href="#" class="icon1">发布招聘职位</a>--%>
+									</div>
+									<div class="span3">
+										<a href="#">更多职位 &gt;&gt;</a>
+									</div>
+								</h4>
+								<ul>
+									<asp:Repeater ID="TopEntHireList" runat="server">
+										<ItemTemplate>
+											<li class="sui-row-fluid">
+												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
+												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
+											</li>
+										</ItemTemplate>
+									</asp:Repeater>
+								</ul>
+							</div>
+							<!-- 人才简历 -->
+							<div class="ui-job-widget span6">
+								<h4 class="sui-row-fluid">
+									<div class="span9">
+										<img src="styles/images/job2.png" alt="" />&nbsp;&nbsp;人才简历
+										<%--<a href="#" class="icon2">发布求职简历</a>--%>
+									</div>
+									<div class="span3">
+										<a href="#">更多简历 &gt;&gt;</a>
+									</div>
+								</h4>
+								<ul>
+									<asp:Repeater ID="TopJobSeekers" runat="server">
+										<ItemTemplate>
+											<li class="sui-row-fluid">
+												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
+												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
+											</li>
+										</ItemTemplate>
+									</asp:Repeater>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+		</div>
+		<!-- 人才库 END -->
+
+		<div class="ui-body-row sui-row-fluid">
+			<div class="span3">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title square">
+						&nbsp;&nbsp;网吧培训 <a href="web/PageBar.aspx">MORE</a>
+					</div>
+					<div class="content" style="min-height: 355px;">
+						<ul>
+							<asp:Repeater ID="BarList" runat="server">
+								<ItemTemplate>
+									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+			<div class="span6">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title square">
+						&nbsp;&nbsp;协会动态 <a href="web/PageAssociationNews.aspx">MORE</a>
+					</div>
+					<div class="content" style="min-height: 355px;">
+						<div class="sui-row">
+							<div class="span3">
+								<div style="padding: 0 10px 10px 10px;">
+									<asp:HyperLink ID="anLink" runat="server">
+										<asp:Image runat="server" ID="anImage" ImageUrl="~/styles/images/noimage.jpg" BorderWidth="0" />
+									</asp:HyperLink>
+								</div>
+							</div>
+							<div class="span8">
+								<asp:HyperLink ID="anLink2" runat="server">
+									<asp:Label runat="server" ID="anTitle" Font-Size="Medium" ForeColor="#2A7BC4" />
+								</asp:HyperLink>
+								<br />
+								<asp:HyperLink ID="anLink3" runat="server"></asp:HyperLink>
+							</div>
+							<div class="span12">
+								<div style="text-align: right; padding-right: 20px;">
+									<asp:HyperLink ID="anLink4" runat="server" Style="color: #FF9934">【查看详情】</asp:HyperLink>
+								</div>
+								<hr class="split" />
+							</div>
+							<div class="span12">
+								<ul>
+									<asp:Repeater ID="AssociationNewsList" runat="server">
+										<ItemTemplate>
+											<li class="sui-row-fluid">
+												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
+												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
+											</li>
+										</ItemTemplate>
+									</asp:Repeater>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+			<div class="span3">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title square">
+						&nbsp;&nbsp;政策文件 <a href="web/PagePolicy.aspx">MORE</a>
+					</div>
+					<div class="content" style="min-height: 355px;">
+						<ul>
+							<asp:Repeater ID="PagePolicyList" runat="server">
+								<ItemTemplate>
+									<li>
+										<a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+		</div>
+		<div class="ui-body-row sui-row-fluid">
+			<div class="span9">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title">
+						&nbsp;&nbsp;推荐品牌
+					</div>
+					<div class="content">
+						<div class="sui-row-fluid">
+							<asp:Repeater ID="RecommendBrands" runat="server">
+								<ItemTemplate>
+									<div class="span2" style="width: 140px; height: 80px; margin: 2px; line-height: 80px;">
+										<a href="<%# ResolveClientUrl(Convert.ToString(Eval("Url"))) %>" target="_blank">
+											<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Image"))) %>" alt="" style="width: 140px;" />
+										</a>
+									</div>
+								</ItemTemplate>
+							</asp:Repeater>
+						</div>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+			<div class="span3">
+				<!-- Widget 开始 -->
+				<div class="ui-widget">
+					<div class="title square">
+						&nbsp;&nbsp;网吧交易区 <a href="web/PageSale.aspx">MORE</a>
+					</div>
+					<div class="content">
+						<ul>
+							<asp:Repeater ID="salelist" runat="server">
+								<ItemTemplate>
+									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+				<!-- Widget 结束 -->
+			</div>
+		</div>
 	</div>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="footer">
 
-</body>
+	<asp:Repeater runat="server" ID="BottomBanner">
+		<ItemTemplate>
+			<div class="ui-adb">
+				<a href="<%# Eval("Url") %>" target="_blank">
+					<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Image"))) %>" alt="" />
+				</a>
+			</div>
+		</ItemTemplate>
+	</asp:Repeater>
 
-</html>
+	<asp:PlaceHolder runat="server" ID="FriendLinks">
+		<fl:FriendLinks runat="server"></fl:FriendLinks>
+	</asp:PlaceHolder>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6a4289932a1d5208efc892cc8b5eb3e5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</asp:Content>

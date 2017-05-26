@@ -11,6 +11,6 @@ public partial class Logout : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
 	{
 		LoginKit.Logout();
-		Response.Redirect("Default.aspx");
+		Response.Redirect("~/login.aspx");
     }
 }

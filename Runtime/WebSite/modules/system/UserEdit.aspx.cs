@@ -184,5 +184,4 @@ public partial class system_Admin_UserEdit : AdminPage
 				break;
 		}
 	}
-
 }

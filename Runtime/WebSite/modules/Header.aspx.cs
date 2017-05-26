@@ -13,7 +13,8 @@ public partial class modules_Header : AdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-	    //if (!Page.IsPostBack) { }
+        this.loginName.Text = this.CurrentUserName;
+        //if (!Page.IsPostBack) { }
     }
 
 	protected string GetMenuList()
@@ -30,7 +31,8 @@ public partial class modules_Header : AdminPage
 
 	protected string GetPlatformName()
 	{
-		return new ConfigManager().GetWebConfig("PlatformName");
+		string pname = new ConfigManager().GetWebConfig("PlatformName");
+		return string.IsNullOrEmpty(pname) ? "管理后台" : pname;
 	}
 
 	public string GetHeadIcon()

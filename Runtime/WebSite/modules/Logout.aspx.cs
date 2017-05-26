@@ -6,11 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Logic.Sys;
 
-public partial class Logout : System.Web.UI.Page
+public partial class modules_Logout : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 	    LoginKit.Logout();
-		Response.Redirect("Login.aspx");
+		Response.Redirect("~/modules/Login.aspx");
     }
 }

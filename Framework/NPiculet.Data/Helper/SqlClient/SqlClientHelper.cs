@@ -106,6 +106,20 @@ namespace NPiculet.Data
 			return val;
 		}
 
+		/// <summary>
+		/// 创建参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public override IDbDataParameter CreateParameter(string name, object val)
+		{
+			SqlParameter param = new SqlParameter();
+			param.ParameterName = name;
+			param.Value = val;
+			return param;
+		}
+
 		#endregion
 
 	}

@@ -4,10 +4,14 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
-	<asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click">保存</asp:LinkButton>
-	<asp:LinkButton ID="btnAdd" runat="server" OnClick="btnAdd_Click">新增同级</asp:LinkButton>
-	<asp:LinkButton ID="btnChild" runat="server" OnClick="btnChild_Click">新增下级</asp:LinkButton>
-	<asp:LinkButton ID="btnDelete" runat="server" OnClick="btnDelete_Click">删除</asp:LinkButton>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click">保存</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnAdd" runat="server" OnClick="btnAdd_Click">新增同级</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnChild" runat="server" OnClick="btnChild_Click">新增下级</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnDelete" runat="server" OnClick="btnDelete_Click">删除</asp:LinkButton></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="searchbar" Runat="Server">
@@ -21,14 +25,14 @@
 			</td>
 			<td>
 <asp:PlaceHolder ID="editor" runat="server">
-				<table border="0" cellpadding="2" cellspacing="0" class="admin-edit-table">
+				<table class="sui-table table-primary">
 					<tr>
 						<td class="th">编码</td>
-						<td class="td"><asp:TextBox ID="GroupCode" runat="server" CssClass="textbox" Width="200px" MaxLength="32"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="GroupCode" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">名称</td>
-						<td class="td"><asp:TextBox ID="GroupName" runat="server" CssClass="textbox" Width="200px" MaxLength="64"></asp:TextBox>
+						<td class="td"><asp:TextBox ID="GroupName" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="GroupName" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 						</td>
 					</tr>
@@ -48,7 +52,7 @@
 					</tr>
 					<tr id="externalUrl" style="display:none;">
 						<td class="th">链接</td>
-						<td class="td"><asp:TextBox ID="Url" runat="server" CssClass="textbox" Width="500px" MaxLength="512"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Url" runat="server" CssClass="input-large" Width="500px" MaxLength="512"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">显示</td>
@@ -61,14 +65,14 @@
 					<tr>
 						<td class="th">排序</td>
 						<td class="td">
-							<asp:TextBox ID="OrderBy" runat="server" CssClass="textbox" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
+							<asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 							<asp:RegularExpressionValidator ID="re2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="只能是英文及数字" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">说明</td>
-						<td class="td"><asp:TextBox ID="Memo" runat="server" CssClass="textbox" Width="99%" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
 					</tr>
 				</table>
 				<asp:HiddenField ID="Id" runat="server" />

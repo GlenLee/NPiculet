@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Threading;
+using NPiculet.Error;
 
 namespace NPiculet.Data
 {
@@ -77,8 +78,13 @@ namespace NPiculet.Data
 		/// <returns></returns>
 		public static string GetConnectionString(string connKey)
 		{
-			string key = string.IsNullOrEmpty(connKey) ? DefaultConnectionKey : connKey;
-			return ConfigurationManager.ConnectionStrings[key].ConnectionString;
+			try {
+				string key = string.IsNullOrEmpty(connKey) ? DefaultConnectionKey : connKey;
+				ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[key];
+				return ConfigurationManager.ConnectionStrings[key].ConnectionString;
+			} catch (Exception ex) {
+				throw new LogicException("数据库连接键名称 " + connKey + " 没有找到对应的配置，请检查 web.config 中 connectionStrings 节是否有 name=" + connKey + " 的配置节。", ex);
+			}
 		}
 
 		private ServerType _currentConnectionType = ServerType.None;
@@ -168,7 +174,7 @@ namespace NPiculet.Data
 					this._connection = CreateConnection(connString);
 					//检查状态
 					if (this.Connection == null)
-						throw new Exception("连接对象 Connection 未能初始化，可能是没有配置连接字符串或数据库当前不可用。");
+						throw new LogicException("连接对象 Connection 未能初始化，可能是没有配置连接字符串或数据库当前不可用。");
 				}
 			}
 			//初始化指令对象
@@ -468,6 +474,14 @@ namespace NPiculet.Data
 		/// <param name="val"></param>
 		/// <returns></returns>
 		public abstract object GetDataValue(object val);
+
+		/// <summary>
+		/// 创建参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public abstract IDbDataParameter CreateParameter(string name, object val);
 
 		#endregion
 

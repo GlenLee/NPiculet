@@ -24,18 +24,16 @@ public partial class modules_Sidebar : AdminPage
 
 	private void BindData()
 	{
-		int parentId = WebParmKit.GetRequestString("id", 0);
-		if (parentId > 0) {
-			var bus = new SysMenuBus();
-			var dt = bus.GetSubMenu(parentId, this.CurrentUserId);
+		int parentId = 1;
+		var bus = new SysMenuBus();
+		var dt = bus.GetSubMenu(parentId, this.CurrentUserId);
 
-			if (dt != null) {
-				_menus = dt.DefaultView;
-				_menus.RowFilter = "ParentId=" + parentId;
+		if (dt != null) {
+			_menus = dt.DefaultView;
+			_menus.RowFilter = "ParentId=" + parentId;
 
-                this.menu.DataSource = _menus;
-                this.menu.DataBind();
-			}
+			this.menu.DataSource = _menus;
+			this.menu.DataBind();
 		}
 	}
 

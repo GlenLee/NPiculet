@@ -20,16 +20,20 @@
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
-	<a href="<%= WebParmKit.GetRequestString("p", "") %>">返回</a>
-	<asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click">保存</asp:LinkButton>
-	<asp:LinkButton ID="btnAuth" runat="server" OnClick="btnAuth_Click">授权</asp:LinkButton>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><a href="<%= WebParmKit.GetRequestString("p", "") %>"><i class="sui-icon icon-tb-back"></i>返回</a></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnAuth" runat="server" OnClick="btnAuth_Click"><i class="sui-icon icon-tb-unlock"></i>授权</asp:LinkButton></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<table border="0" cellpadding="2" cellspacing="0" class="admin-edit-table">
+	<table class="sui-table table-primary">
 		<tr>
 			<th colspan="2">目标信息</th>
 		</tr>

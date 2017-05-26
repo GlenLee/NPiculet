@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using NPiculet.Error;
 
 namespace NPiculet.Data
 {
@@ -60,7 +61,7 @@ namespace NPiculet.Data
 				da.Update(dt);
 				this.Command.Transaction.Commit();
 			} catch (Exception ex) {
-				throw new Exception("批量插入数据时出现错误：" + ex.Message + "\r\n" + sql, ex);
+				throw new LogicException("批量插入数据时出现错误：" + ex.Message + "\r\n" + sql, ex);
 			}
 		}
 
@@ -81,8 +82,7 @@ namespace NPiculet.Data
 		/// 克隆一个新对象
 		/// </summary>
 		/// <returns></returns>
-		public override IDbHelper CloneNew()
-		{
+		public override IDbHelper CloneNew() {
 			return new SqliteHelper(base.CurrentConnectionType, base.CurrentConnectionString);
 		}
 
@@ -95,9 +95,22 @@ namespace NPiculet.Data
 		/// </summary>
 		/// <param name="val"></param>
 		/// <returns></returns>
-		public override object GetDataValue(object val)
-		{
+		public override object GetDataValue(object val) {
 			return val;
+		}
+
+		/// <summary>
+		/// 创建参数
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		/// <returns></returns>
+		public override IDbDataParameter CreateParameter(string name, object val)
+		{
+			SQLiteParameter param = new SQLiteParameter();
+			param.ParameterName = name;
+			param.Value = val;
+			return param;
 		}
 
 		#endregion

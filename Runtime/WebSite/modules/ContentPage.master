@@ -3,49 +3,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head" runat="server">
-	<title>AdminPage</title>
-	<uc:CssScriptQuote ID="CssScriptQuote1" runat="server" />
-	<link href="~/styles/default/admin.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">
-		label {
-			font-weight: normal;
-			font-size: 1em;
-		}
-	</style>
-	<asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit|ie-stand|ie-comp" />
+    <title>AdminPage</title>
+    <uc:CssScriptQuote ID="CssScriptQuote1" runat="server" />
+    <asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
 </head>
-
 <body>
-	<form id="frm" runat="server">
-	<!-- Page title -->
-	<div id="pagetitle">
-		<div class="wrapper">
-			<h1><%= GetTitle() %></h1>
-			<!-- 操作条 -->
-			<div class="toolbar">
-				<!-- 按钮工具条 -->
-				<asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
-			</div>
-		</div>
-		<div style="clear: both;">
-		</div>
-	</div>
-	<!-- End of Page title -->
-	<!-- Page content -->
-	<div id="page">
-		<!-- Wrapper -->
-		<div class="wrapper">
-			<!-- 搜索栏 -->
-			<div class="searchbar">
-				<asp:ContentPlaceHolder ID="searchbar" runat="server"></asp:ContentPlaceHolder>
-			</div>
-			<!-- 内容 -->
-			<div class="content">
-				<asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
-			</div>
-		</div>
-	</div>
-	</form>
+    <form id="frm" runat="server" class="sui-form">
+        <div class="ui-nav">
+            <ul class="sui-breadcrumb">
+                <li><a>首页</a></li>
+                <li><a><%= GetTitle() %></a></li>
+            </ul>
+        </div>
+        <div class="ui-content-box">
+            <!-- 搜索栏 -->
+            <asp:ContentPlaceHolder ID="searchbar" runat="server"></asp:ContentPlaceHolder>
+            <!-- 按钮工具条 -->
+            <asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
+            <!-- 内容 -->
+            <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
+        </div>
+    <asp:ContentPlaceHolder ID="baiduMap" runat="server"></asp:ContentPlaceHolder>
+    </form>
+
 </body>
 
 </html>

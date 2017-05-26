@@ -5,7 +5,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
-	<a href="NewsList.aspx?code=<%= this.GroupCode %>">返回</a>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><a href="NewsList.aspx?code=<%= this.GroupCode %>">返回</a></li>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="searchbar" Runat="Server">
@@ -14,7 +18,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table border="0" cellpadding="2" cellspacing="0" class="admin-edit-table">
+		<table class="sui-table table-primary">
 			<tr>
 				<td class="th">栏目</td>
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
@@ -22,7 +26,7 @@
 			<tr>
 				<td class="th">标题</td>
 				<td class="td">
-					<asp:TextBox ID="ContentTitle" runat="server" CssClass="textbox" Width="500px" MaxLength="256"></asp:TextBox>
+					<asp:TextBox ID="ContentTitle" runat="server" CssClass="input-large" Width="500px" MaxLength="256"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="ContentTitle" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
@@ -46,7 +50,7 @@
 			</tr>
 			<tr>
 				<td class="th">来源</td>
-				<td class="td"><asp:TextBox ID="Source" runat="server" CssClass="textbox" Width="500px" MaxLength="256"></asp:TextBox></td>
+				<td class="td"><asp:TextBox ID="Source" runat="server" CssClass="input-large" Width="500px" MaxLength="256"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">内容</td>

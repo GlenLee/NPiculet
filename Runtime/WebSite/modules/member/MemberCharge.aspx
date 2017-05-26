@@ -46,13 +46,13 @@
 		<ContentTemplate>
 
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table border="0" cellpadding="2" cellspacing="0" class="admin-edit-table">
+		<table class="sui-table table-primary">
 			<tr>
 				<th colspan="4">基本信息</th>
 			</tr>
 			<tr>
 				<td class="th">帐号</td>
-				<td class="td"><asp:TextBox ID="Account" runat="server" CssClass="textbox" Width="200px" MaxLength="32"></asp:TextBox>
+				<td class="td"><asp:TextBox ID="Account" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Account"></asp:RequiredFieldValidator>
 					<asp:RegularExpressionValidator ID="RegularExpressionValidator1"
@@ -61,7 +61,7 @@
 				</td>
 				<td class="th">手机</td>
 				<td class="td">
-					<asp:TextBox ID="Mobile" runat="server" CssClass="textbox" Width="200px" MaxLength="32"></asp:TextBox>
+					<asp:TextBox ID="Mobile" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Mobile"></asp:RequiredFieldValidator>
 					<asp:RegularExpressionValidator ID="RegularExpressionValidator5"
@@ -79,7 +79,7 @@
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
 
-	<asp:GridView runat="server" ID="details" Width="100%" AutoGenerateColumns="False" CssClass="admin-list-table">
+	<asp:GridView runat="server" ID="details" Width="100%" AutoGenerateColumns="False" CssClass="sui-table table-primary">
 		<Columns>
 			<asp:TemplateField HeaderText="序号">
 				<HeaderStyle Width="50px" />

@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
+using NPiculet.Toolkit;
 using NPiculet.WebControls;
 
 public partial class modules_common_OrgDialog : NormalPage
@@ -14,18 +15,29 @@ public partial class modules_common_OrgDialog : NormalPage
     protected void Page_Load(object sender, EventArgs e)
     {
 		if (!Page.IsPostBack) {
-			this.tree.ShowCheckBoxes = TreeNodeTypes.Leaf;
-
 			BindOrgTree();
-	    }
-    }
+		}
+		string mode = WebParmKit.GetQuery("mode", "");
+		if (mode == "single") {
+			this.tree.ShowCheckBoxes = TreeNodeTypes.None;
+			this.tree.SelectedNodeChanged += Tree_SelectedNodeChanged;
+		} else {
+			this.tree.ShowCheckBoxes = TreeNodeTypes.Leaf;
+		}
+	}
+
+	private void Tree_SelectedNodeChanged(object sender, EventArgs e)
+	{
+		var node = this.tree.SelectedNode;
+		this.JavaSrcipt("ok({ id:" + node.Value + ", name:'" + node.Text + "' });");
+	}
 
 	private DataView dv = null;
 
 	private void BindOrgTree()
 	{
 		SysOrgInfoBus bus = new SysOrgInfoBus();
-		DataTable dt = bus.Query();
+		DataTable dt = bus.GetOrgTreeData();
 		if (dt != null) {
 			dv = dt.DefaultView;
 		}

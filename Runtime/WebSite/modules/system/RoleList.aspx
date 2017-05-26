@@ -2,20 +2,26 @@
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
-	<a href="RoleEdit.aspx">新增</a>
-	<%--<asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton>--%>
+	<div class="tools">
+		<ul class="toolbar">
+			<li><a href="RoleEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<%--<asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton>--%>
+		</ul>
+	</div>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
-	<div class="searchbar-wrap">
-		<asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称"></asp:TextBox>
-		<asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/>
-	</div>
+	<ul class="searchbar-wrap">
+		<li>
+			<asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称"></asp:TextBox>
+			<asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/>
+		</li>
+	</ul>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="admin-list-table">
+		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
 			<asp:BoundField DataField="RoleName" HeaderText="名称" >

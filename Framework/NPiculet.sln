@@ -9,8 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Toolkit", "NPicule
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "WebSite\", "{22EFFDF9-9094-4F52-B24E-53F5519F453D}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		ProjectReferences = "{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}|NPiculet.Core.dll;{02318AD4-7AEC-47B3-8785-2964311FA2E4}|NPiculet.Data.dll;{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}|NPiculet.Logger.dll;{1F9612AE-598C-45F8-A194-296BA5799746}|NPiculet.Toolkit.dll;{2496B863-F79B-4D1B-B990-1AE6534AA1E2}|NPiculet.WebToolkit.dll;"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{fc9416fe-f825-463d-b952-c66b5189bd79}|NPiculet.Pack.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"
@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Logger", "NPiculet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.WebToolkit", "NPiculet.WebToolkit\NPiculet.WebToolkit.csproj", "{2496B863-F79B-4D1B-B990-1AE6534AA1E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Test", "NPiculet.Test\NPiculet.Test.csproj", "{B7295778-8907-4469-B523-D85C1F4D0361}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{34DA3EB3-2B7C-4980-9F84-017D9C79CC44}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
@@ -42,9 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Data", "NPiculet.Data\NPiculet.Data.csproj", "{02318AD4-7AEC-47B3-8785-2964311FA2E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Test", "NPiculet.Test\NPiculet.Test.csproj", "{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Pack", "NPiculet.Pack\NPiculet.Pack.csproj", "{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Pack", "NPiculet.Pack\NPiculet.Pack.csproj", "{FC9416FE-F825-463D-B952-C66B5189BD79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,18 +72,18 @@ Global
 		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2496B863-F79B-4D1B-B990-1AE6534AA1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7295778-8907-4469-B523-D85C1F4D0361}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02318AD4-7AEC-47B3-8785-2964311FA2E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F1BC635-DEAE-4CFE-84E8-B96C794BE4BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98D45C01-D1A6-4396-AD08-B3CFE5B6AF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC9416FE-F825-463D-B952-C66B5189BD79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC9416FE-F825-463D-B952-C66B5189BD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC9416FE-F825-463D-B952-C66B5189BD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC9416FE-F825-463D-B952-C66B5189BD79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

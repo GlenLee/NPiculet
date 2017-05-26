@@ -57,17 +57,14 @@ public partial class modules_system_RoleEdit : AdminPage
 	/// </summary>
 	private void BindUserList()
 	{
-		this.userList.Items.Clear();
+		//this.userList.Items.Clear();
 		DataView _dv = null;
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			_dv = new SysAuthorizationBus().GetUserLinkRole(int.Parse(this.Id.Value)).DefaultView;
+			_dv = new SysAuthorizationBus().GetRoleLinkUser(int.Parse(this.Id.Value)).DefaultView;
 		}
 		if (_dv != null) {
-			foreach (DataRowView dr in _dv) {
-				var item = new ListItem(Convert.ToString(dr["Name"]), Convert.ToString(dr["UserId"]));
-				//item.Selected = true;
-				this.userList.Items.Add(item);
-			}
+			this.userList.DataSource = _dv;
+			this.userList.DataBind();
 		}
 	}
 
