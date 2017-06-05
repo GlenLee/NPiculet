@@ -19,7 +19,7 @@ public partial class modules_system_DictGroupList : AdminPage
 		}
 	}
 
-	private readonly CmsDictGroupBus _bus = new CmsDictGroupBus();
+	private readonly BasDictGroupBus _bus = new BasDictGroupBus();
 
 	private void BindData()
 	{
@@ -41,7 +41,7 @@ public partial class modules_system_DictGroupList : AdminPage
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
 				string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
-				_bus.Update(new CmsDictGroup() { IsDel = 1 }, "Id=" + id);
+				_bus.Update(new BasDictGroup() { IsDel = 1 }, "Id=" + id);
 
 			}
 			BindData();

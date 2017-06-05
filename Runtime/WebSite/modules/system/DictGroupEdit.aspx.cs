@@ -12,7 +12,7 @@ using NPiculet.Toolkit;
 
 public partial class modules_system_DictGroupEdit : AdminPage
 {
-	private readonly CmsDictGroupBus _bus = new CmsDictGroupBus();
+	private readonly BasDictGroupBus _bus = new BasDictGroupBus();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -50,7 +50,7 @@ public partial class modules_system_DictGroupEdit : AdminPage
 				_bus.Update(model, null);
 
 				string code = model.Code;
-				new CmsDictItemBus().Update(new CmsDictItem() { GroupCode = code }, "GroupCode='" + this.OldCode.Value + "'");
+				new BasDictItemBus().Update(new BasDictItem() { GroupCode = code }, "GroupCode='" + this.OldCode.Value + "'");
 				this.OldCode.Value = code;
 			}
 
