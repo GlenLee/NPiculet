@@ -1,4 +1,4 @@
-# NPiculet
+# NPiculet B/S Framework
 
 ## 这是什么
 
