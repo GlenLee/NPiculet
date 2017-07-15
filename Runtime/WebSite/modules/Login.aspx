@@ -8,9 +8,9 @@
 	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
 	<script src="../styles/sui/js/sui.min.js"></script>
 	<style type="text/css">
-		html, body { padding:0;margin:0;width:100%;height:100%;background-color: #1abc9c; }
+		html, body { padding:0;margin:0;width:100%;height:100%;background-color:#005bea;background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%); }
 		div, p, input, select { box-sizing:border-box; }
-a, a:hover { text-decoration:none; }
+		a, a:hover { text-decoration:none; }
 .login {
     color: #ffffff;
     position: relative;
@@ -135,7 +135,8 @@ label {
 }
 .btn-primary {
     color: #ffffff;
-    background-color: #1abc9c;
+    background-color:#005bea;
+	background-image: linear-gradient(to top, #0066ff 0%, #005bea 100%);
 }
 .login-link {
     color: #bfc9ca;
@@ -145,8 +146,8 @@ label {
     text-align: center;
 }
 	</style>
-	<script src="../scripts/lib/jquery-1.11.3.min.js" type="text/javascript"></script>
-	<script src="js/lib/layer/layer.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../scripts/lib/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
 	<%--<script src="js/cloud.js" type="text/javascript"></script>--%>
 	<script type="text/javascript">
 		if (window.top.location.href != window.location.href) {
@@ -162,7 +163,7 @@ label {
 		<div class="login">
 			<div class="login-screen">
 				<div class="login-icon">
-					<img src="../styles/images/npiculet-logo-login.png" />
+					<img src="../styles/images/logo.png" />
 					<h4><%= GetPlatformName() %></h4>
 				</div>
 

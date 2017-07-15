@@ -17,7 +17,7 @@
 <body>
 
 <form id="frm" runat="server">
-	<p style="text-align:center;padding:100px 0;font-size:36px;color:#ddd">欢迎进入管理系统，请在左侧菜单选择操作功能</p>
+	<p style="text-align:center;padding:100px 0;font-size:24px;color:#ddd">欢迎进入管理系统，请在左侧菜单选择操作功能</p>
 </form>
 
 </body>

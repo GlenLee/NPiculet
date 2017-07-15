@@ -40,10 +40,9 @@
 						<td class="th">类型</td>
 						<td class="td"><asp:DropDownList ID="GroupType" runat="server">
 							<asp:ListItem Value="">无</asp:ListItem>
-							<asp:ListItem Value="Content">内容页</asp:ListItem>
-							<asp:ListItem Value="List">普通列表</asp:ListItem>
-							<%--<asp:ListItem Value="3">分类内容</asp:ListItem>
-							<asp:ListItem Value="4">分类列表</asp:ListItem>--%>
+							<asp:ListItem Value="Content">单页</asp:ListItem>
+							<asp:ListItem Value="List">列表</asp:ListItem>
+							<asp:ListItem Value="Image">图片列表</asp:ListItem>
 						</asp:DropDownList></td>
 					</tr>
 					<tr>

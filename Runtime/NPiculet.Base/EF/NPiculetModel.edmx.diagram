@@ -5,52 +5,33 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b58904265eba4c1bbb89bf145e9e550c" Name="Diagram1">
-        <EntityTypeShape EntityType="NPiculetModel.bas_attachment" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.bas_dict_group" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.bas_dict_item" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.bas_notice_info" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.bas_notice_record" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.bas_region_info" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.cms_adv_info" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.cms_content_group" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.cms_content_page" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.cms_friendlinks_info" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_address" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_brand" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_cart" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_category" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_comment" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_commodity" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_commodity_detail" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_commodity_price" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_consultation" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_favorite" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_logs" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_order" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_order_flow" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_order_item" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_packages" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_pay_item" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_pay_list" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_sale" Width="1.5" PointX="14.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_service_order" Width="1.5" PointX="4.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.shop_supplier_info" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_action_detail" Width="1.5" PointX="16.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_action_log" Width="1.5" PointX="16.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_admin_info" Width="1.5" PointX="16.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_authorization" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_config" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_link_user_org" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_link_user_role" Width="1.5" PointX="18.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_member_corporation" Width="1.5" PointX="18.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_member_data" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_member_info" Width="1.5" PointX="12.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_menu" Width="1.5" PointX="18.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_org_group" Width="1.5" PointX="14.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_org_info" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_role_info" Width="1.5" PointX="2.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_user_data" Width="1.5" PointX="4.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NPiculetModel.sys_user_info" Width="1.5" PointX="20.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NPiculetModel.bas_attachment" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.bas_dict_group" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.bas_dict_item" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.bas_notice_info" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NPiculetModel.bas_notice_record" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NPiculetModel.bas_region_info" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.cms_adv_info" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NPiculetModel.cms_content_group" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.cms_content_page" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="NPiculetModel.cms_friendlinks_info" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_action_detail" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_action_log" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_admin_info" Width="1.5" PointX="4.75" PointY="9.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_app" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_authorization" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_config" Width="1.5" PointX="10.75" PointY="8.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_link_user_org" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_link_user_role" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_member_corporation" Width="1.5" PointX="12.75" PointY="3.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_member_data" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_member_info" Width="1.5" PointX="6.75" PointY="12.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_menu" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_org_group" Width="1.5" PointX="10.75" PointY="12.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_org_info" Width="1.5" PointX="12.75" PointY="11.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_role_info" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_user_data" Width="1.5" PointX="14.75" PointY="4.75" />
+        <EntityTypeShape EntityType="NPiculetModel.sys_user_info" Width="1.5" PointX="14.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

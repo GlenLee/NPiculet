@@ -21,6 +21,7 @@ namespace NPiculet.Base.EF
         public string Name { get; set; }
         public string Code { get; set; }
         public string Icon { get; set; }
+        public Nullable<int> Belong { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<int> Depth { get; set; }
         public Nullable<int> IsExternal { get; set; }

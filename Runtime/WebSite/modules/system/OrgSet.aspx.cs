@@ -51,10 +51,10 @@ public partial class modules_system_OrgSet : AdminPage
 
 			var tn = new TreeNode();
 			//tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(dr["Type"])) + ")</span>";
-			tn.Text = Convert.ToString(dr["OrgName"]);
+			tn.Text = Convert.ToString(dr["OrgName"]) + " <span style=\"color:#999;\">(" + Convert.ToString(dr["OrderBy"]) + ")</span>";
 			tn.Value = Convert.ToString(dr["Id"]);
 
-			if (!Convert.ToBoolean(dr["IsEnabled"])) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
+			if (!Convert.ToBoolean(dr["IsEnabled"])) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span> <span style=\"color:#999;\">(" + Convert.ToString(dr["OrderBy"]) + ")</span>";
 			if (node == null) {
 				this.tree.Nodes.Add(tn);
 			} else {

@@ -15,7 +15,7 @@
 		.ui-header { position:relative;height:45px;border-top:2px solid #DE5454;border-bottom:1px solid #ddd; }
 		.topleft { float:left;height:42px;line-height:42px;width:50%; }
 		.topleft, .topleft i, .topleft span, .topright, .topright ul, .topright li { height:42px;line-height:42px;vertical-align:top; }
-		.topleft .icon { display:inline-block;width:38px;height:36px;margin:3px 5px 3px 20px;background-image:url(../styles/images/npiculet-logo.png);background-size:36px;border-radius:18px; }
+		.topleft .icon { display:inline-block;width:38px;height:36px;margin:3px 5px 3px 20px;background-image:url(../styles/images/logo.png);background-size:36px;border-radius:18px; }
 		.topleft span { display:inline-block; }
 		.topright { float:right;height:42px;line-height:42px;width:50%; }
 		.topright ul, .topright li { margin:0;padding:0;list-style-type:none; }

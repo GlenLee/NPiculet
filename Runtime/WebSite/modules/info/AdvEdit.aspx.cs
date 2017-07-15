@@ -14,7 +14,15 @@ namespace modules.info
 			if (Page.IsPostBack) 
 				return;
 			this.Id.Value = WebParmKit.GetRequestString("key", 0).ToString();
+			BindType();
 			BindData();
+		}
+
+		private void BindType()
+		{
+			BasDictItemBus ibus = new BasDictItemBus();
+			var list = ibus.GetDictItemList("Publicity");
+			BindKit.BindToListControl(this.Type, list, "Name", "Value");
 		}
 
 		private readonly CmsAdvInfoBus _bus = new CmsAdvInfoBus();

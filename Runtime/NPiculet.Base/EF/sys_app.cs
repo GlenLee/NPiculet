@@ -12,16 +12,14 @@ namespace NPiculet.Base.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class shop_packages
+    public partial class sys_app
     {
         public int Id { get; set; }
-        public Nullable<int> ParentId { get; set; }
-        public string CommodityType { get; set; }
-        public Nullable<int> CommodityId { get; set; }
-        public string CommodityName { get; set; }
-        public Nullable<int> Amount { get; set; }
-        public Nullable<double> Price { get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string Key { get; set; }
         public string Creator { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
+        public int IsEnabled { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
+using NPiculet.Base.EF;
 
 public partial class System_MenuSet : AdminPage
 {
@@ -17,6 +18,7 @@ public partial class System_MenuSet : AdminPage
 		if (!Page.IsPostBack) {
 			BindData();
 			SetControlStatus();
+			Belong_SelectedIndexChanged(sender, e);
 		}
 	}
 
@@ -47,11 +49,9 @@ public partial class System_MenuSet : AdminPage
 		_dv.RowFilter = "ParentId=" + parentId;
 		foreach (DataRowView dr in _dv) {
 
-			string code = Convert.ToString(dr["Code"]);
-
 			var tn = new TreeNode();
 			//tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(dr["Type"])) + ")</span>";
-			tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + Convert.ToString(dr["OrderBy"]) + ")</span>";
+			tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + Convert.ToString(dr["OrderBy"]) + ")</span>";
 			tn.Value = Convert.ToString(dr["Id"]);
 
 			if (!Convert.ToBoolean(dr["IsEnabled"])) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
@@ -116,6 +116,11 @@ public partial class System_MenuSet : AdminPage
 			var data = _bus.CreateModel();
 			BindKit.FillModelFromContainer(this.editor, data);
 
+			//处理“栏目”所属
+			if (data.Belong == 2) {
+				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
+			}
+
 			if (this.Id.Value == "") {
 				data.ParentId = 0;
 				data.RootId = 0;
@@ -144,6 +149,12 @@ public partial class System_MenuSet : AdminPage
 		if (Page.IsValid) {
 			var data = _bus.CreateModel();
 			BindKit.FillModelFromContainer(this.editor, data);
+
+			//处理“栏目”所属
+			if (data.Belong == 2) {
+				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
+			}
+
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 			data.RootId = GetRootId();
 			data.IsExternal = 0;
@@ -166,6 +177,12 @@ public partial class System_MenuSet : AdminPage
 		if (Page.IsValid) {
 			var data = _bus.CreateModel();
 			BindKit.FillModelFromContainer(this.editor, data);
+
+			//处理“栏目”所属
+			if (data.Belong == 2) {
+				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
+			}
+
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 			data.RootId = GetRootId();
 			data.Depth++;
@@ -205,8 +222,21 @@ public partial class System_MenuSet : AdminPage
 		var data = _bus.GetMenuItem(Convert.ToInt32(val));
 		if (data != null) {
 			BindKit.BindModelToContainer(this.editor, data);
+
+			//处理“栏目”所属
+			if (data.Belong == 2) {
+				//data.Code = this.InfoGroupList.SelectedValue + "," + this.InfoPageList.SelectedValue;
+				string[] belongs = !string.IsNullOrWhiteSpace(data.Code) && data.Code.IndexOf(",") > -1 ? data.Code.Split(',') : null;
+				if (belongs != null) {
+					string categoryId = belongs[0], groupId = belongs[1];
+					BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
+					BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
+				}
+			}
+
 			this.CurName.Text = data.Name;
 			SetControlStatus();
+			Belong_SelectedIndexChanged(sender, e);
 		}
 	}
 
@@ -214,5 +244,87 @@ public partial class System_MenuSet : AdminPage
 	{
 		int count = _bus.FixMenuPath();
 		this.promptControl.ShowSuccess("菜单层次深度及路径信息已修复完成，共修复了 {0} 条数据！", count);
+	}
+
+	protected void Belong_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		switch (this.Belong.SelectedValue) {
+			case "1":
+				this.phNormalMenu.Visible = true;
+				this.phInfoGroup.Visible = false;
+				this.phDict.Visible = false;
+				break;
+
+			case "2":
+				this.phNormalMenu.Visible = false;
+				this.phInfoGroup.Visible = true;
+				this.phDict.Visible = false;
+
+				using (NPiculetEntities db = new NPiculetEntities()) {
+					var group = (from g in db.cms_content_group
+								 where g.IsEnabled == 1 && g.ParentId == 0
+								 orderby g.OrderBy
+								 select g).ToList();
+					this.InfoGroupCategory.DataSource = group;
+					this.InfoGroupCategory.DataTextField = "GroupName";
+					this.InfoGroupCategory.DataValueField = "Id";
+					this.InfoGroupCategory.DataBind();
+				}
+
+				InfoGroupList_SelectedIndexChanged(sender, e);
+				break;
+
+			case "3":
+				this.phNormalMenu.Visible = false;
+				this.phInfoGroup.Visible = false;
+				this.phDict.Visible = true;
+
+				using (NPiculetEntities db = new NPiculetEntities()) {
+					var dict = (from d in db.bas_dict_group
+								 where d.IsEnabled == 1 && d.IsDel == 0
+								 orderby d.OrderBy
+								 select d).ToList();
+					this.DictList.DataSource = dict;
+					this.DictList.DataTextField = "Name";
+					this.DictList.DataValueField = "Code";
+					this.DictList.DataBind();
+				}
+
+				DictList_SelectedIndexChanged(sender, e);
+				break;
+		}
+	}
+
+	protected void InfoGroupList_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		using (NPiculetEntities db = new NPiculetEntities()) {
+			int parentId = Convert.ToInt32(this.InfoGroupCategory.SelectedValue);
+			var group = (from g in db.cms_content_group
+						 where g.IsEnabled == 1 && g.ParentId == parentId
+						 orderby g.OrderBy
+						 select g).ToList();
+			this.InfoGroupList.DataSource = group;
+			this.InfoGroupList.DataTextField = "GroupName";
+			this.InfoGroupList.DataValueField = "Id";
+			this.InfoGroupList.DataBind();
+		}
+
+		InfoPageList_SelectedIndexChanged(sender, e);
+	}
+
+	protected void InfoPageList_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		this.Name.Text = this.InfoGroupList.SelectedItem.Text;
+
+		string url = "info/InfoPageList.aspx?code=";
+		this.Url.Text = url + this.InfoGroupList.SelectedValue;
+	}
+
+	protected void DictList_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		this.Name.Text = this.DictList.SelectedItem.Text;
+
+		string url = "system/DictItemList.aspx?group={0}&fix=true&cols={1}";
+		this.Url.Text = string.Format(url, this.DictList.SelectedValue, "");
 	}
 }

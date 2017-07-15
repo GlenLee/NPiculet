@@ -25,12 +25,7 @@
 			<tr>
 				<td class="th">广告位置</td>
 				<td class="td">
-					<asp:DropDownList ID="Type" runat="server">
-						<asp:ListItem>推荐品牌</asp:ListItem>
-						<asp:ListItem>轮播广告</asp:ListItem>
-						<asp:ListItem>底部广告</asp:ListItem>
-						<asp:ListItem>右侧广告</asp:ListItem>
-					</asp:DropDownList></td>
+					<asp:DropDownList ID="Type" runat="server"></asp:DropDownList></td>
 			</tr>
 			<tr>
 				<td class="th">描述</td>
@@ -51,10 +46,10 @@
 						<tr>
 							<td>
 								<asp:FileUpload ID="AdvImage" runat="server" Width="400px" />
-								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片大于1024会自动压缩。</div>
+								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片。</div>
 							</td>
 							<td style="padding: 4px">
-								<asp:HyperLink ID="ImageHyperLink" runat="server" CssClass="thumb-link">
+								<asp:HyperLink ID="ImageHyperLink" runat="server" CssClass="thumb-link" Target="_blank">
 									<asp:Image ID="PreviewImage" runat="server" Width="40px" Height="40px" Visible="false" CssClass="thumb-image" />
 								</asp:HyperLink>
 							</td>

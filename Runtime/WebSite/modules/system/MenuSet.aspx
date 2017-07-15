@@ -34,6 +34,15 @@
 						<td class="td"><asp:Literal ID="CurName" runat="server"></asp:Literal></td>
 					</tr>
 					<tr>
+						<td class="th">所属</td>
+						<td class="td"><asp:DropDownList ID="Belong" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Belong_SelectedIndexChanged">
+							<asp:ListItem Value="1">普通菜单</asp:ListItem>
+							<asp:ListItem Value="2">栏目</asp:ListItem>
+							<asp:ListItem Value="3">字典</asp:ListItem>
+						</asp:DropDownList></td>
+					</tr>
+<asp:PlaceHolder ID="phNormalMenu" runat="server" Visible="false">
+					<tr>
 						<td class="th">名称</td>
 						<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="Name" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
@@ -43,19 +52,39 @@
 						<td class="th">编码</td>
 						<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox></td>
 					</tr>
+</asp:PlaceHolder>
+<asp:PlaceHolder ID="phInfoGroup" runat="server" Visible="false">
+					<tr>
+						<td class="th">选择栏目</td>
+						<td class="td">
+							<asp:DropDownList ID="InfoGroupCategory" runat="server" AutoPostBack="true" OnSelectedIndexChanged="InfoGroupList_SelectedIndexChanged"></asp:DropDownList>
+							&nbsp;
+							<asp:DropDownList ID="InfoGroupList" runat="server" AutoPostBack="true" OnSelectedIndexChanged="InfoPageList_SelectedIndexChanged"></asp:DropDownList>
+						</td>
+					</tr>
+</asp:PlaceHolder>
+<asp:PlaceHolder ID="phDict" runat="server" Visible="false">
+					<tr>
+						<td class="th">选择字典</td>
+						<td class="td">
+							<asp:DropDownList ID="DictList" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DictList_SelectedIndexChanged"></asp:DropDownList>
+						</td>
+					</tr>
+</asp:PlaceHolder>
 					<tr style="display:none;">
 						<td class="th">类型</td>
 						<td class="td"><asp:DropDownList ID="Type" runat="server">
 							<asp:ListItem Value="0">无</asp:ListItem>
 							<asp:ListItem Value="1">内容页</asp:ListItem>
 							<asp:ListItem Value="2">普通列表</asp:ListItem>
+							<asp:ListItem Value="3">图片列表</asp:ListItem>
 						</asp:DropDownList></td>
 					</tr>
 					<tr>
 						<td class="th">显示窗口</td>
 						<td class="td"><asp:DropDownList ID="Target" runat="server">
 							<asp:ListItem Value="mainFrame">主窗口</asp:ListItem>
-							<asp:ListItem Value="_blank">新窗口</asp:ListItem>
+							<asp:ListItem Value="_blank">弹出窗口</asp:ListItem>
 						</asp:DropDownList></td>
 					</tr>
 					<tr>

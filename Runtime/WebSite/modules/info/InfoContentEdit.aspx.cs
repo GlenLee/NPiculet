@@ -22,7 +22,14 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			var group = _groupBus.QueryModel("GroupCode='" + this.GroupCode + "'");
+			string whereString, code = GroupCode;
+			if (code.IsNumeric()) {
+				whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
+			} else {
+				whereString = "GroupCode='" + code + "'";
+			}
+
+			var group = _groupBus.QueryModel(whereString);
 			this.GroupName.Text = group.GroupName;
 
 			if (this.GroupType.ToLower() == "content") {
@@ -51,9 +58,16 @@ public partial class modules_info_InfoContentEdit : AdminPage
 
 	private void BindData()
 	{
+		string whereString, code = GroupCode;
+		if (code.IsNumeric()) {
+			whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
+		} else {
+			whereString = "GroupCode='" + code + "'";
+		}
+
 		int dataId = WebParmKit.GetRequestString("key", 0);
 		if (dataId > 0) {
-			string whereString = "GroupCode='" + this.GroupCode + "' and Id=" + dataId;
+			whereString += " and Id=" + dataId;
 
 			var model = _pageBus.QueryModel(whereString);
 			if (model != null) {
@@ -64,8 +78,6 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			}
 		}
 		if (this.GroupType.ToLower() == "content") {
-			string whereString = "GroupCode='" + this.GroupCode + "'";
-
 			var model = _pageBus.QueryModel(whereString);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
@@ -97,10 +109,17 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				ShowThumb(model.Thumb);
 			}
 
+			string whereString, code = GroupCode;
+			if (code.IsNumeric()) {
+				whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
+			} else {
+				whereString = "GroupCode='" + code + "'";
+			}
+
 			if (this.GroupType.ToLower() == "content") {
 				model.Title = this.InfoTitle.Text;
-				if (!_pageBus.Update(model, "GroupCode='" + this.GroupCode + "'")) {
-					model.GroupCode = this.GroupCode;
+				if (!_pageBus.Update(model, whereString)) {
+					model.GroupCode = code;
 					model.CategoryId = 0;
 					model.Click = 0;
 					model.CreateDate = DateTime.Now;
@@ -112,7 +131,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			} else {
 				if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
 					model.Title = this.InfoTitle.Text;
-					model.GroupCode = this.GroupCode;
+					model.GroupCode = code;
 					model.CategoryId = 0;
 					model.Click = 0;
 					model.CreateDate = DateTime.Now;

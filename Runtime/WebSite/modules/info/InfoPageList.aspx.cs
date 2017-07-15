@@ -32,15 +32,21 @@ public partial class modules_info_InfoPageList : System.Web.UI.Page
 
 	private void BindData(int pageIndex)
 	{
-		string whereString = "GroupCode='" + GroupCode + "'";
+		string whereString, code = GroupCode;
+		if (code.IsNumeric()) {
+			whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
+		} else {
+			whereString = "GroupCode='" + code + "'";
+		}
+		if (string.IsNullOrEmpty(whereString)) {
+			int count = _bus.RecordCount(whereString);
+			this.NPager1.RecordCount = count;
 
-		int count = _bus.RecordCount(whereString);
-		this.NPager1.RecordCount = count;
+			DataTable dt = _bus.Query(pageIndex, this.NPager1.PageSize, whereString, "CreateDate DESC");
 
-		DataTable dt = _bus.Query(pageIndex, this.NPager1.PageSize, whereString, "CreateDate DESC");
-
-		this.list.DataSource = dt.DefaultView;
-		this.list.DataBind();
+			this.list.DataSource = dt.DefaultView;
+			this.list.DataBind();
+		}
 	}
 
 	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
