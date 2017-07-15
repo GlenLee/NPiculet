@@ -33,7 +33,7 @@ public class CommonLib
 				&& (x.EndDate == null || x.EndDate <= DateTime.Now)).
 				OrderBy(x => x.OrderBy).
 				Take(recNum).ToList();
-			if (data.Count < 1)
+			if (data.Count() < 1)
 				return;
 			repeater.DataSource = data;
 			repeater.DataBind();

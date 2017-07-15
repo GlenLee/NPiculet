@@ -11,8 +11,8 @@ using NPiculet.Toolkit;
 
 public partial class modules_system_DictItemEdit : AdminPage
 {
-	private readonly CmsDictGroupBus _groupBus = new CmsDictGroupBus();
-	private readonly CmsDictItemBus _bus = new CmsDictItemBus();
+	private readonly BasDictGroupBus _groupBus = new BasDictGroupBus();
+	private readonly BasDictItemBus _bus = new BasDictItemBus();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{

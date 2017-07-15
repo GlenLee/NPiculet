@@ -51,11 +51,11 @@ public partial class modules_system_DictItemList : AdminPage
 		}
 	}
 
-	private readonly CmsDictItemBus _bus = new CmsDictItemBus();
+	private readonly BasDictItemBus _bus = new BasDictItemBus();
 
 	private void BindDictGroup()
 	{
-		CmsDictGroupBus gbus = new CmsDictGroupBus();
+		BasDictGroupBus gbus = new BasDictGroupBus();
 		this.ddlDictGroup.DataSource = gbus.Query("IsDel=0", null);
 		this.ddlDictGroup.DataTextField = "Name";
 		this.ddlDictGroup.DataValueField = "Code";
