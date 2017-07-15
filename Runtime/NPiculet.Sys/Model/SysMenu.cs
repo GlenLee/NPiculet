@@ -19,6 +19,7 @@ namespace NPiculet.Logic.Data
 		private string _name;
 		private string _code;
 		private string _icon;
+		private int? _belong;
 		private int? _type;
 		private int? _depth;
 		private int? _isExternal;
@@ -137,6 +138,19 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanging("Icon");
 				_icon = value;
 				OnPropertyChanged("Icon");
+			}
+		}
+
+		/// <summary>
+		/// 类型
+		/// </summary>
+		[Column(Field = "Belong", Type = "int", Length = 10, Scale = 0)]
+		public int? Belong {
+			get { return _belong; }
+			set {
+				OnPropertyChanging("Belong");
+				_belong = value;
+				OnPropertyChanged("Belong");
 			}
 		}
 
