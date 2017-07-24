@@ -6,6 +6,9 @@ using System.Text;
 
 namespace NPiculet.Draw2D
 {
+	/// <summary>
+	/// 碰撞检测工具
+	/// </summary>
 	public class HitKit
 	{
 		/// <summary>
@@ -23,7 +26,7 @@ namespace NPiculet.Draw2D
 		/// <returns></returns>
 		public bool TestPointInCircle(Point p, Point circleCenter, double radius)
 		{
-			return new GeometryKit().GetTwoPointDistance(p, circleCenter) <= radius;
+			return new GeometryKit().TwoPointDistance(p, circleCenter) <= radius;
 		}
 	}
 }

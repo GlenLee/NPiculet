@@ -11,28 +11,56 @@ namespace NPiculet.Draw2D
 	/// </summary>
 	public class ImageBuilder : IDisposable
 	{
-		private Image _img = null;
-		private Image _bmp = null;
+		private Image _sourceImage = null; //原图对象
+		private Image _targetImage = null; //新图对象
 
 		/// <summary>
 		/// 获取或设置一个 Image 对象。
 		/// </summary>
-		public Image GetImage
+		public Image SourceImage
 		{
-			get { return _img; }
-			set { this._img = value; }
+			get { return _sourceImage; }
+			set { this._sourceImage = value; }
 		}
 
-		public ImageBuilder()
-		{ }
+		/// <summary>
+		/// 获取或设置一个 Image 对象。
+		/// </summary>
+		public Image TargetImage {
+			get {
+				if (this._targetImage == null) {
+					return this._sourceImage;
+				}
+				return this._targetImage;
+			}
+		}
 
 		public ImageBuilder(Image img)
-		{ this._img = img; }
+		{ this._sourceImage = img; }
 
 		public ImageBuilder(Stream stream)
 		{
 			Bitmap img = new Bitmap(stream);
-			this._img = (Image)img;
+			this._sourceImage = (Image)img;
+		}
+
+		/// <summary>
+		/// 创建一个空图片
+		/// </summary>
+		/// <param name="w">图宽</param>
+		/// <param name="h">图高</param>
+		/// <param name="color">底色</param>
+		/// <returns></returns>
+		public static Image CreateEmptyImage(int w, int h, Color color)
+		{
+			//建立画板
+			Graphics g;
+			Image bmp = new Bitmap(w, h);
+			g = Graphics.FromImage(bmp);
+			g.Clear(color);
+			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
+			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+			return bmp;
 		}
 
 		/// <summary>
@@ -42,15 +70,10 @@ namespace NPiculet.Draw2D
 		/// <param name="h">新高</param>
 		/// <param name="autuStretching">是否自动拉伸</param>
 		/// <returns>缩略图</returns>
-		public void MakeThumbnailImage(int w, int h, bool autuStretching)
+		public void MakeThumbnailImage(int w, int h, bool autuStretching = false)
 		{
 			//初始化 Image 对象
-			Image img;
-			if (this._bmp == null) {
-				img = this._img;
-			} else {
-				img = this._bmp;
-			}
+			Image img = this.TargetImage;
 			if (!autuStretching) {
 				//取得图片的高和宽
 				int img_w = img.Width;
@@ -66,46 +89,12 @@ namespace NPiculet.Draw2D
 				if (h > img_h) { h = img_h; }
 			}
 
-			this._bmp = img.GetThumbnailImage(w, h, null, IntPtr.Zero);
-		}
-
-		/// <summary>
-		/// 生成缩放的图片。
-		/// </summary>
-		/// <param name="w">新宽</param>
-		/// <param name="h">新高</param>
-		/// <param name="autoEnlarge">是否自动放大</param>
-		/// <param name="autoPadding">是否自动填充空白区域</param>
-		/// <param name="autuStretching">是否自动拉伸</param>
-		/// <param name="cutPicture">当长宽不符合比例时，是否剪切图片</param>
-		public void MakeZoomImage(int w, int h, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
-		{
-			//初始化Image对象
-			Image img;
-			if (this._bmp == null) {
-				img = this._img;
-			} else {
-				img = this._bmp;
-			}
-			//取得图片的高和宽
-			int img_w = img.Width;
-			int img_h = img.Height;
-
-			if (!autoEnlarge && img_w < w && img_h < h) {
-				if (autoPadding) {
-					this._bmp = GetZoomImage(img, img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
-				} else {
-					this._bmp = img;
-				}
-			} else {
-				this._bmp = GetZoomImage(img, img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
-			}
+			this._targetImage = img.GetThumbnailImage(w, h, null, IntPtr.Zero);
 		}
 
 		/// <summary>
 		/// 获取缩放的图片。
 		/// </summary>
-		/// <param name="img">原图</param>
 		/// <param name="img_w">原图宽</param>
 		/// <param name="img_h">原图高</param>
 		/// <param name="w">新宽</param>
@@ -115,7 +104,7 @@ namespace NPiculet.Draw2D
 		/// <param name="autuStretching">是否自动拉伸</param>
 		/// <param name="cutPicture">当长宽不符合比例时，是否剪切图片</param>
 		/// <returns>缩放后的图片</returns>
-		private Image GetZoomImage(Image img, int img_w, int img_h, int w, int h, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
+		private Image GetZoomImage(int img_w, int img_h, int w, int h, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
 		{
 			int new_h, new_w;
 			if (!autoEnlarge && img_w < w && img_h < h) {
@@ -149,6 +138,8 @@ namespace NPiculet.Draw2D
 			//设置质量
 			g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
 			g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+			//初始化Image对象
+			Image img = this.TargetImage;
 			//填充图片
 			if (!cutPicture) {
 				if (autoPadding && !autuStretching) {
@@ -177,22 +168,56 @@ namespace NPiculet.Draw2D
 		}
 
 		/// <summary>
+		/// 生成缩放的图片。
+		/// </summary>
+		/// <param name="w">新宽</param>
+		/// <param name="h">新高</param>
+		/// <param name="autoEnlarge">是否自动放大</param>
+		/// <param name="autoPadding">是否自动填充空白区域，不填充时图片不会维持比例</param>
+		/// <param name="autuStretching">是否自动拉伸</param>
+		/// <param name="cutPicture">当长宽不符合比例时，是否剪裁掉超出部分，以维持比例</param>
+		public void MakeZoomImage(int w, int h, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
+		{
+			//初始化Image对象
+			Image img = this.TargetImage;
+			//取得图片的高和宽
+			int img_w = img.Width;
+			int img_h = img.Height;
+
+			if (!autoEnlarge && img_w < w && img_h < h) {
+				if (autoPadding) {
+					this._targetImage = GetZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
+				} else {
+					this._targetImage = img;
+				}
+			} else {
+				this._targetImage = GetZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
+			}
+		}
+
+		/// <summary>
+		/// 生成缩放的图片。
+		/// </summary>
+		/// <param name="w">新宽</param>
+		/// <param name="h">新高</param>
+		public void MakeZoomImage(int w, int h)
+		{
+			//自动放大，不填充，不拉伸，不剪裁
+			MakeZoomImage(w, h, true, false, false, false);
+		}
+
+		/// <summary>
 		/// 添加文字水印。
 		/// </summary>
 		/// <param name="text">水印文字</param>
 		/// <param name="pound">文字磅值</param>
-		/// <param name="alpha">透明度</param>
+		/// <param name="alpha">透明度（0-255 越小越透明）</param>
 		/// <param name="x">文字X坐标</param>
 		/// <param name="y">文字Y坐标</param>
-		public void MakeWatermarkText(string text, float pound, int alpha, float x, float y)
+		public void MakeWatermarkText(string text, float pound, float x, float y, int alpha = 255)
 		{
 			//初始化Image对象
-			Image img;
-			if (this._bmp == null) {
-				img = this._img;
-			} else {
-				img = this._bmp;
-			}
+			Image img = this.TargetImage;
 			//取得图片的高和宽
 			int img_w = img.Width;
 			int img_h = img.Height;
@@ -211,7 +236,50 @@ namespace NPiculet.Draw2D
 			g.DrawString(text, f, b, x, y);
 			g.Dispose();
 
-			this._bmp = bmp;
+			this._targetImage = bmp;
+		}
+
+		/// <summary>
+		/// 添加图片水印。
+		/// </summary>
+		/// <param name="watemark">水印图片</param>
+		/// <param name="x">文字X坐标</param>
+		/// <param name="y">文字Y坐标</param>
+		/// <param name="alpha">透明度（0-1 越小越透明）</param>
+		public void MakeWatermarkImage(Image watemark, float x, float y, float alpha = 1f)
+		{
+			//初始化Image对象
+			Image img = this.TargetImage;
+			//取得图片的高和宽
+			int img_w = img.Width;
+			int img_h = img.Height;
+
+			//建立画板
+			Graphics g;
+			Image bmp = new Bitmap(img_w, img_h);
+			g = Graphics.FromImage(bmp);
+			g.Clear(Color.White);
+			//填充图片
+			g.DrawImage(img, 0, 0, img_w, img_h);
+			//添加水印
+			if (alpha < 255) {
+				float[][] nArray = {
+					new float[] {1, 0, 0, 0, 0},
+					new float[] {0, 1, 0, 0, 0},
+					new float[] {0, 0, 1, 0, 0},
+					new float[] {0, 0, 0, alpha, 0},
+					new float[] {0, 0, 0, 0, 1}
+				};
+				ColorMatrix matrix = new ColorMatrix(nArray);
+				ImageAttributes attributes = new ImageAttributes();
+				attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+				g.DrawImage(watemark, new Rectangle(Convert.ToInt32(x), Convert.ToInt32(y), watemark.Width, watemark.Height), 0, 0, watemark.Width, watemark.Height, GraphicsUnit.Pixel, attributes);
+			} else {
+				g.DrawImage(watemark, x, y);
+			}
+			g.Dispose();
+
+			this._targetImage = bmp;
 		}
 
 		/// <summary>
@@ -245,14 +313,14 @@ namespace NPiculet.Draw2D
 			EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, quality);
 			myEncoderParameters.Param[0] = myEncoderParameter;
 
-			if (this._bmp != null) {
+			if (this._targetImage != null) {
 				//this._bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);//保存图片
-				this._bmp.Save(savePath, jgpEncoder, myEncoderParameters);
+				this._targetImage.Save(savePath, jgpEncoder, myEncoderParameters);
 				return true;
 			} else {
-				if (this._img != null) {
+				if (this._sourceImage != null) {
 					//this._img.Save(savePath, System.Drawing.Imaging.ImageFormat.Jpeg);//保存图片
-					this._img.Save(savePath, jgpEncoder, myEncoderParameters);
+					this._sourceImage.Save(savePath, jgpEncoder, myEncoderParameters);
 					return true;
 				} else {
 					return false;
@@ -261,11 +329,39 @@ namespace NPiculet.Draw2D
 		}
 
 		/// <summary>
-		/// 清除生成的对象的内容，但保留源 Image 对象。
+		/// 保存为指定格式的图片。
+		/// </summary>
+		/// <param name="savePath">保存路径</param>
+		/// <param name="format">图片格式</param>
+		/// <returns></returns>
+		public bool SaveImage(string savePath, ImageFormat format)
+		{
+			//设置图片质量参数
+			ImageCodecInfo imageEncoder = GetEncoder(format);
+			Encoder myEncoder = Encoder.Quality;
+			EncoderParameters myEncoderParameters = new EncoderParameters(1);
+			EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+			myEncoderParameters.Param[0] = myEncoderParameter;
+
+			if (this._targetImage != null) {
+				this._targetImage.Save(savePath, imageEncoder, myEncoderParameters);
+				return true;
+			} else {
+				if (this._sourceImage != null) {
+					this._sourceImage.Save(savePath, imageEncoder, myEncoderParameters);
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+		/// <summary>
+		/// 清除生成的对象的内容，但保留源 SourceImage 对象。
 		/// </summary>
 		public void Clear()
 		{
-			if (this._bmp != null) { this._bmp = null; }
+			if (this._targetImage != null) { this._targetImage = null; }
 		}
 
 		/// <summary>
@@ -273,8 +369,10 @@ namespace NPiculet.Draw2D
 		/// </summary>
 		public void Dispose()
 		{
-			if (this._img != null) { this._img.Dispose(); }
-			if (this._bmp != null) { this._bmp.Dispose(); }
+			if (this._sourceImage != null) { this._sourceImage.Dispose(); }
+			if (this._targetImage != null) { this._targetImage.Dispose(); }
+			this._sourceImage = null;
+			this._targetImage = null;
 		}
 
 		#region IDisposable 成员

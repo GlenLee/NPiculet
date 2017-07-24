@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using NPiculet.Toolkit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
 using System.Collections;
 using System.Collections.Specialized;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NPiculet.Test
 {
