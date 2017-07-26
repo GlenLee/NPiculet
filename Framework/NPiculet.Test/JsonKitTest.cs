@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
+using Newtonsoft.Json.Linq;
 
 namespace NPiculet.Test
 {
@@ -138,6 +139,33 @@ namespace NPiculet.Test
 
 			actual = JsonKit.Deserialize<DateDemo>(json);
 			Assert.AreEqual(expected, actual.Date);
+		}
+
+		#endregion
+
+		#region 转换测试
+
+		[TestMethod]
+		public void ConvertTest() {
+			string json = @"{	""routes"": [
+		{
+			""name"": """",
+			""route"": ""View/{id}.html"",
+			""url"": ""~/web/ContentView.aspx""
+		},
+		{
+			""name"": """",
+			""route"": ""List/{groupCode}.html"",
+			""url"": ""~/web/ContentList.aspx""
+		}
+	]}";
+			JObject o = JObject.Parse(json);
+			Console.WriteLine(o.Count);
+			Console.WriteLine(o["routes"]);
+			Console.WriteLine(o["routes"][0]["name"]);
+			//Console.WriteLine(o["CreateDate"]);
+			//Console.WriteLine(o["Drives"]);
+			//Console.WriteLine(o["Drives"][0]);
 		}
 
 		#endregion

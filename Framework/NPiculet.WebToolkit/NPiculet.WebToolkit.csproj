@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="File\FileKit.cs" />
+    <Compile Include="File\FileWebKit.cs" />
     <Compile Include="Javascript\JsHelper.cs" />
     <Compile Include="Javascript\JsScript.cs" />
     <Compile Include="Status\CacheKit.cs" />

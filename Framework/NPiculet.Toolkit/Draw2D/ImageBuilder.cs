@@ -93,18 +93,49 @@ namespace NPiculet.Draw2D
 		}
 
 		/// <summary>
+		/// 生成缩略图，并根据宽度等比缩放。
+		/// </summary>
+		/// <param name="w">新宽</param>
+		/// <param name="autuStretching">是否自动拉伸</param>
+		/// <returns>缩略图</returns>
+		public void MakeThumbnailImage(int w, bool autuStretching = true)
+		{
+			//初始化 Image 对象
+			Image img = this.TargetImage;
+			//取得图片的高和宽
+			int img_w = img.Width;
+			int img_h = img.Height;
+			//等比缩放高度
+			int h = Convert.ToInt32((float)w * ((float)img_h / (float)img_w));
+
+			if (!autuStretching) {
+				//计算缩略图的高和宽
+				if (img_w > img_h) {
+					h = (int)(img_h * w / img_w);
+				} else {
+					w = (int)(img_w * h / img_h);
+				}
+				//设置缩略图的高和宽
+				if (w > img_w) { w = img_w; }
+				if (h > img_h) { h = img_h; }
+			}
+
+			this._targetImage = img.GetThumbnailImage(w, h, null, IntPtr.Zero);
+		}
+
+		/// <summary>
 		/// 获取缩放的图片。
 		/// </summary>
 		/// <param name="img_w">原图宽</param>
 		/// <param name="img_h">原图高</param>
 		/// <param name="w">新宽</param>
 		/// <param name="h">新高</param>
-		/// <param name="autoEnlarge">是否自动放大</param>
+		/// <param name="autoEnlarge">是否自动放大，图片小于定义高宽时执行</param>
 		/// <param name="autoPadding">是否自动填充空白区域</param>
-		/// <param name="autuStretching">是否自动拉伸</param>
-		/// <param name="cutPicture">当长宽不符合比例时，是否剪切图片</param>
+		/// <param name="autuStretching">是否自动拉伸，会导致图片变形</param>
+		/// <param name="cutPicture">当长宽不符合比例时，是否剪裁图片多余部分</param>
 		/// <returns>缩放后的图片</returns>
-		private Image GetZoomImage(int img_w, int img_h, int w, int h, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
+		private Image CreateZoomImage(int img_w, int img_h, int w, int h, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
 		{
 			int new_h, new_w;
 			if (!autoEnlarge && img_w < w && img_h < h) {
@@ -172,7 +203,7 @@ namespace NPiculet.Draw2D
 		/// </summary>
 		/// <param name="w">新宽</param>
 		/// <param name="h">新高</param>
-		/// <param name="autoEnlarge">是否自动放大</param>
+		/// <param name="autoEnlarge">是否自动放大，图片小于定义高宽时执行</param>
 		/// <param name="autoPadding">是否自动填充空白区域，不填充时图片不会维持比例</param>
 		/// <param name="autuStretching">是否自动拉伸</param>
 		/// <param name="cutPicture">当长宽不符合比例时，是否剪裁掉超出部分，以维持比例</param>
@@ -186,12 +217,41 @@ namespace NPiculet.Draw2D
 
 			if (!autoEnlarge && img_w < w && img_h < h) {
 				if (autoPadding) {
-					this._targetImage = GetZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
+					this._targetImage = CreateZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
 				} else {
 					this._targetImage = img;
 				}
 			} else {
-				this._targetImage = GetZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
+				this._targetImage = CreateZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
+			}
+		}
+
+		/// <summary>
+		/// 生成缩放的图片，并根据宽度等比缩放。
+		/// </summary>
+		/// <param name="w">新宽</param>
+		/// <param name="autoEnlarge">是否自动放大，图片小于定义高宽时执行</param>
+		/// <param name="autoPadding">是否自动填充空白区域，不填充时图片不会维持比例</param>
+		/// <param name="autuStretching">是否自动拉伸</param>
+		/// <param name="cutPicture">当长宽不符合比例时，是否剪裁掉超出部分，以维持比例</param>
+		public void MakeZoomImage(int w, bool autoEnlarge, bool autoPadding, bool autuStretching, bool cutPicture)
+		{
+			//初始化Image对象
+			Image img = this.TargetImage;
+			//取得图片的高和宽
+			int img_w = img.Width;
+			int img_h = img.Height;
+			//等比缩放高度
+			int h = Convert.ToInt32((float)w * ((float)img_h / (float)img_w));
+
+			if (!autoEnlarge && img_w < w && img_h < h) {
+				if (autoPadding) {
+					this._targetImage = CreateZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
+				} else {
+					this._targetImage = img;
+				}
+			} else {
+				this._targetImage = CreateZoomImage(img_w, img_h, w, h, autoEnlarge, autoPadding, autuStretching, cutPicture);
 			}
 		}
 
@@ -202,8 +262,18 @@ namespace NPiculet.Draw2D
 		/// <param name="h">新高</param>
 		public void MakeZoomImage(int w, int h)
 		{
+			//自动放大，不填充，自动拉伸，不剪裁
+			MakeZoomImage(w, h, true, false, true, false);
+		}
+
+		/// <summary>
+		/// 生成缩放的图片，并根据宽度等比缩放。
+		/// </summary>
+		/// <param name="w">新宽</param>
+		public void MakeZoomImage(int w)
+		{
 			//自动放大，不填充，不拉伸，不剪裁
-			MakeZoomImage(w, h, true, false, false, false);
+			MakeZoomImage(w, true, false, false, false);
 		}
 
 		/// <summary>

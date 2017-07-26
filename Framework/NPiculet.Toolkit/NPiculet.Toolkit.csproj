@@ -58,6 +58,7 @@
     <Compile Include="Draw2D\VerifyCode.cs" />
     <Compile Include="Enum\EnumKit.cs" />
     <Compile Include="Enum\EnumItem.cs" />
+    <Compile Include="IO\FileKit.cs" />
     <Compile Include="IO\NetKit.cs" />
     <Compile Include="IO\ProtoBufKit.cs" />
     <Compile Include="Json\JsonExtension.cs" />

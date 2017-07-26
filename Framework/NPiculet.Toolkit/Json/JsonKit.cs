@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace NPiculet.Toolkit
 {
@@ -85,7 +86,29 @@ namespace NPiculet.Toolkit
 			var date = timezone.AddMilliseconds(ticks);
 			return date;
 		}
+
+		/// <summary>
+		/// 将字符串转换为Json对象
+		/// </summary>
+		/// <param name="json"></param>
+		/// <returns></returns>
+		public static JObject ToJsonObject(string json)
+		{
+			return JObject.Parse(json);
+		}
+
+		/// <summary>
+		/// 将字符串转换为Json对象
+		/// </summary>
+		/// <param name="json"></param>
+		/// <returns></returns>
+		public static JArray ToJsonArray(string json)
+		{
+			return JArray.Parse(json);
+		}
 	}
+
+	#region 日期工具类
 
 	//2005-11-5 21:21:25
 	public class ChinaDateTimeConverter : DateTimeConverterBase
@@ -163,4 +186,6 @@ namespace NPiculet.Toolkit
 			writer.WriteValue(ticks);
 		}
 	}
+
+	#endregion
 }

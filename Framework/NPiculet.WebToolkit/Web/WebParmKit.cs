@@ -1,17 +1,19 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Routing;
+using System.Web.UI;
 
 namespace NPiculet.Toolkit
 {
 	public static class WebParmKit
 	{
-		#region »ñÈ¡´«ÈëÖµ
+		#region è·å–ä¼ å…¥å€¼
 
 		/// <summary>
-		/// »ñÈ¡ GET ·½Ê½´«ÈëµÄÖµ£¬²¢×ª»»ÎªÖ¸¶¨ÀàĞÍ¡£
+		/// è·å– GET æ–¹å¼ä¼ å…¥çš„å€¼ï¼Œå¹¶è½¬æ¢ä¸ºæŒ‡å®šç±»å‹ã€‚
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="key"></param>
@@ -24,7 +26,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡ POST ·½Ê½´«ÈëµÄÖµ£¬²¢×ª»»ÎªÖ¸¶¨ÀàĞÍ¡£
+		/// è·å– POST æ–¹å¼ä¼ å…¥çš„å€¼ï¼Œå¹¶è½¬æ¢ä¸ºæŒ‡å®šç±»å‹ã€‚
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="key"></param>
@@ -37,7 +39,23 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡ GET ·½·¨´«ÈëµÄÖµÊı×é¡£
+		/// è·å– Route æ–¹å¼ä¼ å…¥çš„å€¼ï¼Œå¹¶è½¬æ¢ä¸ºæŒ‡å®šç±»å‹ã€‚
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key"></param>
+		/// <param name="defaultValue"></param>
+		/// <returns></returns>
+		public static T GetRouteValue<T>(string key, T defaultValue) {
+			var page = HttpContext.Current.CurrentHandler as Page;
+			if (page != null) {
+				var val = page.RouteData.Values[key];
+				return val == null ? defaultValue : ConvertKit.ConvertValue<T>(val, defaultValue);
+			}
+			return defaultValue;
+		}
+
+		/// <summary>
+		/// è·å– GET æ–¹æ³•ä¼ å…¥çš„å€¼æ•°ç»„ã€‚
 		/// </summary>
 		/// <returns></returns>
 		public static NameValueCollection GetRequestStringArray()
@@ -46,7 +64,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡ POST ·½·¨´«ÈëµÄÖµÊı×é¡£
+		/// è·å– POST æ–¹æ³•ä¼ å…¥çš„å€¼æ•°ç»„ã€‚
 		/// </summary>
 		/// <returns></returns>
 		public static NameValueCollection GetFormArray()
@@ -55,25 +73,43 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ÏÈ»ñÈ¡ GET ´«ÈëµÄÖµ£¬Èç¹ûÃ»ÓĞÔò³¢ÊÔ»ñÈ¡ POST ´«ÈëµÄÖµ¡£
+		/// è·å– POST æ–¹æ³•ä¼ å…¥çš„å€¼æ•°ç»„ã€‚
 		/// </summary>
 		/// <returns></returns>
-		public static T GetQuery<T>(string key, T defaultValue)
+		public static NameValueCollection GetRouteDataArray()
 		{
-			string val = HttpContext.Current.Request.QueryString[key];
-			if (string.IsNullOrEmpty(val)) val = HttpContext.Current.Request.Form[key];
-			return val == null ? defaultValue : ConvertKit.ConvertValue<T>(val, defaultValue);
+			NameValueCollection nvc = new NameValueCollection();
+			var page = HttpContext.Current.CurrentHandler as Page;
+			if (page != null) {
+				foreach (KeyValuePair<string, object> data in page.RouteData.Values) {
+					nvc.Add(data.Key, Convert.ToString(data.Value));
+				}
+			}
+			return nvc;
 		}
 
 		/// <summary>
-		/// Í¬Ê±»ñÈ¡ GET ºÍ POST ·½·¨´«ÈëµÄÖµÊı×é¡£
+		/// å…ˆè·å– GET ä¼ å…¥çš„å€¼ï¼Œå¦‚æœæ²¡æœ‰åˆ™å°è¯•è·å– POST ä¼ å…¥çš„å€¼ã€‚
+		/// </summary>
+		/// <returns></returns>
+		public static T GetQuery<T>(string key, T defaultValue) {
+			string val = GetRouteValue<string>(key, null);
+			if (string.IsNullOrEmpty(val)) val = HttpContext.Current.Request.QueryString[key];
+			if (string.IsNullOrEmpty(val)) val = HttpContext.Current.Request.Form[key];
+			return string.IsNullOrEmpty(val) ? defaultValue : ConvertKit.ConvertValue<T>(val, defaultValue);
+		}
+
+		/// <summary>
+		/// åŒæ—¶è·å– GET å’Œ POST æ–¹æ³•ä¼ å…¥çš„å€¼æ•°ç»„ã€‚
 		/// </summary>
 		/// <returns></returns>
 		public static NameValueCollection GetQueryArray()
 		{
-			NameValueCollection collection = new NameValueCollection();
-			collection.Add(HttpContext.Current.Request.QueryString);
-			collection.Add(HttpContext.Current.Request.Form);
+			NameValueCollection collection = new NameValueCollection {
+				HttpContext.Current.Request.QueryString,
+				HttpContext.Current.Request.Form,
+				GetRouteDataArray()
+			};
 			return collection;
 		}
 
