@@ -14,6 +14,14 @@ namespace NPiculet.Logic.Data
 	{
 		#region 返回数据集
 
+		/// <summary>
+		/// 根据实体类查询并返回数据集
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="whereString"></param>
+		/// <param name="orderBy"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public DataTable Query<T>(string whereString = null, string orderBy = null, params IDbDataParameter[] parms) where T : IModel, new()
 		{
 			using (IDbHelper db = DbHelper.Create()) {
@@ -27,6 +35,16 @@ namespace NPiculet.Logic.Data
 			}
 		}
 
+		/// <summary>
+		/// 根据实体类查询并返回数据集
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="curPage"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="whereString"></param>
+		/// <param name="orderBy"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public DataTable Query<T>(int curPage, int pageSize = 10, string whereString = null, string orderBy = null, params IDbDataParameter[] parms) where T : IModel, new()
 		{
 			using (IDbHelper db = DbHelper.Create()) {
@@ -42,6 +60,12 @@ namespace NPiculet.Logic.Data
 			}
 		}
 
+		/// <summary>
+		/// 查询 SQL 语句
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public DataTable QuerySql(string sql, params IDbDataParameter[] parms)
 		{
 			using (IDbHelper db = DbHelper.Create()) {
@@ -53,6 +77,13 @@ namespace NPiculet.Logic.Data
 
 		#region 返回实体类
 
+		/// <summary>
+		/// 查询单实体类
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="whereString"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public T QueryModel<T>(string whereString, params IDbDataParameter[] parms) where T : IModel, new()
 		{
 			using (IDbHelper db = DbHelper.Create()) {
@@ -72,6 +103,16 @@ namespace NPiculet.Logic.Data
 			}
 		}
 
+		/// <summary>
+		/// 查询实体集合
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="curPage"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="whereString"></param>
+		/// <param name="orderBy"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public List<T> QueryList<T>(int curPage, int pageSize = 10, string whereString = null, string orderBy = null, params IDbDataParameter[] parms) where T : IModel, new()
 		{
 			using (IDbHelper db = DbHelper.Create()) {
@@ -98,6 +139,14 @@ namespace NPiculet.Logic.Data
 			}
 		}
 
+		/// <summary>
+		/// 查询实体集合
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="whereString"></param>
+		/// <param name="orderBy"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
 		public List<T> QueryList<T>(string whereString, string orderBy = null, params IDbDataParameter[] parms) where T : IModel, new()
 		{
 			using (IDbHelper db = DbHelper.Create()) {
@@ -122,7 +171,14 @@ namespace NPiculet.Logic.Data
 			}
 		}
 
-		public List<T> QueryList<T>(string sql, params IDbDataParameter[] parms) where T : IModel, new()
+		/// <summary>
+		/// 根据 SQL 预计查询的结果填充实体集合
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="sql"></param>
+		/// <param name="parms"></param>
+		/// <returns></returns>
+		public List<T> QueryListBySql<T>(string sql, params IDbDataParameter[] parms) where T : IModel, new()
 		{
 			using (IDbHelper db = DbHelper.Create()) {
 				List<T> list = new List<T>();

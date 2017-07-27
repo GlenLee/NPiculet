@@ -2,6 +2,7 @@
 <%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc1" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="header">
+	<link href="../../styles/sui/css/sui-append.min.css" rel="stylesheet" />
 	<style type="text/css">
 		.org-list table { width:100%; }
 		.org-list table td { width:20%; }
@@ -125,7 +126,7 @@
 						</asp:RadioButtonList>
 					</td>
 					<td class="th">生日</td>
-					<td class="td"><asp:TextBox ID="Birthday" runat="server" CssClass="easyui-datebox" Width="200px" MaxLength="32"></asp:TextBox></td>
+					<td class="td"><asp:TextBox ID="Birthday" runat="server" CssClass="input-large input-date calendar" Width="200px" MaxLength="32"></asp:TextBox></td>
 				</tr>
 				<tr>
 					<td class="th">住址</td>
@@ -144,9 +145,9 @@
 						<asp:TextBox ID="QQ" runat="server" CssClass="input-large" Width="200px" MaxLength="16"></asp:TextBox>
 						<asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="QQ" Display="Dynamic" ErrorMessage="格式不正确" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
 					</td>
-					<td class="th">教育程度</td>
+					<td class="th">积分</td>
 					<td class="td">
-						<asp:TextBox ID="Education" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+						<asp:TextBox ID="PointCurrent" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
 					</td>
 					<td colspan="2"></td>
 				</tr>
@@ -180,4 +181,7 @@
 		</blockquote>
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
+	<script>
+		$('.calendar').datepicker({ size: "small" });
+	</script>
 </asp:Content>

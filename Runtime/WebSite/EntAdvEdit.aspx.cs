@@ -66,7 +66,7 @@ public partial class EntAdvEdit : MemberPage
 				if (f.Exists) f.Delete();
 			}
 			//更新新图
-			model.Image = FileKit.SaveThumbnailImage(this.AdvImage.PostedFile, 1024, 1024);
+			model.Image = FileWebKit.SaveThumbnailImage(this.AdvImage.PostedFile, 1024, 1024);
 		}
 		if (this.Id.Value == "0")
 		{

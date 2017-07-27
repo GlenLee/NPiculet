@@ -16,7 +16,7 @@ namespace modules.info
 		{
 			if (!Page.IsPostBack)
 			{
-				this.Id.Value = WebParmKit.GetRequestString("key", 0).ToString();
+				this.Id.Value = WebParmKit.GetQuery("key", 0).ToString();
 				BindData();
 			}
 		}
@@ -49,7 +49,7 @@ namespace modules.info
 					if (f.Exists) f.Delete();
 				}
 				//更新新图
-				model.Image = FileKit.SaveThumbnailImage(this.AdvImage.PostedFile, 1024, 1024);
+				model.Image = FileWebKit.SaveZoomImage(this.AdvImage.PostedFile, 1024, 1024);
 			}
 
 			if (this.Id.Value == "0")

@@ -61,7 +61,7 @@ public partial class modules_member_EntMemberExp : AdminPage
 					var detail = new sys_action_detail();
 					detail.ActionId = log.Id;
 					detail.FieldCode = "Image";
-					detail.NewValue = FileKit.SaveFile(this.photo.PostedFile);
+					detail.NewValue = FileWebKit.SaveFile(this.photo.PostedFile);
 					db.sys_action_detail.Add(detail);
 					db.SaveChanges();
 				}

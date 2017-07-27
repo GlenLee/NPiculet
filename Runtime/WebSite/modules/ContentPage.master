@@ -14,8 +14,8 @@
     <form id="frm" runat="server" class="sui-form">
         <div class="ui-nav">
             <ul class="sui-breadcrumb">
-                <li><a>首页</a></li>
-                <li><a><%= GetTitle() %></a></li>
+                <li>首页</li>
+                <li><%= GetTitle() %></li>
             </ul>
         </div>
         <div class="ui-content-box">
@@ -26,7 +26,6 @@
             <!-- 内容 -->
             <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
         </div>
-    <asp:ContentPlaceHolder ID="baiduMap" runat="server"></asp:ContentPlaceHolder>
     </form>
 
 </body>

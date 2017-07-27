@@ -28,7 +28,10 @@
 				<table class="sui-table table-primary">
 					<tr>
 						<td class="th">编码</td>
-						<td class="td"><asp:TextBox ID="GroupCode" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox></td>
+						<td class="td">
+							<asp:TextBox ID="GroupCode" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+							<span class="caption">（若不指定，将随机生成一个）</span>
+						</td>
 					</tr>
 					<tr>
 						<td class="th">名称</td>

@@ -86,7 +86,7 @@ namespace NPiculet.Logic.Business
 					}
 
 					//上传并返回相对路径
-					filepath = FileKit.SaveFile(hpf);
+					filepath = FileWebKit.SaveFile(hpf);
 
 					//保存到数据表
 					var att = exist ?? new bas_attachment();
@@ -260,7 +260,7 @@ namespace NPiculet.Logic.Business
 						}
 
 						//上传并返回相对路径
-						string filepath = FileKit.SaveFile(hpf);
+						string filepath = FileWebKit.SaveFile(hpf);
 
 						//保存到数据表
 						att.Name = hpf.FileName;

@@ -9,11 +9,15 @@ using System.Web.UI.WebControls;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
+using NPiculet.Logic.Base;
 
-public partial class modules_info_InfoPageList : System.Web.UI.Page
+public partial class modules_info_InfoPageList : AdminPage
 {
 	[Category("业务参数"), Browsable(true), Description("栏目编码")]
-	public string GroupCode { get { return WebParmKit.GetRequestString("code", ""); } }
+	public string GroupCode { get { return WebParmKit.GetQuery("code", ""); } }
+
+	private readonly CmsContentGroupBus _gbus = new CmsContentGroupBus();
+	private readonly CmsContentPageBus _bus = new CmsContentPageBus();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -28,8 +32,6 @@ public partial class modules_info_InfoPageList : System.Web.UI.Page
 		};
 	}
 
-	private readonly CmsContentPageBus _bus = new CmsContentPageBus();
-
 	private void BindData(int pageIndex)
 	{
 		string whereString, code = GroupCode;
@@ -38,11 +40,16 @@ public partial class modules_info_InfoPageList : System.Web.UI.Page
 		} else {
 			whereString = "GroupCode='" + code + "'";
 		}
+
+		var g = _gbus.QueryModel(whereString);
+		if (g != null)
+			this.Title = g.GroupName;
+
 		if (string.IsNullOrEmpty(whereString)) {
 			int count = _bus.RecordCount(whereString);
 			this.NPager1.RecordCount = count;
 
-			DataTable dt = _bus.Query(pageIndex, this.NPager1.PageSize, whereString, "CreateDate DESC");
+			DataTable dt = _bus.Query(pageIndex, this.NPager1.PageSize, "GroupCode='" + g.GroupCode + "'", "CreateDate DESC");
 
 			this.list.DataSource = dt.DefaultView;
 			this.list.DataBind();

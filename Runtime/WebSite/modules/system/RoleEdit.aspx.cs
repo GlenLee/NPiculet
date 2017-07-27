@@ -23,7 +23,7 @@ public partial class modules_system_RoleEdit : AdminPage
 
 	private void BindData()
 	{
-		var dataId = WebParmKit.GetRequestString("key", 0);
+		var dataId = WebParmKit.GetQuery("key", 0);
 		if (dataId > 0) {
 			var model = _bus.QueryModel("Id=" + dataId);
 			if (model != null) {

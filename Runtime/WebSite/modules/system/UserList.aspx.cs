@@ -33,14 +33,11 @@ public partial class system_Admin_UserList : AdminPage
 		if (!string.IsNullOrEmpty(key))
 			whereString += string.Format(" and (Account LIKE '%{0}%' or Name LIKE '%{0}%')", key);
 
-		if (!string.IsNullOrEmpty(this.ddlType.SelectedValue))
-			whereString += string.Format(" and Type={0}", this.ddlType.SelectedValue);
-
 		int count = _bus.RecordCount(whereString);
 		this.NPager1.PageSize = 10;
 		this.NPager1.RecordCount = count;
 
-		DataTable dt = _bus.Query(this.NPager1.CurrentPage, this.NPager1.PageSize, whereString, "OrderBy, CreateDate DESC");
+		DataTable dt = _bus.GetUserList(this.NPager1.CurrentPage, this.NPager1.PageSize, whereString, "OrderBy, CreateDate DESC");
 
 		this.list.DataSource = dt.DefaultView;
 		this.list.DataBind();
@@ -66,15 +63,4 @@ public partial class system_Admin_UserList : AdminPage
     {
 		BindData();
     }
-
-	protected string GetTypeString()
-	{
-		var type = ConvertKit.ConvertValue(Eval("Type"), -1);
-		switch (type) {
-			case 0: return "企业用户";
-			case 1: return "协会会员";
-			default:
-				return string.Empty;
-		}
-	}
 }

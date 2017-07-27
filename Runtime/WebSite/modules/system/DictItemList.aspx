@@ -1,11 +1,12 @@
 ﻿<%@ Page Title="字典数据管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" CodeFile="DictItemList.aspx.cs" Inherits="modules_system_DictItemList" %>
+<%@ Import Namespace="NPiculet.Toolkit" %>
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
 			<li>
-				<a href="DictItemEdit.aspx?group=<%= Request.QueryString["group"] %>&fix=<%= Request.QueryString["fix"] %>">
+				<a href="DictItemEdit.aspx?group=<%= WebParmKit.GetQuery("group", "") %>&fix=<%= WebParmKit.GetQuery("fix", "") %>">
 					<i class="sui-icon icon-tb-add"></i>新增
 				</a>
 			</li>
@@ -49,7 +50,7 @@
 			<asp:TemplateField HeaderText="操作">
 				<HeaderStyle Width="100px" />
 				<ItemTemplate>
-					<a href="DictItemEdit.aspx?key=<%# Eval("Id") %>&group=<%= Request.QueryString["group"] %>&fix=<%= Request.QueryString["fix"] %>">编辑</a> |
+					<a href="DictItemEdit.aspx?key=<%# Eval("Id") %>&group=<%= WebParmKit.GetQuery("group", "") %>&fix=<%= WebParmKit.GetQuery("fix", "") %>">编辑</a> |
 					<asp:LinkButton ID="btnDel" runat="server" CommandName="Delete" OnClientClick="return confirm('确定要删除吗？');">删除</asp:LinkButton>
 				</ItemTemplate>
 			</asp:TemplateField>

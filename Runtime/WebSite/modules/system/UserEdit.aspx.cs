@@ -30,7 +30,7 @@ public partial class system_Admin_UserEdit : AdminPage
 
 	private void BindData()
 	{
-		var userId = WebParmKit.GetRequestString("key", 0);
+		var userId = WebParmKit.GetQuery("key", 0);
 		if (userId > 0) {
 			var model = _userBus.QueryModel("Id=" + userId);
 			if (model != null) {

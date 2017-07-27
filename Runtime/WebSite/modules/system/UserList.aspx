@@ -5,8 +5,8 @@
 	<div class="tools">
 		<ul class="toolbar">
 			<li><a href="UserEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
-			<li><asp:LinkButton runat="server" ID="btnDel"><i class="sui-icon icon-tb-delete"></i>删除</asp:LinkButton></li>
-			<li><asp:LinkButton runat="server" ID="btnResetPass"><i class="sui-icon icon-tb-edit"></i>重设密码</asp:LinkButton></li>
+			<%--<li><asp:LinkButton runat="server" ID="btnDel"><i class="sui-icon icon-tb-delete"></i>删除</asp:LinkButton></li>
+			<li><asp:LinkButton runat="server" ID="btnResetPass"><i class="sui-icon icon-tb-edit"></i>重设密码</asp:LinkButton></li>--%>
 		</ul>
 	</div>
 </asp:Content>
@@ -16,14 +16,6 @@
 		<li>
 			<table class="admin-search-table">
 				<tr>
-					<td>类型</td>
-					<td>
-						<asp:DropDownList runat="server" ID="ddlType" CssClass="scinput">
-							<asp:ListItem Value="">全部</asp:ListItem>
-							<asp:ListItem Value="0">企业用户</asp:ListItem>
-							<asp:ListItem Value="1">协会会员</asp:ListItem>
-						</asp:DropDownList>
-					</td>
 					<td>关键字</td>
 					<td>
 						<asp:TextBox ID="txtKeywords" runat="server"></asp:TextBox>
@@ -41,10 +33,6 @@
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
-			<asp:TemplateField HeaderText="类型">
-				<HeaderStyle Width="80px" />
-				<ItemTemplate><%# GetTypeString() %></ItemTemplate>
-			</asp:TemplateField>
 			<asp:BoundField DataField="Account" HeaderText="帐号">
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
@@ -52,6 +40,9 @@
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="Name" HeaderText="姓名" />
+			<asp:BoundField DataField="PointCurrent" HeaderText="积分">
+				<HeaderStyle Width="60px" />
+			</asp:BoundField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" HeaderText="创建时间">
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>

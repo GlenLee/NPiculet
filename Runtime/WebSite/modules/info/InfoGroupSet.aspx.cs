@@ -5,11 +5,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Data;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
+using NPiculet.Logic.Base;
 
-public partial class modules_info_InfoGroupSet : System.Web.UI.Page
+public partial class modules_info_InfoGroupSet : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -101,18 +103,87 @@ public partial class modules_info_InfoGroupSet : System.Web.UI.Page
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = new CmsContentGroup();
-			BindKit.FillModelFromContainer(this.editor, data);
 
-			if (this.Id.Value == "") {
-				_bus.Insert(data);
-			} else {
-				_bus.Update(data, null);
+			//自动创建随机编码
+			if (string.IsNullOrWhiteSpace(this.GroupCode.Text)) {
+				this.GroupCode.Text = StringKit.GetRandomStringByNumber(6);
 			}
 
-			ClearControls();
+			bool upload;
 
-			BindData();
+			if (this.Id.Value == "") {
+				upload = CreateNewData();
+			} else {
+				var data = _bus.GetGroup(ConvertKit.ConvertValue(this.Id.Value, 0));
+				if (data == null) {
+					upload = CreateNewData();
+				} else {
+					upload = UpdateCurrentData(data);
+				}
+			}
+
+			if (upload) {
+				ClearControls();
+				BindData();
+			}
+		}
+	}
+
+	/// <summary>
+	/// 更新当前数据
+	/// </summary>
+	/// <param name="data"></param>
+	private bool UpdateCurrentData(CmsContentGroup data) {
+		string oldGroupCode = data.GroupCode;
+
+		BindKit.FillModelFromContainer(this.editor, data);
+
+		//更新字典数据
+		if (data.PropertyChangedList.Contains("GroupCode")) {
+			if (VerifyExistGroupCode(data.GroupCode, data)) {
+				this.AlertLayer("编码已存在，请更换编码！");
+				return false;
+			}
+			DbHelper.Execute("UPDATE " + new CmsContentPage().TableName + " SET GroupCode=@GroupCode WHERE GroupCode=@OldGroupCode"
+				, DbHelper.CreateParameter("OldGroupCode", oldGroupCode)
+				, DbHelper.CreateParameter("GroupCode", data.GroupCode));
+				}
+
+		_bus.Update(data, null);
+		return true;
+	}
+
+	/// <summary>
+	/// 创建一条新数据
+	/// </summary>
+	private bool CreateNewData() {
+		var data = new CmsContentGroup();
+		if (!VerifyExistGroupCode(this.GroupCode.Text, data)) {
+			BindKit.FillModelFromContainer(this.editor, data);
+			_bus.Insert(data);
+			return true;
+		} else {
+			this.AlertLayer("编码已存在，请更换编码！");
+			return false;
+		}
+	}
+
+	/// <summary>
+	/// 验证编码是否存在
+	/// </summary>
+	/// <param name="groupCode"></param>
+	/// <param name="currentGroup"></param>
+	/// <returns></returns>
+	private bool VerifyExistGroupCode(string groupCode, CmsContentGroup currentGroup) {
+		var list = _bus.QueryList<CmsContentGroup>("GroupCode=@GroupCode", null, DbHelper.CreateParameter("GroupCode", groupCode));
+		if (list.Count == 0) {
+			return false;
+		} else {
+			//如果是对象本身，认为不存在
+			foreach (CmsContentGroup group in list) {
+				if (group.Id == currentGroup.Id) return false;
+			}
+			return true;
 		}
 	}
 

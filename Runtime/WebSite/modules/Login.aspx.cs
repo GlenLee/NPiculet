@@ -38,7 +38,7 @@ public partial class modules_Login : System.Web.UI.Page
         var user = LoginKit.AdminExist(account, pwd);
         if (user != null && user.Type == 0) {
             LoginKit.AdminLogin(user);
-            string url = WebParmKit.GetRequestString("url", "");
+            string url = WebParmKit.GetQuery("url", "");
             if (!string.IsNullOrEmpty(url))
             {
                 Response.Redirect(url);

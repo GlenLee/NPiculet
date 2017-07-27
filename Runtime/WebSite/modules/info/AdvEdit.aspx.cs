@@ -13,7 +13,7 @@ namespace modules.info
 		{
 			if (Page.IsPostBack) 
 				return;
-			this.Id.Value = WebParmKit.GetRequestString("key", 0).ToString();
+			this.Id.Value = WebParmKit.GetQuery("key", 0).ToString();
 			BindType();
 			BindData();
 		}
@@ -52,9 +52,9 @@ namespace modules.info
 						var f = new FileInfo(Server.MapPath(this.PreviewImage.ImageUrl));
 						if (f.Exists) f.Delete();
 					}
-                    //更新新图
-                    //model.Image = FileKit.SaveThumbnailImage(this.AdvImage.PostedFile, 1024, 1024);
-                    model.Image = FileKit.SaveFile(this.AdvImage.PostedFile);
+					//更新新图
+					model.Image = FileWebKit.SaveZoomImage(this.AdvImage.PostedFile, 1200);
+					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
                 }
 
 				if (this.Id.Value == "0") {

@@ -1,32 +1,14 @@
 ﻿<%@ Page Title="字典数据管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="DictItemEdit.aspx.cs" Inherits="modules_system_DictItemEdit" %>
-
+<%@ Import Namespace="NPiculet.Toolkit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="uc1" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="header">
-	<script src="../../scripts/colpick.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		//		$(document).ready(function () {
-		//			var colorPicker = $('#<%= this.Value.ClientID %>');
-		//			colorPicker.colpick({
-		//				layout: 'hex',
-		//				submit: 0,
-		//				onChange: function (hsb, hex, rgb, el, bySetColor) {
-		//					$(el).css('border-color', '#' + hex);
-		//					if (!bySetColor) $(el).val('#' + hex);
-		//				}
-		//			}).keyup(function () {
-		//				$(this).colpickSetColor(this.value.replace('#', ''));
-		//			}).click(function () {
-		//				$(this).colpickSetColor(this.value.replace('#', ''));
-		//			}).colpickSetColor(colorPicker.val().replace('#', ''));
-		//		});
-	</script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="DictItemList.aspx?group=<%= Request.QueryString["group"] %>&fix=<%= Request.QueryString["fix"] %>"><i class="sui-icon icon-tb-back"></i>返回</a></li>
+			<li><a href="DictItemList.aspx?group=<%= WebParmKit.GetQuery("group", "") %>&fix=<%= WebParmKit.GetQuery("fix", "") %>"><i class="sui-icon icon-tb-back"></i>返回</a></li>
 			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
 		</ul>
 	</div>

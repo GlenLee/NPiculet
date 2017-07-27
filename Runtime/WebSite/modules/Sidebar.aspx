@@ -52,7 +52,7 @@
 					$(this).next('.menuson').slideDown();
 				}
 			});
-			var colors = ['#DD4F51', '#3FBD75', '#F06A40', '#999999', '#A6676A'];
+			var colors = ['#bbb'];
 			$('.menuson').each(function (mi, m) {
 				if (mi === 0) {
 					$(m).show();

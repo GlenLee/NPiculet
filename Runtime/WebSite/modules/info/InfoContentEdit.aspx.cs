@@ -14,10 +14,10 @@ using NPiculet.Toolkit;
 public partial class modules_info_InfoContentEdit : AdminPage
 {
 	[Category("业务参数"), Browsable(true), Description("栏目编码")]
-	public string GroupCode { get { return WebParmKit.GetRequestString("code", ""); } }
+	public string GroupCode { get { return WebParmKit.GetQuery("code", ""); } }
 
 	[Category("业务参数"), Browsable(true), Description("栏目类型")]
-	public string GroupType { get { return WebParmKit.GetRequestString("type", ""); } }
+	public string GroupType { get { return WebParmKit.GetQuery("type", ""); } }
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -65,7 +65,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			whereString = "GroupCode='" + code + "'";
 		}
 
-		int dataId = WebParmKit.GetRequestString("key", 0);
+		int dataId = WebParmKit.GetQuery("key", 0);
 		if (dataId > 0) {
 			whereString += " and Id=" + dataId;
 
@@ -101,7 +101,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				//更新新图
 				if (this.Thumb.PostedFile.ContentLength > 0) {
 					if (FileKit.IsImage(this.Thumb.PostedFile.FileName)) {
-						model.Thumb = FileKit.SaveZoomImage(this.Thumb.PostedFile, 1024, 1024);
+						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, 1200);
 					} else {
 						this.Alert("您上传的不是图片！");
 					}

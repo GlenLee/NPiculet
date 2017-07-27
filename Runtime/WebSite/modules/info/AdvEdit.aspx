@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="AdvEdit.aspx.cs" Inherits="modules.info.AdvEdit" %>
+﻿<%@ Page Title="宣传编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="AdvEdit.aspx.cs" Inherits="modules.info.AdvEdit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">

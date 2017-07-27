@@ -61,7 +61,7 @@ public partial class modules_news_NewsEdit : AdminPage
 					if (f.Exists) f.Delete();
 				}
 				//更新新图
-				model.Thumb = FileKit.SaveZoomImage(this.Thumb.PostedFile, 1024, 1024);
+				model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, 1024, 1024);
 			}
 
 			if (this.Id.Value == "") {

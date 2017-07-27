@@ -29,7 +29,7 @@ public partial class modules_Header : AdminPage
 		return menuString;
 	}
 
-	protected string GetPlatformName()
+	protected string GetWebSiteName()
 	{
 		string pname = new ConfigManager().GetWebConfig("PlatformName");
 		return string.IsNullOrEmpty(pname) ? "管理后台" : pname;

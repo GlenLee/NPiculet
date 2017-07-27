@@ -110,6 +110,22 @@ public partial class System_MenuSet : AdminPage
 		return (parentId == 0 && rootId == 0) ? Convert.ToInt32(this.Id.Value) : rootId;
 	}
 
+	/// <summary>
+	/// 处理“栏目”所属
+	/// </summary>
+	/// <param name="data"></param>
+	private void ProcessBelong(ref SysMenu data)
+	{
+		switch (data.Belong) {
+			case 2:
+				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
+				break;
+			case 3:
+				data.Code = this.DictList.SelectedValue;
+				break;
+		}
+	}
+
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
@@ -117,9 +133,7 @@ public partial class System_MenuSet : AdminPage
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
-			if (data.Belong == 2) {
-				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
-			}
+			ProcessBelong(ref data);
 
 			if (this.Id.Value == "") {
 				data.ParentId = 0;
@@ -151,9 +165,7 @@ public partial class System_MenuSet : AdminPage
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
-			if (data.Belong == 2) {
-				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
-			}
+			ProcessBelong(ref data);
 
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 			data.RootId = GetRootId();
@@ -179,9 +191,7 @@ public partial class System_MenuSet : AdminPage
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
-			if (data.Belong == 2) {
-				data.Code = this.InfoGroupCategory.SelectedValue + "," + this.InfoGroupList.SelectedValue;
-			}
+			ProcessBelong(ref data);
 
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 			data.RootId = GetRootId();
@@ -223,15 +233,20 @@ public partial class System_MenuSet : AdminPage
 		if (data != null) {
 			BindKit.BindModelToContainer(this.editor, data);
 
-			//处理“栏目”所属
-			if (data.Belong == 2) {
-				//data.Code = this.InfoGroupList.SelectedValue + "," + this.InfoPageList.SelectedValue;
-				string[] belongs = !string.IsNullOrWhiteSpace(data.Code) && data.Code.IndexOf(",") > -1 ? data.Code.Split(',') : null;
-				if (belongs != null) {
-					string categoryId = belongs[0], groupId = belongs[1];
-					BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
-					BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
-				}
+			//获取数据时，处理“栏目”所属
+			switch (data.Belong) {
+				case 2:
+					//data.Code = this.InfoGroupList.SelectedValue + "," + this.InfoPageList.SelectedValue;
+					string[] belongs = !string.IsNullOrWhiteSpace(data.Code) && data.Code.IndexOf(",") > -1 ? data.Code.Split(',') : null;
+					if (belongs != null) {
+						string categoryId = belongs[0], groupId = belongs[1];
+						BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
+						BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
+					}
+					break;
+				case 3:
+					BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, data.Code, true);
+					break;
 			}
 
 			this.CurName.Text = data.Name;

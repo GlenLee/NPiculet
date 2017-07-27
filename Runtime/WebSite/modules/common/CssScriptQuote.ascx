@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="CssScriptQuote.ascx.cs" Inherits="modules_common_CssScriptQuote" %>
+<!--[if lt IE 9]><script src="<%= ResolveClientUrl("~/scripts/html5shiv/html5shiv.min.js") %>/"></script><![endif]-->
 <link href="<%= ResolveClientUrl("~/styles/fonts/font-awesome.min.css") %>" rel="stylesheet" type="text/css" />
 <link href="<%= ResolveClientUrl("~/styles/sui/css/sui.min.css") %>" rel="stylesheet" type="text/css" />
 <link href="<%= ResolveClientUrl("~/styles/admin.css") %>" rel="stylesheet" type="text/css" />

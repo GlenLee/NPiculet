@@ -39,7 +39,7 @@ public partial class modules_system_DictItemEdit : AdminPage
 
 	private void BindData()
 	{
-		int Id = WebParmKit.GetRequestString("key", 0);
+		int Id = WebParmKit.GetQuery("key", 0);
 		if (Id > 0) {
 			var model = _bus.QueryModel("Id=" + Id);
 			if (model != null) {

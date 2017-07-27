@@ -29,9 +29,9 @@ public partial class modules_system_AuthSet : AdminPage
 	/// </summary>
 	private void BindTargetData()
 	{
-		string moduleName = WebParmKit.GetRequestString("m", "");
-		int dataId = WebParmKit.GetRequestString("key", 0);
-		string pageUrl = WebParmKit.GetRequestString("p", "");
+		string moduleName = WebParmKit.GetQuery("m", "");
+		int dataId = WebParmKit.GetQuery("key", 0);
+		string pageUrl = WebParmKit.GetQuery("p", "");
 		
 		this.TargetType.Value = moduleName;
 		this.TargetId.Value = dataId.ToString();

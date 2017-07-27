@@ -171,6 +171,9 @@
     <Compile Include="EF\sys_admin_info.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\sys_app.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\sys_authorization.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>

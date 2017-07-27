@@ -18,13 +18,14 @@ public partial class modules_system_DictItemList : AdminPage
 		BindTableHeader();
 		//绑定数据
 		if (!Page.IsPostBack) {
-	        BindDictGroup();
+			BindDictGroup();
 
 			//获取字典分组
 			string group = WebParmKit.GetQuery("group", "");
 			string fix = WebParmKit.GetQuery("fix", "");
 			if (!string.IsNullOrEmpty(group)) {
 				this.ddlDictGroup.SelectedIndex = this.ddlDictGroup.Items.IndexOf(this.ddlDictGroup.Items.FindByValue(group));
+				this.Title = this.ddlDictGroup.SelectedItem.Text;
 			}
 			if (fix == "true") {
 				this.ddlDictGroup.Enabled = false;

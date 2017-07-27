@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksEdit.aspx.cs" Inherits="modules.info.LinksEdit" %>
+﻿<%@ Page Title="友链编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksEdit.aspx.cs" Inherits="modules.info.LinksEdit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">

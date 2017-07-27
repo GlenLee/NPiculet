@@ -1,0 +1,24 @@
+{
+	"routes": [
+		{
+			"name": "view",
+			"route": "View/{id}",
+			"url": "~/web/ContentView.aspx"
+		},
+		{
+			"name": "list",
+			"route": "List/{groupCode}",
+			"url": "~/web/ContentList.aspx"
+		},
+		{
+			"name": "web",
+			"route": "Web/{page}",
+			"url": "~/web/$1.aspx"
+		},
+		{
+			"name": "aboutus",
+			"route": "AboutUs",
+			"url": "~/web/AboutUs.aspx"
+		}
+	]
+}

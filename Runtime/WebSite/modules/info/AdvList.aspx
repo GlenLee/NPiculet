@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="AdvList.aspx.cs" Inherits="modules.info.AdvList" %>
+﻿<%@ Page Title="宣传管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="AdvList.aspx.cs" Inherits="modules.info.AdvList" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">
 </asp:Content>
