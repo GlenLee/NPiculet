@@ -1,9 +1,13 @@
-﻿html, body {
+﻿@import "less/lib.less";
+/* Init Variable */
+@base-color: #3b90dc;
+
+html, body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #F0F1F6;
+	background-color: #f7f7f7;
 }
 
 body {
@@ -17,7 +21,7 @@ body {
 .ui-nav {
 	margin: 15px;
 	border: 1px solid #ccc;
-	border-radius: 5px;
+	.radius(3px);
 	background-color: #fff;
 }
 
@@ -31,16 +35,14 @@ body {
 .sui-table.table-primary {
 	border-collapse: separate !important;
 	border: 0 !important;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
+	.radius(3px);
 	background-color: #fff;
 }
 
 .sui-table.table-primary th {
 	border: 1px solid #2A7BC4;
 	border-right: none;
-	background-color: #69f;
+	background-color: @base-color;
 }
 
 .sui-table.table-primary tbody:first-child tr:first-child th {
@@ -48,12 +50,12 @@ body {
 }
 
 .sui-table.table-primary tbody:first-child tr:first-child > th:first-child {
-	border-top-left-radius: 6px;
+	border-top-left-radius: 3px;
 }
 
 .sui-table.table-primary tbody:first-child tr:first-child > th:last-child {
 	border-right: 1px solid #2A7BC4;
-	border-top-right-radius: 6px;
+	border-top-right-radius: 3px;
 }
 
 .sui-table.table-primary td {
@@ -71,11 +73,11 @@ body {
 }
 
 .sui-table.table-primary tbody:last-child tr:last-child > td:first-child {
-	border-bottom-left-radius: 6px;
+	border-bottom-left-radius: 3px;
 }
 
 .sui-table.table-primary tbody:last-child tr:last-child > td:last-child {
-	border-bottom-right-radius: 6px;
+	border-bottom-right-radius: 3px;
 }
 
 .sui-table {
@@ -87,17 +89,6 @@ body {
 	text-align: right;
 }
 .sui-table .td {}
-
-/* pager */
-.npager ul li:first-child > a {
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-}
-
-.npager ul li:last-child > a {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
 
 /* bar */
 ul.searchbar-wrap, ul.searchbar-wrap li {
@@ -142,8 +133,8 @@ ul.searchbar-wrap li {
 }
 
 .searchbar-wrap input[type=submit], .admin-search-table input[type=submit], .searchbar-wrap a, .admin-search-table a {
-	background-color: #ea4a36;
-	border: 1px solid #ce4230;
+	background-color: #ff895b;
+	border: 1px solid #e97d56;
 	color: #fff;
 	border-radius: 2px;
 	box-sizing: border-box;
@@ -151,7 +142,7 @@ ul.searchbar-wrap li {
 	display: inline-block;
 	font-size: 12px;
 	line-height: 18px;
-	padding: 2px 14px 2px 10px;
+	padding: 2px 10px 2px 10px;
 	text-decoration: none;
 }
 
@@ -178,8 +169,8 @@ ul.toolbar li {
 }
 
 ul.toolbar li a {
-	background-color: #6699ff;
-	border: 1px solid #2a7bc4;
+	background-color: @base-color;
+	border: 1px solid @base-color;
 	color: #fff;
 	border-radius: 2px;
 	box-sizing: border-box;
@@ -197,4 +188,35 @@ ul.toolbar li a i {
 
 ul.toolbar li a:hover {
 	background-color: #66aaff;
+}
+
+/* Pager */
+.npager {
+	text-align: center;
+
+	ul {
+		margin: 0 auto;
+
+		li {
+			&.active a {
+				border-color: @base-color;
+				background-color: @base-color;
+			}
+
+			a {
+				color: @base-color;
+			}
+
+			&:first-child > a {
+				.radius-custom(3px, 0, 3px, 0);
+			}
+
+			&:last-child > a {
+				.radius-custom(0, 3px, 0, 3px);
+			}
+		}
+	}
+}
+.pagination-large ul > li > a, .pagination-large ul > li > span {
+	font-size: 12px;
 }
