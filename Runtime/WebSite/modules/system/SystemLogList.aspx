@@ -11,11 +11,7 @@
 	<div class="searchbar-wrap">
 		<asp:DropDownList runat="server" ID="ddlActionType" AutoPostBack="True" OnSelectedIndexChanged="ddlActionType_OnSelectedIndexChanged">
 			<asp:ListItem Value="">全部</asp:ListItem>
-			<asp:ListItem Value="SendVerifyCode">验证码 (SendVerifyCode)</asp:ListItem>
-			<asp:ListItem Value="SyncMember">同步会员 (SyncMember)</asp:ListItem>
 			<asp:ListItem Value="Login">后台登陆 (Login)</asp:ListItem>
-			<asp:ListItem Value="UpPhoneMoney">充值话费 (UpPhoneMoney)</asp:ListItem>
-			<asp:ListItem Value="Lotto">抽奖 (Lotto)</asp:ListItem>
 		</asp:DropDownList>
 	</div>
 </asp:Content>

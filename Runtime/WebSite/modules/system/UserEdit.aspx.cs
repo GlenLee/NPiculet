@@ -165,23 +165,46 @@ public partial class system_Admin_UserEdit : AdminPage
 	{
 		string target = WebParmKit.GetFormValue("__EVENTTARGET", "");
 		string argument = WebParmKit.GetFormValue("__EVENTARGUMENT", "");
-		switch (target) {
-			case "addOrg":
-				SysLinkUserOrgBus ubus = new SysLinkUserOrgBus();
-				string[] orgArgs = argument.Split(',');
-				foreach (string arg in orgArgs) {
-					ubus.Insert(new SysLinkUserOrg() { UserId = Convert.ToInt32(this.Id.Value), OrgId = int.Parse(arg) });
-				}
-				BindOrgList();
-				break;
-			case "addRole":
-				SysLinkUserRoleBus rbus = new SysLinkUserRoleBus();
-				string[] roleArgs = argument.Split(',');
-				foreach (string arg in roleArgs) {
-					rbus.Insert(new SysLinkUserRole() { UserId = Convert.ToInt32(this.Id.Value), RoleId = int.Parse(arg) });
-				}
-				BindRoleList();
-				break;
+		int uid = Convert.ToInt32(this.Id.Value);
+		if (uid > 0) {
+			switch (target) {
+				case "addOrg":
+					SysLinkUserOrgBus ubus = new SysLinkUserOrgBus();
+					string[] orgArgs = argument.Split(',');
+
+					DataTable udt = ubus.Query("UserId=" + uid);
+
+					foreach (string arg in orgArgs) {
+						bool doInsert = true;
+						foreach (DataRow dr in udt.Rows) {
+							string orgId = Convert.ToString(dr["OrgId"]);
+							if (orgId == arg) doInsert = false;
+						}
+						if (doInsert)
+							ubus.Insert(new SysLinkUserOrg() {UserId = uid, OrgId = int.Parse(arg)});
+					}
+
+					BindOrgList();
+					break;
+
+				case "addRole":
+					SysLinkUserRoleBus rbus = new SysLinkUserRoleBus();
+					string[] roleArgs = argument.Split(',');
+
+					DataTable rdt = rbus.Query("UserId=" + uid);
+
+					foreach (string arg in roleArgs) {
+						bool doInsert = true;
+						foreach (DataRow dr in rdt.Rows) {
+							string orgId = Convert.ToString(dr["RoleId"]);
+							if (orgId == arg) doInsert = false;
+						}
+						if (doInsert)
+							rbus.Insert(new SysLinkUserRole() { UserId = Convert.ToInt32(this.Id.Value), RoleId = int.Parse(arg) });
+					}
+					BindRoleList();
+					break;
+			}
 		}
 	}
 }

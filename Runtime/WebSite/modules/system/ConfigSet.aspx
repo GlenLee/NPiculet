@@ -58,7 +58,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="th">服务电话</td>
+				<td class="th">举报电话</td>
 				<td class="td">
 					<asp:TextBox ID="ServiceTel" runat="server" CssClass="input-large" Width="99%" MaxLength="255"></asp:TextBox>
 				</td>
@@ -76,9 +76,16 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="th">公司地址</td>
+				<td class="th">地址</td>
 				<td class="td">
 					<asp:TextBox ID="Address" runat="server" CssClass="input-large" Width="99%" MaxLength="255"></asp:TextBox>
+				</td>
+			</tr>
+			<tr>
+				<td class="th">发新闻积分</td>
+				<td class="td">
+					<asp:TextBox ID="NewsPoint" runat="server" CssClass="input-large" Width="99%" MaxLength="8"></asp:TextBox>
+					<div class="caption">注：发新闻后可以获得的积分</div>
 				</td>
 			</tr>
 		</table>

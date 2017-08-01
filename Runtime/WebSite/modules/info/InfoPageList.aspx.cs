@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
@@ -16,14 +17,9 @@ public partial class modules_info_InfoPageList : AdminPage
 	[Category("业务参数"), Browsable(true), Description("栏目编码")]
 	public string GroupCode { get { return WebParmKit.GetQuery("code", ""); } }
 
-	private readonly CmsContentGroupBus _gbus = new CmsContentGroupBus();
-	private readonly CmsContentPageBus _bus = new CmsContentPageBus();
-
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			this.NPager1.PageSize = 13;
-
 			BindData(1);
 		}
 
@@ -34,25 +30,38 @@ public partial class modules_info_InfoPageList : AdminPage
 
 	private void BindData(int pageIndex)
 	{
-		string whereString, code = GroupCode;
-		if (code.IsNumeric()) {
-			whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
-		} else {
-			whereString = "GroupCode='" + code + "'";
-		}
+		using (var db = new NPiculetEntities()) {
+			string code = GroupCode;
 
-		var g = _gbus.QueryModel(whereString);
-		if (g != null)
-			this.Title = g.GroupName;
+			cms_content_group cg;
 
-		if (string.IsNullOrEmpty(whereString)) {
-			int count = _bus.RecordCount(whereString);
-			this.NPager1.RecordCount = count;
+			if (code.IsNumeric()) {
+				int gid = Convert.ToInt32(code);
+				cg = (from g in db.cms_content_group
+					where g.Id == gid || g.GroupCode == code
+					select g).FirstOrDefault();
+			} else {
+				cg = (from g in db.cms_content_group
+					where g.GroupCode == code
+					select g).FirstOrDefault();
+			}
 
-			DataTable dt = _bus.Query(pageIndex, this.NPager1.PageSize, "GroupCode='" + g.GroupCode + "'", "CreateDate DESC");
+			if (cg != null) {
+				var query = (from p in db.cms_content_page
+					where p.GroupCode == cg.GroupCode
+					orderby p.OrderBy
+					select p);
 
-			this.list.DataSource = dt.DefaultView;
-			this.list.DataBind();
+				this.Title = cg.GroupName;
+
+				int count = query.Count();
+				this.NPager1.RecordCount = count;
+
+				var dt = query.Pagination(pageIndex, this.NPager1.PageSize).ToList();
+
+				this.list.DataSource = dt;
+				this.list.DataBind();
+			}
 		}
 	}
 
@@ -60,6 +69,7 @@ public partial class modules_info_InfoPageList : AdminPage
 	{
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
+				CmsContentPageBus _bus = new CmsContentPageBus();
 				string dataId = this.list.DataKeys[e.RowIndex]["Id"].ToString();
 				_bus.Delete("Id=" + dataId);
 			}

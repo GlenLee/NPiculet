@@ -14,8 +14,6 @@ public partial class modules_system_RoleList : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			this.NPager1.PageSize = 12;
-
 			BindData();
 		}
 

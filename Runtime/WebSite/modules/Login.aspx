@@ -15,38 +15,34 @@
 			color: #ffffff;
 			position: relative;
 		}
+		.login-title {
+			margin-top: 120px;
+			text-align: center;
+			font-family: Arial, "黑体";
+			font-size: 36px;
+			text-shadow: #00008b 1px 2px 0;
+		}
 		.login-screen {
 			position:relative;
 			width:580px;
 			margin:0 auto;
-			padding: 150px 0 30px 0;
+			padding: 30px 0 30px 0;
 		}
 		.login-icon {
 			position: absolute;
-			top: 160px;
-			left: 0;
-			width: 96px;
+			top: 60px;
+			left: 20px;
+			width: 120px;
 		}
 		.login-icon > img {
 			display: block;
 			margin-bottom: 6px;
 			width: 100%;
 		}
-		.login-icon > h4 {
-			font-size: 17px;
-			font-weight: 300;
-			line-height: 34px;
-			text-align: center;
-			opacity: .95;
-		}
-		h4, h5, h6 {
-			margin-top: 15px;
-			margin-bottom: 15px;
-		}
 		.login-form {
 			width: 320px;
 			background-color: #edeff1;
-			margin:0 0 0 140px;
+			margin:0 0 0 180px;
 			padding: 24px 23px 20px;
 			position: relative;
 			border-radius: 6px;
@@ -150,7 +146,7 @@
 	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
 	<%--<script src="js/cloud.js" type="text/javascript"></script>--%>
 	<script type="text/javascript">
-		if (window.top.location.href != window.location.href) {
+		if (window.top.location.href !== window.location.href) {
 			window.top.location.href = window.location.href;
 		}
 	</script>
@@ -161,10 +157,10 @@
 	<form id="frm" runat="server">
 
 		<div class="login">
+			<h1 class="login-title"><%= GetPlatformName() %></h1>
 			<div class="login-screen">
 				<div class="login-icon">
 					<img src="../images/logo.png" />
-					<h4><%= GetPlatformName() %></h4>
 				</div>
 
 				<div class="login-form">
@@ -178,7 +174,7 @@
 						<i class="sui-icon icon-tb-unlock"></i>
 					</div>
 
-					<asp:LinkButton ID="btnLogin" runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;" CssClass="btn-primary btn-lg flat-btn-block" OnClick="btnLogin_Click" />
+					<asp:Button ID="btnLogin" runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;" CssClass="btn-primary btn-lg flat-btn-block" OnClick="btnLogin_Click" />
 				</div>
 			</div>
 		</div>

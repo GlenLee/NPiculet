@@ -8,6 +8,7 @@
 	<style type="text/css">
 		.dialog-toolbar {padding:6px 4px;background-color:#3B90DC;}
 		.dialog-toolbar a { display:inline-block;padding:3px 10px;color:#fff;border:1px dotted #fff; }
+		section { both: clear; }
 	</style>
 	<asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
 </head>

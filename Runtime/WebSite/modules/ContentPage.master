@@ -6,28 +6,26 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="renderer" content="webkit|ie-stand|ie-comp" />
-    <title>AdminPage</title>
-    <uc:CssScriptQuote ID="CssScriptQuote1" runat="server" />
-    <asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
+	<title>AdminPage</title>
+	<uc:CssScriptQuote ID="CssScriptQuote1" runat="server" />
+	<asp:ContentPlaceHolder ID="header" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="frm" runat="server" class="sui-form">
-        <div class="ui-nav">
-            <ul class="sui-breadcrumb">
-                <li>首页</li>
-                <li><%= GetTitle() %></li>
-            </ul>
-        </div>
-        <div class="ui-content-box">
-            <!-- 搜索栏 -->
-            <asp:ContentPlaceHolder ID="searchbar" runat="server"></asp:ContentPlaceHolder>
-            <!-- 按钮工具条 -->
-            <asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
-            <!-- 内容 -->
-            <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
-        </div>
-    </form>
-
+<form id="frm" runat="server" class="sui-form">
+	<div class="ui-nav">
+		<ul class="sui-breadcrumb">
+			<li>首页</li>
+			<li><%= GetTitle() %></li>
+		</ul>
+	</div>
+	<div class="ui-content-box">
+		<!-- 搜索栏 -->
+		<asp:ContentPlaceHolder ID="searchbar" runat="server"></asp:ContentPlaceHolder>
+		<!-- 按钮工具条 -->
+		<asp:ContentPlaceHolder ID="toolbar" runat="server"></asp:ContentPlaceHolder>
+		<!-- 内容 -->
+		<asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
+	</div>
+</form>
 </body>
-
 </html>

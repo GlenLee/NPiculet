@@ -50,7 +50,7 @@ namespace NPiculet.Toolkit
 		/// <param name="regexStr">正则表达式</param>
 		/// <param name="replaceStr">替换结果的字符串</param>
 		/// <returns>替换完成的字符串</returns>
-		public static string Replace(this string str, string regexStr, string replaceStr) {
+		public static string ReplaceRegex(this string str, string regexStr, string replaceStr) {
 			Regex rx = new Regex(regexStr);
 			return rx.Replace(str, replaceStr);
 		}

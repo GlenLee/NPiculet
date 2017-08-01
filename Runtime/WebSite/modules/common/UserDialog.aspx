@@ -12,8 +12,8 @@
 		}
 	</script>
 	<style type="text/css">
-		.ui-dialog-org { position:absolute;top:0;bottom:0;left:0;width:30%; }
-		.ui-dialog-user { position:absolute;top:0;bottom:40%;right:0;width:70%; }
+		.ui-dialog-org { position:absolute;top:38px;bottom:0;left:0;width:30%; }
+		.ui-dialog-user { position:absolute;top:38px;bottom:40%;right:0;width:70%; }
 		.ui-dialog-selected { position:absolute;top:60%;bottom:0;right:0;width:70%; }
 		.wrap { width:100%;height:100%;overflow:auto; }
 		.ui-dialog-org, .ui-dialog-user, .ui-dialog-selected { }
@@ -45,7 +45,7 @@
 	<div class="ui-dialog-user">
 		<div class="wrap">
 
-			<asp:GridView runat="server" ID="list" AutoGenerateColumns="False" CssClass="ui-dialog-table">
+			<asp:GridView runat="server" ID="list" AutoGenerateColumns="False" CssClass="sui-table table-bordered-simple">
 				<Columns>
 					<asp:TemplateField HeaderText="序号">
 						<HeaderStyle Width="40px"></HeaderStyle>

@@ -8,6 +8,26 @@
 		.role-list table { width:100%; }
 		.role-list table td { width:20%; }
 	</style>
+	<script type="text/javascript">
+		var result;
+		function addUser() {
+			layer.open({
+				type: 2,
+				title: '选择组织机构',
+				shadeClose: true,
+				shade: false,
+				maxmin: true,
+				area: ['800px', '500px'],
+				content: '../common/UserDialog.aspx',
+				end: function () {
+					console.log(result);
+					if (result && result.length > 0) {
+						__doPostBack('addUsers', result);
+					}
+				}
+			});
+		}
+	</script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
@@ -45,18 +65,18 @@
 			</tr>
 		</table>
 		<asp:HiddenField ID="Id" runat="server" />
-		
+
 		<blockquote id="_userList" runat="server">
 			<div class="quote">
 				<h5>拥有用户</h5>
+				<span>
+					<a href="#" onclick="addUser();">添加</a>
+					<asp:LinkButton runat="server" ID="btnDelUser" Text="删除" onclick="btnDelUser_Click"></asp:LinkButton>
+				</span>
 				<div class="cr"></div>
 			</div>
-			<div class="content org-list">
-				<asp:DataList runat="server" ID="userList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6">
-					<ItemTemplate>
-						<%# Eval("Name") %>
-					</ItemTemplate>
-				</asp:DataList>
+			<div class="content role-list">
+				<asp:CheckBoxList runat="server" ID="userList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6"/>
 			</div>
 		</blockquote>
 	</asp:PlaceHolder>

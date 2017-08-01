@@ -12,7 +12,7 @@ using NPiculet.Toolkit;
 
 public partial class modules_system_DictItemList : AdminPage
 {
-    protected void Page_Load(object sender, EventArgs e)
+	protected void Page_Load(object sender, EventArgs e)
 	{
 		//修改表头
 		BindTableHeader();
@@ -39,7 +39,7 @@ public partial class modules_system_DictItemList : AdminPage
 		this.NPager1.PageClick += (o, args) => {
 			BindData();
 		};
-    }
+	}
 
 	private void BindTableHeader()
 	{
@@ -64,8 +64,8 @@ public partial class modules_system_DictItemList : AdminPage
 		this.ddlDictGroup.Items.Insert(0, new ListItem("全部", ""));
 	}
 
-    private void BindData()
-    {
+	private void BindData()
+	{
 		string whereString = "";
 		string key = this.txtKeywords.Text.FormatSqlParm();
 
@@ -75,36 +75,34 @@ public partial class modules_system_DictItemList : AdminPage
 			whereString += string.Format("(Name LIKE '%{0}%' OR Code LIKE '%{0}%')", key);
 		}
 
-	    int count = _bus.RecordCount(whereString);
+		int count = _bus.RecordCount(whereString);
 
-	    this.NPager1.PageSize = 10;
-	    this.NPager1.RecordCount = count;
+		this.NPager1.RecordCount = count;
 
 		this.list.DataSource = _bus.GetDictItemData(this.NPager1.CurrentPage, this.NPager1.PageSize, this.ddlDictGroup.SelectedValue, this.txtKeywords.Text);
 		this.list.DataBind();
 
-        BindKit.BindOnClientClick(this.list, "Delete", "return confirm('确定要删除吗？');");
-    }
+		BindKit.BindOnClientClick(this.list, "Delete", "return confirm('确定要删除吗？');");
+	}
 
-    protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-        if (e.RowIndex > -1)
-        {
-            if (this.list.DataKeys.Count > e.RowIndex){
-                string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
-                _bus.Delete("Id=" + id);
-            }
-            BindData();
-        }
-    }
+	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
+	{
+		if (e.RowIndex > -1) {
+			if (this.list.DataKeys.Count > e.RowIndex) {
+				string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
+				_bus.Delete("Id=" + id);
+			}
+			BindData();
+		}
+	}
 
 	protected string GetStatusString(string enabled)
 	{
 		return enabled == "1" ? "启用" : "停用";
 	}
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-	    BindData();
-    }
+	protected void btnSearch_Click(object sender, EventArgs e)
+	{
+		BindData();
+	}
 }

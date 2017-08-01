@@ -22,7 +22,8 @@ public partial class modules_common_OrgDialog : NormalPage
 			this.tree.ShowCheckBoxes = TreeNodeTypes.None;
 			this.tree.SelectedNodeChanged += Tree_SelectedNodeChanged;
 		} else {
-			this.tree.ShowCheckBoxes = TreeNodeTypes.Leaf;
+			//this.tree.ShowCheckBoxes = TreeNodeTypes.Leaf;
+			this.tree.ShowCheckBoxes = TreeNodeTypes.All;
 		}
 	}
 

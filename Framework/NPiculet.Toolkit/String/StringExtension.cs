@@ -56,7 +56,11 @@ namespace NPiculet.Toolkit
 		public static string Left(this string str, int len, string omission)
 		{
 			if (str.Length > len) {
-				return str.Substring(0, len) + omission;
+				if (len > omission.Length) {
+					return str.Substring(0, len - omission.Length) + omission;
+				} else {
+					return omission;
+				}
 			} else {
 				return str;
 			}

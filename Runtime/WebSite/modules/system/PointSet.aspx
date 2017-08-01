@@ -1,12 +1,10 @@
-﻿<%@ Page Title="用户管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="UserList.aspx.cs" Inherits="system_Admin_UserList" %>
+﻿<%@ Page Title="积分管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PointSet.aspx.cs" Inherits="modules_system_PointSet" %>
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="UserEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
-			<%--<li><asp:LinkButton runat="server" ID="btnDel"><i class="sui-icon icon-tb-delete"></i>删除</asp:LinkButton></li>
-			<li><asp:LinkButton runat="server" ID="btnResetPass"><i class="sui-icon icon-tb-edit"></i>重设密码</asp:LinkButton></li>--%>
+			<li><asp:LinkButton runat="server" ID="btnSave"><i class="sui-icon icon-tb-edit"></i>修改</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -28,8 +26,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id" CssClass="sui-table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
@@ -50,15 +47,13 @@
 				<HeaderStyle Width="60px" />
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>
 			</asp:TemplateField>
-			<asp:TemplateField HeaderText="操作">
+			<asp:TemplateField HeaderText="积分">
 				<HeaderStyle Width="140"></HeaderStyle>
 				<ItemTemplate>
-					<a href="AuthSet.aspx?key=<%# Eval("Id") %>&m=User&p=UserList.aspx" CssClass="btn btn-default" >授权</a> |
-					<a href="UserEdit.aspx?key=<%# Eval("Id") %>" CssClass="btn btn-default" >编辑</a> |
-					<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('确定要删除吗？');">删除</asp:LinkButton>
+					<asp:TextBox runat="server" ID="point"></asp:TextBox>
 				</ItemTemplate>
 			</asp:TemplateField>
 		</Columns>
 	</asp:GridView>
-	<cc1:NPager ID="NPager1" runat="server" PageSize="15" />
+	<cc1:NPager ID="NPager1" runat="server" />
 </asp:Content>

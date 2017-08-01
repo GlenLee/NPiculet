@@ -6,9 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.CMS.BusinessCustom;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
+using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 public partial class modules_info_InfoContentEdit : AdminPage
@@ -116,31 +118,16 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				whereString = "GroupCode='" + code + "'";
 			}
 
+			var entity = _pageBus.QueryModel(whereString);
+
 			if (this.GroupType.ToLower() == "content") {
 				model.Title = this.InfoTitle.Text;
 				if (!_pageBus.Update(model, whereString)) {
-					model.GroupCode = code;
-					model.CategoryId = 0;
-					model.Click = 0;
-					model.CreateDate = DateTime.Now;
-					model.IsEnabled = 1;
-					model.Author = this.CurrentUserName;
-					model.Id = _pageBus.InsertIdentity(model);
-					BindKit.BindModelToContainer(this.editor, model);
+					SaveNewData(model, entity);
 				}
 			} else {
 				if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
-					model.Title = this.InfoTitle.Text;
-					model.GroupCode = code;
-					model.CategoryId = 0;
-					model.Click = 0;
-					model.CreateDate = DateTime.Now;
-					model.IsEnabled = 1;
-					model.Author = this.CurrentUserName;
-
-					//_infoBus.Insert(model);
-					model.Id = _pageBus.InsertIdentity(model);
-					this.Id.Value = model.Id.ToString();
+					SaveNewData(model, entity);
 				} else {
 					model.Title = this.InfoTitle.Text;
 					_pageBus.Update(model, null);
@@ -148,6 +135,24 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			}
 			this.promptControl.ShowSuccess("保存成功！");
 		}
+	}
+
+	private void SaveNewData(CmsContentPage model, CmsContentPage entity)
+	{
+		model.Title = this.InfoTitle.Text;
+		model.GroupCode = entity.GroupCode;
+		model.CategoryId = 0;
+		model.Click = 0;
+		model.CreateDate = DateTime.Now;
+		model.IsEnabled = 1;
+		model.Author = this.CurrentUserName;
+		model.Id = _pageBus.InsertIdentity(model);
+		BindKit.BindModelToContainer(this.editor, model);
+
+		//保存日志和加积分
+		int point = ConvertKit.ConvertValue(new ConfigManager().GetWebConfig("NewsPoint"), 0);
+		var pbus = new CmsPointLogBus();
+		pbus.SavePointLog(this.CurrentUserId, model.Id, point, "增加积分");
 	}
 
 	private void ShowThumb(string thumbPath)

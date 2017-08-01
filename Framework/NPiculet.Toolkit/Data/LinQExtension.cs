@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Linq.Expressions;
 
 namespace System.Linq
 {
+	/// <summary>
+	/// 扩展 IQueryable 对象
+	/// </summary>
 	public static class IQueryableExtension
 	{
 		/// <summary>
@@ -19,7 +17,7 @@ namespace System.Linq
 		/// <returns></returns>
 		public static IQueryable<T> Pagination<T>(this IQueryable<T> query, int curPage, int pageSize)
 		{
-			return query.Skip(pageSize*(curPage - 1)).Take(pageSize);
+			return query.Skip(pageSize * (curPage - 1)).Take(pageSize);
 		}
 
 		/// <summary>

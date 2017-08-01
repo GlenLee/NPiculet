@@ -43,6 +43,6 @@
 			</asp:TemplateField>
 		</Columns>
 	</asp:GridView>
-	<cc1:NPager ID="NPager1" runat="server" />
+	<cc1:NPager ID="NPager1" runat="server" PageSize="15" />
 </asp:Content>
 

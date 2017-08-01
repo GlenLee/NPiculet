@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
+using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_RoleEdit : AdminPage
@@ -16,6 +17,8 @@ public partial class modules_system_RoleEdit : AdminPage
 		if (!Page.IsPostBack) {
 			BindData();
 			BindUserList();
+		} else {
+			EventProcess();
 		}
 	}
 
@@ -68,4 +71,42 @@ public partial class modules_system_RoleEdit : AdminPage
 		}
 	}
 
+	protected void btnDelUser_Click(object sender, EventArgs e) {
+		foreach (ListItem item in this.userList.Items) {
+			if (item.Selected) {
+				string whereString = "UserId=" + this.Id.Value + " and RoleId=" + item.Value;
+				new SysLinkUserRoleBus().Delete(whereString);
+			}
+		}
+		BindUserList();
+	}
+
+	private void EventProcess()
+	{
+		string target = WebParmKit.GetFormValue("__EVENTTARGET", "");
+		string argument = WebParmKit.GetFormValue("__EVENTARGUMENT", "");
+		int rid = Convert.ToInt32(this.Id.Value);
+		if (rid > 0) {
+			switch (target) {
+				case "addUsers":
+					SysLinkUserRoleBus ubus = new SysLinkUserRoleBus();
+					string[] orgArgs = argument.Split(',');
+
+					DataTable udt = ubus.Query("RoleId=" + rid);
+
+					foreach (string arg in orgArgs) {
+						bool doInsert = true;
+						foreach (DataRow dr in udt.Rows) {
+							string orgId = Convert.ToString(dr["UserId"]);
+							if (orgId == arg) doInsert = false;
+						}
+						if (doInsert)
+							ubus.Insert(new SysLinkUserRole() { RoleId = rid, UserId = int.Parse(arg) });
+					}
+
+					BindUserList();
+					break;
+			}
+		}
+	}
 }
