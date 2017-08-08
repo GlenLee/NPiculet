@@ -8,6 +8,7 @@ using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
 using NPiculet.Logic.Sys;
+using NPiculet.Toolkit;
 
 public partial class system_Admin_ConfigSet : AdminPage
 {
@@ -29,6 +30,18 @@ public partial class system_Admin_ConfigSet : AdminPage
 			if (tb != null) {
 				var val = GetControlValue(configs, tb.ID);
 				if (val != null) tb.Text = val;
+			}
+
+			CheckBox cb = control as CheckBox;
+			if (cb != null) {
+				var val = GetControlValue(configs, cb.ID);
+				if (val != null) cb.Enabled = val == "1";
+			}
+
+			DropDownList ddl = control as DropDownList;
+			if (ddl != null) {
+				var val = GetControlValue(configs, ddl.ID);
+				if (val != null) BindKit.SelectItemInSingleListControl(ddl, val, true);
 			}
 		}
 	}
@@ -53,6 +66,34 @@ public partial class system_Admin_ConfigSet : AdminPage
 					config.CreateDate = DateTime.Now;
 
 					if (!_bus.Update(config, "ConfigCode='" + tb.ID + "'")) {
+						_bus.Insert(config);
+					}
+				}
+
+				CheckBox cb = control as CheckBox;
+				if (cb != null) {
+					var config = _bus.CreateModel();
+					config.ConfigCode = cb.ID;
+					config.ConfigValue = cb.Checked ? "1" : "0";
+					config.IsEnabled = 1;
+					config.Creator = this.CurrentUserName;
+					config.CreateDate = DateTime.Now;
+
+					if (!_bus.Update(config, "ConfigCode='" + cb.ID + "'")) {
+						_bus.Insert(config);
+					}
+				}
+
+				DropDownList ddl = control as DropDownList;
+				if (ddl != null) {
+					var config = _bus.CreateModel();
+					config.ConfigCode = ddl.ID;
+					config.ConfigValue = ddl.SelectedValue;
+					config.IsEnabled = 1;
+					config.Creator = this.CurrentUserName;
+					config.CreateDate = DateTime.Now;
+
+					if (!_bus.Update(config, "ConfigCode='" + ddl.ID + "'")) {
 						_bus.Insert(config);
 					}
 				}

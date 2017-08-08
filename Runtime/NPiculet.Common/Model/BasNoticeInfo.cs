@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 
 	/// </summary>
+	[Serializable]
 	public partial class BasNoticeInfo : ModelBase
 	{
 		public override string TableName { get { return "bas_notice_info"; } }

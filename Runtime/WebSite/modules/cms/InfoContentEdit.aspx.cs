@@ -40,7 +40,6 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			}
 
 			BindData();
-
 			InitControl();
 		}
 	}
@@ -48,11 +47,12 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	/// <summary>
 	/// 初始化控件
 	/// </summary>
-	private void InitControl()
-	{
-		//if (WebParmKit.GetQuery("thumb", "") == "1") {
-			//this.pThumb.Visible = true;
-		//}
+	private void InitControl() {
+		if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
+			this.btnPublish.Visible = false;
+		} else {
+			this.btnPublish.Visible = true;
+		}
 	}
 
 	private readonly CmsContentGroupBus _groupBus = new CmsContentGroupBus();
@@ -62,12 +62,12 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	{
 		string whereString, code = GroupCode;
 		if (code.IsNumeric()) {
-			whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
+			whereString = "(GroupCode='" + code + "' or GroupCode IN (SELECT GroupCode FROM cms_content_group WHERE Id=" + code + "))";
 		} else {
 			whereString = "GroupCode='" + code + "'";
 		}
 
-		int dataId = WebParmKit.GetQuery("key", 0);
+		int dataId = WebParmKit.GetQuery("id", 0);
 		if (dataId > 0) {
 			whereString += " and Id=" + dataId;
 
@@ -78,7 +78,12 @@ public partial class modules_info_InfoContentEdit : AdminPage
 
 				ShowThumb(model.Thumb);
 			}
+
+			this.btnView.Visible = true;
+		} else {
+			this.btnView.Visible = false;
 		}
+
 		if (this.GroupType.ToLower() == "content") {
 			var model = _pageBus.QueryModel(whereString);
 			if (model != null) {
@@ -111,48 +116,50 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				ShowThumb(model.Thumb);
 			}
 
-			string whereString, code = GroupCode;
-			if (code.IsNumeric()) {
-				whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
-			} else {
-				whereString = "GroupCode='" + code + "'";
-			}
-
-			var entity = _pageBus.QueryModel(whereString);
+			string code = GroupCode;
+			var group = _groupBus.QueryModel("(GroupCode='" + code + "' or Id=" + code + ")");
 
 			if (this.GroupType.ToLower() == "content") {
 				model.Title = this.InfoTitle.Text;
-				if (!_pageBus.Update(model, whereString)) {
-					SaveNewData(model, entity);
+				if (!_pageBus.Update(model, "GroupCode='" + group.GroupCode + "'")) {
+					InsertNewData(model, group);
 				}
 			} else {
 				if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
-					SaveNewData(model, entity);
+					InsertNewData(model, group);
 				} else {
 					model.Title = this.InfoTitle.Text;
-					_pageBus.Update(model, null);
+					_pageBus.Update(model);
 				}
 			}
+
+			this.Id.Value = model.Id.ToString();
+
 			this.promptControl.ShowSuccess("保存成功！");
 		}
+
+		InitControl();
 	}
 
-	private void SaveNewData(CmsContentPage model, CmsContentPage entity)
-	{
+	private void InsertNewData(CmsContentPage model, CmsContentGroup group) {
+		var user = this.CurrentUserInfo;
+
 		model.Title = this.InfoTitle.Text;
-		model.GroupCode = entity.GroupCode;
+		model.GroupCode = group.GroupCode;
 		model.CategoryId = 0;
 		model.Click = 0;
 		model.CreateDate = DateTime.Now;
-		model.IsEnabled = 1;
-		model.Author = this.CurrentUserName;
+		model.IsEnabled = 0;
+		model.OrgId = user.Organization.Id;
+		model.UserId = user.Id;
+		model.Author = user.Name;
 		model.Id = _pageBus.InsertIdentity(model);
 		BindKit.BindModelToContainer(this.editor, model);
 
 		//保存日志和加积分
 		int point = ConvertKit.ConvertValue(new ConfigManager().GetWebConfig("NewsPoint"), 0);
 		var pbus = new CmsPointLogBus();
-		pbus.SavePointLog(this.CurrentUserId, model.Id, point, "增加积分");
+		pbus.SavePointLog(this.CurrentUserInfo, "cms_content_page", model.Id.ToString(), point, "发布文章，增加积分", model.Title);
 	}
 
 	private void ShowThumb(string thumbPath)
@@ -180,5 +187,17 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			return " style=\"display:none;\"";
 		}
 		return "";
+	}
+
+	/// <summary>
+	/// 发布文章
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	protected void btnPublish_Click(object sender, EventArgs e) {
+		if (!string.IsNullOrEmpty(this.Id.Value) && this.Id.Value != "0") {
+			_pageBus.Update(new CmsContentPage() { IsEnabled = 1 }, "Id=" + this.Id.Value);
+			this.IsEnabled.Checked = true;
+		}
 	}
 }

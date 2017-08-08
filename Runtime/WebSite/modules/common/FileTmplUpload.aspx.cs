@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
 
-public partial class modules_common_FileTmplUpload : System.Web.UI.Page
+public partial class modules_common_FileTmplUpload : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{

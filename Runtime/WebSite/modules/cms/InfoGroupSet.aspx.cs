@@ -74,8 +74,9 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	private string GetGroupTypeName(string type)
 	{
 		switch (type) {
-			case "Content": return "内容页";
-			case "List": return "普通列表";
+			case "Content": return "单页";
+			case "List": return "列表";
+			case "Image": return "图片列表";
 			default: return "无";
 		}
 		return type;
@@ -141,7 +142,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		//更新字典数据
 		if (data.PropertyChangedList.Contains("GroupCode")) {
 			if (VerifyExistGroupCode(data.GroupCode, data)) {
-				this.AlertLayer("编码已存在，请更换编码！");
+				this.AlertBeauty("编码已存在，请更换编码！");
 				return false;
 			}
 			DbHelper.Execute("UPDATE " + new CmsContentPage().TableName + " SET GroupCode=@GroupCode WHERE GroupCode=@OldGroupCode"
@@ -163,7 +164,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			_bus.Insert(data);
 			return true;
 		} else {
-			this.AlertLayer("编码已存在，请更换编码！");
+			this.AlertBeauty("编码已存在，请更换编码！");
 			return false;
 		}
 	}
@@ -175,16 +176,11 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	/// <param name="currentGroup"></param>
 	/// <returns></returns>
 	private bool VerifyExistGroupCode(string groupCode, CmsContentGroup currentGroup) {
-		var list = _bus.QueryList<CmsContentGroup>("GroupCode=@GroupCode", null, DbHelper.CreateParameter("GroupCode", groupCode));
-		if (list.Count == 0) {
-			return false;
-		} else {
-			//如果是对象本身，认为不存在
-			foreach (CmsContentGroup group in list) {
-				if (group.Id == currentGroup.Id) return false;
-			}
-			return true;
-		}
+		var list = _bus.QueryList<CmsContentGroup>("GroupCode=@GroupCode and Id!=@Id", null,
+			DbHelper.CreateParameter("GroupCode", groupCode),
+			DbHelper.CreateParameter("Id", currentGroup.Id)
+		);
+		return (list.Count > 0);
 	}
 
 	protected void btnAdd_Click(object sender, EventArgs e)
@@ -234,7 +230,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			BindKit.BindModelToContainer(this.editor, data);
 			SetControlStatus();
 		}
-
+		ClearControls();
 	}
 
 }

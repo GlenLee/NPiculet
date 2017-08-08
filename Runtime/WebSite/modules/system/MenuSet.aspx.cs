@@ -331,7 +331,7 @@ public partial class System_MenuSet : AdminPage
 	{
 		this.Name.Text = this.InfoGroupList.SelectedItem.Text;
 
-		string url = "info/InfoPageList.aspx?code=";
+		string url = "cms/InfoPageList.aspx?code=";
 		this.Url.Text = url + this.InfoGroupList.SelectedValue;
 	}
 

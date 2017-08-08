@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 
 	/// </summary>
+	[Serializable]
 	public partial class CmsContentGroup : ModelBase
 	{
 		public override string TableName { get { return "cms_content_group"; } }

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="宣传管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="AdvList.aspx.cs" Inherits="modules.info.AdvList" %>
+<%@ Register TagPrefix="asp" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">
 </asp:Content>
@@ -12,18 +13,22 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="searchbar" runat="Server">
+	<ul class="searchbar-wrap">
+		<li><asp:DropDownList runat="server" ID="ddlPosition"/></li>
+		<%--<li>关键字：<asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称或内容"></asp:TextBox></li>--%>
+		<li><asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/></li>
+	</ul>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" AllowPaging="True" CssClass="sui-table table-primary" PageSize="15"
-		OnRowCommand="list_RowCommand" OnPageIndexChanging="list_PageIndexChanging">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" AllowPaging="True" CssClass="sui-table table-primary">
 		<Columns>
-			<asp:BoundField DataField="Type" HeaderText="广告位置">
+			<asp:BoundField DataField="Position" HeaderText="广告位置">
 				<HeaderStyle Width="80px" />
 				<ItemStyle HorizontalAlign="Center" />
 			</asp:BoundField>
-			<asp:BoundField DataField="Description" HeaderText="描述" />
+			<asp:BoundField DataField="Title" HeaderText="名称" />
 			<asp:BoundField DataField="Url" HeaderText="链接" />
 			<asp:TemplateField HeaderText="宣传图" HeaderStyle-Width="80px">
 				<ItemStyle HorizontalAlign="Center" />
@@ -43,8 +48,8 @@
 				<ItemStyle HorizontalAlign="Center" />
 			</asp:CommandField>
 		</Columns>
-		<PagerSettings FirstPageText="第一页" LastPageText="最后页" Mode="NumericFirstLast" NextPageText="上一页" PreviousPageText="下一页" />
 	</asp:GridView>
+	<asp:NPager runat="server" ID="nPager" PageSize="15" />
 
 	<!-- Modal -->
 	<div id="modal" tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade">

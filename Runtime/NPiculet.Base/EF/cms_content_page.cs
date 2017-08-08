@@ -16,9 +16,12 @@ namespace NPiculet.Base.EF
     {
         public int Id { get; set; }
         public string GroupCode { get; set; }
+        public Nullable<int> OrgId { get; set; }
+        public Nullable<int> UserId { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Title { get; set; }
+        public string SubTitle { get; set; }
         public string Content { get; set; }
         public string Thumb { get; set; }
         public string Source { get; set; }

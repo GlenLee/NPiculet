@@ -72,10 +72,7 @@
 			<tbody>
 				<tr>
 					<td class="th">类型</td>
-					<td class="td"><asp:DropDownList runat="server" ID="Type" AutoPostBack="True">
-						<asp:ListItem Value="0">企业用户</asp:ListItem>
-						<asp:ListItem Value="1">协会会员</asp:ListItem>
-					</asp:DropDownList></td>
+					<td class="td"><asp:DropDownList runat="server" ID="Type"></asp:DropDownList></td>
 					<td class="th">姓名</td>
 					<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic"
@@ -100,9 +97,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="th">所属部门</td>
+					<td class="td"><asp:DropDownList runat="server" ID="RootCompanyList" Enabled="False"/>&nbsp;&nbsp;<asp:DropDownList runat="server" ID="OrgId"/></td>
 					<td class="th">是否启用</td>
-					<td class="td"><asp:CheckBox runat="server" ID="IsEnabled" Checked="True" CssClass="chkbox-switch"/></td>
-					<td colspan="2"></td>
+					<td class="td"> 
+						<asp:CheckBox runat="server" ID="IsEnabled" Checked="True"/>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -153,19 +153,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<blockquote id="_userOrg" runat="server">
-			<div class="quote">
-				<h5>所属组织</h5>
-				<span>
-					<a href="#" onclick="addOrg();">添加</a>
-					<asp:LinkButton runat="server" ID="btnDelOrg" Text="删除" onclick="btnDelOrg_Click"></asp:LinkButton>
-				</span>
-				<div class="cr"></div>
-			</div>
-			<div class="content org-list">
-				<asp:CheckBoxList runat="server" ID="orgList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6"/>
-			</div>
-		</blockquote>
 		<blockquote id="_userRole" runat="server">
 			<div class="quote">
 				<h5>所属角色</h5>
@@ -177,6 +164,19 @@
 			</div>
 			<div class="content role-list">
 				<asp:CheckBoxList runat="server" ID="roleList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6"/>
+			</div>
+		</blockquote>
+		<blockquote id="_userOrg" runat="server">
+			<div class="quote">
+				<h5>附属组织</h5>
+				<span>
+					<a href="#" onclick="addOrg();">添加</a>
+					<asp:LinkButton runat="server" ID="btnDelOrg" Text="删除" onclick="btnDelOrg_Click"></asp:LinkButton>
+				</span>
+				<div class="cr"></div>
+			</div>
+			<div class="content org-list">
+				<asp:CheckBoxList runat="server" ID="orgList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6"/>
 			</div>
 		</blockquote>
 		<asp:HiddenField ID="Id" runat="server" />

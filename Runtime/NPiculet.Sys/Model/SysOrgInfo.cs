@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 组织机构表
 	/// </summary>
+	[Serializable]
 	public partial class SysOrgInfo : ModelBase
 	{
 		public override string TableName { get { return "sys_org_info"; } }
@@ -26,6 +27,7 @@ namespace NPiculet.Logic.Data
 		private string _address;
 		private string _tel;
 		private string _memo;
+		private int? _point;
 		private int? _orderBy;
 		private int _isEnabled;
 		private int _isDel;
@@ -243,6 +245,19 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanging("Memo");
 				_memo = value;
 				OnPropertyChanged("Memo");
+			}
+		}
+
+		/// <summary>
+		/// 积分
+		/// </summary>
+		[Column(Field = "Point", Type = "int", Length = 10, Scale = 0)]
+		public int? Point {
+			get { return _point; }
+			set {
+				OnPropertyChanging("Point");
+				_point = value;
+				OnPropertyChanged("Point");
 			}
 		}
 

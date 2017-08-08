@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 角色信息
 	/// </summary>
+	[Serializable]
 	public partial class SysRoleInfo : ModelBase
 	{
 		public override string TableName { get { return "sys_role_info"; } }

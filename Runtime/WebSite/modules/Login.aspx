@@ -14,9 +14,9 @@
 		.login {
 			color: #ffffff;
 			position: relative;
+			padding-top: 120px;
 		}
 		.login-title {
-			margin-top: 120px;
 			text-align: center;
 			font-family: Arial, "黑体";
 			font-size: 36px;

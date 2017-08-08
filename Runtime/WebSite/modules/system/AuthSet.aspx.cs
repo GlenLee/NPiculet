@@ -18,7 +18,7 @@ public partial class modules_system_AuthSet : AdminPage
 			SetAuthMode(false);
 
 		    BindTargetData();
-			BindAuthData();
+			BindAuthFunData();
 	    }
     }
 
@@ -98,23 +98,23 @@ public partial class modules_system_AuthSet : AdminPage
 	/// <summary>
 	/// 显示已授权数据
 	/// </summary>
-	private void BindAuthData()
+	private void BindAuthFunData()
 	{
 		_dv = _bus.GetAuthList(this.TargetType.Value, this.TargetId.Value).DefaultView;
 		_dv.RowFilter = "ParentId=0";
-		this.authMain.DataSource = _dv;
-		this.authMain.DataBind();
+		this.authFunList.DataSource = _dv;
+		this.authFunList.DataBind();
 	}
 
 	/// <summary>
 	/// 显示所有功能
 	/// </summary>
-	private void BindFunData()
+	private void BindAllFunData()
 	{
 		_dv = _bus.GetFullAuthList(this.TargetType.Value, this.TargetId.Value).DefaultView;
 		_dv.RowFilter = "ParentId=0";
-		this.authMain.DataSource = _dv;
-		this.authMain.DataBind();
+		this.authAllList.DataSource = _dv;
+		this.authAllList.DataBind();
 	}
 
 	protected void authMain_ItemDataBound(object sender, DataListItemEventArgs e)
@@ -152,6 +152,8 @@ public partial class modules_system_AuthSet : AdminPage
 	{
 		this.btnSave.Visible = visible;
 		this.btnAuth.Visible = !visible;
+		this.authFunList.Visible = !visible;
+		this.authAllList.Visible = visible;
 	}
 
 	private List<SysAuthorization> _currentAuthList = new List<SysAuthorization>();
@@ -184,8 +186,8 @@ public partial class modules_system_AuthSet : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		//主功能
-		if (this.authMain.Items.Count > 0) {
-			foreach (DataListItem mItem in this.authMain.Items) {
+		if (this.authAllList.Items.Count > 0) {
+			foreach (DataListItem mItem in this.authAllList.Items) {
 				//子功能
 				var sub = mItem.FindControl("authSub") as DataList;
 				if (sub.Items.Count > 0) {
@@ -212,13 +214,13 @@ public partial class modules_system_AuthSet : AdminPage
 		}
 		_bus.UpdateAuthList(_currentAuthList, this.TargetType.Value, this.TargetId.Value);
 		SetAuthMode(false);
-		BindAuthData();
+		BindAuthFunData();
 	}
 
 	protected void btnAuth_Click(object sender, EventArgs e)
 	{
 		SetAuthMode(true);
-		BindFunData();
+		BindAllFunData();
 	}
 
 }

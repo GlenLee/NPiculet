@@ -12,6 +12,8 @@
 		<ul class="toolbar">
 			<li><%= GetBackUrl() %></li>
 			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+			<li><asp:HyperLink ID="btnView" runat="server"><i class="sui-icon icon-tb-activity"></i>预览</asp:HyperLink></li>
+			<li><asp:LinkButton ID="btnPublish" runat="server" OnClick="btnPublish_Click" OnClientClick="return confirm('确定发布？只有在发布后文章才能被看到。');"><i class="sui-icon icon-tb-activity"></i>发布</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -28,10 +30,24 @@
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
 			</tr>
 			<tr<%= GetStyle() %>>
-				<td class="th">标题</td>
+				<td class="th">主标题</td>
 				<td class="td">
-					<asp:TextBox ID="InfoTitle" runat="server" CssClass="input-large" Width="500px" MaxLength="256"></asp:TextBox>
+					<asp:TextBox ID="InfoTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="256"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="InfoTitle" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
+				</td>
+			</tr>
+			<tr<%= GetStyle() %>>
+				<td class="th">副标题</td>
+				<td class="td">
+					<asp:TextBox ID="SubTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="256"></asp:TextBox>
+				</td>
+			</tr>
+			<tr>
+				<td class="th">设置</td>
+				<td class="td">
+					<asp:CheckBox runat="server" ID="IsEnabled"/> <label for="<%= this.IsEnabled.ClientID %>">发布</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<asp:CheckBox runat="server" ID="OrderBy"/> <label for="<%= this.OrderBy.ClientID %>">置顶</label>
 				</td>
 			</tr>
 <asp:PlaceHolder runat="server" ID="pThumb">

@@ -33,6 +33,9 @@
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
+			<asp:BoundField DataField="Type" HeaderText="类型">
+				<HeaderStyle Width="60px" />
+			</asp:BoundField>
 			<asp:BoundField DataField="Account" HeaderText="帐号">
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
@@ -43,11 +46,11 @@
 			<asp:BoundField DataField="PointCurrent" HeaderText="积分">
 				<HeaderStyle Width="60px" />
 			</asp:BoundField>
-			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm:ss}" HeaderText="创建时间">
-				<HeaderStyle Width="160px" />
+			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="创建时间">
+				<HeaderStyle Width="120px" />
 			</asp:BoundField>
 			<asp:TemplateField HeaderText="启用">
-				<HeaderStyle Width="60px" />
+				<HeaderStyle Width="50px" />
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="操作">

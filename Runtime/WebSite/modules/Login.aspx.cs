@@ -34,8 +34,10 @@ public partial class modules_Login : NormalPage
 	{
 		string account = this.txtAccount.Text;
 		string pwd = this.txtPassword.Text;
-		var user = LoginKit.AdminExist(account, pwd);
-		if (user != null && user.Type == 0) {
+		var user = LoginKit.AdminExist(account);
+
+		//登录
+		if (user != null && user.Password == pwd) {
 			LoginKit.AdminLogin(user);
 			string url = WebParmKit.GetQuery("url", "");
 			if (!string.IsNullOrEmpty(url)) {
@@ -43,8 +45,12 @@ public partial class modules_Login : NormalPage
 			} else {
 				Response.Redirect("Main.aspx");
 			}
+		} else if (user == null) {
+			this.AlertBeauty("账号不存在！");
+		} else if (user.Password != pwd) {
+			this.AlertBeauty("密码不正确！");
 		} else {
-			this.AlertLayer("请输入正确的账号或密码！");
+			this.AlertBeauty("此账号没有权限进入系统！");
 		}
 	}
 

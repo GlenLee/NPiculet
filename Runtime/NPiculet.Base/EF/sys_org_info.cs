@@ -28,6 +28,7 @@ namespace NPiculet.Base.EF
         public string Address { get; set; }
         public string Tel { get; set; }
         public string Memo { get; set; }
+        public Nullable<int> Point { get; set; }
         public Nullable<int> OrderBy { get; set; }
         public int IsEnabled { get; set; }
         public int IsDel { get; set; }

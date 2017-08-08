@@ -26,11 +26,14 @@ public partial class modules_system_RoleEdit : AdminPage
 
 	private void BindData()
 	{
+		this._userList.Visible = false;
 		var dataId = WebParmKit.GetQuery("key", 0);
 		if (dataId > 0) {
 			var model = _bus.QueryModel("Id=" + dataId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
+
+				this._userList.Visible = true;
 			}
 		}
 	}
@@ -66,15 +69,14 @@ public partial class modules_system_RoleEdit : AdminPage
 			_dv = new SysAuthorizationBus().GetRoleLinkUser(int.Parse(this.Id.Value)).DefaultView;
 		}
 		if (_dv != null) {
-			this.userList.DataSource = _dv;
-			this.userList.DataBind();
+			BindKit.BindToListControl(this.userList, _dv, "UserName", "UserId");
 		}
 	}
 
 	protected void btnDelUser_Click(object sender, EventArgs e) {
 		foreach (ListItem item in this.userList.Items) {
 			if (item.Selected) {
-				string whereString = "UserId=" + this.Id.Value + " and RoleId=" + item.Value;
+				string whereString = "UserId=" + item.Value + " and RoleId=" + this.Id.Value;
 				new SysLinkUserRoleBus().Delete(whereString);
 			}
 		}
@@ -85,7 +87,7 @@ public partial class modules_system_RoleEdit : AdminPage
 	{
 		string target = WebParmKit.GetFormValue("__EVENTTARGET", "");
 		string argument = WebParmKit.GetFormValue("__EVENTARGUMENT", "");
-		int rid = Convert.ToInt32(this.Id.Value);
+		int rid = ConvertKit.ConvertValue(this.Id.Value, 0);
 		if (rid > 0) {
 			switch (target) {
 				case "addUsers":

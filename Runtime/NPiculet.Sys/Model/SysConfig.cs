@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 系统配置表
 	/// </summary>
+	[Serializable]
 	public partial class SysConfig : ModelBase
 	{
 		public override string TableName { get { return "sys_config"; } }

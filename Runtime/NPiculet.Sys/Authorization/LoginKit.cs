@@ -231,6 +231,20 @@ namespace NPiculet.Logic.Sys {
 					admin.Weixin = data.Weixin;
 				}
 
+				//获取用户所属部门
+				var rootOrg = bus.GetRootOrg(admin.Id);
+				if (rootOrg != null) {
+					var o = new Organization();
+					o.Id = rootOrg.Id;
+					o.Name = rootOrg.OrgName;
+					o.FullName = rootOrg.FullName;
+					o.Layer = rootOrg.Level ?? 0;
+					o.RootId = rootOrg.RootId;
+					o.ParentId = rootOrg.ParentId;
+					o.Path = rootOrg.Path;
+					admin.Organization = o;
+				}
+
 				//获取组织机构
 				var orgList = bus.GetOrgList(admin.Id);
 				var orgs = new List<Organization>();
@@ -245,10 +259,7 @@ namespace NPiculet.Logic.Sys {
 					o.Path = org.Path;
 					orgs.Add(o);
 				}
-				if (orgs.Count > 0) {
-					admin.Orgs = orgs;
-					admin.Organization = admin.Orgs[0];
-				}
+				admin.Orgs = orgs;
 
 				//获取用户的角色信息
 				var roleList = bus.GetRoleList(admin.Id);

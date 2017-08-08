@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 管理员表
 	/// </summary>
+	[Serializable]
 	public partial class SysAdminInfo : ModelBase
 	{
 		public override string TableName { get { return "sys_admin_info"; } }

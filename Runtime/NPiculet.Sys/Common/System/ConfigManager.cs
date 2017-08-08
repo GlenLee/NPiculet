@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Data;
+using NPiculet.Toolkit;
 
 namespace NPiculet.Logic.Sys
 {
@@ -61,6 +62,21 @@ namespace NPiculet.Logic.Sys
 				return configs[code];
 			} else {
 				return "";
+			}
+		}
+
+		/// <summary>
+		/// 获取配置项
+		/// </summary>
+		/// <param name="code"></param>
+		/// <returns></returns>
+		public T GetWebConfig<T>(string code)
+		{
+			InitCache();
+			if (configs.ContainsKey(code)) {
+				return ConvertKit.ConvertValue<T>(configs[code]);
+			} else {
+				return default(T);
 			}
 		}
 

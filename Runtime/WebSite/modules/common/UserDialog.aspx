@@ -5,14 +5,17 @@
 	<script type="text/javascript">
 		function ok(val) {
 			window.returnValue = val;
-			window.close();
+			var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+			parent.result = val;
+			parent.layer.close(index);
 		}
 		function cancel() {
-			window.close();
+			var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+			parent.layer.close(index);
 		}
 	</script>
 	<style type="text/css">
-		.ui-dialog-org { position:absolute;top:38px;bottom:0;left:0;width:30%; }
+		.ui-dialog-org { position:absolute;top:38px;bottom:0;left:0;width:30%;border-right: 1px solid #ddd; }
 		.ui-dialog-user { position:absolute;top:38px;bottom:40%;right:0;width:70%; }
 		.ui-dialog-selected { position:absolute;top:60%;bottom:0;right:0;width:70%; }
 		.wrap { width:100%;height:100%;overflow:auto; }
@@ -52,34 +55,39 @@
 						<ItemStyle HorizontalAlign="Center"></ItemStyle>
 						<ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
 					</asp:TemplateField>
-					<asp:TemplateField>
-						<HeaderStyle Width="40px"></HeaderStyle>
+					<asp:TemplateField HeaderText="名称">
+						<HeaderStyle Width="120px"></HeaderStyle>
 						<ItemStyle HorizontalAlign="Center"></ItemStyle>
-						<HeaderTemplate><asp:CheckBox runat="server" ID="cbSelected"/></HeaderTemplate>
 						<ItemTemplate>
-							<input type="checkbox" value="<%# Eval("Id") %>" onclick="__doPostBack('BtnSelectUser','<%# Eval("Id") %>');" />
+							<a href="#" onclick="__doPostBack('BtnSelectUser', '<%# Eval("Id") %>');"><%# Eval("Name") %></a>
 						</ItemTemplate>
 					</asp:TemplateField>
-					<asp:BoundField HeaderText="名称" DataField="Name"/>
 					<asp:BoundField HeaderText="生日" DataField="Birthday"/>
 					<asp:BoundField HeaderText="电话" DataField="Mobile"/>
 					<asp:BoundField HeaderText="地址" DataField="Address"/>
+					<asp:TemplateField>
+						<HeaderStyle Width="40px"></HeaderStyle>
+						<ItemStyle HorizontalAlign="Center"></ItemStyle>
+						<ItemTemplate>
+							<a href="#" onclick="__doPostBack('BtnSelectUser', '<%# Eval("Id") %>');">选择</a>
+						</ItemTemplate>
+					</asp:TemplateField>
 				</Columns>
 			</asp:GridView>
 		</div>
-		<cc1:NPager ID="NPager1" runat="server" />
+		<cc1:NPager ID="NPager1" runat="server" PageSize="10" />
 	</div>
 
 	<div class="ui-dialog-selected">
 		<div class="wrap">
-			<asp:GridView runat="server" ID="selectedList" AutoGenerateColumns="False" CssClass="ui-dialog-table">
+			<asp:GridView runat="server" ID="selectedList" AutoGenerateColumns="False" CssClass="sui-table table-bordered-simple">
 				<Columns>
 					<asp:TemplateField HeaderText="序号">
 						<HeaderStyle Width="40px"></HeaderStyle>
 						<ItemStyle HorizontalAlign="Center"></ItemStyle>
 						<ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
 					</asp:TemplateField>
-					<asp:BoundField HeaderText="名称" DataField="Name"/>
+					<asp:BoundField HeaderText="已选择用户" DataField="Name"/>
 
 					<asp:TemplateField HeaderText="删除">
 						<HeaderStyle Width="40px"></HeaderStyle>

@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 功能授权表
 	/// </summary>
+	[Serializable]
 	public partial class SysAuthorization : ModelBase
 	{
 		public override string TableName { get { return "sys_authorization"; } }

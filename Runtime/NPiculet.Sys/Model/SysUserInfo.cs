@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 用户表
 	/// </summary>
+	[Serializable]
 	public partial class SysUserInfo : ModelBase
 	{
 		public override string TableName { get { return "sys_user_info"; } }

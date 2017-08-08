@@ -88,6 +88,16 @@
 					<div class="caption">注：发新闻后可以获得的积分</div>
 				</td>
 			</tr>
+			<tr>
+				<td class="th">编辑限制</td>
+				<td class="td">
+					<asp:DropDownList ID="NewsEditLimit" runat="server">
+						<asp:ListItem Value="">无限制</asp:ListItem>
+						<asp:ListItem Value="Org">只允许编辑所属组织的新闻</asp:ListItem>
+						<asp:ListItem Value="User">只允许编辑用户自己的新闻</asp:ListItem>
+					</asp:DropDownList>
+				</td>
+			</tr>
 		</table>
 	</asp:PlaceHolder>
 </asp:Content>

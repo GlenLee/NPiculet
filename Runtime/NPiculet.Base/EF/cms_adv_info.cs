@@ -15,19 +15,20 @@ namespace NPiculet.Base.EF
     public partial class cms_adv_info
     {
         public int Id { get; set; }
-        public string Type { get; set; }
-        public string Description { get; set; }
+        public string Position { get; set; }
+        public string Title { get; set; }
         public string Image { get; set; }
+        public string Cover { get; set; }
         public string Url { get; set; }
+        public string Description { get; set; }
+        public string Css { get; set; }
+        public string Script { get; set; }
         public int Click { get; set; }
         public int IsEnabled { get; set; }
         public Nullable<int> OrderBy { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
         public string Creator { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public string LoopStart { get; set; }
-        public string LoopEnd { get; set; }
-        public Nullable<int> ValidTerm { get; set; }
     }
 }

@@ -58,7 +58,7 @@ public partial class modules_common_FileModifyDialog : AdminPage
 				this.JavaSrcipt("closeWin();");
 			}
 		} catch (DBConcurrencyException edb) {
-			this.AlertLayer("修改失败" + edb.Message);
+			this.AlertBeauty("修改失败" + edb.Message);
 		}
 	}
 }

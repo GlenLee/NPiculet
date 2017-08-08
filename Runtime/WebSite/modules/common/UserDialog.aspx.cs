@@ -13,7 +13,7 @@ using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 using NPiculet.WebControls;
 
-public partial class modules_common_UserDialog : NormalPage
+public partial class modules_common_UserDialog : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -21,11 +21,11 @@ public partial class modules_common_UserDialog : NormalPage
 			this.NPager1.PageSize = 20;
 
 			BindOrgTree();
-			BindUser();
+			BindUserList();
 		}
 
 		this.NPager1.PageClick += (o, args) => {
-			BindUser();
+			BindUserList();
 		};
 
 		string target = WebParmKit.GetFormValue("__EVENTTARGET", "");
@@ -39,7 +39,7 @@ public partial class modules_common_UserDialog : NormalPage
 	private void BindOrgTree()
 	{
 		SysOrgInfoBus bus = new SysOrgInfoBus();
-		DataTable dt = bus.Query();
+		DataTable dt = bus.Query("Level<=1 and IsDel=0");
 		if (dt != null) {
 			treedv = dt.DefaultView;
 		}
@@ -57,9 +57,15 @@ public partial class modules_common_UserDialog : NormalPage
 		}
 	}
 
-	private void BindUser()
+	/// <summary>
+	/// 绑定可选用户列表
+	/// </summary>
+	private void BindUserList(int orgId = 0)
 	{
 		string whereString = "IsDel=0";
+		if (orgId > 0) {
+			whereString += " and OrgId=" + orgId;
+		}
 
 		SysUserInfoBus ubus = new SysUserInfoBus();
 		var data = ubus.GetUserList(this.NPager1.CurrentPage, this.NPager1.PageSize, whereString);
@@ -70,6 +76,9 @@ public partial class modules_common_UserDialog : NormalPage
 		this.list.DataBind();
 	}
 
+	/// <summary>
+	/// 绑定已选用户列表
+	/// </summary>
 	private void BindSelectedList()
 	{
 		this.selectedList.DataSource = this._selectedUserList;
@@ -90,8 +99,8 @@ public partial class modules_common_UserDialog : NormalPage
 	private void EventDeleteSelected(string target)
 	{
 		if (target == "BtnDeleteSelected") {
-			Stopwatch sw = new Stopwatch();
-			sw.Start();
+			//Stopwatch sw = new Stopwatch();
+			//sw.Start();
 			int arg = WebParmKit.GetFormValue("__EVENTARGUMENT", 0);
 			if (arg > 0) {
 				var l = this._selectedUserList;
@@ -103,16 +112,16 @@ public partial class modules_common_UserDialog : NormalPage
 					BindSelectedList();
 				}
 			}
-			sw.Stop();
-			Logger.Debug("BtnDeleteSelected:" + sw.Elapsed.TotalMilliseconds + "ms");
+			//sw.Stop();
+			//Logger.Debug("BtnDeleteSelected:" + sw.Elapsed.TotalMilliseconds + "ms");
 		}
 	}
 
 	private void EventSelectUser(string target)
 	{
 		if (target == "BtnSelectUser") {
-			Stopwatch sw = new Stopwatch();
-			sw.Start();
+			//Stopwatch sw = new Stopwatch();
+			//sw.Start();
 			int arg = WebParmKit.GetFormValue("__EVENTARGUMENT", 0);
 			if (arg > 0) {
 				var user = new SysUserInfoBus().QueryModel("Id=" + arg);
@@ -129,8 +138,8 @@ public partial class modules_common_UserDialog : NormalPage
 					}
 				}
 			}
-			sw.Stop();
-			Logger.Debug("BtnSelectUser:" + sw.Elapsed.TotalMilliseconds + "ms");
+			//sw.Stop();
+			//Logger.Debug("BtnSelectUser:" + sw.Elapsed.TotalMilliseconds + "ms");
 		}
 	}
 
@@ -143,21 +152,19 @@ public partial class modules_common_UserDialog : NormalPage
 				if (!string.IsNullOrEmpty(result)) result += ",";
 				result += user.Id;
 			}
-			this.JavaSrciptAjax(this.UpdatePanel1, "ok('" + result + "');");
+			this.JavaSrcipt("ok('" + result + "');", this.UpdatePanel1);
 		} else {
-			this.AlertAjax(this.UpdatePanel1, "您还没有选中任何数据！");
+			this.AlertBeauty("您还没有选中任何数据！", this.UpdatePanel1);
 		}
 	}
 
-	protected void tree_SelectedNodeChanged(object sender, EventArgs e)
-	{
-		var val = this.tree.SelectedValue;
-		this.AlertAjax(this.btnOk, val);
-		//var data = _bus.GetMenuItem(Convert.ToInt32(val));
-		//if (data != null) {
-		//    BindKit.BindModelToContainer(this.editor, data);
-		//    this.CurName.Text = data.Name;
-		//    SetControlStatus();
-		//}
+	protected void tree_SelectedNodeChanged(object sender, EventArgs e) {
+		TreeNode tn = this.tree.SelectedNode;
+		if (tn.Depth == 0) {
+			BindUserList();
+		} else {
+			var val = ConvertKit.ConvertValue(tn.Value, 0);
+			BindUserList(val);
+		}
 	}
 }

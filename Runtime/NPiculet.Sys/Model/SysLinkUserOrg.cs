@@ -4,7 +4,8 @@ namespace NPiculet.Logic.Data
 {
 	/// <summary>
 	/// 用户角色连接表
-	/// </summary>
+	/// </summary
+	[Serializable]
 	public partial class SysLinkUserOrg : ModelBase
 	{
 		public override string TableName { get { return "sys_link_user_org"; } }

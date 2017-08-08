@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 组织机构组
 	/// </summary>
+	[Serializable]
 	public partial class SysOrgGroup : ModelBase
 	{
 		public override string TableName { get { return "sys_org_group"; } }

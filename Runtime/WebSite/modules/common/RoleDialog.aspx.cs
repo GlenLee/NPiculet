@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 
-public partial class modules_common_RoleDialog : NormalPage
+public partial class modules_common_RoleDialog : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{

@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 
 	/// </summary>
+	[Serializable]
 	public partial class CmsAdvInfo : ModelBase
 	{
 		public override string TableName { get { return "cms_adv_info"; } }
@@ -13,13 +14,19 @@ namespace NPiculet.Logic.Data
 		#region 数据项（私有属性）
 
 		private int _id;
-		private string _type;
-		private string _description;
+		private string _position;
+		private string _title;
 		private string _image;
+		private string _cover;
 		private string _url;
+		private string _description;
+		private string _css;
+		private string _script;
 		private int _click;
 		private int _isEnabled;
 		private int? _orderBy;
+		private DateTime _startDate;
+		private DateTime _endDate;
 		private string _creator;
 		private DateTime _createDate;
 
@@ -41,34 +48,32 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanged("Id");
 			}
 		}
-
+		
 		/// <summary>
 		/// 
 		/// </summary>
-		[Column(Field = "Type", Type = "varchar", Length = 16, Scale = 0)]
-		public string Type
+		[Column(Field = "Position", Type = "varchar", Length = 16, Scale = 0)]
+		public string Position
 		{
-			get { return _type; }
+			get { return _position; }
 			set
 			{
-				OnPropertyChanging("Type");
-				_type = value;
-				OnPropertyChanged("Type");
+				OnPropertyChanging("Position");
+				_position = value;
+				OnPropertyChanged("Position");
 			}
 		}
 
 		/// <summary>
 		/// 
 		/// </summary>
-		[Column(Field = "Description", Type = "text", Length = 16, Scale = 0)]
-		public string Description
-		{
-			get { return _description; }
-			set
-			{
-				OnPropertyChanging("Description");
-				_description = value;
-				OnPropertyChanged("Description");
+		[Column(Field = "Title", Type = "varchar", Length = 255, Scale = 0)]
+		public string Title {
+			get { return _title; }
+			set {
+				OnPropertyChanging("Title");
+				_title = value;
+				OnPropertyChanged("Title");
 			}
 		}
 
@@ -90,6 +95,19 @@ namespace NPiculet.Logic.Data
 		/// <summary>
 		/// 
 		/// </summary>
+		[Column(Field = "Cover", Type = "varchar", Length = 255, Scale = 0)]
+		public string Cover {
+			get { return _cover; }
+			set {
+				OnPropertyChanging("Cover");
+				_cover = value;
+				OnPropertyChanged("Cover");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Column(Field = "Url", Type = "varchar", Length = 1000, Scale = 0)]
 		public string Url
 		{
@@ -99,6 +117,45 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanging("Url");
 				_url = value;
 				OnPropertyChanged("Url");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "Description", Type = "text", Length = 16, Scale = 0)]
+		public string Description {
+			get { return _description; }
+			set {
+				OnPropertyChanging("Description");
+				_description = value;
+				OnPropertyChanged("Description");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "Css", Type = "text", Length = 16, Scale = 0)]
+		public string Css {
+			get { return _css; }
+			set {
+				OnPropertyChanging("Css");
+				_css = value;
+				OnPropertyChanged("Css");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "Script", Type = "text", Length = 16, Scale = 0)]
+		public string Script {
+			get { return _script; }
+			set {
+				OnPropertyChanging("Script");
+				_script = value;
+				OnPropertyChanged("Script");
 			}
 		}
 
@@ -144,6 +201,32 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanging("OrderBy");
 				_orderBy = value;
 				OnPropertyChanged("OrderBy");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "StartDate", Type = "datetime", Length = 23, Scale = 3)]
+		public DateTime StartDate {
+			get { return _startDate; }
+			set {
+				OnPropertyChanging("StartDate");
+				_startDate = value;
+				OnPropertyChanged("StartDate");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "EndDate", Type = "datetime", Length = 23, Scale = 3)]
+		public DateTime EndDate {
+			get { return _endDate; }
+			set {
+				OnPropertyChanging("EndDate");
+				_endDate = value;
+				OnPropertyChanged("EndDate");
 			}
 		}
 

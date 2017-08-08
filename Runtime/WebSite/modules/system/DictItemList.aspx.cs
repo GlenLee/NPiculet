@@ -98,7 +98,7 @@ public partial class modules_system_DictItemList : AdminPage
 
 	protected string GetStatusString(string enabled)
 	{
-		return enabled == "1" ? "启用" : "停用";
+		return enabled == "1" ? "启用" : "<span style=\"color:red\">停用</span>";
 	}
 
 	protected void btnSearch_Click(object sender, EventArgs e)

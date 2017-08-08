@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 字典项
 	/// </summary>
+	[Serializable]
 	public partial class BasRegionInfo : ModelBase
 	{
 		public override string TableName { get { return "bas_region_info"; } }

@@ -51,16 +51,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="th">显示</td>
-						<td class="td"><asp:CheckBox ID="IsEnabled" runat="server" Text="是否启用" Checked="true" /></td>
-					</tr>
-					<tr>
 						<td class="th">排序</td>
 						<td class="td"><asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="200px" MaxLength="8" Text="0"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">备注</td>
 						<td class="td"><asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
+					</tr>
+					<tr>
+						<td class="th">显示</td>
+						<td class="td"><asp:CheckBox ID="IsEnabled" runat="server" Text="是否启用" Checked="true" /></td>
 					</tr>
 				</table>
 				<asp:HiddenField ID="Id" runat="server" />

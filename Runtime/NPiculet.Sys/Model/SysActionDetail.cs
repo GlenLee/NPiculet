@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 操作明细表
 	/// </summary>
+	[Serializable]
 	public partial class SysActionDetail : ModelBase
 	{
 		public override string TableName { get { return "sys_action_detail"; } }

@@ -13,7 +13,7 @@
 		function addUser() {
 			layer.open({
 				type: 2,
-				title: '选择组织机构',
+				title: '选择用户',
 				shadeClose: true,
 				shade: false,
 				maxmin: true,

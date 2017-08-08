@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 系统菜单表
 	/// </summary>
+	[Serializable]
 	public partial class SysMenu : ModelBase
 	{
 		public override string TableName { get { return "sys_menu"; } }

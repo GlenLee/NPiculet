@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 
 	/// </summary>
+	[Serializable]
 	public partial class CmsContentPage : ModelBase
 	{
 		public override string TableName { get { return "cms_content_page"; } }
@@ -13,10 +14,13 @@ namespace NPiculet.Logic.Data
 		#region 数据项（私有属性）
 
 		private int _id;
+		private int _orgId;
+		private int _userId;
 		private string _groupCode;
 		private int _categoryId;
 		private string _categoryName;
 		private string _title;
+		private string _subTitle;
 		private string _content;
 		private string _thumb;
 		private string _source;
@@ -42,6 +46,32 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanging("Id");
 				_id = value;
 				OnPropertyChanged("Id");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "OrgId", Type = "int", Length = 10, Scale = 0)]
+		public int OrgId {
+			get { return _orgId; }
+			set {
+				OnPropertyChanging("OrgId");
+				_orgId = value;
+				OnPropertyChanged("OrgId");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "UserId", Type = "int", Length = 10, Scale = 0)]
+		public int UserId {
+			get { return _userId; }
+			set {
+				OnPropertyChanging("UserId");
+				_userId = value;
+				OnPropertyChanged("UserId");
 			}
 		}
 
@@ -93,7 +123,7 @@ namespace NPiculet.Logic.Data
 		/// <summary>
 		/// 
 		/// </summary>
-		[Column(Field = "Title", Type = "varchar", Length = 128, Scale = 0)]
+		[Column(Field = "Title", Type = "varchar", Length = 256, Scale = 0)]
 		public string Title
 		{
 			get { return _title; }
@@ -102,6 +132,21 @@ namespace NPiculet.Logic.Data
 				OnPropertyChanging("Title");
 				_title = value;
 				OnPropertyChanged("Title");
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		[Column(Field = "SubTitle", Type = "varchar", Length = 256, Scale = 0)]
+		public string SubTitle
+		{
+			get { return _subTitle; }
+			set
+			{
+				OnPropertyChanging("SubTitle");
+				_subTitle = value;
+				OnPropertyChanged("SubTitle");
 			}
 		}
 

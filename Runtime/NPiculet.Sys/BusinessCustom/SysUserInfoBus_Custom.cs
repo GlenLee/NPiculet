@@ -55,7 +55,7 @@ namespace NPiculet.Logic.Business
 		/// <returns></returns>
 		public DataTable GetUserList(int curPage, int pageSize, string whereString = null, string orderBy = null)
 		{
-			string sql = @"SELECT * FROM (SELECT u.Id, u.UserSn, u.Account, u.Password, u.Name
+			string sql = @"SELECT * FROM (SELECT u.Id, u.UserSn, u.Type, u.Account, u.Password, u.Name, u.OrgId
 	, u.LoginTimes, u.LastLoginDate, u.LastLogoutDate
 	, u.FailedCount, u.FailedDate, u.IsEnabled, u.IsDel, u.OrderBy, u.Creator, u.CreateDate
 	, d.Nickname, d.Birthday, d.Sex, d.Email, d.Mobile, d.Address, d.MemberCard
@@ -112,6 +112,21 @@ WHERE u.IsDel=0) t";
 			string sql = "SELECT MAX(OrderBy) FROM sys_user_info";
 			object val = DbHelper.QueryValue(sql);
 			return val == DBNull.Value ? 0 : (int)val;
+		}
+
+		/// <summary>
+		/// 获取用户的根组织机构
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public sys_org_info GetRootOrg(int userId)
+		{
+			using (var db = new NPiculetEntities()) {
+				var query = (from a in db.sys_org_info
+					join u in db.sys_user_info on a.Id equals u.OrgId
+					select a);
+				return query.FirstOrDefault();
+			}
 		}
 
 		/// <summary>

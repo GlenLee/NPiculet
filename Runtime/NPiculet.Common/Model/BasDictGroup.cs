@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 字典分组
 	/// </summary>
+	[Serializable]
 	public partial class BasDictGroup : ModelBase
 	{
 		public override string TableName { get { return "bas_dict_group"; } }

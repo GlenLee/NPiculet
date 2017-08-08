@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class modules_common_FileUploadify : Page
+public partial class modules_common_FileUploadify : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
     {

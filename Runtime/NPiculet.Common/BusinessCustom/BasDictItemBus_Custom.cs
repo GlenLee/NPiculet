@@ -15,11 +15,23 @@ namespace NPiculet.Logic.Business
 	public partial class BasDictItemBus {
 
 		/// <summary>
+		/// 获取可用字典项列表
+		/// </summary>
+		/// <param name="groupCode"></param>
+		/// <returns></returns>
+		public List<BasDictItem> GetActiveItemList(string groupCode)
+		{
+			BasDictItemBus bus = new BasDictItemBus();
+			return bus.QueryList("IsEnabled=1 and GroupCode='" + groupCode + "'", "OrderBy");
+		}
+
+		/// <summary>
 		/// 获取字典列表
 		/// </summary>
 		/// <param name="groupCode"></param>
 		/// <returns></returns>
-		public List<BasDictItem> GetDictItemList(string groupCode) {
+		public List<BasDictItem> GetDictItemList(string groupCode)
+		{
 			BasDictItemBus bus = new BasDictItemBus();
 			return bus.QueryList("GroupCode='" + groupCode + "'", "OrderBy");
 		}

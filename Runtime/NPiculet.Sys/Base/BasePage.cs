@@ -5,36 +5,57 @@ using System.Web.UI;
 using NPiculet.Authorization;
 using NPiculet.Logic.Sys;
 
-namespace NPiculet.Logic.Base {
+namespace NPiculet.Logic.Base
+{
+	/// <summary>
+	/// 普通页面的基类
+	/// </summary>
 	public class NormalPage : System.Web.UI.Page
 	{
-        #region 通用方法
+		#region 通用方法
 
-        public void Alert(string msg) {
-			Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "msg", "alert('" + msg + "');", true);
-		}
-
-		public void AlertAjax(Control control, string msg)
+		/// <summary>
+		/// 弹出对话框。注：如果使用了Ajax.Net控件，则必须传入 UpdatePanel 控件或其包含的对象。
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <param name="ajaxControl"></param>
+		public void Alert(string msg, Control ajaxControl = null)
 		{
-			ScriptManager.RegisterClientScriptBlock(control, this.GetType(), "msg", "alert('" + msg + "');", true);
+			string js = "alert('" + msg + "');";
+			if (ajaxControl == null) {
+				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "msg", js, true);
+			} else {
+				ScriptManager.RegisterClientScriptBlock(ajaxControl, this.GetType(), "msg", "alert('" + msg + "');", true);
+			}
 		}
 
 		/// <summary>
-		/// 专用自定义Js弹出对话框
+		/// 弹出美化的JS对话框。注：如果使用了Ajax.Net控件，则必须传入 UpdatePanel 控件或其包含的对象。
 		/// </summary>
 		/// <param name="msg"></param>
-		protected virtual void AlertLayer(string msg)
+		/// <param name="ajaxControl"></param>
+		protected virtual void AlertBeauty(string msg, Control ajaxControl = null)
 		{
-			Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "msg", "layer.alert('" + msg + "');", true);
+			string js = "layer.alert('" + msg + "');";
+			if (ajaxControl == null) {
+				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "msg", js, true);
+			} else {
+				ScriptManager.RegisterClientScriptBlock(ajaxControl, this.GetType(), "msg", js, true);
+			}
 		}
 
-		public void JavaSrcipt(string js) {
-			Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "msg", js, true);
-		}
-
-		public void JavaSrciptAjax(Control control, string js)
+		/// <summary>
+		/// 在页面上执行JS脚本。注：如果使用了Ajax.Net控件，则必须传入 UpdatePanel 控件或其包含的对象。
+		/// </summary>
+		/// <param name="js"></param>
+		/// <param name="ajaxControl"></param>
+		public void JavaSrcipt(string js, Control ajaxControl = null)
 		{
-			ScriptManager.RegisterClientScriptBlock(control, this.GetType(), "msg", js, true);
+			if (ajaxControl == null) {
+				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "jsScript", js, true);
+			} else {
+				ScriptManager.RegisterClientScriptBlock(ajaxControl, this.GetType(), "jsScript", js, true);
+			}
 		}
 
 		#endregion
@@ -59,8 +80,7 @@ namespace NPiculet.Logic.Base {
 			base.OnInit(e);
 		}
 
-		protected Member<int> CurrentUserInfo
-		{
+		protected Member<int> CurrentUserInfo {
 			get { return LoginKit.GetCurrentMember(); }
 		}
 
@@ -98,8 +118,7 @@ namespace NPiculet.Logic.Base {
 			base.OnInit(e);
 		}
 
-		protected Administrator<int> CurrentUserInfo
-		{
+		protected Administrator<int> CurrentUserInfo {
 			get { return LoginKit.GetCurrentAdmin(); }
 		}
 

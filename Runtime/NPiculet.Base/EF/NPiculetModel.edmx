@@ -106,20 +106,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="16" />
-          <Property Name="Description" Type="longtext" />
+          <Property Name="Position" Type="varchar" MaxLength="16" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
           <Property Name="Image" Type="varchar" MaxLength="255" />
+          <Property Name="Cover" Type="varchar" MaxLength="255" />
           <Property Name="Url" Type="text" />
+          <Property Name="Description" Type="longtext" />
+          <Property Name="Css" Type="text" />
+          <Property Name="Script" Type="text" />
           <Property Name="Click" Type="int" Nullable="false" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="OrderBy" Type="int" />
+          <Property Name="StartDate" Type="datetime" Precision="0" />
+          <Property Name="EndDate" Type="datetime" Precision="0" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
           <Property Name="CreateDate" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Precision="0" />
-          <Property Name="StartDate" Type="datetime" Precision="0" />
-          <Property Name="LoopStart" Type="varchar" MaxLength="255" />
-          <Property Name="LoopEnd" Type="varchar" MaxLength="255" />
-          <Property Name="ValidTerm" Type="int" />
         </EntityType>
         <EntityType Name="cms_content_group">
           <Key>
@@ -146,9 +147,12 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GroupCode" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="OrgId" Type="int" />
+          <Property Name="UserId" Type="int" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="CategoryName" Type="varchar" MaxLength="64" />
-          <Property Name="Title" Type="varchar" MaxLength="128" />
+          <Property Name="Title" Type="varchar" MaxLength="256" />
+          <Property Name="SubTitle" Type="varchar" MaxLength="256" />
           <Property Name="Content" Type="longtext" />
           <Property Name="Thumb" Type="varchar" MaxLength="128" />
           <Property Name="Source" Type="varchar" MaxLength="128" />
@@ -173,403 +177,22 @@
           <Property Name="Creator" Type="varchar" MaxLength="32" />
           <Property Name="CreateDate" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
-        <EntityType Name="shop_address">
+        <EntityType Name="cms_points_log">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserAccount" Type="varchar" MaxLength="32" />
-          <Property Name="OrderCode" Type="varchar" MaxLength="32" />
-          <Property Name="Type" Type="varchar" MaxLength="16" />
-          <Property Name="Name" Type="varchar" MaxLength="64" />
-          <Property Name="Tel" Type="varchar" MaxLength="32" />
-          <Property Name="Mobile" Type="varchar" MaxLength="32" />
-          <Property Name="Sex" Type="varchar" MaxLength="8" />
-          <Property Name="IdCardType" Type="varchar" MaxLength="16" />
-          <Property Name="IdCard" Type="varchar" MaxLength="32" />
-          <Property Name="Post" Type="varchar" MaxLength="32" />
-          <Property Name="Province" Type="varchar" MaxLength="100" />
-          <Property Name="Town" Type="varchar" MaxLength="100" />
-          <Property Name="Region" Type="varchar" MaxLength="100" />
-          <Property Name="Street" Type="varchar" MaxLength="32" />
-          <Property Name="Address" Type="varchar" MaxLength="255" />
-          <Property Name="Longitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Latitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="IsDefault" Type="int" />
-          <Property Name="IsDel" Type="int" />
-        </EntityType>
-        <EntityType Name="shop_brand">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="64" />
-          <Property Name="Description" Type="text" />
-          <Property Name="IsEnabled" Type="int" />
-          <Property Name="IsDel" Type="int" />
-          <Property Name="Creator" Type="varchar" MaxLength="32" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_cart">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="ParentId" Type="int" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="Type" Type="varchar" MaxLength="8" />
-          <Property Name="Amount" Type="int" />
-          <Property Name="MemberLevel" Type="varchar" MaxLength="16" />
-          <Property Name="Price" Type="double" />
-          <Property Name="TotalPrice" Type="double" />
-          <Property Name="PersonNumber" Type="int" />
-          <Property Name="ChildrenNumber" Type="int" />
-          <Property Name="ArrivalDate" Type="datetime" Precision="0" />
-          <Property Name="LeaveDate" Type="datetime" Precision="0" />
-          <Property Name="OccupancyDay" Type="int" />
-          <Property Name="IsPackages" Type="int" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-          <Property Name="TakeOffTime" Type="varchar" MaxLength="255" />
-          <Property Name="LandingTime" Type="varchar" MaxLength="255" />
-          <Property Name="FlightTime" Type="varchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="shop_category">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AppCode" Type="varchar" MaxLength="32" />
-          <Property Name="Type" Type="varchar" MaxLength="16" />
-          <Property Name="ParentId" Type="int" />
-          <Property Name="RootId" Type="int" />
-          <Property Name="Path" Type="text" />
-          <Property Name="Name" Type="varchar" MaxLength="64" />
-          <Property Name="Code" Type="varchar" MaxLength="32" />
-          <Property Name="Icon" Type="text" />
-          <Property Name="Depth" Type="int" />
-          <Property Name="Comment" Type="text" />
-          <Property Name="OrderBy" Type="int" />
-          <Property Name="IsEnabled" Type="int" />
-          <Property Name="IsDel" Type="int" />
-          <Property Name="Creator" Type="varchar" MaxLength="32" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_comment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="UserName" Type="varchar" MaxLength="32" />
-          <Property Name="Comment" Type="text" />
-          <Property Name="Rank" Type="int" />
-          <Property Name="IsShow" Type="int" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_commodity">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryId" Type="int" />
-          <Property Name="CategoryType" Type="varchar" MaxLength="16" />
-          <Property Name="SupplierId" Type="int" />
-          <Property Name="RootCategoryId" Type="int" />
-          <Property Name="BrandId" Type="int" />
-          <Property Name="Code" Type="varchar" MaxLength="64" />
-          <Property Name="Name" Type="varchar" MaxLength="128" />
-          <Property Name="Pinyin" Type="varchar" MaxLength="128" />
-          <Property Name="Keywords" Type="varchar" MaxLength="255" />
-          <Property Name="Description" Type="text" />
-          <Property Name="Thumb" Type="varchar" MaxLength="255" />
-          <Property Name="PlaceStartCode" Type="varchar" MaxLength="8" />
-          <Property Name="PlaceStartName" Type="varchar" MaxLength="64" />
-          <Property Name="PlaceEndCode" Type="varchar" MaxLength="8" />
-          <Property Name="PlaceEndName" Type="varchar" MaxLength="64" />
-          <Property Name="Image" Type="varchar" MaxLength="255" />
-          <Property Name="Stock" Type="int" />
-          <Property Name="Model" Type="varchar" MaxLength="32" />
-          <Property Name="Unit" Type="varchar" MaxLength="32" />
-          <Property Name="Address" Type="varchar" MaxLength="255" />
-          <Property Name="Characteristic" Type="varchar" MaxLength="255" />
-          <Property Name="Size" Type="varchar" MaxLength="32" />
-          <Property Name="OriginalPrice" Type="double" />
-          <Property Name="CurrentPrice" Type="double" />
-          <Property Name="IsBundling" Type="int" />
-          <Property Name="BundlingPrice" Type="double" />
-          <Property Name="Point" Type="double" />
-          <Property Name="SalePoint" Type="double" />
-          <Property Name="SalesVolume" Type="int" />
-          <Property Name="TotalFavorite" Type="int" />
-          <Property Name="TotalComment" Type="int" />
-          <Property Name="TotalClick" Type="int" />
-          <Property Name="IsPackages" Type="int" />
-          <Property Name="IsLimitTime" Type="int" />
-          <Property Name="IsPriceOff" Type="int" />
-          <Property Name="IsPoint" Type="int" />
-          <Property Name="IsRefund" Type="int" />
-          <Property Name="RefundMemo" Type="text" />
-          <Property Name="IsEnabled" Type="int" />
-          <Property Name="IsDel" Type="int" />
-          <Property Name="Creator" Type="varchar" MaxLength="32" />
-          <Property Name="LeaveDate" Type="datetime" Precision="0" />
-          <Property Name="ArrivalDate" Type="datetime" Precision="0" />
-          <Property Name="Reserve" Type="text" />
-          <Property Name="Way" Type="text" />
-          <Property Name="Scenery" Type="text" />
-          <Property Name="Hint" Type="text" />
-          <Property Name="RefundRule" Type="text" />
-          <Property Name="RefundFormula" Type="text" />
-          <Property Name="FuelPrice" Type="double" />
-          <Property Name="AirportPrice" Type="double" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-          <Property Name="OrderBy" Type="int" />
-        </EntityType>
-        <EntityType Name="shop_commodity_detail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FlightNo" Type="varchar" MaxLength="255" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="Price" Type="double" />
-          <Property Name="DateBegin" Type="datetime" Precision="0" />
-          <Property Name="DateEnd" Type="datetime" Precision="0" />
-          <Property Name="DepartureTime" Type="datetime" Precision="0" />
-          <Property Name="DeparturePlace" Type="varchar" MaxLength="255" />
-          <Property Name="ArrivalTime" Type="datetime" Precision="0" />
-          <Property Name="ArrivalPlace" Type="varchar" MaxLength="255" />
-          <Property Name="TakeOffTime" Type="varchar" MaxLength="255" />
-          <Property Name="LandingTime" Type="varchar" MaxLength="255" />
-          <Property Name="FlightTime" Type="varchar" MaxLength="255" />
-          <Property Name="Cabin" Type="varchar" MaxLength="255" />
-          <Property Name="Memo" Type="varchar" MaxLength="255" />
-          <Property Name="IsEnabled" Type="int" Nullable="false" />
-          <Property Name="IsDel" Type="int" />
+          <Property Name="ActionType" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="ActionUserId" Type="int" />
+          <Property Name="ActionOrgId" Type="int" />
+          <Property Name="TargetCode" Type="varchar" MaxLength="128" />
+          <Property Name="TargetId" Type="varchar" MaxLength="64" />
+          <Property Name="IP" Type="varchar" MaxLength="64" />
+          <Property Name="Tag" Type="varchar" MaxLength="128" />
+          <Property Name="Point" Type="int" />
+          <Property Name="Comment" Type="longtext" />
           <Property Name="CreateDate" Type="datetime" Precision="0" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
-          <Property Name="OrderBy" Type="int" />
-          <Property Name="VipPrice" Type="double" />
-          <Property Name="ClubPrice" Type="double" />
-        </EntityType>
-        <EntityType Name="shop_commodity_price">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="Code" Type="varchar" MaxLength="200" />
-          <Property Name="Price" Type="double" />
-          <Property Name="DateBegin" Type="datetime" Precision="0" />
-          <Property Name="DateEnd" Type="datetime" Precision="0" />
-          <Property Name="Status" Type="varchar" MaxLength="16" />
-        </EntityType>
-        <EntityType Name="shop_consultation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="Consultation" Type="text" />
-          <Property Name="Reply" Type="text" />
-          <Property Name="ContactWay" Type="varchar" MaxLength="64" />
-          <Property Name="IsShow" Type="int" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_favorite">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_logs">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="16" />
-          <Property Name="Level" Type="int" />
-          <Property Name="Message" Type="text" />
-          <Property Name="Value" Type="double" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="SupplierId" Type="int" />
-          <Property Name="OrderType" Type="varchar" MaxLength="16" />
-          <Property Name="OrderCode" Type="varchar" MaxLength="64" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="PayCode" Type="varchar" MaxLength="128" />
-          <Property Name="PostCode" Type="varchar" MaxLength="128" />
-          <Property Name="TotalPrice" Type="decimal" Precision="16" Scale="2" />
-          <Property Name="RefundMoney" Type="decimal" Precision="16" Scale="2" />
-          <Property Name="PersonNumber" Type="int" />
-          <Property Name="ChildrenNumber" Type="int" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-          <Property Name="SuccessDate" Type="datetime" Precision="0" />
-          <Property Name="PayDate" Type="datetime" Precision="0" />
-          <Property Name="SendDate" Type="datetime" Precision="0" />
-          <Property Name="Address" Type="varchar" MaxLength="255" />
-          <Property Name="Longitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Latitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Post" Type="varchar" MaxLength="32" />
-          <Property Name="Region" Type="varchar" MaxLength="32" />
-          <Property Name="Receiver" Type="varchar" MaxLength="32" />
-          <Property Name="Tel" Type="varchar" MaxLength="32" />
-          <Property Name="Memo" Type="text" />
-          <Property Name="Status" Type="varchar" MaxLength="16" />
-          <Property Name="RefundRule" Type="text" />
-          <Property Name="RefundFormula" Type="text" />
-          <Property Name="FuelPrice" Type="double" />
-          <Property Name="AirportPrice" Type="double" />
-        </EntityType>
-        <EntityType Name="shop_order_flow">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="SupplierId" Type="int" />
-          <Property Name="SourceOrderCode" Type="varchar" MaxLength="64" />
-          <Property Name="OrderType" Type="varchar" MaxLength="16" />
-          <Property Name="OrderCode" Type="varchar" MaxLength="64" />
-          <Property Name="PayCode" Type="varchar" MaxLength="128" />
-          <Property Name="PostCode" Type="varchar" MaxLength="128" />
-          <Property Name="TotalPrice" Type="decimal" Precision="16" Scale="2" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-          <Property Name="SuccessDate" Type="datetime" Precision="0" />
-          <Property Name="PayDate" Type="datetime" Precision="0" />
-          <Property Name="SendDate" Type="datetime" Precision="0" />
-          <Property Name="Address" Type="varchar" MaxLength="255" />
-          <Property Name="Longitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Latitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Post" Type="varchar" MaxLength="32" />
-          <Property Name="Region" Type="varchar" MaxLength="32" />
-          <Property Name="Receiver" Type="varchar" MaxLength="32" />
-          <Property Name="Tel" Type="varchar" MaxLength="32" />
-          <Property Name="Memo" Type="text" />
-          <Property Name="Status" Type="varchar" MaxLength="16" />
-        </EntityType>
-        <EntityType Name="shop_order_item">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderCode" Type="varchar" MaxLength="64" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="Type" Type="varchar" MaxLength="8" />
-          <Property Name="Amount" Type="int" />
-          <Property Name="Model" Type="varchar" MaxLength="128" />
-          <Property Name="Price" Type="double" />
-          <Property Name="TotalPrice" Type="double" />
-          <Property Name="Memo" Type="text" />
-          <Property Name="ArrivalDate" Type="datetime" Precision="0" />
-          <Property Name="LeaveDate" Type="datetime" Precision="0" />
-          <Property Name="OccupancyDay" Type="int" />
-          <Property Name="TakeOffTime" Type="varchar" MaxLength="255" />
-          <Property Name="LandingTime" Type="varchar" MaxLength="255" />
-          <Property Name="FlightTime" Type="varchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="shop_packages">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ParentId" Type="int" />
-          <Property Name="CommodityType" Type="varchar" MaxLength="16" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="CommodityName" Type="varchar" MaxLength="128" />
-          <Property Name="Amount" Type="int" />
-          <Property Name="Price" Type="double" />
-          <Property Name="Creator" Type="varchar" MaxLength="32" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_pay_item">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BranchCode" Type="varchar" MaxLength="32" />
-          <Property Name="PayCode" Type="varchar" MaxLength="32" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="OriginalPrice" Type="double" />
-          <Property Name="CurrentPrice" Type="double" />
-          <Property Name="Amount" Type="double" />
-          <Property Name="Money" Type="double" />
-        </EntityType>
-        <EntityType Name="shop_pay_list">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BranchCode" Type="varchar" MaxLength="32" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="MemberCard" Type="varchar" MaxLength="32" />
-          <Property Name="PayCode" Type="varchar" MaxLength="32" />
-          <Property Name="Cost" Type="decimal" Precision="16" Scale="4" />
-          <Property Name="Point" Type="decimal" Precision="16" Scale="4" />
-          <Property Name="PayDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_sale">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CommodityId" Type="int" />
-          <Property Name="Price" Type="double" />
-          <Property Name="BeginDate" Type="datetime" Precision="0" />
-          <Property Name="EndDate" Type="datetime" Precision="0" />
-          <Property Name="IsEnabled" Type="int" />
-          <Property Name="Creator" Type="varchar" MaxLength="32" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_service_order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserAccount" Type="varchar" MaxLength="32" />
-          <Property Name="OrderCode" Type="varchar" MaxLength="64" />
-          <Property Name="PayCode" Type="varchar" MaxLength="128" />
-          <Property Name="ServiceType" Type="varchar" MaxLength="32" />
-          <Property Name="Address" Type="varchar" MaxLength="255" />
-          <Property Name="Receiver" Type="varchar" MaxLength="32" />
-          <Property Name="Tel" Type="varchar" MaxLength="32" />
-          <Property Name="Memo" Type="text" />
-          <Property Name="Rank" Type="int" />
-          <Property Name="Comment" Type="text" />
-          <Property Name="Status" Type="int" />
-          <Property Name="ReserveDate" Type="datetime" Precision="0" />
-          <Property Name="SuccessDate" Type="datetime" Precision="0" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
-        </EntityType>
-        <EntityType Name="shop_supplier_info">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="varchar" MaxLength="128" />
-          <Property Name="CompanyCode" Type="varchar" MaxLength="64" />
-          <Property Name="CompanyProperty" Type="varchar" MaxLength="64" />
-          <Property Name="Address" Type="varchar" MaxLength="255" />
-          <Property Name="Longitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Latitude" Type="decimal" Precision="16" Scale="8" />
-          <Property Name="Post" Type="varchar" MaxLength="32" />
-          <Property Name="Region" Type="varchar" MaxLength="32" />
-          <Property Name="Contact" Type="varchar" MaxLength="32" />
-          <Property Name="Tel" Type="varchar" MaxLength="32" />
-          <Property Name="Memo" Type="text" />
-          <Property Name="Status" Type="varchar" MaxLength="16" />
-          <Property Name="CreateDate" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="sys_action_detail">
           <Key>
@@ -809,6 +432,7 @@
           <Property Name="Address" Type="text" />
           <Property Name="Tel" Type="varchar" MaxLength="128" />
           <Property Name="Memo" Type="longtext" />
+          <Property Name="Point" Type="int" />
           <Property Name="OrderBy" Type="int" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="IsDel" Type="int" Nullable="false" />
@@ -882,53 +506,34 @@
           <Property Name="CreateDate" Type="datetime" Precision="0" />
         </EntityType>
         <EntityContainer Name="NPiculetModelStoreContainer">
-          <EntitySet Name="bas_attachment" EntityType="Self.bas_attachment" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="bas_dict_group" EntityType="Self.bas_dict_group" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="bas_dict_item" EntityType="Self.bas_dict_item" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="bas_notice_info" EntityType="Self.bas_notice_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="bas_notice_record" EntityType="Self.bas_notice_record" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="bas_region_info" EntityType="Self.bas_region_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="cms_adv_info" EntityType="Self.cms_adv_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="cms_content_group" EntityType="Self.cms_content_group" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="cms_content_page" EntityType="Self.cms_content_page" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="cms_friendlinks_info" EntityType="Self.cms_friendlinks_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_address" EntityType="Self.shop_address" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_brand" EntityType="Self.shop_brand" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_cart" EntityType="Self.shop_cart" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_category" EntityType="Self.shop_category" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_comment" EntityType="Self.shop_comment" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_commodity" EntityType="Self.shop_commodity" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_commodity_detail" EntityType="Self.shop_commodity_detail" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_commodity_price" EntityType="Self.shop_commodity_price" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_consultation" EntityType="Self.shop_consultation" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_favorite" EntityType="Self.shop_favorite" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_logs" EntityType="Self.shop_logs" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_order" EntityType="Self.shop_order" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_order_flow" EntityType="Self.shop_order_flow" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_order_item" EntityType="Self.shop_order_item" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_packages" EntityType="Self.shop_packages" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_pay_item" EntityType="Self.shop_pay_item" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_pay_list" EntityType="Self.shop_pay_list" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_sale" EntityType="Self.shop_sale" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_service_order" EntityType="Self.shop_service_order" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="shop_supplier_info" EntityType="Self.shop_supplier_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_action_detail" EntityType="Self.sys_action_detail" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_action_log" EntityType="Self.sys_action_log" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_admin_info" EntityType="Self.sys_admin_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_app" EntityType="Self.sys_app" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_authorization" EntityType="Self.sys_authorization" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_config" EntityType="Self.sys_config" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_link_user_org" EntityType="Self.sys_link_user_org" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_link_user_role" EntityType="Self.sys_link_user_role" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_member_corporation" EntityType="Self.sys_member_corporation" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_member_data" EntityType="Self.sys_member_data" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_member_info" EntityType="Self.sys_member_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_org_group" EntityType="Self.sys_org_group" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_org_info" EntityType="Self.sys_org_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_role_info" EntityType="Self.sys_role_info" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_user_data" EntityType="Self.sys_user_data" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_user_info" EntityType="Self.sys_user_info" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="bas_attachment" EntityType="Self.bas_attachment" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="bas_dict_group" EntityType="Self.bas_dict_group" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="bas_dict_item" EntityType="Self.bas_dict_item" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="bas_notice_info" EntityType="Self.bas_notice_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="bas_notice_record" EntityType="Self.bas_notice_record" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="bas_region_info" EntityType="Self.bas_region_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="cms_adv_info" EntityType="Self.cms_adv_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="cms_content_group" EntityType="Self.cms_content_group" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="cms_content_page" EntityType="Self.cms_content_page" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="cms_friendlinks_info" EntityType="Self.cms_friendlinks_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="cms_points_log" EntityType="Self.cms_points_log" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_action_detail" EntityType="Self.sys_action_detail" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_action_log" EntityType="Self.sys_action_log" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_admin_info" EntityType="Self.sys_admin_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_app" EntityType="Self.sys_app" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_authorization" EntityType="Self.sys_authorization" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_config" EntityType="Self.sys_config" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_link_user_org" EntityType="Self.sys_link_user_org" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_link_user_role" EntityType="Self.sys_link_user_role" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_member_corporation" EntityType="Self.sys_member_corporation" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_member_data" EntityType="Self.sys_member_data" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_member_info" EntityType="Self.sys_member_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_org_group" EntityType="Self.sys_org_group" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_org_info" EntityType="Self.sys_org_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_role_info" EntityType="Self.sys_role_info" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_user_data" EntityType="Self.sys_user_data" Schema="eicwebdb" store:Type="Tables" />
+          <EntitySet Name="sys_user_info" EntityType="Self.sys_user_info" Schema="eicwebdb" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -945,6 +550,7 @@
           <EntitySet Name="cms_content_group" EntityType="NPiculetModel.cms_content_group" />
           <EntitySet Name="cms_content_page" EntityType="NPiculetModel.cms_content_page" />
           <EntitySet Name="cms_friendlinks_info" EntityType="NPiculetModel.cms_friendlinks_info" />
+          <EntitySet Name="cms_points_log" EntityType="NPiculetModel.cms_points_log" />
           <EntitySet Name="sys_action_detail" EntityType="NPiculetModel.sys_action_detail" />
           <EntitySet Name="sys_action_log" EntityType="NPiculetModel.sys_action_log" />
           <EntitySet Name="sys_admin_info" EntityType="NPiculetModel.sys_admin_info" />
@@ -962,26 +568,6 @@
           <EntitySet Name="sys_role_info" EntityType="NPiculetModel.sys_role_info" />
           <EntitySet Name="sys_user_data" EntityType="NPiculetModel.sys_user_data" />
           <EntitySet Name="sys_user_info" EntityType="NPiculetModel.sys_user_info" />
-          <EntitySet Name="shop_address" EntityType="NPiculetModel.shop_address" />
-          <EntitySet Name="shop_brand" EntityType="NPiculetModel.shop_brand" />
-          <EntitySet Name="shop_cart" EntityType="NPiculetModel.shop_cart" />
-          <EntitySet Name="shop_category" EntityType="NPiculetModel.shop_category" />
-          <EntitySet Name="shop_comment" EntityType="NPiculetModel.shop_comment" />
-          <EntitySet Name="shop_commodity" EntityType="NPiculetModel.shop_commodity" />
-          <EntitySet Name="shop_commodity_detail" EntityType="NPiculetModel.shop_commodity_detail" />
-          <EntitySet Name="shop_commodity_price" EntityType="NPiculetModel.shop_commodity_price" />
-          <EntitySet Name="shop_consultation" EntityType="NPiculetModel.shop_consultation" />
-          <EntitySet Name="shop_favorite" EntityType="NPiculetModel.shop_favorite" />
-          <EntitySet Name="shop_logs" EntityType="NPiculetModel.shop_logs" />
-          <EntitySet Name="shop_order" EntityType="NPiculetModel.shop_order" />
-          <EntitySet Name="shop_order_flow" EntityType="NPiculetModel.shop_order_flow" />
-          <EntitySet Name="shop_order_item" EntityType="NPiculetModel.shop_order_item" />
-          <EntitySet Name="shop_packages" EntityType="NPiculetModel.shop_packages" />
-          <EntitySet Name="shop_pay_item" EntityType="NPiculetModel.shop_pay_item" />
-          <EntitySet Name="shop_pay_list" EntityType="NPiculetModel.shop_pay_list" />
-          <EntitySet Name="shop_sale" EntityType="NPiculetModel.shop_sale" />
-          <EntitySet Name="shop_service_order" EntityType="NPiculetModel.shop_service_order" />
-          <EntitySet Name="shop_supplier_info" EntityType="NPiculetModel.shop_supplier_info" />
         </EntityContainer>
         <EntityType Name="bas_attachment">
           <Key>
@@ -1084,20 +670,21 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Cover" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Css" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Script" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Click" Type="Int32" Nullable="false" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="OrderBy" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" />
-          <Property Name="EndDate" Type="DateTime" />
-          <Property Name="StartDate" Type="DateTime" />
-          <Property Name="LoopStart" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LoopEnd" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ValidTerm" Type="Int32" />
         </EntityType>
         <EntityType Name="cms_content_group">
           <Key>
@@ -1124,9 +711,12 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="OrgId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="CategoryName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="SubTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="Thumb" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Source" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
@@ -1150,6 +740,23 @@
           <Property Name="OrderBy" Type="Int32" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_points_log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionType" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ActionUserId" Type="Int32" />
+          <Property Name="ActionOrgId" Type="Int32" />
+          <Property Name="TargetCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="TargetId" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="IP" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Tag" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Point" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_action_detail">
           <Key>
@@ -1389,6 +996,7 @@
           <Property Name="Address" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Tel" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Memo" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Point" Type="Int32" />
           <Property Name="OrderBy" Type="Int32" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="IsDel" Type="Int32" Nullable="false" />
@@ -1459,404 +1067,6 @@
           <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_address">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserAccount" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="OrderCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Tel" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="IdCardType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="IdCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Post" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Town" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Region" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Street" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Longitude" Type="Decimal" />
-          <Property Name="Latitude" Type="Decimal" />
-          <Property Name="IsDefault" Type="Int32" />
-          <Property Name="IsDel" Type="Int32" />
-        </EntityType>
-        <EntityType Name="shop_brand">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="IsEnabled" Type="Int32" />
-          <Property Name="IsDel" Type="Int32" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_cart">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="ParentId" Type="Int32" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="Type" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Int32" />
-          <Property Name="MemberLevel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="TotalPrice" Type="Double" />
-          <Property Name="PersonNumber" Type="Int32" />
-          <Property Name="ChildrenNumber" Type="Int32" />
-          <Property Name="ArrivalDate" Type="DateTime" />
-          <Property Name="LeaveDate" Type="DateTime" />
-          <Property Name="OccupancyDay" Type="Int32" />
-          <Property Name="IsPackages" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="TakeOffTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LandingTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FlightTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="shop_category">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AppCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="ParentId" Type="Int32" />
-          <Property Name="RootId" Type="Int32" />
-          <Property Name="Path" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Code" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Icon" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Depth" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="OrderBy" Type="Int32" />
-          <Property Name="IsEnabled" Type="Int32" />
-          <Property Name="IsDel" Type="Int32" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_comment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Comment" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Rank" Type="Int32" />
-          <Property Name="IsShow" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_commodity">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryId" Type="Int32" />
-          <Property Name="CategoryType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="SupplierId" Type="Int32" />
-          <Property Name="RootCategoryId" Type="Int32" />
-          <Property Name="BrandId" Type="Int32" />
-          <Property Name="Code" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Pinyin" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Keywords" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Thumb" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PlaceStartCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="PlaceStartName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="PlaceEndCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="PlaceEndName" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Stock" Type="Int32" />
-          <Property Name="Model" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Unit" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Characteristic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Size" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="OriginalPrice" Type="Double" />
-          <Property Name="CurrentPrice" Type="Double" />
-          <Property Name="IsBundling" Type="Int32" />
-          <Property Name="BundlingPrice" Type="Double" />
-          <Property Name="Point" Type="Double" />
-          <Property Name="SalePoint" Type="Double" />
-          <Property Name="SalesVolume" Type="Int32" />
-          <Property Name="TotalFavorite" Type="Int32" />
-          <Property Name="TotalComment" Type="Int32" />
-          <Property Name="TotalClick" Type="Int32" />
-          <Property Name="IsPackages" Type="Int32" />
-          <Property Name="IsLimitTime" Type="Int32" />
-          <Property Name="IsPriceOff" Type="Int32" />
-          <Property Name="IsPoint" Type="Int32" />
-          <Property Name="IsRefund" Type="Int32" />
-          <Property Name="RefundMemo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="IsEnabled" Type="Int32" />
-          <Property Name="IsDel" Type="Int32" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="LeaveDate" Type="DateTime" />
-          <Property Name="ArrivalDate" Type="DateTime" />
-          <Property Name="Reserve" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Way" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Scenery" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Hint" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="RefundRule" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="RefundFormula" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="FuelPrice" Type="Double" />
-          <Property Name="AirportPrice" Type="Double" />
-          <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="OrderBy" Type="Int32" />
-        </EntityType>
-        <EntityType Name="shop_commodity_detail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FlightNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="DateBegin" Type="DateTime" />
-          <Property Name="DateEnd" Type="DateTime" />
-          <Property Name="DepartureTime" Type="DateTime" />
-          <Property Name="DeparturePlace" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ArrivalTime" Type="DateTime" />
-          <Property Name="ArrivalPlace" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TakeOffTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LandingTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FlightTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Cabin" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="IsDel" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="OrderBy" Type="Int32" />
-          <Property Name="VipPrice" Type="Double" />
-          <Property Name="ClubPrice" Type="Double" />
-        </EntityType>
-        <EntityType Name="shop_commodity_price">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="Code" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="DateBegin" Type="DateTime" />
-          <Property Name="DateEnd" Type="DateTime" />
-          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="shop_consultation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="Consultation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Reply" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="ContactWay" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="IsShow" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_favorite">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_logs">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Level" Type="Int32" />
-          <Property Name="Message" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="Double" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="SupplierId" Type="Int32" />
-          <Property Name="OrderType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="OrderCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="PayCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="PostCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="TotalPrice" Type="Decimal" />
-          <Property Name="RefundMoney" Type="Decimal" />
-          <Property Name="PersonNumber" Type="Int32" />
-          <Property Name="ChildrenNumber" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="SuccessDate" Type="DateTime" />
-          <Property Name="PayDate" Type="DateTime" />
-          <Property Name="SendDate" Type="DateTime" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Longitude" Type="Decimal" />
-          <Property Name="Latitude" Type="Decimal" />
-          <Property Name="Post" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Region" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Receiver" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Tel" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="RefundRule" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="RefundFormula" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="FuelPrice" Type="Double" />
-          <Property Name="AirportPrice" Type="Double" />
-        </EntityType>
-        <EntityType Name="shop_order_flow">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="SupplierId" Type="Int32" />
-          <Property Name="SourceOrderCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="OrderType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="OrderCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="PayCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="PostCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="TotalPrice" Type="Decimal" />
-          <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="SuccessDate" Type="DateTime" />
-          <Property Name="PayDate" Type="DateTime" />
-          <Property Name="SendDate" Type="DateTime" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Longitude" Type="Decimal" />
-          <Property Name="Latitude" Type="Decimal" />
-          <Property Name="Post" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Region" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Receiver" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Tel" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="shop_order_item">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="Type" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Int32" />
-          <Property Name="Model" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="TotalPrice" Type="Double" />
-          <Property Name="Memo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="ArrivalDate" Type="DateTime" />
-          <Property Name="LeaveDate" Type="DateTime" />
-          <Property Name="OccupancyDay" Type="Int32" />
-          <Property Name="TakeOffTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LandingTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FlightTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="shop_packages">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ParentId" Type="Int32" />
-          <Property Name="CommodityType" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="CommodityName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Int32" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_pay_item">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BranchCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="PayCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="OriginalPrice" Type="Double" />
-          <Property Name="CurrentPrice" Type="Double" />
-          <Property Name="Amount" Type="Double" />
-          <Property Name="Money" Type="Double" />
-        </EntityType>
-        <EntityType Name="shop_pay_list">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BranchCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="MemberCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="PayCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Cost" Type="Decimal" />
-          <Property Name="Point" Type="Decimal" />
-          <Property Name="PayDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_sale">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CommodityId" Type="Int32" />
-          <Property Name="Price" Type="Double" />
-          <Property Name="BeginDate" Type="DateTime" />
-          <Property Name="EndDate" Type="DateTime" />
-          <Property Name="IsEnabled" Type="Int32" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_service_order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserAccount" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="OrderCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="PayCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceType" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Receiver" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Tel" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Rank" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="ReserveDate" Type="DateTime" />
-          <Property Name="SuccessDate" Type="DateTime" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="shop_supplier_info">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyCode" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="CompanyProperty" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Longitude" Type="Decimal" />
-          <Property Name="Latitude" Type="Decimal" />
-          <Property Name="Post" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Region" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Contact" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Tel" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
         </EntityType>
         </Schema>
@@ -1970,20 +1180,21 @@
           <EntitySetMapping Name="cms_adv_info">
             <EntityTypeMapping TypeName="NPiculetModel.cms_adv_info">
               <MappingFragment StoreEntitySet="cms_adv_info">
-                <ScalarProperty Name="ValidTerm" ColumnName="ValidTerm" />
-                <ScalarProperty Name="LoopEnd" ColumnName="LoopEnd" />
-                <ScalarProperty Name="LoopStart" ColumnName="LoopStart" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="Click" ColumnName="Click" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Script" ColumnName="Script" />
+                <ScalarProperty Name="Css" ColumnName="Css" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2019,9 +1230,12 @@
                 <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="Thumb" ColumnName="Thumb" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrgId" ColumnName="OrgId" />
                 <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -2039,6 +1253,24 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_points_log">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_points_log">
+              <MappingFragment StoreEntitySet="cms_points_log">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="TargetId" ColumnName="TargetId" />
+                <ScalarProperty Name="TargetCode" ColumnName="TargetCode" />
+                <ScalarProperty Name="ActionOrgId" ColumnName="ActionOrgId" />
+                <ScalarProperty Name="ActionUserId" ColumnName="ActionUserId" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2284,6 +1516,7 @@
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Point" ColumnName="Point" />
                 <ScalarProperty Name="Memo" ColumnName="Memo" />
                 <ScalarProperty Name="Tel" ColumnName="Tel" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -2366,424 +1599,6 @@
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="UserSn" ColumnName="UserSn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_address">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_address">
-              <MappingFragment StoreEntitySet="shop_address">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="Town" ColumnName="Town" />
-                <ScalarProperty Name="Province" ColumnName="Province" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
-                <ScalarProperty Name="IdCardType" ColumnName="IdCardType" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_brand">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_brand">
-              <MappingFragment StoreEntitySet="shop_brand">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_cart">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_cart">
-              <MappingFragment StoreEntitySet="shop_cart">
-                <ScalarProperty Name="FlightTime" ColumnName="FlightTime" />
-                <ScalarProperty Name="LandingTime" ColumnName="LandingTime" />
-                <ScalarProperty Name="TakeOffTime" ColumnName="TakeOffTime" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsPackages" ColumnName="IsPackages" />
-                <ScalarProperty Name="OccupancyDay" ColumnName="OccupancyDay" />
-                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
-                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
-                <ScalarProperty Name="ChildrenNumber" ColumnName="ChildrenNumber" />
-                <ScalarProperty Name="PersonNumber" ColumnName="PersonNumber" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_category">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_category">
-              <MappingFragment StoreEntitySet="shop_category">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Depth" ColumnName="Depth" />
-                <ScalarProperty Name="Icon" ColumnName="Icon" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
-                <ScalarProperty Name="RootId" ColumnName="RootId" />
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="AppCode" ColumnName="AppCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_comment">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_comment">
-              <MappingFragment StoreEntitySet="shop_comment">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
-                <ScalarProperty Name="Rank" ColumnName="Rank" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_commodity">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_commodity">
-              <MappingFragment StoreEntitySet="shop_commodity">
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="AirportPrice" ColumnName="AirportPrice" />
-                <ScalarProperty Name="FuelPrice" ColumnName="FuelPrice" />
-                <ScalarProperty Name="RefundFormula" ColumnName="RefundFormula" />
-                <ScalarProperty Name="RefundRule" ColumnName="RefundRule" />
-                <ScalarProperty Name="Hint" ColumnName="Hint" />
-                <ScalarProperty Name="Scenery" ColumnName="Scenery" />
-                <ScalarProperty Name="Way" ColumnName="Way" />
-                <ScalarProperty Name="Reserve" ColumnName="Reserve" />
-                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
-                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="RefundMemo" ColumnName="RefundMemo" />
-                <ScalarProperty Name="IsRefund" ColumnName="IsRefund" />
-                <ScalarProperty Name="IsPoint" ColumnName="IsPoint" />
-                <ScalarProperty Name="IsPriceOff" ColumnName="IsPriceOff" />
-                <ScalarProperty Name="IsLimitTime" ColumnName="IsLimitTime" />
-                <ScalarProperty Name="IsPackages" ColumnName="IsPackages" />
-                <ScalarProperty Name="TotalClick" ColumnName="TotalClick" />
-                <ScalarProperty Name="TotalComment" ColumnName="TotalComment" />
-                <ScalarProperty Name="TotalFavorite" ColumnName="TotalFavorite" />
-                <ScalarProperty Name="SalesVolume" ColumnName="SalesVolume" />
-                <ScalarProperty Name="SalePoint" ColumnName="SalePoint" />
-                <ScalarProperty Name="Point" ColumnName="Point" />
-                <ScalarProperty Name="BundlingPrice" ColumnName="BundlingPrice" />
-                <ScalarProperty Name="IsBundling" ColumnName="IsBundling" />
-                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
-                <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="Characteristic" ColumnName="Characteristic" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Stock" ColumnName="Stock" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="PlaceEndName" ColumnName="PlaceEndName" />
-                <ScalarProperty Name="PlaceEndCode" ColumnName="PlaceEndCode" />
-                <ScalarProperty Name="PlaceStartName" ColumnName="PlaceStartName" />
-                <ScalarProperty Name="PlaceStartCode" ColumnName="PlaceStartCode" />
-                <ScalarProperty Name="Thumb" ColumnName="Thumb" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
-                <ScalarProperty Name="Pinyin" ColumnName="Pinyin" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
-                <ScalarProperty Name="RootCategoryId" ColumnName="RootCategoryId" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_commodity_detail">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_commodity_detail">
-              <MappingFragment StoreEntitySet="shop_commodity_detail">
-                <ScalarProperty Name="ClubPrice" ColumnName="ClubPrice" />
-                <ScalarProperty Name="VipPrice" ColumnName="VipPrice" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Cabin" ColumnName="Cabin" />
-                <ScalarProperty Name="FlightTime" ColumnName="FlightTime" />
-                <ScalarProperty Name="LandingTime" ColumnName="LandingTime" />
-                <ScalarProperty Name="TakeOffTime" ColumnName="TakeOffTime" />
-                <ScalarProperty Name="ArrivalPlace" ColumnName="ArrivalPlace" />
-                <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
-                <ScalarProperty Name="DeparturePlace" ColumnName="DeparturePlace" />
-                <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
-                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
-                <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="FlightNo" ColumnName="FlightNo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_commodity_price">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_commodity_price">
-              <MappingFragment StoreEntitySet="shop_commodity_price">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
-                <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_consultation">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_consultation">
-              <MappingFragment StoreEntitySet="shop_consultation">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsShow" ColumnName="IsShow" />
-                <ScalarProperty Name="ContactWay" ColumnName="ContactWay" />
-                <ScalarProperty Name="Reply" ColumnName="Reply" />
-                <ScalarProperty Name="Consultation" ColumnName="Consultation" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_favorite">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_favorite">
-              <MappingFragment StoreEntitySet="shop_favorite">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_logs">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_logs">
-              <MappingFragment StoreEntitySet="shop_logs">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="Level" ColumnName="Level" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_order">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_order">
-              <MappingFragment StoreEntitySet="shop_order">
-                <ScalarProperty Name="AirportPrice" ColumnName="AirportPrice" />
-                <ScalarProperty Name="FuelPrice" ColumnName="FuelPrice" />
-                <ScalarProperty Name="RefundFormula" ColumnName="RefundFormula" />
-                <ScalarProperty Name="RefundRule" ColumnName="RefundRule" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
-                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-                <ScalarProperty Name="SuccessDate" ColumnName="SuccessDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="ChildrenNumber" ColumnName="ChildrenNumber" />
-                <ScalarProperty Name="PersonNumber" ColumnName="PersonNumber" />
-                <ScalarProperty Name="RefundMoney" ColumnName="RefundMoney" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
-                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_order_flow">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_order_flow">
-              <MappingFragment StoreEntitySet="shop_order_flow">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
-                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-                <ScalarProperty Name="SuccessDate" ColumnName="SuccessDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
-                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
-                <ScalarProperty Name="SourceOrderCode" ColumnName="SourceOrderCode" />
-                <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_order_item">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_order_item">
-              <MappingFragment StoreEntitySet="shop_order_item">
-                <ScalarProperty Name="FlightTime" ColumnName="FlightTime" />
-                <ScalarProperty Name="LandingTime" ColumnName="LandingTime" />
-                <ScalarProperty Name="TakeOffTime" ColumnName="TakeOffTime" />
-                <ScalarProperty Name="OccupancyDay" ColumnName="OccupancyDay" />
-                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
-                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_packages">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_packages">
-              <MappingFragment StoreEntitySet="shop_packages">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="CommodityName" ColumnName="CommodityName" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="CommodityType" ColumnName="CommodityType" />
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_pay_item">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_pay_item">
-              <MappingFragment StoreEntitySet="shop_pay_item">
-                <ScalarProperty Name="Money" ColumnName="Money" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="CurrentPrice" ColumnName="CurrentPrice" />
-                <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_pay_list">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_pay_list">
-              <MappingFragment StoreEntitySet="shop_pay_list">
-                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-                <ScalarProperty Name="Point" ColumnName="Point" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
-                <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_sale">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_sale">
-              <MappingFragment StoreEntitySet="shop_sale">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="CommodityId" ColumnName="CommodityId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_service_order">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_service_order">
-              <MappingFragment StoreEntitySet="shop_service_order">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="SuccessDate" ColumnName="SuccessDate" />
-                <ScalarProperty Name="ReserveDate" ColumnName="ReserveDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Rank" ColumnName="Rank" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
-                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="shop_supplier_info">
-            <EntityTypeMapping TypeName="NPiculetModel.shop_supplier_info">
-              <MappingFragment StoreEntitySet="shop_supplier_info">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="Tel" ColumnName="Tel" />
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CompanyProperty" ColumnName="CompanyProperty" />
-                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

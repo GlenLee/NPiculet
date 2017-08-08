@@ -69,7 +69,7 @@ WHERE m.`IsDel`=0 and m.`IsEnabled`=1 and EXISTS(SELECT * FROM sys_authorization
 		/// <returns></returns>
 		public DataTable GetRoleLinkUser(int roleId)
 		{
-			string sql = @"SELECT l.UserId, u.Account, u.Password, u.Name, l.RoleId, r.RoleName
+			string sql = @"SELECT l.UserId, u.Account, u.Password, u.Name AS UserName, l.RoleId, r.RoleName
 FROM sys_user_info u
 	INNER JOIN sys_link_user_role l ON u.Id=l.UserId AND u.IsDel=0
 	INNER JOIN sys_role_info r ON l.RoleId=r.Id AND r.IsDel=0";
@@ -88,7 +88,7 @@ FROM sys_user_info u
 		/// <returns></returns>
 		public DataTable GetUserLinkRole(int userId)
 		{
-			string sql = @"SELECT l.UserId, u.Account, u.Password, u.Name, l.RoleId, r.RoleName
+			string sql = @"SELECT l.UserId, u.Account, u.Password, u.Name AS UserName, l.RoleId, r.RoleName
 FROM sys_user_info u
 	INNER JOIN sys_link_user_role l ON u.Id=l.UserId AND u.IsDel=0
 	INNER JOIN sys_role_info r ON l.RoleId=r.Id AND r.IsDel=0";

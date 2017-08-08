@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Data;
 using NPiculet.Logic;
 using NPiculet.Logic.Base;
@@ -17,11 +18,28 @@ public partial class system_Admin_UserEdit : AdminPage
     protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
+			BindOrgDropDownList();
+			BindUserType();
 			BindData();
 			BindOrgList();
 			BindRoleList();
 		} else {
 			EventProcess();
+		}
+	}
+
+	private void BindOrgDropDownList() {
+		using (var db = new NPiculetEntities()) {
+			var companys = (from o in db.sys_org_info
+				where o.Level == 0 && o.IsDel == 0
+				select o).ToList();
+			BindKit.BindToListControl(this.RootCompanyList, companys, "OrgName", "Id");
+
+			int pid = ConvertKit.ConvertValue(this.RootCompanyList.SelectedValue, 0);
+			var orgs = (from o in db.sys_org_info
+				where o.Level == 1&& o.IsDel == 0 && o.ParentId == pid
+				select o).ToList();
+			BindKit.BindToListControl(this.OrgId, orgs, "OrgName", "Id");
 		}
 	}
 
@@ -49,6 +67,17 @@ public partial class system_Admin_UserEdit : AdminPage
 		} else {
 			this._userOrg.Visible = false;
 			this._userRole.Visible = false;
+		}
+	}
+
+	/// <summary>
+	/// 绑定用户类型
+	/// </summary>
+	private void BindUserType()
+	{
+		using (var db = new NPiculetEntities()) {
+			var list = (from d in db.bas_dict_item where d.GroupCode == "UserType" orderby d.OrderBy select d).ToList();
+			BindKit.BindToListControl(this.Type, list, "Name", "Value");
 		}
 	}
 
@@ -165,7 +194,7 @@ public partial class system_Admin_UserEdit : AdminPage
 	{
 		string target = WebParmKit.GetFormValue("__EVENTTARGET", "");
 		string argument = WebParmKit.GetFormValue("__EVENTARGUMENT", "");
-		int uid = Convert.ToInt32(this.Id.Value);
+		int uid = ConvertKit.ConvertValue<int>(this.Id.Value);
 		if (uid > 0) {
 			switch (target) {
 				case "addOrg":
@@ -200,7 +229,7 @@ public partial class system_Admin_UserEdit : AdminPage
 							if (orgId == arg) doInsert = false;
 						}
 						if (doInsert)
-							rbus.Insert(new SysLinkUserRole() { UserId = Convert.ToInt32(this.Id.Value), RoleId = int.Parse(arg) });
+							rbus.Insert(new SysLinkUserRole() { UserId = ConvertKit.ConvertValue(this.Id.Value, 0), RoleId = int.Parse(arg) });
 					}
 					BindRoleList();
 					break;

@@ -5,6 +5,7 @@ namespace NPiculet.Logic.Data
 	/// <summary>
 	/// 操作日志表
 	/// </summary>
+	[Serializable]
 	public partial class SysActionLog : ModelBase
 	{
 		public override string TableName { get { return "sys_action_log"; } }

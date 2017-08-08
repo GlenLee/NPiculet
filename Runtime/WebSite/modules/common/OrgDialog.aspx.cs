@@ -10,7 +10,7 @@ using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
 using NPiculet.WebControls;
 
-public partial class modules_common_OrgDialog : NormalPage
+public partial class modules_common_OrgDialog : AdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
