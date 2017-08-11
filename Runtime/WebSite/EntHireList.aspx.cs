@@ -26,7 +26,7 @@ public partial class EntHireList : MemberPage
 					   row.Title,
 					   row.Content,
 					   row.CreateDate,
-					   Status = HireStatusHelper.GetStatus(row.IsEnabled)
+					   Status = row.IsEnabled == 1 ? "启用" : "停用"
 				   };
 
 		EntHireListView.DataSource = list;

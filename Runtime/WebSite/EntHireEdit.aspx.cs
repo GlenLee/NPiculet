@@ -22,8 +22,8 @@ public partial class EntHireEdit : MemberPage
 
 	private void BindData()
 	{
-		this.IsEnabled.DataSource = HireStatusHelper.AllHireStatus;
-		this.IsEnabled.DataBind();
+		//this.IsEnabled.DataSource = HireStatusHelper.AllHireStatus;
+		//this.IsEnabled.DataBind();
 
 		if (CurrentUserInfo == null)
 			return;

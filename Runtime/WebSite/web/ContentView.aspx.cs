@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Base.EF;
+using NPiculet.Data;
 
 public partial class web_ContentView : System.Web.UI.Page
 {
@@ -22,7 +23,5 @@ public partial class web_ContentView : System.Web.UI.Page
 		var list = _db.cms_content_page.Where(x => x.GroupCode == GROUP_NAME).Take(10).ToList();
 		this.Associators.DataSource = list;
 		this.Associators.DataBind();
-
-		CommonLib.BindAdvToRepeater(ContentPageAdvs, AdvType.右侧广告, 2);
 	}
 }

@@ -22,9 +22,8 @@ public partial class web_PageAssociatorShow : System.Web.UI.Page
 	protected string GetColorString()
 	{
 		string result = "";
-		foreach (EntMemeberStatus status in EntMemeberStatusHelper.AllMemberStatusEnum) {
-			result += "<font color='" + status.Description() + "'>" + status + "</font>&nbsp&nbsp";
-		}
+		result += "<font color='green'>已审核</font>&nbsp&nbsp";
+		result += "<font color='red'>未审核</font>&nbsp&nbsp";
 		return result;
 	}
 
@@ -72,11 +71,10 @@ public partial class web_PageAssociatorShow : System.Web.UI.Page
 					lat = corpDetail.Altitudes,
 					sn = row.Id,
 					name = corpDetail.CorporationBreifName,
-					color = EntMemeberStatusHelper.GetStatusColor(row.Status)
+					color = row.Status == "1" ? "green" : "red"
 				};
 
 			this.corpItems.Value = corpInfo.ToJson();
 		}
 	}
-
 }

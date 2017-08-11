@@ -65,6 +65,7 @@
     <Compile Include="BusinessCustom\CmsAdvInfoBus_Custom.cs" />
     <Compile Include="BusinessCustom\CmsContentGroupBus_Custom.cs" />
     <Compile Include="BusinessCustom\CmsContentPageBus_Custom.cs" />
+    <Compile Include="BusinessCustom\CmsPointLogBus.cs" />
     <Compile Include="Business\CmsAdvInfoBus.cs" />
     <Compile Include="Business\CmsContentGroupBus.cs" />
     <Compile Include="Business\CmsContentPageBus.cs" />
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\NPiculet.Base\NPiculet.Base.csproj">
       <Project>{5af1f7ef-259a-4b00-b7ed-c145515e9885}</Project>
       <Name>NPiculet.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NPiculet.Sys\NPiculet.Sys.csproj">
+      <Project>{7c06bb77-1a52-43c4-b6b6-4f72c256ab2a}</Project>
+      <Name>NPiculet.Sys</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

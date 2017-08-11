@@ -37,8 +37,8 @@ public partial class EntRegStep2 : NormalPage
 			}
 
 			UserAccount.Text = account;
-			CorporationNature.DataSource = CommonLib.EnterpriseNatures;
-			CorporationNature.DataBind();
+			//CorporationNature.DataSource = CommonLib.EnterpriseNatures;
+			//CorporationNature.DataBind();
 		}
 	}
 

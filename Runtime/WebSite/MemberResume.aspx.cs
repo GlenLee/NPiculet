@@ -25,8 +25,8 @@ public partial class MemberResume : MemberPage
 
 	private void BindData()
 	{
-		this.IsEnabled.DataSource = HireStatusHelper.AllHireStatus;
-		this.IsEnabled.DataBind();
+		//this.IsEnabled.DataSource = HireStatusHelper.AllHireStatus;
+		//this.IsEnabled.DataBind();
 
 		var model = GetResumeModelFromDb();
 		if (model != null)

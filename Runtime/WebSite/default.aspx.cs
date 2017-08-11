@@ -28,15 +28,54 @@ public partial class _Default : System.Web.UI.Page
 			BindPagePolicyList();
 			BindEntHireList();
 			BindSaleList();
-			CommonLib.BindAdvToRepeater(RecommendBrands, AdvType.推荐品牌, 20);
-			CommonLib.BindAdvToRepeater(AdvertisingOfTop, AdvType.轮播广告, 5);
-			CommonLib.BindAdvToRepeater(BottomBanner, AdvType.底部广告, 2);
+			BindAdvToRepeater(RecommendBrands, AdvType.推荐品牌, 20);
+			BindAdvToRepeater(AdvertisingOfTop, AdvType.轮播广告, 5);
+			BindAdvToRepeater(BottomBanner, AdvType.底部广告, 2);
 		}
 
 		var member = LoginKit.GetCurrentMember();
 		bool login = (member != null);
 		indexLoginForm.Visible = !login;
 		indexUserInfo.Visible = login;
+	}
+
+	public enum AdvStatus
+	{
+		编辑中 = -1,
+		待审核 = 0,
+		已审核 = 1,
+		未通过 = 2
+	}
+
+	public enum AdvType
+	{
+		轮播广告 = 0,
+		底部广告 = 1,
+		右侧广告 = 2,
+		推荐品牌 = 3
+	}
+
+	public enum HireStatus
+	{
+		未公开 = 0,
+		已公开 = 1
+	}
+
+	public static void BindAdvToRepeater(Repeater repeater, AdvType type, int recNum)
+	{
+		using (NPiculetEntities db = new NPiculetEntities()) {
+			int status = (int)AdvStatus.已审核;
+			string advType = type.ToString();
+			var data = db.cms_adv_info.Where(x => x.Position == advType
+			                                      && x.IsEnabled == status
+			                                      && (x.EndDate == null || x.EndDate <= DateTime.Now)).
+				OrderBy(x => x.OrderBy).
+				Take(recNum).ToList();
+			if (data.Count() < 1)
+				return;
+			repeater.DataSource = data;
+			repeater.DataBind();
+		}
 	}
 
 	private void BindEntHireList()

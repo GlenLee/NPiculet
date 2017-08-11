@@ -87,6 +87,30 @@
     <Compile Include="EF\cms_friendlinks_info.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\cms_points_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_calendar_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_calendar_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_kpi_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_kpi_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_kpi_total.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_wages_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\hrs_wages_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\NPiculetModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +125,27 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NPiculetModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_project_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_publish_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_publish_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_resource_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_resource_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_task_info.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\pms_task_log.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\shop_address.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
@@ -213,9 +258,6 @@
     <Compile Include="EF\sys_user_info.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Extend\DataConvertTools.cs" />
-    <Compile Include="Extend\LinQ.cs" />
-    <Compile Include="Extend\LinQKit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

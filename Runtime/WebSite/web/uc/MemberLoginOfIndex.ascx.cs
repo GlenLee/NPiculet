@@ -39,7 +39,7 @@ namespace web.uc
 				return;
 			}
 			
-			if (user.StateCode == ((int)EntMemeberStatus.已审核).ToString() || user.Level == "个人用户")
+			if (user.StateCode == "1" || user.Level == "个人用户")
 			{
 				LoginKit.MemberLogin(user);
 				Response.Redirect("~/default.aspx");
