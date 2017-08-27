@@ -16,7 +16,7 @@ namespace NPiculet.Base.EF
     {
         public int Id { get; set; }
         public string UserSn { get; set; }
-        public Nullable<int> Type { get; set; }
+        public string Type { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

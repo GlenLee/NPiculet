@@ -91,7 +91,7 @@ namespace NPiculet.Toolkit
 					return (T)Convert.ChangeType(val, type);
 				}
 			} catch {
-				return (T)(type.IsValueType ? Activator.CreateInstance(type) : null);
+				return (T)(type.IsValueType ? Activator.CreateInstance(type) : default(T));
 			}
 		}
 

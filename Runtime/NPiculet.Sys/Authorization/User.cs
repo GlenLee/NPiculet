@@ -7,7 +7,7 @@
 	public class User<TKey>
 	{
 		public TKey Id;
-		public int Type;
+		public string Type;
 		public string Sn;
 		public string Name;
 		public string Account;

@@ -6,9 +6,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using NPiculet.Authorization;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 public partial class modules_common_FileUploadList : System.Web.UI.UserControl
@@ -79,7 +79,7 @@ public partial class modules_common_FileUploadList : System.Web.UI.UserControl
 		this._ModuleId = moduleId;
 		this._ParentId = parentId;
 
-		var abus = new BasAttachmentBus();
+		var abus = new AttachmentBus();
 		var parent = abus.GetDir(parentId);
 		if (parent != null) {
 			this._RootId = parent.ParentId ?? 0;
@@ -260,7 +260,7 @@ public partial class modules_common_FileUploadList : System.Web.UI.UserControl
 		var user = LoginKit.GetUserInfo(Session.SessionID);
 
 		//上传文件
-		var abus = new BasAttachmentBus();
+		var abus = new AttachmentBus();
 		var att = abus.CreateDir(this.txtDirName.Text, this._ModuleCode, this._ModuleId, "", "", this._ParentId, this._Layer + 1, user == null ? 0 : user.Id);
 		if (att == null) {
 			this.Alert("目录创建失败！");
@@ -318,7 +318,7 @@ public partial class modules_common_FileUploadList : System.Web.UI.UserControl
          3.调用接口循环创建文件
          */
 		//检查必传文件
-		var abus = new BasAttachmentBus();
+		var abus = new AttachmentBus();
 		var needfiles = abus.GetTmplList(this._ModuleCode, this._ModuleId);
 		foreach (bas_attachment att in needfiles) {
 			if (string.IsNullOrEmpty(att.FilePath)) {

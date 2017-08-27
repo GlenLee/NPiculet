@@ -12,7 +12,7 @@ using NPiculet.Toolkit;
 
 public partial class modules_common_FileModifyDialog : AdminPage
 {
-    protected void Page_Load(object sender, EventArgs e)
+	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
 			int aid = WebParmKit.GetQuery("id", 0);
@@ -20,31 +20,31 @@ public partial class modules_common_FileModifyDialog : AdminPage
 		}
 	}
 
-    private void BindData(int aid)
-    {
-	    using (var db = new NPiculetEntities()) {
-		    var att = db.bas_attachment.FirstOrDefault(a => a.Id == aid);
-		    if (att != null) {
-			    this.name.Text = att.Name;
-			    this.name.ReadOnly = (att.IsDir == 0);
-			    BindDir();
-			    this.curDir.SelectedValue = Convert.ToString(att.ParentId);
-		    }
-	    }
-    }
+	private void BindData(int aid)
+	{
+		using (var db = new NPiculetEntities()) {
+			var att = db.bas_attachment.FirstOrDefault(a => a.Id == aid);
+			if (att != null) {
+				this.name.Text = att.Name;
+				this.name.ReadOnly = (att.IsDir == 0);
+				BindDir();
+				this.curDir.SelectedValue = Convert.ToString(att.ParentId);
+			}
+		}
+	}
 
-    private void BindDir()
+	private void BindDir()
 	{
 		int aid = WebParmKit.GetQuery("id", 0);
 		string moduleId = WebParmKit.GetQuery("key", "");
-		BasAttachmentBus bb = new BasAttachmentBus();
-        this.curDir.DataSource = bb.GetAllDir(moduleId, aid);
-        this.curDir.DataTextField = "Name";
-        this.curDir.DataValueField = "Id";
-        this.curDir.DataBind();
-    }
+		AttachmentBus abus = new AttachmentBus();
+		this.curDir.DataSource = abus.GetAllDir(moduleId, aid);
+		this.curDir.DataTextField = "Name";
+		this.curDir.DataValueField = "Id";
+		this.curDir.DataBind();
+	}
 
-    protected void btnModify_Click(object sender, EventArgs e)
+	protected void btnModify_Click(object sender, EventArgs e)
 	{
 		try {
 			using (var db = new NPiculetEntities()) {

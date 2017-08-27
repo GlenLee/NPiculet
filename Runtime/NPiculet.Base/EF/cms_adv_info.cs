@@ -28,6 +28,7 @@ namespace NPiculet.Base.EF
         public Nullable<int> OrderBy { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<int> Delay { get; set; }
         public string Creator { get; set; }
         public System.DateTime CreateDate { get; set; }
     }

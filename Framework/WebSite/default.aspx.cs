@@ -14,6 +14,11 @@ public partial class test : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
+
+		string fileExt = Path.GetExtension("AA.GIF").ToLower();
+		Response.Write(fileExt);
+		Response.Write("<br/>");
+
 		string sid = Session.SessionID;
 		Response.Write(sid);
 		Logger.Info(sid);

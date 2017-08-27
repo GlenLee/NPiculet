@@ -36,40 +36,6 @@ namespace NPiculet.Base.EF
         public virtual DbSet<cms_content_page> cms_content_page { get; set; }
         public virtual DbSet<cms_friendlinks_info> cms_friendlinks_info { get; set; }
         public virtual DbSet<cms_points_log> cms_points_log { get; set; }
-        public virtual DbSet<hrs_calendar_info> hrs_calendar_info { get; set; }
-        public virtual DbSet<hrs_calendar_log> hrs_calendar_log { get; set; }
-        public virtual DbSet<hrs_kpi_info> hrs_kpi_info { get; set; }
-        public virtual DbSet<hrs_kpi_log> hrs_kpi_log { get; set; }
-        public virtual DbSet<hrs_kpi_total> hrs_kpi_total { get; set; }
-        public virtual DbSet<hrs_wages_info> hrs_wages_info { get; set; }
-        public virtual DbSet<hrs_wages_log> hrs_wages_log { get; set; }
-        public virtual DbSet<pms_project_info> pms_project_info { get; set; }
-        public virtual DbSet<pms_publish_info> pms_publish_info { get; set; }
-        public virtual DbSet<pms_publish_log> pms_publish_log { get; set; }
-        public virtual DbSet<pms_resource_info> pms_resource_info { get; set; }
-        public virtual DbSet<pms_resource_log> pms_resource_log { get; set; }
-        public virtual DbSet<pms_task_info> pms_task_info { get; set; }
-        public virtual DbSet<pms_task_log> pms_task_log { get; set; }
-        public virtual DbSet<shop_address> shop_address { get; set; }
-        public virtual DbSet<shop_brand> shop_brand { get; set; }
-        public virtual DbSet<shop_cart> shop_cart { get; set; }
-        public virtual DbSet<shop_category> shop_category { get; set; }
-        public virtual DbSet<shop_comment> shop_comment { get; set; }
-        public virtual DbSet<shop_commodity> shop_commodity { get; set; }
-        public virtual DbSet<shop_commodity_detail> shop_commodity_detail { get; set; }
-        public virtual DbSet<shop_commodity_price> shop_commodity_price { get; set; }
-        public virtual DbSet<shop_consultation> shop_consultation { get; set; }
-        public virtual DbSet<shop_favorite> shop_favorite { get; set; }
-        public virtual DbSet<shop_logs> shop_logs { get; set; }
-        public virtual DbSet<shop_order> shop_order { get; set; }
-        public virtual DbSet<shop_order_flow> shop_order_flow { get; set; }
-        public virtual DbSet<shop_order_item> shop_order_item { get; set; }
-        public virtual DbSet<shop_packages> shop_packages { get; set; }
-        public virtual DbSet<shop_pay_item> shop_pay_item { get; set; }
-        public virtual DbSet<shop_pay_list> shop_pay_list { get; set; }
-        public virtual DbSet<shop_sale> shop_sale { get; set; }
-        public virtual DbSet<shop_service_order> shop_service_order { get; set; }
-        public virtual DbSet<shop_supplier_info> shop_supplier_info { get; set; }
         public virtual DbSet<sys_action_detail> sys_action_detail { get; set; }
         public virtual DbSet<sys_action_log> sys_action_log { get; set; }
         public virtual DbSet<sys_admin_info> sys_admin_info { get; set; }

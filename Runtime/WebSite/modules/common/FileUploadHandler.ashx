@@ -3,6 +3,7 @@
 using System;
 using System.Web;
 using System.Web.SessionState;
+using NPiculet.Authorization;
 using NPiculet.Logic.Business;
 
 public class FileUploadHandler : IHttpHandler, IRequiresSessionState
@@ -41,10 +42,10 @@ public class FileUploadHandler : IHttpHandler, IRequiresSessionState
 	{
 		string filepath;
 		//获取当前登录用户
-		var user = NPiculet.Logic.Sys.LoginKit.GetUserInfo(context.Session.SessionID);
+		var user = LoginKit.GetUserInfo(context.Session.SessionID);
 
 		//上传文件
-		var abus = new BasAttachmentBus();
+		var abus = new AttachmentBus();
 		var parent = abus.GetDir(parentId);
 		int layer = parent == null ? 0 : parent.Layer ?? 0; 
 		var att = abus.UploadFile(hpf, moduleCode, moduleId, sourceCode, sourceId, parentId, layer, user == null ? 0 : user.Id, out filepath);

@@ -18,8 +18,6 @@ namespace NPiculet.Base.EF
         public string GroupCode { get; set; }
         public Nullable<int> OrgId { get; set; }
         public Nullable<int> UserId { get; set; }
-        public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
         public string Title { get; set; }
         public string SubTitle { get; set; }
         public string Content { get; set; }
@@ -28,6 +26,7 @@ namespace NPiculet.Base.EF
         public int Click { get; set; }
         public int IsEnabled { get; set; }
         public string Author { get; set; }
+        public Nullable<decimal> Point { get; set; }
         public Nullable<int> OrderBy { get; set; }
         public System.DateTime CreateDate { get; set; }
     }

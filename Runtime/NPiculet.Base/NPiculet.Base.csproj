@@ -90,27 +90,6 @@
     <Compile Include="EF\cms_points_log.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\hrs_calendar_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\hrs_calendar_log.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\hrs_kpi_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\hrs_kpi_log.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\hrs_kpi_total.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\hrs_wages_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\hrs_wages_log.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\NPiculetModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,87 +104,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NPiculetModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_project_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_publish_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_publish_log.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_resource_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_resource_log.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_task_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\pms_task_log.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_address.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_brand.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_cart.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_category.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_comment.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_commodity.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_commodity_detail.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_commodity_price.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_consultation.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_favorite.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_logs.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_order.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_order_flow.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_order_item.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_packages.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_pay_item.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_pay_list.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_sale.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_service_order.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\shop_supplier_info.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\sys_action_detail.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
@@ -258,6 +156,7 @@
     <Compile Include="EF\sys_user_info.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

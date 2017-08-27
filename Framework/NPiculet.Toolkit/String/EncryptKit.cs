@@ -70,18 +70,6 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// 使用 HMAC SHA1 算法加密数据流。
-		/// </summary>
-		/// <param name="bytes">数据流</param>
-		/// <returns></returns>
-		public static byte[] ToHMACSHA1(byte[] bytes)
-		{
-			HMACSHA1 hmac = new HMACSHA1();
-			hmac.Initialize();
-			return hmac.ComputeHash(bytes);
-		}
-
-		/// <summary>
 		/// 使用 HMAC SHA1 算法加密字符串。
 		/// </summary>
 		/// <param name="key">密匙</param>
@@ -90,16 +78,6 @@ namespace NPiculet.Toolkit
 		public static string ToHMACSHA1(string key, string str)
 		{
 			return BitConverter.ToString(ToHMACSHA1(Encoding.UTF8.GetBytes(key), Encoding.UTF8.GetBytes(str))).Replace("-", "");
-		}
-
-		/// <summary>
-		/// 使用 HMAC SHA1 算法加密字符串。
-		/// </summary>
-		/// <param name="str">字符串</param>
-		/// <returns></returns>
-		public static string ToHMACSHA1(string str)
-		{
-			return BitConverter.ToString(ToHMACSHA1(Encoding.UTF8.GetBytes(str))).Replace("-", "");
 		}
 
 		/// <summary>
@@ -141,28 +119,38 @@ namespace NPiculet.Toolkit
 		}
 
 		//默认密钥向量
-		private static byte[] Keys = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
+		private static readonly Random _rnd = new Random();
+		private static byte[] _IVKeys = { 0x10, 0x30, 0x55, 0x78, 0x90, 0xAB, 0xCD, 0xEF };
+
+		/// <summary>
+		/// 创建一个随机密钥，默认长度8。
+		/// </summary>
+		/// <param name="length"></param>
+		/// <returns></returns>
+		public static byte[] CreateKey(int length = 8) {
+			byte[] key = new byte[8];
+			for (int i = 0; i < length; i++) {
+				key[i] = Convert.ToByte(_rnd.Next(0, 256));
+			}
+			return key;
+		}
 
 		/// <summary>
 		/// DES加密字符串
 		/// </summary>
 		/// <param name="rgbKey">加密密钥，长度8位</param>
-		/// <param name="rgbIV"></param>
+		/// <param name="rgbIV">对称算法的初始化向量，长度8位</param>
 		/// <param name="buffer">待加密的数据流</param>
 		/// <returns>加密成功返回加密后的数据流，失败返回空值</returns>
 		public static byte[] EncryptDES(byte[] rgbKey, byte[] rgbIV, byte[] buffer)
 		{
-			try {
-				using (DESCryptoServiceProvider dCSP = new DESCryptoServiceProvider()) {
-					using (MemoryStream mStream = new MemoryStream()) {
-						CryptoStream cStream = new CryptoStream(mStream, dCSP.CreateEncryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
-						cStream.Write(buffer, 0, buffer.Length);
-						cStream.FlushFinalBlock();
-						return mStream.ToArray();
-					}
+			using (DESCryptoServiceProvider dCSP = new DESCryptoServiceProvider()) {
+				using (MemoryStream mStream = new MemoryStream()) {
+					CryptoStream cStream = new CryptoStream(mStream, dCSP.CreateEncryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
+					cStream.Write(buffer, 0, buffer.Length);
+					cStream.FlushFinalBlock();
+					return mStream.ToArray();
 				}
-			} catch {
-				return new byte[0];
 			}
 		}
 
@@ -170,65 +158,56 @@ namespace NPiculet.Toolkit
 		/// DES加密字符串
 		/// </summary>
 		/// <param name="encryptKey">加密密钥，长度8位</param>
-		/// <param name="encryptIV">长度8位</param>
+		/// <param name="encryptIV">对称算法的初始化向量，长度8位</param>
 		/// <param name="encryptString">待加密的数据流</param>
 		/// <returns>加密成功返回加密后的数据流，失败返回空值</returns>
 		public static string EncryptDES(string encryptKey, string encryptIV, string encryptString)
 		{
-			try {
-				byte[] rgbKey = Encoding.UTF8.GetBytes(encryptKey.Substring(0, 8));
-				byte[] rgbIV = Encoding.UTF8.GetBytes(encryptIV);
-				byte[] inputByteArray = Encoding.UTF8.GetBytes(encryptString);
-				using (DESCryptoServiceProvider dCSP = new DESCryptoServiceProvider()) {
-					using (MemoryStream mStream = new MemoryStream()) {
-						CryptoStream cStream = new CryptoStream(mStream, dCSP.CreateEncryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
-						cStream.Write(inputByteArray, 0, inputByteArray.Length);
-						cStream.FlushFinalBlock();
-						return Convert.ToBase64String(mStream.ToArray());
-					}
+			byte[] rgbKey = Encoding.UTF8.GetBytes(encryptKey.PadLeft(8).Substring(0, 8));
+			byte[] rgbIV = Encoding.UTF8.GetBytes(encryptIV.PadLeft(8).Substring(0, 8));
+			byte[] inputByteArray = Encoding.UTF8.GetBytes(encryptString);
+			using (DESCryptoServiceProvider dCSP = new DESCryptoServiceProvider()) {
+				using (MemoryStream mStream = new MemoryStream()) {
+					CryptoStream cStream = new CryptoStream(mStream, dCSP.CreateEncryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
+					cStream.Write(inputByteArray, 0, inputByteArray.Length);
+					cStream.FlushFinalBlock();
+					return Convert.ToBase64String(mStream.ToArray());
 				}
-			} catch {
-				return "";
 			}
 		}
 
 		/// <summary>
 		/// DES加密字符串，密匙长度必须等于 8 位
 		/// </summary>
-		/// <param name="encryptString">待加密的字符串</param>
 		/// <param name="encryptKey">加密密钥，长度8位</param>
+		/// <param name="encryptString">待加密的字符串</param>
 		/// <returns>加密成功返回加密后的字符串，失败返回空值</returns>
-		public static string EncryptDES(string encryptString, string encryptKey)
+		public static string EncryptDES(string encryptKey, string encryptString)
 		{
-			try {
-				byte[] rgbKey = Encoding.UTF8.GetBytes(encryptKey.PadLeft(8).Substring(0, 8));
-				byte[] rgbIV = Keys;
-				byte[] inputByteArray = Encoding.UTF8.GetBytes(encryptString);
-				using (DESCryptoServiceProvider dCSP = new DESCryptoServiceProvider()) {
-					using (MemoryStream mStream = new MemoryStream()) {
-						CryptoStream cStream = new CryptoStream(mStream, dCSP.CreateEncryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
-						cStream.Write(inputByteArray, 0, inputByteArray.Length);
-						cStream.FlushFinalBlock();
-						return Convert.ToBase64String(mStream.ToArray());
-					}
+			byte[] rgbKey = Encoding.UTF8.GetBytes(encryptKey.PadLeft(8).Substring(0, 8));
+			byte[] rgbIV = _IVKeys;
+			byte[] inputByteArray = Encoding.UTF8.GetBytes(encryptString);
+			using (DESCryptoServiceProvider dCSP = new DESCryptoServiceProvider()) {
+				using (MemoryStream mStream = new MemoryStream()) {
+					CryptoStream cStream = new CryptoStream(mStream, dCSP.CreateEncryptor(rgbKey, rgbIV), CryptoStreamMode.Write);
+					cStream.Write(inputByteArray, 0, inputByteArray.Length);
+					cStream.FlushFinalBlock();
+					return Convert.ToBase64String(mStream.ToArray());
 				}
-			} catch (Exception ex) {
-				Console.WriteLine(ex.Message);
-				return string.Empty;
 			}
 		}
 
 		///<summary>
 		/// DES解密字符串，密匙长度必须等于 8 位
 		/// </summary>
-		/// <param name="decryptString">待解密的字符串</param>
 		/// <param name="decryptKey">解密密钥，长度8位，和加密密钥相同</param>
+		/// <param name="decryptString">待解密的字符串</param>
 		/// <returns>解密成功返回解密后的字符串，失败返空值</returns>
-		public static string DecryptDES(string decryptString, string decryptKey)
+		public static string DecryptDES(string decryptKey, string decryptString)
 		{
 			try {
 				byte[] rgbKey = Encoding.UTF8.GetBytes(decryptKey.PadLeft(8).Substring(0, 8));
-				byte[] rgbIV = Keys;
+				byte[] rgbIV = _IVKeys;
 				byte[] inputByteArray = Convert.FromBase64String(decryptString);
 				DESCryptoServiceProvider DCSP = new DESCryptoServiceProvider();
 				MemoryStream mStream = new MemoryStream();

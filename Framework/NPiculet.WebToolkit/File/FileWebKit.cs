@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 using NPiculet.Draw2D;
@@ -60,12 +61,36 @@ namespace NPiculet.Toolkit
 		{
 			if (hpf != null && !string.IsNullOrEmpty(hpf.FileName)) {
 				if (FileKit.IsImage(hpf.FileName)) {
-					string fileName = StringKit.GetStringByShortDate() + ".jpg";
-					string thumbPath = GetNewFilePath("thumb", fileName);
+					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
+					string fileName, thumbPath;
 
 					//上传缩略图
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
-						FileKit.SaveThumbnailImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath));
+						switch (fileExt) {
+							case ".jpg":
+							case ".jpeg":
+							case ".bmp":
+							case ".tiff":
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveThumbnailImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							case ".png":
+								fileName = StringKit.GetStringByShortDate() + ".png";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveThumbnailImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath), ImageFormat.Png);
+								break;
+							case ".gif":
+								fileName = StringKit.GetStringByShortDate() + fileExt;
+								thumbPath = GetNewFilePath("thumb", fileName);
+								hpf.SaveAs(HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							default:
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveThumbnailImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+						}
 					}
 
 					return thumbPath;
@@ -84,12 +109,36 @@ namespace NPiculet.Toolkit
 		{
 			if (hpf != null && !string.IsNullOrEmpty(hpf.FileName)) {
 				if (FileKit.IsImage(hpf.FileName)) {
-					string fileName = StringKit.GetStringByShortDate() + ".jpg";
-					string thumbPath = GetNewFilePath("thumb", fileName);
+					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
+					string fileName, thumbPath;
 
 					//上传缩略图
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
-						FileKit.SaveThumbnailImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath));
+						switch (fileExt) {
+							case ".jpg":
+							case ".jpeg":
+							case ".bmp":
+							case ".tiff":
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveThumbnailImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							case ".png":
+								fileName = StringKit.GetStringByShortDate() + ".png";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveThumbnailImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath), ImageFormat.Png);
+								break;
+							case ".gif":
+								fileName = StringKit.GetStringByShortDate() + fileExt;
+								thumbPath = GetNewFilePath("thumb", fileName);
+								hpf.SaveAs(HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							default:
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveThumbnailImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+						}
 					}
 
 					return thumbPath;
@@ -109,12 +158,36 @@ namespace NPiculet.Toolkit
 		{
 			if (hpf != null && !string.IsNullOrEmpty(hpf.FileName)) {
 				if (FileKit.IsImage(hpf.FileName)) {
-					string fileName = StringKit.GetStringByShortDate() + ".jpg";
-					string thumbPath = GetNewFilePath("thumb", fileName);
+					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
+					string fileName, thumbPath;
 
 					//上传缩略图
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
-						FileKit.SaveZoomImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath));
+						switch (fileExt) {
+							case ".jpg":
+							case ".jpeg":
+							case ".bmp":
+							case ".tiff":
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveZoomImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							case ".png":
+								fileName = StringKit.GetStringByShortDate() + ".png";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveZoomImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath), ImageFormat.Png);
+								break;
+							case ".gif":
+								fileName = StringKit.GetStringByShortDate() + fileExt;
+								thumbPath = GetNewFilePath("thumb", fileName);
+								hpf.SaveAs(HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							default:
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveZoomImage(bmp, w, h, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+						}
 					}
 
 					return thumbPath;
@@ -134,12 +207,36 @@ namespace NPiculet.Toolkit
 		{
 			if (hpf != null && !string.IsNullOrEmpty(hpf.FileName)) {
 				if (FileKit.IsImage(hpf.FileName)) {
-					string fileName = StringKit.GetStringByShortDate() + ".jpg";
-					string thumbPath = GetNewFilePath("thumb", fileName);
+					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
+					string fileName, thumbPath;
 
 					//上传缩略图
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
-						FileKit.SaveZoomImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath));
+						switch (fileExt) {
+							case ".jpg":
+							case ".jpeg":
+							case ".bmp":
+							case ".tiff":
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveZoomImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							case ".png":
+								fileName = StringKit.GetStringByShortDate() + ".png";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveZoomImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath), ImageFormat.Png);
+								break;
+							case ".gif":
+								fileName = StringKit.GetStringByShortDate() + fileExt;
+								thumbPath = GetNewFilePath("thumb", fileName);
+								hpf.SaveAs(HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+							default:
+								fileName = StringKit.GetStringByShortDate() + ".jpg";
+								thumbPath = GetNewFilePath("thumb", fileName);
+								FileKit.SaveZoomImage(bmp, w, HttpContext.Current.Server.MapPath(thumbPath));
+								break;
+						}
 					}
 
 					return thumbPath;

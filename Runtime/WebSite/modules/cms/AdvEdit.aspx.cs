@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 namespace modules.info
@@ -21,23 +21,23 @@ namespace modules.info
 
 		private void BindType()
 		{
-			BasDictItemBus ibus = new BasDictItemBus();
+			DictBus ibus = new DictBus();
 			var list = ibus.GetActiveItemList("Publicity");
 			BindKit.BindToListControl(this.Position, list, "Name", "Code");
 		}
 
-		private readonly CmsAdvInfoBus _bus = new CmsAdvInfoBus();
+		private readonly CmsAdvBus _bus = new CmsAdvBus();
 
 		private void BindData()
 		{
-			var advId = Convert.ToInt32(this.Id.Value);
+			var advId = ConvertKit.ConvertValue(this.Id.Value, 0);
 			if (advId > 0) {
-				var model = _bus.QueryModel("Id=" + advId);
+				var model = _bus.GetAdv(advId);
 				if (model != null) {
 					BindKit.BindModelToContainer(this.editor, model);
 					this.txtTitle.Text = model.Title;
-					if (model.StartDate > DateTime.MinValue) this.StartDate.Text = model.StartDate.ToString("yyyy-MM-dd");
-					if (model.EndDate > DateTime.MinValue) this.EndDate.Text = model.EndDate.ToString("yyyy-MM-dd");
+					if (model.StartDate > DateTime.MinValue) this.StartDate.Text = model.StartDate.Value.ToString("yyyy-MM-dd");
+					if (model.EndDate > DateTime.MinValue) this.EndDate.Text = model.EndDate.Value.ToString("yyyy-MM-dd");
 
 					ShowThumb(model);
 					SetControlStatus();
@@ -48,7 +48,7 @@ namespace modules.info
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
 			if (Page.IsValid) {
-				var model = new CmsAdvInfo();
+				var model = new cms_adv_info();
 				BindKit.FillModelFromContainer(this.editor, model);
 
 				model.Title = this.txtTitle.Text;
@@ -82,9 +82,11 @@ namespace modules.info
 					model.CreateDate = DateTime.Now;
 					model.Creator = this.CurrentUserName;
 
-					this.Id.Value = _bus.InsertIdentity(model).ToString();
+					_bus.Save(model);
+
+					this.Id.Value = model.Id.ToString();
 				} else {
-					_bus.Update(model, null);
+					_bus.Save(model);
 				}
 
 				ShowThumb(model);
@@ -93,7 +95,7 @@ namespace modules.info
 			}
 		}
 
-		private void ShowThumb(CmsAdvInfo adv)
+		private void ShowThumb(cms_adv_info adv)
 		{
 			if (!string.IsNullOrEmpty(adv.Image)) {
 				this.ImageHyperLink.NavigateUrl = adv.Image;

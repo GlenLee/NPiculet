@@ -44,25 +44,9 @@ website.publishproj
     </AssemblyAttributes>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NPiculet.Core\NPiculet.Core.csproj">
-      <Project>{64AE40C0-CAE1-4465-AFFD-94AB12BF6689}</Project>
-      <Name>NPiculet.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NPiculet.Data\NPiculet.Data.csproj">
-      <Project>{02318AD4-7AEC-47B3-8785-2964311FA2E4}</Project>
-      <Name>NPiculet.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NPiculet.Logger\NPiculet.Logger.csproj">
-      <Project>{ABBCD98C-B7CD-430A-90EA-C4123C6707C6}</Project>
-      <Name>NPiculet.Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NPiculet.Toolkit\NPiculet.Toolkit.csproj">
-      <Project>{1F9612AE-598C-45F8-A194-296BA5799746}</Project>
-      <Name>NPiculet.Toolkit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NPiculet.WebToolkit\NPiculet.WebToolkit.csproj">
-      <Project>{2496B863-F79B-4D1B-B990-1AE6534AA1E2}</Project>
-      <Name>NPiculet.WebToolkit</Name>
+    <ProjectReference Include="..\NPiculet.Pack\NPiculet.Pack.csproj">
+      <Project>{FC9416FE-F825-463D-B952-C66B5189BD79}</Project>
+      <Name>NPiculet.Pack</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(_WebPublishTargetsPath)\Web\Microsoft.WebSite.Publishing.targets" />

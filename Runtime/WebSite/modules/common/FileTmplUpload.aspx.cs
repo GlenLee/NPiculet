@@ -19,7 +19,7 @@ public partial class modules_common_FileTmplUpload : AdminPage
 	{
 		int fileId = WebParmKit.GetQuery("fid", 0);
 		if (fileId > 0) {
-			var abus = new BasAttachmentBus();
+			var abus = new AttachmentBus();
 			abus.UploadTmpl(this.fileUpload.PostedFile, fileId);
 		}
 

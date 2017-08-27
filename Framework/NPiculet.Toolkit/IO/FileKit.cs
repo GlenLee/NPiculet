@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using NPiculet.Draw2D;
@@ -97,10 +98,27 @@ namespace NPiculet.Toolkit
 		/// <param name="w"></param>
 		/// <param name="h"></param>
 		/// <param name="savePath"></param>
-		public static void SaveZoomImage(Image bmp, int w, int h, string savePath) {
+		public static void SaveZoomImage(Image bmp, int w, int h, string savePath)
+		{
 			using (ImageBuilder builder = new ImageBuilder(bmp)) {
 				builder.MakeZoomImage(w, h, false, false, false, false);
 				builder.SaveImage(savePath);
+			}
+		}
+
+		/// <summary>
+		/// 保存高质量的缩放图。
+		/// </summary>
+		/// <param name="bmp"></param>
+		/// <param name="w"></param>
+		/// <param name="h"></param>
+		/// <param name="savePath"></param>
+		/// <param name="format"></param>
+		public static void SaveZoomImage(Image bmp, int w, int h, string savePath, ImageFormat format)
+		{
+			using (ImageBuilder builder = new ImageBuilder(bmp)) {
+				builder.MakeZoomImage(w, h, false, false, false, false);
+				builder.SaveImage(savePath, format);
 			}
 		}
 
@@ -115,6 +133,21 @@ namespace NPiculet.Toolkit
 			using (ImageBuilder builder = new ImageBuilder(bmp)) {
 				builder.MakeZoomImage(w, false, false, false, false);
 				builder.SaveImage(savePath);
+			}
+		}
+
+		/// <summary>
+		/// 保存高质量的缩放图，并根据宽度等比缩放。
+		/// </summary>
+		/// <param name="bmp"></param>
+		/// <param name="w"></param>
+		/// <param name="savePath"></param>
+		/// <param name="format"></param>
+		public static void SaveZoomImage(Image bmp, int w, string savePath, ImageFormat format)
+		{
+			using (ImageBuilder builder = new ImageBuilder(bmp)) {
+				builder.MakeZoomImage(w, false, false, false, false);
+				builder.SaveImage(savePath, format);
 			}
 		}
 
@@ -134,16 +167,47 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
+		/// 保存缩略图，质量可能损失较多，适用于要求最大节省空间的情况。
+		/// </summary>
+		/// <param name="bmp"></param>
+		/// <param name="w"></param>
+		/// <param name="h"></param>
+		/// <param name="savePath"></param>
+		/// <param name="format"></param>
+		public static void SaveThumbnailImage(Image bmp, int w, int h, string savePath, ImageFormat format)
+		{
+			using (ImageBuilder builder = new ImageBuilder(bmp)) {
+				builder.MakeThumbnailImage(w, h, false);
+				builder.SaveImage(savePath, format);
+			}
+		}
+
+		/// <summary>
 		/// 保存缩略图，质量可能损失较多，适用于要求最大节省空间的情况，并根据宽度等比缩放。
 		/// </summary>
 		/// <param name="bmp"></param>
 		/// <param name="w"></param>
-		/// <param name="v"></param>
+		/// <param name="savePath"></param>
 		public static void SaveThumbnailImage(Image bmp, int w, string savePath)
 		{
 			using (ImageBuilder builder = new ImageBuilder(bmp)) {
 				builder.MakeThumbnailImage(w, false);
 				builder.SaveImage(savePath);
+			}
+		}
+
+		/// <summary>
+		/// 保存缩略图，质量可能损失较多，适用于要求最大节省空间的情况，并根据宽度等比缩放。
+		/// </summary>
+		/// <param name="bmp"></param>
+		/// <param name="w"></param>
+		/// <param name="savePath"></param>
+		/// <param name="format"></param>
+		public static void SaveThumbnailImage(Image bmp, int w, string savePath, ImageFormat format)
+		{
+			using (ImageBuilder builder = new ImageBuilder(bmp)) {
+				builder.MakeThumbnailImage(w, false);
+				builder.SaveImage(savePath, format);
 			}
 		}
 

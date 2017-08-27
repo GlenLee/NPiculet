@@ -6,7 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using NPiculet.Data;
+using NPiculet.Authorization;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
@@ -57,7 +57,7 @@ public partial class modules_Login : NormalPage
 	//获取系统名称
 	public string GetWebTitle()
 	{
-		return new ConfigManager().GetWebConfig("WebSiteName");
+		return new ConfigManager().GetConfig("WebSiteName");
 	}
 
 	//登陆按钮点击事件
@@ -68,7 +68,7 @@ public partial class modules_Login : NormalPage
 
 	protected string GetPlatformName()
 	{
-		string pname = new ConfigManager().GetWebConfig("PlatformName");
+		string pname = new ConfigManager().GetConfig("PlatformName");
 		return string.IsNullOrEmpty(pname) ? "管理后台" : pname;
 	}
 }

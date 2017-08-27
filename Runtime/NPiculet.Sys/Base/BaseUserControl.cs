@@ -10,10 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using NPiculet.Authorization;
-using NPiculet.Base.EF;
-using NPiculet.Logic.Data;
 using NPiculet.Logic.Sys;
-using NPiculet.Toolkit;
 
 namespace NPiculet.Logic.Base
 {

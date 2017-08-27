@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.Linq.Mapping;
@@ -306,11 +307,12 @@ namespace NPiculet.Data
 		/// 查询并返回 DataSet 对象。
 		/// </summary>
 		/// <param name="sql">SQL 语句</param>
+		/// <param name="parms">参数</param>
 		/// <returns></returns>
-		public static DataSet QueryDataSet(string sql)
+		public static DataSet QueryDataSet(string sql, params IDbDataParameter[] parms)
 		{
 			using (IDbHelper db = DbHelper.Create()) {
-				DataSet ds = db.GetDataSet(sql);
+				DataSet ds = db.GetDataSet(sql, parms);
 				return ds;
 			}
 		}
@@ -319,10 +321,11 @@ namespace NPiculet.Data
 		/// 查询并返回 DataTable 对象。
 		/// </summary>
 		/// <param name="sql">SQL 语句</param>
+		/// <param name="parms">参数</param>
 		/// <returns></returns>
-		public static DataTable Query(string sql)
+		public static DataTable Query(string sql, params IDbDataParameter[] parms)
 		{
-			DataSet ds = QueryDataSet(sql);
+			DataSet ds = QueryDataSet(sql, parms);
 			return (ds.Tables.Count > 0) ? ds.Tables[0] : null;
 		}
 
@@ -330,12 +333,46 @@ namespace NPiculet.Data
 		/// 查询并返回数据表第一行、第一列的值。
 		/// </summary>
 		/// <param name="sql">SQL 语句</param>
+		/// <param name="parms">参数</param>
 		/// <returns></returns>
-		public static object QueryValue(string sql)
+		public static object QueryValue(string sql, params IDbDataParameter[] parms)
 		{
 			using (IDbHelper db = DbHelper.Create()) {
-				object obj = db.ExecuteScalar(sql);
-				return obj;
+				object val = db.ExecuteScalar(sql, parms);
+				return val == DBNull.Value ? null : val;
+			}
+		}
+
+		/// <summary>
+		/// 查询并返回数据表第一行、第一列的值。
+		/// </summary>
+		/// <param name="sql">SQL 语句</param>
+		/// <param name="parms">参数</param>
+		/// <returns></returns>
+		public static T QueryValue<T>(string sql, params IDbDataParameter[] parms)
+		{
+			using (IDbHelper db = DbHelper.Create()) {
+				object val = db.ExecuteScalar(sql, parms);
+				if (val == DBNull.Value) return default(T);
+
+				Type type = typeof(T);
+				try {
+					if ((type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))) {
+						var nullableConverter = new NullableConverter(type);
+						return (T)nullableConverter.ConvertFrom(val);
+					} else if (type.Equals(typeof(Guid))) {
+						var guidConverter = new GuidConverter();
+						return (T)guidConverter.ConvertFrom(val);
+					} else if (type.IsEnum) {
+						return (T)Enum.Parse(type, val.ToString());
+					} else if (type.IsValueType || type.Equals(typeof(String))) {
+						return (T)(val == null ? Activator.CreateInstance(type) : Convert.ChangeType(val, type));
+					} else {
+						return (T)Convert.ChangeType(val, type);
+					}
+				} catch {
+					return (T)(type.IsValueType ? Activator.CreateInstance(type) : default(T));
+				}
 			}
 		}
 

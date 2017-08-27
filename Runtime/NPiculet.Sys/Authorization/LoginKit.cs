@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
-using NPiculet.Authorization;
 using NPiculet.Base.EF;
+using NPiculet.Cache;
 using NPiculet.Logic.Business;
+using NPiculet.Logic.Plugin;
 using NPiculet.Plugin;
-using NPiculet.Sys;
 using NPiculet.Toolkit;
 
-namespace NPiculet.Logic.Sys {
+namespace NPiculet.Authorization
+{
 	/// <summary>
 	/// Login : 登陆验证类
 	/// </summary>
@@ -118,8 +119,8 @@ namespace NPiculet.Logic.Sys {
 		/// <returns></returns>
 		public static Member<int> MemberExist(string account)
 		{
-			SysMemberInfoBus bus = new SysMemberInfoBus();
-			var user = bus.QueryModel(string.Format("Account='{0}' and IsDel=0", account.ToLower()));
+			MemberBus bus = new MemberBus();
+			var user = bus.GetMemberInfo(account);
 			Member<int> member = null;
 			if (user != null) {
 				member = new Member<int>();
@@ -130,9 +131,9 @@ namespace NPiculet.Logic.Sys {
 				member.Level = user.MemberLevel;
 				member.Account = user.Account;
 				member.Password = user.Password;
-                member.StateCode = user.Status;
-                SysMemberDataBus dbus = new SysMemberDataBus();
-				var data = dbus.QueryModel("UserId=" + user.Id);
+				member.StateCode = user.Status;
+
+				var data = bus.GetMemberData(user.Id);
 				if (data != null) {
 					member.Sex = data.Sex;
 					member.Mobile = data.Mobile;
@@ -210,8 +211,8 @@ namespace NPiculet.Logic.Sys {
 		/// <returns></returns>
 		public static Administrator<int> AdminExist(string account)
 		{
-			SysUserInfoBus bus = new SysUserInfoBus();
-			var user = bus.QueryModel(string.Format("Account='{0}' and IsDel=0", account.ToLower()));
+			UserBus ubus = new UserBus();
+			var user = ubus.GetUserInfo(account);
 			Administrator<int> admin = null;
 			if (user != null) {
 				admin = new Administrator<int>();
@@ -223,8 +224,7 @@ namespace NPiculet.Logic.Sys {
 				admin.Password = user.Password;
 
 				//获取用户的资料信息
-				SysUserDataBus dbus = new SysUserDataBus();
-				var data = dbus.QueryModel("UserId=" + user.Id);
+				var data = ubus.GetUserData(user.Id);
 				if (data != null) {
 					admin.Sex = data.Sex;
 					admin.Mobile = data.Mobile;
@@ -232,7 +232,7 @@ namespace NPiculet.Logic.Sys {
 				}
 
 				//获取用户所属部门
-				var rootOrg = bus.GetRootOrg(admin.Id);
+				var rootOrg = ubus.GetRootOrg(admin.Id);
 				if (rootOrg != null) {
 					var o = new Organization();
 					o.Id = rootOrg.Id;
@@ -246,7 +246,7 @@ namespace NPiculet.Logic.Sys {
 				}
 
 				//获取组织机构
-				var orgList = bus.GetOrgList(admin.Id);
+				var orgList = ubus.GetOrgList(admin.Id);
 				var orgs = new List<Organization>();
 				foreach (sys_org_info org in orgList) {
 					var o = new Organization();
@@ -262,7 +262,7 @@ namespace NPiculet.Logic.Sys {
 				admin.Orgs = orgs;
 
 				//获取用户的角色信息
-				var roleList = bus.GetRoleList(admin.Id);
+				var roleList = ubus.GetRoleList(admin.Id);
 				var roles = new List<Role>();
 				foreach (sys_role_info role in roleList) {
 					var r = new Role();

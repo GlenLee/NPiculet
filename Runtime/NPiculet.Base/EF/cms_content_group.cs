@@ -23,10 +23,10 @@ namespace NPiculet.Base.EF
         public string Path { get; set; }
         public string Icon { get; set; }
         public string Url { get; set; }
-        public Nullable<int> IsExternal { get; set; }
-        public Nullable<int> IsShow { get; set; }
+        public Nullable<int> OrgId { get; set; }
+        public int IsEnabled { get; set; }
+        public Nullable<decimal> Point { get; set; }
         public string Comment { get; set; }
         public Nullable<int> OrderBy { get; set; }
-        public int IsEnabled { get; set; }
     }
 }

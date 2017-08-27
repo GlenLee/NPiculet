@@ -7,9 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Base.EF;
-using NPiculet.CMS.BusinessCustom;
-using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
+using NPiculet.Cms.Business;
 using NPiculet.Toolkit;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Sys;
@@ -33,7 +31,7 @@ public partial class modules_info_InfoPageList : AdminPage
 	private void BindData() {
 
 		var configs = new ConfigManager();
-		var limit = configs.GetWebConfig("NewsEditLimit");
+		var limit = configs.GetConfig("NewsEditLimit");
 
 		using (var db = new NPiculetEntities()) {
 			string code = GroupCode;
@@ -99,14 +97,14 @@ public partial class modules_info_InfoPageList : AdminPage
 	{
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
-				CmsContentPageBus _bus = new CmsContentPageBus();
+				CmsContentBus _bus = new CmsContentBus();
 				string dataId = this.list.DataKeys[e.RowIndex]["Id"].ToString();
 				string title = this.list.DataKeys[e.RowIndex]["Title"].ToString();
-				_bus.Delete("Id=" + dataId);
+				_bus.DeletePage(ConvertKit.ConvertValue(dataId, 0));
 
 				//减少积分
-				int point = new ConfigManager().GetWebConfig<int>("NewsPoint");
-				var pbus = new CmsPointLogBus();
+				int point = new ConfigManager().GetConfig<int>("NewsPoint");
+				var pbus = new CmsPointBus();
 				pbus.SavePointLog(this.CurrentUserInfo, "cms_content_page", dataId, -point, "删除文章，减少积分", title);
 			}
 			BindData();

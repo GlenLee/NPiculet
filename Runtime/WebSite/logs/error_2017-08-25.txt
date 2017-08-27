@@ -1,0 +1,19 @@
+[ 2017-08-25 17:11:56 ] 应用程序错误！
+Message: 引发类型为“System.Web.HttpUnhandledException”的异常。
+StackTrace:    在 System.Web.UI.Page.HandleError(Exception e)
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.ProcessRequest(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+   在 System.Web.UI.Page.ProcessRequest()
+   在 System.Web.UI.Page.ProcessRequestWithNoAssert(HttpContext context)
+   在 System.Web.UI.Page.ProcessRequest(HttpContext context)
+   在 ASP.help_aspx.ProcessRequest(HttpContext context) 位置 c:\Users\dell\AppData\Local\Temp\Temporary ASP.NET Files\vs\ab50cb69\2bc89215\App_Web_g4jyg151.0.cs:行号 0
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+  Message: 值对于无符号的字节太大或太小。
+  StackTrace:    在 System.Convert.ToByte(Int32 value)
+   在 web_Help.Page_Load(Object sender, EventArgs e) 位置 d:\Work\GitHub\NPiculet\Runtime\WebSite\Help.aspx.cs:行号 22
+   在 System.Web.Util.CalliEventHandlerDelegateProxy.Callback(Object sender, EventArgs e)
+   在 System.Web.UI.Control.OnLoad(EventArgs e)
+   在 System.Web.UI.Control.LoadRecursive()
+   在 System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boolean includeStagesAfterAsyncPoint)
+------------------------------

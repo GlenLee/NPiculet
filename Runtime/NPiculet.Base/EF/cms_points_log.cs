@@ -22,7 +22,7 @@ namespace NPiculet.Base.EF
         public string TargetId { get; set; }
         public string IP { get; set; }
         public string Tag { get; set; }
-        public Nullable<int> Point { get; set; }
+        public Nullable<decimal> Point { get; set; }
         public string Comment { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string Creator { get; set; }

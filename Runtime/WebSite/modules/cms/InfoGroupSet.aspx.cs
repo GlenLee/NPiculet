@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 using NPiculet.Data;
-using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 using NPiculet.Logic.Base;
 
@@ -20,9 +20,9 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		}
 	}
 
-	private readonly CmsContentGroupBus _bus = new CmsContentGroupBus();
+	private readonly CmsContentBus _bus = new CmsContentBus();
 
-	private DataView _dv = null;
+	private List<cms_content_group> _groups = null;
 
 	private void BindData()
 	{
@@ -35,39 +35,38 @@ public partial class modules_info_InfoGroupSet : AdminPage
 
 	private void BindTree(int parentId)
 	{
-		var dt = _bus.Query(null, null);
-		if (dt != null) {
-			_dv = dt.DefaultView;
-			_dv.Sort = "OrderBy";
+		var data = _bus.GetGroupList();
+		if (data != null && data.Count > 0) {
+			_groups = data;
 			BuildTree(null, parentId);
 		}
 	}
 
 	private void BuildTree(TreeNode node, int parentId)
 	{
-		_dv.RowFilter = "ParentId=" + parentId;
-		foreach (DataRowView dr in _dv) {
+		var query = from g in _groups where g.ParentId == parentId select g;
+		foreach (var g in query) {
 
-			string code = Convert.ToString(dr["GroupCode"]);
+			string code = Convert.ToString(g.GroupCode);
 
 			var tn = new TreeNode();
 			//显示文字
-			if (dr["IsShow"] != DBNull.Value && !Convert.ToBoolean(dr["IsShow"])) {
-				tn.Text = "<span style=\"color:red;\">" + Convert.ToString(dr["GroupName"]) + "</span>";
+			if (g.IsEnabled == 1) {
+				tn.Text = Convert.ToString(g.GroupName);
 			} else {
-				tn.Text = Convert.ToString(dr["GroupName"]);
+				tn.Text = "<span style=\"color:red;\">" + Convert.ToString(g.GroupName) + "</span>";
 			}
 			//组编码及类型
-			tn.Text +=  " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetGroupTypeName(Convert.ToString(dr["GroupType"])) + ")</span>";
+			tn.Text +=  " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetGroupTypeName(Convert.ToString(g.GroupType)) + ")</span>";
 			//组ID
-			tn.Value = Convert.ToString(dr["Id"]);
+			tn.Value = Convert.ToString(g.Id);
 
 			if (node == null) {
 				this.tree.Nodes.Add(tn);
 			} else {
 				node.ChildNodes.Add(tn);
 			}
-			BuildTree(tn, Convert.ToInt32(dr["Id"]));
+			BuildTree(tn, Convert.ToInt32(g.Id));
 		}
 	}
 
@@ -134,23 +133,25 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	/// 更新当前数据
 	/// </summary>
 	/// <param name="data"></param>
-	private bool UpdateCurrentData(CmsContentGroup data) {
+	private bool UpdateCurrentData(cms_content_group data)
+	{
 		string oldGroupCode = data.GroupCode;
 
 		BindKit.FillModelFromContainer(this.editor, data);
 
 		//更新字典数据
-		if (data.PropertyChangedList.Contains("GroupCode")) {
+		if (new NPiculetEntities().Entry(data).Property(m => m.GroupCode).IsModified) {
 			if (VerifyExistGroupCode(data.GroupCode, data)) {
 				this.AlertBeauty("编码已存在，请更换编码！");
 				return false;
 			}
-			DbHelper.Execute("UPDATE " + new CmsContentPage().TableName + " SET GroupCode=@GroupCode WHERE GroupCode=@OldGroupCode"
+			DbHelper.Execute("UPDATE cms_content_page SET GroupCode=@GroupCode WHERE GroupCode=@OldGroupCode"
 				, DbHelper.CreateParameter("OldGroupCode", oldGroupCode)
-				, DbHelper.CreateParameter("GroupCode", data.GroupCode));
-				}
+				, DbHelper.CreateParameter("GroupCode", data.GroupCode)
+			);
+		}
 
-		_bus.Update(data, null);
+		_bus.SaveGroup(data);
 		return true;
 	}
 
@@ -158,10 +159,10 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	/// 创建一条新数据
 	/// </summary>
 	private bool CreateNewData() {
-		var data = new CmsContentGroup();
+		var data = new cms_content_group();
 		if (!VerifyExistGroupCode(this.GroupCode.Text, data)) {
 			BindKit.FillModelFromContainer(this.editor, data);
-			_bus.Insert(data);
+			_bus.SaveGroup(data);
 			return true;
 		} else {
 			this.AlertBeauty("编码已存在，请更换编码！");
@@ -175,22 +176,22 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	/// <param name="groupCode"></param>
 	/// <param name="currentGroup"></param>
 	/// <returns></returns>
-	private bool VerifyExistGroupCode(string groupCode, CmsContentGroup currentGroup) {
-		var list = _bus.QueryList<CmsContentGroup>("GroupCode=@GroupCode and Id!=@Id", null,
+	private bool VerifyExistGroupCode(string groupCode, cms_content_group currentGroup) {
+		var list = DbHelper.Query("SELECT Id FROM cms_content_group WHERE vGroupCode=@GroupCode and Id!=@Id",
 			DbHelper.CreateParameter("GroupCode", groupCode),
 			DbHelper.CreateParameter("Id", currentGroup.Id)
 		);
-		return (list.Count > 0);
+		return (list.Rows.Count > 0);
 	}
 
 	protected void btnAdd_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = new CmsContentGroup();
+			var data = new cms_content_group();
 			BindKit.FillModelFromContainer(this.editor, data);
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 
-			_bus.Insert(data);
+			_bus.SaveGroup(data);
 
 			ClearControls();
 
@@ -201,11 +202,11 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	protected void btnChild_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = new CmsContentGroup();
+			var data = new cms_content_group();
 			BindKit.FillModelFromContainer(this.editor, data);
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 
-			_bus.Insert(data);
+			_bus.SaveGroup(data);
 
 			ClearControls();
 
@@ -216,7 +217,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	protected void btnDelete_Click(object sender, EventArgs e)
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			_bus.Delete("Id=" + this.Id.Value);
+			_bus.DeleteGroup(ConvertKit.ConvertValue(this.Id.Value, 0));
 
 			BindData();
 		}

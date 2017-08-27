@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheBehavior.cs" />
     <Compile Include="Cache\CacheManager.cs" />
     <Compile Include="Cache\CacheItem.cs" />
     <Compile Include="Error\LogicException.cs" />

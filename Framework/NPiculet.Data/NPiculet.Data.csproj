@@ -100,12 +100,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataDao\ColumnAttribute.cs" />
-    <Compile Include="DataDao\DataDao.cs" />
-    <Compile Include="DataDao\IBusiness.cs" />
-    <Compile Include="DataDao\IModel.cs" />
-    <Compile Include="DataDao\ModelBase.cs" />
-    <Compile Include="DataDao\SavedEventArgs.cs" />
     <Compile Include="Enum\DataType.cs" />
     <Compile Include="Helper\DbHelper.cs" />
     <Compile Include="Helper\MySQL\MySqlExecuteObject.cs">
@@ -137,7 +131,6 @@
     <Compile Include="Interface\AbstractQueryObject.cs" />
     <Compile Include="Interface\Enum.cs" />
     <Compile Include="Interface\Field.cs" />
-    <Compile Include="Interface\IDbExe.cs" />
     <Compile Include="Interface\IDbHelper.cs" />
     <Compile Include="Interface\IExecuteObject.cs" />
     <Compile Include="Interface\IQueryObject.cs" />

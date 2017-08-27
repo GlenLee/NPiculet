@@ -34,7 +34,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "http://localhost
 		SccProvider = "SubversionScc"
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.2"
-		ProjectReferences = "{53a8bd6f-096d-4c61-8504-f257f93f5abc}|NPiculet.WebControls.dll;{7c06bb77-1a52-43c4-b6b6-4f72c256ab2a}|NPiculet.Sys.dll;{1cfdd0bb-dd60-4004-82a1-e02c83a1c5c2}|NPiculet.Service.dll;{59509836-713e-4f99-a9f1-2dd4c696e5d9}|NPiculet.CMS.dll;{5af1f7ef-259a-4b00-b7ed-c145515e9885}|NPiculet.Base.dll;{bc0d3728-718c-4b21-b8b2-2766013ebb41}|NPiculet.Common.dll;"
+		ProjectReferences = "{53a8bd6f-096d-4c61-8504-f257f93f5abc}|NPiculet.WebControls.dll;{7c06bb77-1a52-43c4-b6b6-4f72c256ab2a}|NPiculet.Sys.dll;{1cfdd0bb-dd60-4004-82a1-e02c83a1c5c2}|NPiculet.Service.dll;{59509836-713e-4f99-a9f1-2dd4c696e5d9}|NPiculet.CMS.dll;{5af1f7ef-259a-4b00-b7ed-c145515e9885}|NPiculet.Base.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"
@@ -52,8 +52,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "http://localhost
 		SlnRelativePath = "WebSite\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPiculet.Common", "NPiculet.Common\NPiculet.Common.csproj", "{BC0D3728-718C-4B21-B8B2-2766013EBB41}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -93,10 +91,6 @@ Global
 		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{22EFFDF9-9094-4F52-B24E-53F5519F453D}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC0D3728-718C-4B21-B8B2-2766013EBB41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

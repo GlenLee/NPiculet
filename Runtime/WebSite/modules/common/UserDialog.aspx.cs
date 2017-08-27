@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using NPiculet.Log;
+using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
-using NPiculet.WebControls;
 
 public partial class modules_common_UserDialog : AdminPage
 {
@@ -34,26 +31,25 @@ public partial class modules_common_UserDialog : AdminPage
 		EventDeleteSelected(target);
 	}
 
-	private DataView treedv = null;
+	private List<sys_org_info> _treeOrgs = null;
 
 	private void BindOrgTree()
 	{
-		SysOrgInfoBus bus = new SysOrgInfoBus();
-		DataTable dt = bus.Query("Level<=1 and IsDel=0");
-		if (dt != null) {
-			treedv = dt.DefaultView;
+		OrgBus bus = new OrgBus();
+		var data = bus.GetOrgList(a => a.Level<=1 && a.IsDel == 0);
+		if (data != null && data.Count > 0) {
+			_treeOrgs = data;
 		}
 		BuildTree(null, 0);
 	}
 
-	private void BuildTree(TreeNodeCollection nodes, int parentId)
-	{
-		treedv.RowFilter = "ParentId=" + parentId;
-		foreach (DataRowView dr in treedv) {
+	private void BuildTree(TreeNodeCollection nodes, int parentId) {
+		var query = from a in _treeOrgs where a.ParentId == parentId select a;
+		foreach (var o in query) {
 			if (nodes == null) nodes = this.tree.Nodes;
-			TreeNode tn = new TreeNode(dr["OrgName"].ToString(), dr["Id"].ToString());
+			TreeNode tn = new TreeNode(o.OrgName, o.Id.ToString());
 			nodes.Add(tn);
-			BuildTree(tn.ChildNodes, (int)dr["Id"]);
+			BuildTree(tn.ChildNodes, o.Id);
 		}
 	}
 
@@ -67,10 +63,11 @@ public partial class modules_common_UserDialog : AdminPage
 			whereString += " and OrgId=" + orgId;
 		}
 
-		SysUserInfoBus ubus = new SysUserInfoBus();
-		var data = ubus.GetUserList(this.NPager1.CurrentPage, this.NPager1.PageSize, whereString);
+		UserBus ubus = new UserBus();
+		int count;
+		var data = ubus.GetUserList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, whereString);
 
-		this.NPager1.RecordCount = ubus.GetUserCount(whereString);
+		this.NPager1.RecordCount = count;
 
 		this.list.DataSource = data;
 		this.list.DataBind();
@@ -85,15 +82,15 @@ public partial class modules_common_UserDialog : AdminPage
 		this.selectedList.DataBind();
 	}
 
-	private List<SysUserInfo> _selectedUserList
+	private List<sys_user_info> _selectedUserList
 	{
 		get
 		{
-			var data = ViewState["__SelectedUserList__"] as List<SysUserInfo>;
-			if (data == null) data = new List<SysUserInfo>();
+			var data = ViewState["__SelectedUserList__"] as List<sys_user_info>;
+			if (data == null) data = new List<sys_user_info>();
 			return data;
 		}
-		set { ViewState["__SelectedUserList__"] = value; }
+		set { ViewState["__SelectedUserList"] = value; }
 	}
 
 	private void EventDeleteSelected(string target)
@@ -124,7 +121,7 @@ public partial class modules_common_UserDialog : AdminPage
 			//sw.Start();
 			int arg = WebParmKit.GetFormValue("__EVENTARGUMENT", 0);
 			if (arg > 0) {
-				var user = new SysUserInfoBus().QueryModel("Id=" + arg);
+				var user = new UserBus().GetUserInfo(arg);
 
 				var l = _selectedUserList;
 

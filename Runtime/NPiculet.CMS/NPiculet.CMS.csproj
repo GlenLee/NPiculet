@@ -62,16 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessCustom\CmsAdvInfoBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsContentGroupBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsContentPageBus_Custom.cs" />
-    <Compile Include="BusinessCustom\CmsPointLogBus.cs" />
-    <Compile Include="Business\CmsAdvInfoBus.cs" />
-    <Compile Include="Business\CmsContentGroupBus.cs" />
-    <Compile Include="Business\CmsContentPageBus.cs" />
-    <Compile Include="Model\CmsAdvInfo.cs" />
-    <Compile Include="Model\CmsContentGroup.cs" />
-    <Compile Include="Model\CmsContentPage.cs" />
+    <Compile Include="Business\CmsContentBus.cs" />
+    <Compile Include="Business\CmsPointBus.cs" />
+    <Compile Include="Business\CmsAdvBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

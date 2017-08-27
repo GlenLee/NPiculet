@@ -55,7 +55,7 @@ public partial class modules_common_FileUploadView : System.Web.UI.UserControl
 		this._SourceCode = sourceCode;
 		this._SourceId = sourceId;
 
-		var bus = new BasAttachmentBus();
+		var bus = new AttachmentBus();
 		var data = bus.GetFileList(moduleCode, moduleId, sourceCode, sourceId, 0);
 		this.list.DataSource = (from a in data where a.IsDir == 0 select a).ToList();
 		this.list.DataBind();
@@ -91,7 +91,7 @@ public partial class modules_common_FileUploadView : System.Web.UI.UserControl
 		var btn = sender as LinkButton;
 		if (btn != null) {
 			var val = btn.CommandArgument;
-			var bus = new BasAttachmentBus();
+			var bus = new AttachmentBus();
 			bus.DeleteAttachment(val);
 			BindData(_ModuleCode, _ModuleId, _SourceCode, _SourceId);
 		}

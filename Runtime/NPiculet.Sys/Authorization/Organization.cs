@@ -8,6 +8,7 @@ namespace NPiculet.Authorization
 	public class Organization
 	{
 		public int Id;
+		public string Code;
 		public string Name;
 		public string FullName;
 

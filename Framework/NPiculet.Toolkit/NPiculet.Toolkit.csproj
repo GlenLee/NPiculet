@@ -74,9 +74,10 @@
     <Compile Include="Json\JsonExtension.cs" />
     <Compile Include="Json\JsonKit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="String\Convert.cs" />
+    <Compile Include="String\StringConvert.cs" />
     <Compile Include="String\EncryptKit.cs" />
-    <Compile Include="String\Random.cs" />
+    <Compile Include="String\StringKit.cs" />
+    <Compile Include="String\StringRandom.cs" />
     <Compile Include="String\RegexExtension.cs" />
     <Compile Include="String\StringExtension.cs" />
     <Compile Include="System\ClassKit.cs" />

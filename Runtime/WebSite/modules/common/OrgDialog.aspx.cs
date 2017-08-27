@@ -37,7 +37,7 @@ public partial class modules_common_OrgDialog : AdminPage
 
 	private void BindOrgTree()
 	{
-		SysOrgInfoBus bus = new SysOrgInfoBus();
+		OrgBus bus = new OrgBus();
 		DataTable dt = bus.GetOrgTreeData();
 		if (dt != null) {
 			dv = dt.DefaultView;
