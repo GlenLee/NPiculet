@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Authorization;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Business;
 using NPiculet.Logic.Sys;
@@ -87,7 +88,7 @@ public partial class web_uc_ImageUpload : System.Web.UI.UserControl
 		var user = LoginKit.GetUserInfo(Session.SessionID);
 
 		//上传文件
-		var abus = new BasAttachmentBus();
+		var abus = new AttachmentBus();
 		var att = abus.UploadFile(hpf, this.ModuleCode, this.ModuleId, this.SourceCode, this.SourceId, 0, 0, user == null ? 0 : user.Id, out filepath);
 		if (att == null) {
 			this.Alert("文件上传失败！");

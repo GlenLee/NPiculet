@@ -1,4 +1,6 @@
-﻿using System.Data.Entity.Validation;
+﻿using System;
+using System.Data.Entity.Validation;
+using System.Linq.Expressions;
 
 namespace NPiculet.Toolkit
 {
@@ -18,6 +20,17 @@ namespace NPiculet.Toolkit
 				}
 			}
 			return msg;
+		}
+
+		/// <summary>
+		/// 创建一个查询条件
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public static Expression<Func<T, bool>> CreateWhere<T>(Expression<Func<T, bool>> predicate)
+		{
+			return predicate;
 		}
 	}
 }

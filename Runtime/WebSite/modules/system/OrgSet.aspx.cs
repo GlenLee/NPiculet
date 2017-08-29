@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_OrgSet : AdminPage
@@ -20,8 +20,8 @@ public partial class modules_system_OrgSet : AdminPage
 		}
 	}
 
-	private readonly SysOrgInfoBus _bus = new SysOrgInfoBus();
-	private DataView _dv = null;
+	private readonly OrgBus _obus = new OrgBus();
+	private List<sys_org_info> _orgs = null;
 
 	private void BindData()
 	{
@@ -34,33 +34,31 @@ public partial class modules_system_OrgSet : AdminPage
 
 	private void BindTree(int parentId)
 	{
-		var dt = _bus.Query("IsDel=0", null);
-		if (dt != null) {
-			_dv = dt.DefaultView;
-			_dv.Sort = "OrderBy";
+		var data = _obus.GetOrgList(a => a.IsDel == 0);
+		if (data != null && data.Count > 0) {
+			_orgs = data;
 			BuildTree(null, parentId);
 		}
 	}
 
-	private void BuildTree(TreeNode node, int parentId)
-	{
-		_dv.RowFilter = "ParentId=" + parentId;
-		foreach (DataRowView dr in _dv) {
+	private void BuildTree(TreeNode node, int parentId) {
+		var query = (from a in _orgs where a.ParentId == parentId orderby a.OrderBy select a).ToList();
+		foreach (var org in query) {
 
 			//string code = Convert.ToString(dr["Code"]);
 
 			var tn = new TreeNode();
 			//tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(dr["Type"])) + ")</span>";
-			tn.Text = Convert.ToString(dr["OrgName"]) + " <span style=\"color:#999;\">(" + Convert.ToString(dr["OrderBy"]) + ")</span>";
-			tn.Value = Convert.ToString(dr["Id"]);
+			tn.Text = Convert.ToString(org.OrgName) + " <span style=\"color:#999;\">(" + Convert.ToString(org.OrderBy) + ")</span>";
+			tn.Value = Convert.ToString(org.Id);
 
-			if (!Convert.ToBoolean(dr["IsEnabled"])) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span> <span style=\"color:#999;\">(" + Convert.ToString(dr["OrderBy"]) + ")</span>";
+			if (!Convert.ToBoolean(org.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span> <span style=\"color:#999;\">(" + Convert.ToString(org.OrderBy) + ")</span>";
 			if (node == null) {
 				this.tree.Nodes.Add(tn);
 			} else {
 				node.ChildNodes.Add(tn);
 			}
-			BuildTree(tn, Convert.ToInt32(dr["Id"]));
+			BuildTree(tn, org.Id);
 		}
 	}
 
@@ -115,7 +113,7 @@ public partial class modules_system_OrgSet : AdminPage
 		if (Page.IsValid) {
 			this.CurName.Text = "";
 
-			var data = _bus.CreateModel();
+			var data = new sys_org_info();
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			if (this.Id.Value == "") {
@@ -127,11 +125,11 @@ public partial class modules_system_OrgSet : AdminPage
 				data.IsDel = 0;
 				data.Creator = this.CurrentUserName;
 				data.CreateDate = DateTime.Now;
-				_bus.Insert(data);
+				_obus.SaveOrg(data);
 			} else {
 				data.FullName = data.FullName.IndexOf("/") > -1 ? data.FullName.Substring(0, data.FullName.LastIndexOf("/")) + "/" + data.Alias : data.Alias;
 
-				_bus.Update(data, null);
+				_obus.SaveOrg(data);
 			}
 
 			ClearControls();
@@ -145,7 +143,7 @@ public partial class modules_system_OrgSet : AdminPage
 	protected void btnSame_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = _bus.CreateModel();
+			var data = new sys_org_info();
 			BindKit.FillModelFromContainer(this.editor, data);
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 			data.RootId = GetRootId();
@@ -153,7 +151,7 @@ public partial class modules_system_OrgSet : AdminPage
 			data.IsDel = 0;
 			data.Creator = this.CurrentUserName;
 			data.CreateDate = DateTime.Now;
-			_bus.Insert(data);
+			_obus.SaveOrg(data);
 
 			ClearControls();
 
@@ -166,7 +164,7 @@ public partial class modules_system_OrgSet : AdminPage
 	protected void btnChild_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = _bus.CreateModel();
+			var data = new sys_org_info();
 			BindKit.FillModelFromContainer(this.editor, data);
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 			data.RootId = GetRootId();
@@ -176,7 +174,7 @@ public partial class modules_system_OrgSet : AdminPage
 			data.IsDel = 0;
 			data.Creator = this.CurrentUserName;
 			data.CreateDate = DateTime.Now;
-			_bus.Insert(data);
+			_obus.SaveOrg(data);
 
 			ClearControls();
 
@@ -189,8 +187,10 @@ public partial class modules_system_OrgSet : AdminPage
 	protected void btnDelete_Click(object sender, EventArgs e)
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			//_bus.Delete("Id=" + this.Id.Value + " or Path like '" + this.Path.Value + "%'");
-			_bus.Update(new SysOrgInfo() { IsDel = 1 }, "Id=" + this.Id.Value);
+			int orgId = ConvertKit.ConvertValue(this.Id.Value, 0);
+			var data = _obus.GetOrgInfo(orgId);
+			data.IsDel = 1;
+			_obus.SaveOrg(data);
 
 			ClearControls();
 			BindData();
@@ -203,7 +203,7 @@ public partial class modules_system_OrgSet : AdminPage
 	{
 		ClearControls();
 		var val = this.tree.SelectedValue;
-		var data = _bus.GetOrgInfo(Convert.ToInt32(val));
+		var data = _obus.GetOrgInfo(Convert.ToInt32(val));
 		if (data != null) {
 			BindKit.BindModelToContainer(this.editor, data);
 			//this.CurName.Text = data.OrgName;
@@ -232,9 +232,7 @@ public partial class modules_system_OrgSet : AdminPage
 	/// </summary>
 	public int FixOrgPath()
 	{
-		var bus = new SysOrgInfoBus();
-		var data = bus.QueryList("IsDel=0");
-		var updateList = new List<SysOrgInfo>();
+		var data = _obus.GetOrgList(a => a.IsDel == 0);
 		//修复第一层
 		var root = (from a in data where a.ParentId == 0 select a);
 		for (int i = 0; i < root.Count(); i++) {
@@ -245,19 +243,18 @@ public partial class modules_system_OrgSet : AdminPage
 				org.Path = "";
 				org.FullName = org.Alias;
 
-				updateList.Add(org);
+				_obus.SaveOrg(org);
 			}
 			//检查下层菜单
-			FixSubOrgPath(data, org, updateList);
+			FixSubOrgPath(data, org);
 		}
-		bus.UpdateList(updateList);
-		return updateList.Count;
+		return 0;
 	}
 
-	private static void FixSubOrgPath(List<SysOrgInfo> data, SysOrgInfo parent, List<SysOrgInfo> updateList)
+	private void FixSubOrgPath(List<sys_org_info> data, sys_org_info parent)
 	{
 		var layer = (from a in data where a.ParentId == parent.Id select a);
-		foreach (SysOrgInfo org in layer) {
+		foreach (var org in layer) {
 			string curPath = parent.Path + "/" + parent.Id;
 			int curRootId = parent.RootId == 0 ? parent.Id : parent.RootId;
 			int curDepth = parent.Level.Value + 1;
@@ -269,9 +266,9 @@ public partial class modules_system_OrgSet : AdminPage
 				org.Path = curPath;
 				org.FullName = curFullName + "/" + org.Alias;
 
-				updateList.Add(org);
+				_obus.SaveOrg(org);
 			}
-			FixSubOrgPath(data, org, updateList);
+			FixSubOrgPath(data, org);
 		}
 	}
 

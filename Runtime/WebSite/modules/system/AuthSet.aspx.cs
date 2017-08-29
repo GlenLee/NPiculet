@@ -5,24 +5,24 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_AuthSet : AdminPage
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
+	protected void Page_Load(object sender, EventArgs e)
+	{
 		if (!Page.IsPostBack) {
 			SetAuthMode(false);
 
-		    BindTargetData();
+			BindTargetData();
 			BindAuthFunData();
-	    }
-    }
+		}
+	}
 
-	private readonly SysAuthorizationBus _bus = new SysAuthorizationBus();
+	private readonly AuthorizationBus _bus = new AuthorizationBus();
 
 	/// <summary>
 	/// 绑定待授权目标数据
@@ -32,7 +32,7 @@ public partial class modules_system_AuthSet : AdminPage
 		string moduleName = WebParmKit.GetQuery("m", "");
 		int dataId = WebParmKit.GetQuery("key", 0);
 		string pageUrl = WebParmKit.GetQuery("p", "");
-		
+
 		this.TargetType.Value = moduleName;
 		this.TargetId.Value = dataId.ToString();
 
@@ -57,8 +57,8 @@ public partial class modules_system_AuthSet : AdminPage
 	private void ShowRoleAuth()
 	{
 		this.TargetTypeName.Text = "角色";
-		SysRoleInfoBus bus = new SysRoleInfoBus();
-		var model = bus.QueryModel("Id=" + this.TargetId.Value);
+		RoleBus bus = new RoleBus();
+		var model = bus.GetRoleInfo(ConvertKit.ConvertValue(this.TargetId.Value, 0));
 		if (model != null) {
 			this.TargetName.Text = model.RoleName;
 			this.TargetMemo.Text = model.Comment;
@@ -71,8 +71,8 @@ public partial class modules_system_AuthSet : AdminPage
 	private void ShowUserAuth()
 	{
 		this.TargetTypeName.Text = "用户";
-		SysUserInfoBus bus = new SysUserInfoBus();
-		var model = bus.QueryModel("Id=" + this.TargetId.Value);
+		UserBus bus = new UserBus();
+		var model = bus.GetUserInfo(ConvertKit.ConvertValue(this.TargetId.Value, 0));
 		if (model != null) {
 			this.TargetName.Text = model.Name;
 			this.TargetMemo.Text = "用户帐号：" + model.Account;
@@ -85,8 +85,8 @@ public partial class modules_system_AuthSet : AdminPage
 	private void ShowOrgAuth()
 	{
 		this.TargetTypeName.Text = "组织机构";
-		SysOrgInfoBus bus = new SysOrgInfoBus();
-		var model = bus.QueryModel("Id=" + this.TargetId.Value);
+		OrgBus bus = new OrgBus();
+		var model = bus.GetOrgInfo(ConvertKit.ConvertValue(this.TargetId.Value, 0));
 		if (model != null) {
 			this.TargetName.Text = model.OrgName;
 			this.TargetMemo.Text = model.Memo;
@@ -156,11 +156,11 @@ public partial class modules_system_AuthSet : AdminPage
 		this.authAllList.Visible = visible;
 	}
 
-	private List<SysAuthorization> _currentAuthList = new List<SysAuthorization>();
+	private List<sys_authorization> _currentAuthList = new List<sys_authorization>();
 
 	private bool AppendAuthItem(int functionId)
 	{
-		var auth = new SysAuthorization();
+		var auth = new sys_authorization();
 		auth.TargetType = this.TargetType.Value;
 		auth.TargetId = Convert.ToInt32(this.TargetId.Value);
 		auth.FunctionType = "Menu";
@@ -175,12 +175,12 @@ public partial class modules_system_AuthSet : AdminPage
 		return false;
 	}
 
-	private bool ContainsAuth(SysAuthorization auth)
+	private bool ContainsAuth(sys_authorization auth)
 	{
 		return (from a in _currentAuthList
-				where a.TargetType == auth.TargetType && a.TargetId == auth.TargetId
-					&& a.FunctionType == auth.FunctionType && a.FunctionId == auth.FunctionId
-				select a).Any();
+			where a.TargetType == auth.TargetType && a.TargetId == auth.TargetId
+			      && a.FunctionType == auth.FunctionType && a.FunctionId == auth.FunctionId
+			select a).Any();
 	}
 
 	protected void btnSave_Click(object sender, EventArgs e)
@@ -212,7 +212,7 @@ public partial class modules_system_AuthSet : AdminPage
 				}
 			}
 		}
-		_bus.UpdateAuthList(_currentAuthList, this.TargetType.Value, this.TargetId.Value);
+		_bus.UpdateAuthList(_currentAuthList, this.TargetType.Value, ConvertKit.ConvertValue(this.TargetId.Value, 0));
 		SetAuthMode(false);
 		BindAuthFunData();
 	}

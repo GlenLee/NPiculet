@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 
@@ -25,16 +20,14 @@ public partial class modules_common_RoleDialog : AdminPage
 
 	private void BindRoleList()
 	{
-		SysRoleInfoBus bus = new SysRoleInfoBus();
+		RoleBus bus = new RoleBus();
 
-		string whereString = "IsDel=0 and IsEnabled=1";
+		int count;
+		var data = bus.GetRoleList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, a => a.IsDel == 0 && a.IsEnabled == 1);
 
-		int count = bus.RecordCount(whereString);
 		this.NPager1.RecordCount = count;
 
-		DataTable dt = bus.Query(this.NPager1.CurrentPage, this.NPager1.PageSize, whereString, "CreateDate DESC");
-
-		this.list.DataSource = dt;
+		this.list.DataSource = data;
 		this.list.DataBind();
 	}
 }

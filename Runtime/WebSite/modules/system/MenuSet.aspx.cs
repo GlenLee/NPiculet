@@ -7,7 +7,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 using NPiculet.Base.EF;
 
@@ -22,8 +21,8 @@ public partial class System_MenuSet : AdminPage
 		}
 	}
 
-	private readonly SysMenuBus _bus = new SysMenuBus();
-	private DataView _dv = null;
+	private readonly MenuBus _bus = new MenuBus();
+	private List<sys_menu> _menus = null;
 
 	private void BindData()
 	{
@@ -36,31 +35,29 @@ public partial class System_MenuSet : AdminPage
 
 	private void BindTree(int parentId)
 	{
-		var dt = _bus.Query("IsDel=0", null);
-		if (dt != null) {
-			_dv = dt.DefaultView;
-			_dv.Sort = "OrderBy";
+		var data = _bus.GetMenuList(a => a.IsDel == 0);
+		if (data != null) {
+			_menus = data;
 			BuildTree(null, parentId);
 		}
 	}
 
-	private void BuildTree(TreeNode node, int parentId)
-	{
-		_dv.RowFilter = "ParentId=" + parentId;
-		foreach (DataRowView dr in _dv) {
+	private void BuildTree(TreeNode node, int parentId) {
+		var query = (from a in _menus where a.ParentId == parentId orderby a.OrderBy select a);
+		foreach (var menu in query) {
 
 			var tn = new TreeNode();
-			//tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(dr["Type"])) + ")</span>";
-			tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + Convert.ToString(dr["OrderBy"]) + ")</span>";
-			tn.Value = Convert.ToString(dr["Id"]);
+			//tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(menu.Type)) + ")</span>";
+			tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + Convert.ToString(menu.OrderBy) + ")</span>";
+			tn.Value = Convert.ToString(menu.Id);
 
-			if (!Convert.ToBoolean(dr["IsEnabled"])) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
+			if (!Convert.ToBoolean(menu.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
 			if (node == null) {
 				this.tree.Nodes.Add(tn);
 			} else {
 				node.ChildNodes.Add(tn);
 			}
-			BuildTree(tn, Convert.ToInt32(dr["Id"]));
+			BuildTree(tn, Convert.ToInt32(menu.Id));
 		}
 	}
 
@@ -114,7 +111,7 @@ public partial class System_MenuSet : AdminPage
 	/// 处理“栏目”所属
 	/// </summary>
 	/// <param name="data"></param>
-	private void ProcessBelong(ref SysMenu data)
+	private void ProcessBelong(ref sys_menu data)
 	{
 		switch (data.Belong) {
 			case 2:
@@ -129,7 +126,7 @@ public partial class System_MenuSet : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = _bus.CreateModel();
+			var data = new sys_menu();
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
@@ -145,9 +142,9 @@ public partial class System_MenuSet : AdminPage
 				data.IsDel = 0;
 				data.Creator = this.CurrentUserName;
 				data.CreateDate = DateTime.Now;
-				_bus.Insert(data);
+				_bus.Save(data);
 			} else {
-				_bus.Update(data, null);
+				_bus.Save(data);
 			}
 
 			ClearControls();
@@ -161,7 +158,7 @@ public partial class System_MenuSet : AdminPage
 	protected void btnSame_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = _bus.CreateModel();
+			var data = new sys_menu();
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
@@ -174,7 +171,7 @@ public partial class System_MenuSet : AdminPage
 			data.IsDel = 0;
 			data.Creator = this.CurrentUserName;
 			data.CreateDate = DateTime.Now;
-			_bus.Insert(data);
+			_bus.Save(data);
 
 			ClearControls();
 
@@ -187,7 +184,7 @@ public partial class System_MenuSet : AdminPage
 	protected void btnChild_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = _bus.CreateModel();
+			var data = new sys_menu();
 			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
@@ -202,7 +199,7 @@ public partial class System_MenuSet : AdminPage
 			data.IsDel = 0;
 			data.Creator = this.CurrentUserName;
 			data.CreateDate = DateTime.Now;
-			_bus.Insert(data);
+			_bus.Save(data);
 
 			ClearControls();
 
@@ -216,7 +213,7 @@ public partial class System_MenuSet : AdminPage
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
 			//_bus.Delete("Id=" + this.Id.Value + " or Path like '" + this.Path.Value + "%'");
-			_bus.Update(new SysMenu() { IsDel = 1 }, "Id=" + this.Id.Value);
+			//_bus.Save(new SysMenu() { IsDel = 1 }, "Id=" + this.Id.Value);
 
 			ClearControls();
 			BindData();

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using NPiculet.Base.EF;
-using NPiculet.Logic.Sys;
 using System.Web.UI;
+using NPiculet.Authorization;
 
 namespace web.uc
 {

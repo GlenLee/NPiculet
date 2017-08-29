@@ -19,16 +19,16 @@ public partial class web_PageMemberView : System.Web.UI.Page
 		}
 	}
 
-	private readonly SysMemberInfoBus _userBus = new SysMemberInfoBus();
-	private readonly SysMemberDataBus _dataBus = new SysMemberDataBus();
+	private readonly MemberBus _mbus = new MemberBus();
+
 	private NPiculetEntities _db = new NPiculetEntities();
 
 	private void BindData()
 	{
-		var userId = WebParmKit.GetRequestString("key", 0);
-		if (userId <= 0)
+		var memberId = WebParmKit.GetRequestString("key", 0);
+		if (memberId <= 0)
 			return;
-		var model = _userBus.QueryModel("Id=" + userId);
+		var model = _mbus.GetMemberInfo(memberId);
 		if (model == null)
 			return;
 
@@ -36,7 +36,7 @@ public partial class web_PageMemberView : System.Web.UI.Page
 		//this.Account.ReadOnly = true;
 		//CorpColor.Value = EntMemeberStatusHelper.GetStatusColor(model.Status);
 
-		var data = _dataBus.QueryModel("UserAccount='" + model.Account + "'");
+		var data = _mbus.GetMemberData(model.Id);
 		if (data != null) {
 
 			this.Title = model.Name;
@@ -92,10 +92,10 @@ public partial class web_PageMemberView : System.Web.UI.Page
 
 	protected void btnShowQualification_Click(object sender, EventArgs e)
 	{
-		var userId = WebParmKit.GetRequestString("key", 0);
-		if (userId <= 0)
+		var memberId = WebParmKit.GetRequestString("key", 0);
+		if (memberId <= 0)
 			return;
-		var model = _userBus.QueryModel("Id=" + userId);
+		var model = _mbus.GetMemberInfo(memberId);
 		if (model == null)
 			return;
 		if (!CorpQualification.Visible) {

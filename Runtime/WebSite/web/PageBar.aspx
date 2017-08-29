@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="PageBar.aspx.cs" Inherits="web_PageBar" %>
 <%@ Register TagPrefix="uc1" TagName="NavMenu" Src="~/web/uc/NavMenu.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ContentSidebar" Src="~/web/uc/ContentSidebar.ascx" %>
-<%@ Register Src="~/web/uc/ContentPage.ascx" TagPrefix="uc1" TagName="ContentPage" %>
+<%@ Register Src="~/web/uc/ContentList.ascx" TagPrefix="uc1" TagName="ContentList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -27,7 +27,7 @@
 	        </div>
 	        <div class="ui-content-split"></div>
             <!-- 列表 开始 -->
-			<uc1:ContentPage runat="server" ID="ContentPage1" GroupCode="PageBar" />
+			<uc1:ContentList runat="server" ID="ContentPage1" GroupCode="PageBar" />
             <!-- 列表 结束 -->
         </div>
     </div>

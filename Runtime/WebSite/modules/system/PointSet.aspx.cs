@@ -6,14 +6,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Base.EF;
-using NPiculet.CMS.BusinessCustom;
+using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_PointSet : AdminPage
 {
+	private readonly OrgBus _obus = new OrgBus();
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
@@ -28,19 +29,6 @@ public partial class modules_system_PointSet : AdminPage
 	private void BindLogs() {
 		using (var db = new NPiculetEntities()) {
 
-			//var logs = (from l in db.cms_points_log
-			//	from u in db.sys_user_info
-			//	where l.ActionUserId == u.Id
-			//	orderby l.CreateDate descending
-			//	select new {
-			//		l.Tag,
-			//		l.Comment,
-			//		l.Point,
-			//		l.Creator,
-			//		l.CreateDate,
-			//		UserName = u.Name
-			//	}).ToList();
-
 			var logs = (from l in db.cms_points_log
 				orderby l.CreateDate descending
 				select l);
@@ -52,21 +40,19 @@ public partial class modules_system_PointSet : AdminPage
 		}
 	}
 
-	private readonly SysOrgInfoBus _bus = new SysOrgInfoBus();
-
 	private void BindData()
 	{
 		string whereString = "IsDel=0 and Level=1";
 
-		DataTable dt = _bus.Query(whereString, "OrderBy, CreateDate");
+		var data = _obus.GetOrgList(a => a.IsDel == 0 && a.Level == 1);
 
-		this.list.DataSource = dt.DefaultView;
+		this.list.DataSource = data.ToList();
 		this.list.DataBind();
 	}
 
 	protected void btnSave_OnClick(object sender, EventArgs e) {
 
-		CmsPointLogBus pbus = new CmsPointLogBus();
+		CmsPointBus pbus = new CmsPointBus();
 
 		foreach (GridViewRow row in this.list.Rows) {
 			if (row.RowType == DataControlRowType.DataRow) {
@@ -77,7 +63,9 @@ public partial class modules_system_PointSet : AdminPage
 					int cpoint = ConvertKit.ConvertValue(dataKey["Point"], 0);
 					int mpoint = ConvertKit.ConvertValue((row.FindControl("point") as TextBox).Text, 0);
 					if (cpoint != mpoint) {
-						_bus.Update(new SysOrgInfo() { Point = mpoint }, "Id=" + dataId);
+						var org = _obus.GetOrgInfo(ConvertKit.ConvertValue(dataId, 0));
+						org.Point = mpoint;
+						_obus.SaveOrg(org);
 						int point = mpoint - cpoint;
 						pbus.SavePointLog(this.CurrentUserInfo, "cms_point_log", dataId, point, "手动调整，" + (point > 0 ? "增加积分" : "减少积分"), orgName);
 					}

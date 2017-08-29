@@ -4,26 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 public partial class system_Admin_ConfigSet : AdminPage
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
+	protected void Page_Load(object sender, EventArgs e)
+	{
 		if (!Page.IsPostBack) {
 			BindData();
 		}
-    }
+	}
 
-	private readonly SysConfigBus _bus = new SysConfigBus();
+	private ConfigBus _cbus = new ConfigBus();
 
 	private void BindData()
 	{
-		var configs = _bus.QueryList("");
+		var configs = _cbus.GetConfigList(null);
 
 		foreach (Control control in this.container.Controls) {
 			TextBox tb = control as TextBox;
@@ -46,7 +46,7 @@ public partial class system_Admin_ConfigSet : AdminPage
 		}
 	}
 
-	private string GetControlValue(List<SysConfig> configs, string controlId)
+	private string GetControlValue(List<sys_config> configs, string controlId)
 	{
 		var config = (from c in configs where c.ConfigCode == controlId select c).FirstOrDefault();
 		return config == null ? null : config.ConfigValue;
@@ -58,48 +58,42 @@ public partial class system_Admin_ConfigSet : AdminPage
 			foreach (Control control in this.container.Controls) {
 				TextBox tb = control as TextBox;
 				if (tb != null) {
-					var config = _bus.CreateModel();
+					var config = new sys_config();
 					config.ConfigCode = tb.ID;
 					config.ConfigValue = tb.Text;
 					config.IsEnabled = 1;
 					config.Creator = this.CurrentUserName;
 					config.CreateDate = DateTime.Now;
 
-					if (!_bus.Update(config, "ConfigCode='" + tb.ID + "'")) {
-						_bus.Insert(config);
-					}
+					_cbus.Save(config, a => a.ConfigCode == tb.ID);
 				}
 
 				CheckBox cb = control as CheckBox;
 				if (cb != null) {
-					var config = _bus.CreateModel();
+					var config = new sys_config();
 					config.ConfigCode = cb.ID;
 					config.ConfigValue = cb.Checked ? "1" : "0";
 					config.IsEnabled = 1;
 					config.Creator = this.CurrentUserName;
 					config.CreateDate = DateTime.Now;
 
-					if (!_bus.Update(config, "ConfigCode='" + cb.ID + "'")) {
-						_bus.Insert(config);
-					}
+					_cbus.Save(config, a => a.ConfigCode == tb.ID);
 				}
 
 				DropDownList ddl = control as DropDownList;
 				if (ddl != null) {
-					var config = _bus.CreateModel();
+					var config = new sys_config();
 					config.ConfigCode = ddl.ID;
 					config.ConfigValue = ddl.SelectedValue;
 					config.IsEnabled = 1;
 					config.Creator = this.CurrentUserName;
 					config.CreateDate = DateTime.Now;
 
-					if (!_bus.Update(config, "ConfigCode='" + ddl.ID + "'")) {
-						_bus.Insert(config);
-					}
+					_cbus.Save(config, a => a.ConfigCode == tb.ID);
 				}
 			}
 
-			new ConfigManager().ClearWebConfigCache();
+			new ConfigManager().ClearConfigCache();
 
 			this.promptControl.ShowSuccess("保存成功！");
 		}

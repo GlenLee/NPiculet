@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\BusinessBase.cs" />
     <Compile Include="EF\bas_attachment.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
@@ -156,7 +157,7 @@
     <Compile Include="EF\sys_user_info.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IBusiness.cs" />
+    <Compile Include="Business\IBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

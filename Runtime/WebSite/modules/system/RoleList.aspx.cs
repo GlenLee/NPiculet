@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_RoleList : AdminPage
@@ -22,21 +23,33 @@ public partial class modules_system_RoleList : AdminPage
 		};
 	}
 
-	private readonly SysRoleInfoBus _bus = new SysRoleInfoBus();
+	private readonly RoleBus _bus = new RoleBus();
+
+	public Expression<Func<T, bool>> CreatePredicate<T>(Expression<Func<T, bool>> predicate)
+	{
+		return predicate;
+	}
+
+	public Expression<Func<T, bool>> And<T>(Expression<Func<T, bool>> p1, Expression<Func<T, bool>> p2)
+	{
+		return Expression.Lambda<Func<T, bool>>(Expression.And(p1, p2), p1.Parameters);
+	}
 
 	private void BindData()
 	{
-		string whereString = "IsDel=0";
+		Expression<Func<sys_role_info, bool>> predicate = a => a.IsDel == 0;
+
 		string key = this.txtKeywords.Text.FormatSqlParm();
 		if (!string.IsNullOrEmpty(key)) {
-			whereString += " and (RoleName LIKE '%" + key + "%')";
+			predicate = And(predicate, a => a.RoleName.Contains(key));
 		}
 
-		int count = _bus.RecordCount(whereString);
-		this.NPager1.RecordCount = count;
+		int count;
 
-		this.list.DataSource = _bus.Query(this.NPager1.CurrentPage, this.NPager1.PageSize,  whereString, null);
+		this.list.DataSource = _bus.GetRoleList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, predicate);
 		this.list.DataBind();
+
+		this.NPager1.RecordCount = count;
 	}
 
 	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -44,7 +57,7 @@ public partial class modules_system_RoleList : AdminPage
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
 				string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
-				_bus.Update(new SysRoleInfo() { IsDel = 1 }, "Id=" + id);
+				_bus.Delete(ConvertKit.ConvertValue(id, 0));
 			}
 			BindData();
 		}

@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Base.EF;
 
 namespace NPiculet.Logic.Business
@@ -10,6 +14,92 @@ namespace NPiculet.Logic.Business
 	/// </summary>
 	public partial class DictBus : IBusiness
 	{
+		/// <summary>
+		/// 保存字典项
+		/// </summary>
+		/// <param name="data"></param>
+		public void SaveItem(bas_dict_item data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.bas_dict_item.AddOrUpdate(data);
+				db.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// 保存字典项
+		/// </summary>
+		/// <param name="itemId"></param>
+		public void DeleteItem(int itemId)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.Delete<bas_dict_item>(a => a.Id == itemId);
+			}
+		}
+
+		/// <summary>
+		/// 保存字典组
+		/// </summary>
+		/// <param name="data"></param>
+		public void SaveGroup(bas_dict_group data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.bas_dict_group.AddOrUpdate(data);
+				db.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// 保存字典组
+		/// </summary>
+		/// <param name="data"></param>
+		public void DeleteGroup(bas_dict_group data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.bas_dict_group.AddOrUpdate(data);
+				db.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// 获取字典组信息
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public bas_dict_group GetDictGroup(Expression<Func<bas_dict_group, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.bas_dict_group.FirstOrDefault(predicate);
+			}
+		}
+
+		/// <summary>
+		/// 获取字典组列表
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public List<bas_dict_group> GetDictGroupList(Expression<Func<bas_dict_group, bool>> predicate = null)
+		{
+			using (var db = new NPiculetEntities()) {
+				if (predicate == null) {
+					return db.bas_dict_group.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
+				} else {
+					return db.bas_dict_group.Where(predicate).OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
+				}
+			}
+		}
+
+		/// <summary>
+		/// 获取字典项
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public bas_dict_item GetDictItem(Expression<Func<bas_dict_item, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.bas_dict_item.FirstOrDefault(predicate);
+			}
+		}
 
 		/// <summary>
 		/// 获取可用字典项列表
@@ -51,12 +141,13 @@ namespace NPiculet.Logic.Business
 		/// <summary>
 		/// 获取字典项数据
 		/// </summary>
+		/// <param name="count"></param>
 		/// <param name="curPage"></param>
 		/// <param name="pageSize"></param>
 		/// <param name="groupCode"></param>
 		/// <param name="keywords"></param>
 		/// <returns></returns>
-		public object GetDictItemData(int curPage, int pageSize, string groupCode, string keywords) {
+		public object GetDictItemData(out int count, int curPage, int pageSize, string groupCode, string keywords) {
 
 			NPiculetEntities db = new NPiculetEntities();
 			var query = (from i in db.bas_dict_item
@@ -67,8 +158,9 @@ namespace NPiculet.Logic.Business
 			query = query.WhereIf(!string.IsNullOrEmpty(groupCode), q => q.GroupCode == groupCode);
 			query = query.WhereIf(!string.IsNullOrEmpty(keywords), q => q.Name.Contains(keywords) || q.Code.Contains(keywords));
 
+			count = query.Count();
+
 			return query.Pagination(curPage, pageSize).ToList();
 		}
-
 	}
 }

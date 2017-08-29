@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="PageJobSeeker.aspx.cs" Inherits="web_PageJobSeeker" %>
 <%@ Register TagPrefix="uc1" TagName="NavMenu" Src="~/web/uc/NavMenu.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ContentSidebar" Src="~/web/uc/ContentSidebar.ascx" %>
-<%@ Register Src="~/web/uc/ContentPage.ascx" TagPrefix="uc1" TagName="ContentPage" %>
+<%@ Register Src="~/web/uc/ContentList.ascx" TagPrefix="uc1" TagName="ContentList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -34,7 +34,7 @@
 					</div>
 				</h4>
 			</div>
-			<uc1:ContentPage runat="server" ID="ContentPage1" GroupCode="EntHire" />
+			<uc1:ContentList runat="server" ID="ContentPage1" GroupCode="EntHire" />
             <!-- 列表 结束 -->
             <!-- 列表 开始 -->
 			<div class="ui-job-widget span6">
@@ -44,7 +44,7 @@
 					</div>
 				</h4>
 			</div>
-			<uc1:ContentPage runat="server" ID="ContentPage2" GroupCode="PageJobSeeker" />
+			<uc1:ContentList runat="server" ID="ContentPage2" GroupCode="PageJobSeeker" />
             <!-- 列表 结束 -->
         </div>
     </div>

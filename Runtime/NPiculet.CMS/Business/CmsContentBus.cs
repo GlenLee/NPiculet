@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Business;
 
@@ -13,6 +14,30 @@ namespace NPiculet.Cms.Business
 	/// </summary>
 	public partial class CmsContentBus : IBusiness
 	{
+		/// <summary>
+		/// 获取组对象
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public cms_content_group GetGroup(Expression<Func<cms_content_group, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.cms_content_group.FirstOrDefault(predicate);
+			}
+		}
+
+		/// <summary>
+		/// 获取页对象
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public cms_content_page GetPage(Expression<Func<cms_content_page, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.cms_content_page.FirstOrDefault(predicate);
+			}
+		}
+
 		/// <summary>
 		/// 获取组对象
 		/// </summary>
@@ -118,6 +143,49 @@ namespace NPiculet.Cms.Business
 					db.cms_content_page.Remove(p);
 					db.SaveChanges();
 				}
+			}
+		}
+
+		/// <summary>
+		/// 保存内容页
+		/// </summary>
+		/// <param name="data"></param>
+		public void SavePage(cms_content_page data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.cms_content_page.AddOrUpdate(data);
+				db.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// 保存内容页
+		/// </summary>
+		/// <param name="groupCode"></param>
+		/// <param name="data"></param>
+		public void SavePageByGroup(string groupCode, cms_content_page data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.cms_content_page.AddOrUpdate(data);
+				db.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// 获取页面列表
+		/// </summary>
+		/// <param name="count"></param>
+		/// <param name="curPage"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public List<cms_content_page> GetPageList(out int count, int curPage, int pageSize, Expression<Func<cms_content_page, bool>> predicate) {
+			using (var db = new NPiculetEntities()) {
+				var query = db.cms_content_page.Where(predicate);
+
+				count = query.Count();
+
+				return query.OrderByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
 			}
 		}
 	}

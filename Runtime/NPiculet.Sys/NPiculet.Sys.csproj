@@ -86,16 +86,12 @@
     <Compile Include="Business\MemberBus.cs" />
     <Compile Include="Business\MenuBus.cs" />
     <Compile Include="Business\OrgBus.cs" />
+    <Compile Include="Business\ConfigBus.cs" />
     <Compile Include="Business\RoleBus.cs" />
     <Compile Include="Business\UserBus.cs" />
     <Compile Include="Plugins\Auth\AuthDescriptor.cs" />
     <Compile Include="Plugins\Auth\AuthManager.cs" />
     <Compile Include="Common\ConfigManager.cs" />
-    <Compile Include="Plugins\Dict\DictDescriptor.cs" />
-    <Compile Include="Plugins\Dict\DictGroup.cs" />
-    <Compile Include="Plugins\Dict\DictItem.cs" />
-    <Compile Include="Plugins\Dict\DictManager.cs" />
-    <Compile Include="Plugins\Dict\IDictModule.cs" />
     <Compile Include="Plugins\Exception\ExceptionDescriptor.cs" />
     <Compile Include="Plugins\Exception\ExceptionManager.cs" />
     <Compile Include="Plugins\Auth\IAuthModule.cs" />

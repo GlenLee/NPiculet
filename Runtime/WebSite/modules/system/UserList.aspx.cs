@@ -8,7 +8,6 @@ using System.Web.UI.WebControls;
 using NPiculet.Logic;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class system_Admin_UserList : AdminPage
@@ -24,7 +23,7 @@ public partial class system_Admin_UserList : AdminPage
 		};
 	}
 
-	private readonly SysUserInfoBus _bus = new SysUserInfoBus();
+	private readonly UserBus _bus = new UserBus();
 
 	private void BindData()
 	{
@@ -33,10 +32,10 @@ public partial class system_Admin_UserList : AdminPage
 		if (!string.IsNullOrEmpty(key))
 			whereString += string.Format(" and (Account LIKE '%{0}%' or Name LIKE '%{0}%')", key);
 
-		int count = _bus.RecordCount(whereString);
-		this.NPager1.RecordCount = count;
+		int count;
+		DataTable dt = _bus.GetUserList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, whereString, "OrderBy, CreateDate DESC");
 
-		DataTable dt = _bus.GetUserList(this.NPager1.CurrentPage, this.NPager1.PageSize, whereString, "OrderBy, CreateDate DESC");
+		this.NPager1.RecordCount = count;
 
 		this.list.DataSource = dt.DefaultView;
 		this.list.DataBind();
@@ -47,7 +46,7 @@ public partial class system_Admin_UserList : AdminPage
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
 				string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
-				_bus.Update(new SysUserInfo() { IsDel = 1 }, "Id=" + id);
+				_bus.Delete(ConvertKit.ConvertValue(id, 0));
 			}
 			BindData();
 		}

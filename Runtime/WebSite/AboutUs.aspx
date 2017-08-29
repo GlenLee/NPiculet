@@ -21,8 +21,8 @@
 	<div id="output"></div>
 </div>
 <div class="dev">
-	<div>云南达速科技有限公司</div>
-	<div>联系电话：0871-65618058</div>
+	<div>pcx.cn</div>
+	<div>emal: isleecn@gmail.com</div>
 </div>
 
 <script>

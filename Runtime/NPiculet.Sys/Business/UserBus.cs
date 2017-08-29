@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Authorization;
 using NPiculet.Base.EF;
 using NPiculet.Data;
@@ -104,7 +107,7 @@ WHERE u.IsDel=0) t";
 			sql += (string.IsNullOrEmpty(orderBy)) ? " ORDER BY OrderBy, Id DESC" : " ORDER BY " + orderBy;
 
 			using (var db = DbHelper.Create()) {
-				var val = db.GetDataValue("SELECT COUNT(*) FROM sys_user_info WHERE IsDel=0 and (" + whereString + ")");
+				var val = db.GetDataValue("SELECT COUNT(*) FROM sys_user_info WHERE IsDel=0" + (string.IsNullOrEmpty(whereString) ? "" : " and (" + whereString + ")"));
 				count = ConvertKit.ConvertValue(val, 0);
 
 				sql += " LIMIT " + pageSize + " OFFSET " + ((curPage - 1) * pageSize);
@@ -222,6 +225,60 @@ WHERE u.IsDel=0) t";
 		{
 			using (var db = new NPiculetEntities()) {
 				return db.sys_user_data.FirstOrDefault(a => a.UserAccount == account);
+			}
+		}
+
+		/// <summary>
+		/// 删除用户
+		/// </summary>
+		/// <param name="uid"></param>
+		public void Delete(int uid)
+		{
+			using (var db = new NPiculetEntities()) {
+				var user = db.sys_user_data.FirstOrDefault(a => a.Id == uid);
+				if (user != null) {
+					user.IsDel = 1;
+					db.SaveChanges();
+				}
+			}
+		}
+
+		/// <summary>
+		/// 保存用户
+		/// </summary>
+		/// <param name="user"></param>
+		public void SaveUser(sys_user_info user) {
+			using (var db = new NPiculetEntities()) {
+				db.Save(user);
+			}
+		}
+
+		/// <summary>
+		/// 保存用户资料
+		/// </summary>
+		/// <param name="data"></param>
+		public void SaveData(sys_user_data data) {
+			using (var db = new NPiculetEntities()) {
+				db.Save(data);
+			}
+		}
+
+		/// <summary>
+		/// 保存数据
+		/// </summary>
+		/// <param name="data"></param>
+		/// <param name="predicate"></param>
+		public void SaveData(sys_user_data data, Expression<Func<sys_user_data, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				var current = db.sys_user_data.FirstOrDefault(predicate);
+				if (current == null) {
+					db.sys_user_data.Add(data);
+				} else {
+					data.Id = current.Id;
+					db.sys_user_data.AddOrUpdate(data);
+				}
+				db.SaveChanges();
 			}
 		}
 	}

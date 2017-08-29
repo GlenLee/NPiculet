@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="PageAssociatorShow.aspx.cs" Inherits="web_PageAssociatorShow" %>
 <%@ Register TagPrefix="uc1" TagName="NavMenu" Src="~/web/uc/NavMenu.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ContentSidebar" Src="~/web/uc/ContentSidebar.ascx" %>
-<%@ Register Src="~/web/uc/ContentPage.ascx" TagPrefix="uc1" TagName="ContentPage" %>
+<%@ Register Src="~/web/uc/ContentList.ascx" TagPrefix="uc1" TagName="ContentList" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 <script src="<%= ResolveClientUrl("~/scripts/plugin/layer/layer.js?moth=201512019") %>" type="text/javascript" ></script>
@@ -36,7 +36,7 @@
 			</asp:PlaceHolder>
 
 			<!-- 列表 开始 -->
-			<uc1:ContentPage runat="server" ID="ContentPage1" GroupCode="PageAssociatorShow" />
+			<uc1:ContentList runat="server" ID="ContentPage1" GroupCode="PageAssociatorShow" />
 			<!-- 列表 结束 -->
 		</div>
 	</div>

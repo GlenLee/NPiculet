@@ -1,8 +1,0 @@
-﻿namespace NPiculet.Logic.Plugin
-{
-	public class DictionaryGroup
-	{
-		public string Name { get; set; } 
-		public string Code { get; set; }
-	}
-}

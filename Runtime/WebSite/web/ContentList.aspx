@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="ContentList.aspx.cs" Inherits="web_ContentList" %>
-<%@ Register Src="~/web/uc/ContentPage.ascx" TagPrefix="uc1" TagName="ContentPage" %>
+<%@ Register Src="~/web/uc/ContentList.ascx" TagPrefix="uc1" TagName="ContentList" %>
 <%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc1" TagName="NavMenu" %>
 <%@ Register Src="~/web/uc/ContentSidebar.ascx" TagPrefix="uc1" TagName="ContentSidebar" %>
 
@@ -28,7 +28,7 @@
 	        </div>
 	        <div class="ui-content-split"></div>
             <!-- 列表 开始 -->
-            <uc1:ContentPage runat="server" ID="ContentPage" />
+            <uc1:ContentList runat="server" ID="ContentPage" />
             <!-- 列表 结束 -->
         </div>
     </div>

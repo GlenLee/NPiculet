@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
+using System.Linq;
 using NPiculet.Base.EF;
 using NPiculet.Data;
 
@@ -124,8 +126,17 @@ FROM sys_user_info u
 		/// <param name="authList"></param>
 		/// <param name="targetType"></param>
 		/// <param name="targetId"></param>
-		public void UpdateAuthList(List<sys_authorization> authList, string targetType, string targetId)
+		public void UpdateAuthList(List<sys_authorization> authList, string targetType, int targetId)
 		{
+			using (var db = new NPiculetEntities()) {
+				var data = db.sys_authorization.Where(a => a.TargetType == targetType && a.TargetId == targetId).ToList();
+				//计算差集新增
+				var except = authList.Except(data).ToList();
+				db.sys_authorization.AddRange(except);
+				//删除多余数据
+				var delete = data.Except(authList);
+				db.sys_authorization.RemoveRange(delete);
+			}
 			DbHelper.Execute(string.Format("DELETE FROM sys_authorization WHERE TargetType='{0}' and TargetId={1}", targetType, targetId));
 			using (var db = new NPiculetEntities()) {
 				db.sys_authorization.AddRange(authList);
@@ -135,26 +146,58 @@ FROM sys_user_info u
 		/// <summary>
 		/// 更新用户所属组织机构信息
 		/// </summary>
-		/// <param name="uoList"></param>
 		/// <param name="userId"></param>
-		public void UpdateUserOrgList(List<sys_link_user_org> uoList, int userId)
+		/// <param name="uoList"></param>
+		public void UpdateUserOrgList(int userId, List<sys_link_user_org> uoList)
 		{
-			DbHelper.Execute(string.Format("DELETE FROM sys_link_user_org WHERE UserId={0}", userId));
 			using (var db = new NPiculetEntities()) {
+				var data = db.sys_link_user_role.Where(a => a.UserId == userId).ToList();
+				if (data.Count > 0) {
+					db.sys_link_user_role.RemoveRange(data);
+				}
 				db.sys_link_user_org.AddRange(uoList);
+				db.SaveChanges();
 			}
 		}
 
 		/// <summary>
 		/// 更新用户所属角色信息
 		/// </summary>
-		/// <param name="urList"></param>
 		/// <param name="userId"></param>
-		public void UpdateUserRoleList(List<sys_link_user_role> urList, int userId)
+		/// <param name="urList"></param>
+		public void UpdateUserRoleList(int userId, List<sys_link_user_role> urList)
 		{
-			DbHelper.Execute(string.Format("DELETE FROM sys_link_user_role WHERE UserId={0}", userId));
 			using (var db = new NPiculetEntities()) {
+				db.ExecuteSql(string.Format("DELETE FROM sys_link_user_role WHERE UserId={0}", userId));
 				db.sys_link_user_role.AddRange(urList);
+			}
+		}
+
+		/// <summary>
+		/// 删除用户角色关联
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="roleId"></param>
+		public void DeleteUserRole(int userId, int roleId)
+		{
+			using (var db = new NPiculetEntities()) {
+				var data = db.sys_link_user_role.Where(a => a.UserId == userId && a.RoleId == roleId).ToList();
+				if (data.Count > 0)
+					db.sys_link_user_role.RemoveRange(data);
+			}
+		}
+
+		/// <summary>
+		/// 删除用户角组织关联
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="orgId"></param>
+		public void DeleteUserOrg(int userId, int orgId)
+		{
+			using (var db = new NPiculetEntities()) {
+				var data = db.sys_link_user_org.Where(a => a.UserId == userId && a.OrgId == orgId).ToList();
+				if (data.Count > 0)
+					db.sys_link_user_org.RemoveRange(data);
 			}
 		}
 	}

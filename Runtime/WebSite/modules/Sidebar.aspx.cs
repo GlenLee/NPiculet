@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using NPiculet.Data;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
-using NPiculet.Toolkit;
 
 public partial class modules_Sidebar : AdminPage
 {
@@ -25,7 +20,7 @@ public partial class modules_Sidebar : AdminPage
 	private void BindData()
 	{
 		int parentId = 1;
-		var bus = new SysMenuBus();
+		var bus = new MenuBus();
 		var dt = bus.GetSubMenu(parentId, this.CurrentUserId);
 
 		if (dt != null) {

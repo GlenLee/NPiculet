@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.UI;
+using NPiculet.Authorization;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Sys;
 

@@ -6,10 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using NPiculet.CMS.BusinessCustom;
+using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
-using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
@@ -21,17 +20,19 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	[Category("业务参数"), Browsable(true), Description("栏目类型")]
 	public string GroupType { get { return WebParmKit.GetQuery("type", ""); } }
 
+	private readonly CmsContentBus _cbus = new CmsContentBus();
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			string whereString, code = GroupCode;
+			string code = GroupCode;
+			cms_content_group group;
 			if (code.IsNumeric()) {
-				whereString = "(GroupCode='" + code + "' or Id=" + code + ")";
+				group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == ConvertKit.ConvertValue(code, 0));
 			} else {
-				whereString = "GroupCode='" + code + "'";
+				group = _cbus.GetGroup(a => a.GroupCode == code);
 			}
 
-			var group = _groupBus.QueryModel(whereString);
 			this.GroupName.Text = group.GroupName;
 
 			if (this.GroupType.ToLower() == "content") {
@@ -55,23 +56,18 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		}
 	}
 
-	private readonly CmsContentGroupBus _groupBus = new CmsContentGroupBus();
-	private readonly CmsContentPageBus _pageBus = new CmsContentPageBus();
-
 	private void BindData()
 	{
-		string whereString, code = GroupCode;
+		string gcode = null, code = GroupCode;
+
 		if (code.IsNumeric()) {
-			whereString = "(GroupCode='" + code + "' or GroupCode IN (SELECT GroupCode FROM cms_content_group WHERE Id=" + code + "))";
-		} else {
-			whereString = "GroupCode='" + code + "'";
+			var g = _cbus.GetGroup(a => a.Id == ConvertKit.ConvertValue(code, 0));
+			if (g != null) gcode = g.GroupCode;
 		}
 
 		int dataId = WebParmKit.GetQuery("id", 0);
 		if (dataId > 0) {
-			whereString += " and Id=" + dataId;
-
-			var model = _pageBus.QueryModel(whereString);
+			var model = _cbus.GetPage(a => (a.GroupCode == code || a.GroupCode == gcode) && a.Id == dataId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 				this.InfoTitle.Text = model.Title;
@@ -85,7 +81,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		}
 
 		if (this.GroupType.ToLower() == "content") {
-			var model = _pageBus.QueryModel(whereString);
+			var model = _cbus.GetPage(a => a.GroupCode == code || a.GroupCode == gcode);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 				this.InfoTitle.Text = model.Title;
@@ -96,7 +92,7 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var model = new CmsContentPage();
+			var model = new cms_content_page();
 			BindKit.FillModelFromContainer(this.editor, model);
 
 			if (!string.IsNullOrEmpty(this.Thumb.FileName)) {
@@ -117,19 +113,21 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			}
 
 			string code = GroupCode;
-			var group = _groupBus.QueryModel("(GroupCode='" + code + "' or Id=" + code + ")");
+			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == ConvertKit.ConvertValue(code, 0));
 
 			if (this.GroupType.ToLower() == "content") {
 				model.Title = this.InfoTitle.Text;
-				if (!_pageBus.Update(model, "GroupCode='" + group.GroupCode + "'")) {
-					InsertNewData(model, group);
-				}
+
+				_cbus.SavePageByGroup(group.GroupCode, model);
+				//if (!_cbus.Update(model, "GroupCode='" + group.GroupCode + "'")) {
+				//	InsertNewData(model, group);
+				//}
 			} else {
 				if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
 					InsertNewData(model, group);
 				} else {
 					model.Title = this.InfoTitle.Text;
-					_pageBus.Update(model);
+					_cbus.SavePage(model);
 				}
 			}
 
@@ -141,24 +139,25 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		InitControl();
 	}
 
-	private void InsertNewData(CmsContentPage model, CmsContentGroup group) {
+	private void InsertNewData(cms_content_page model, cms_content_group group) {
 		var user = this.CurrentUserInfo;
 
 		model.Title = this.InfoTitle.Text;
 		model.GroupCode = group.GroupCode;
-		model.CategoryId = 0;
 		model.Click = 0;
 		model.CreateDate = DateTime.Now;
 		model.IsEnabled = 0;
 		model.OrgId = user.Organization.Id;
 		model.UserId = user.Id;
 		model.Author = user.Name;
-		model.Id = _pageBus.InsertIdentity(model);
+
+		_cbus.SavePage(model);
+
 		BindKit.BindModelToContainer(this.editor, model);
 
 		//保存日志和加积分
-		int point = ConvertKit.ConvertValue(new ConfigManager().GetWebConfig("NewsPoint"), 0);
-		var pbus = new CmsPointLogBus();
+		int point = ConvertKit.ConvertValue(new ConfigManager().GetConfig("NewsPoint"), 0);
+		var pbus = new CmsPointBus();
 		pbus.SavePointLog(this.CurrentUserInfo, "cms_content_page", model.Id.ToString(), point, "发布文章，增加积分", model.Title);
 	}
 
@@ -196,7 +195,9 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	/// <param name="e"></param>
 	protected void btnPublish_Click(object sender, EventArgs e) {
 		if (!string.IsNullOrEmpty(this.Id.Value) && this.Id.Value != "0") {
-			_pageBus.Update(new CmsContentPage() { IsEnabled = 1 }, "Id=" + this.Id.Value);
+			var p = _cbus.GetPage(a => a.Id == ConvertKit.ConvertValue(this.Id.Value, 0));
+			p.IsEnabled = 1;
+			_cbus.SavePage(p);
 			this.IsEnabled.Checked = true;
 		}
 	}

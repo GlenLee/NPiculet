@@ -7,11 +7,12 @@ using System.Web.UI.WebControls;
 using NPiculet.Logic;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_DictItemList : AdminPage
 {
+	private readonly DictBus _dbus = new DictBus();
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		//修改表头
@@ -52,12 +53,10 @@ public partial class modules_system_DictItemList : AdminPage
 		}
 	}
 
-	private readonly BasDictItemBus _bus = new BasDictItemBus();
 
 	private void BindDictGroup()
 	{
-		BasDictGroupBus gbus = new BasDictGroupBus();
-		this.ddlDictGroup.DataSource = gbus.Query("IsDel=0", null);
+		this.ddlDictGroup.DataSource = _dbus.GetDictGroup(a => a.IsDel == 0);
 		this.ddlDictGroup.DataTextField = "Name";
 		this.ddlDictGroup.DataValueField = "Code";
 		this.ddlDictGroup.DataBind();
@@ -75,12 +74,11 @@ public partial class modules_system_DictItemList : AdminPage
 			whereString += string.Format("(Name LIKE '%{0}%' OR Code LIKE '%{0}%')", key);
 		}
 
-		int count = _bus.RecordCount(whereString);
+		int count;
+		this.list.DataSource = _dbus.GetDictItemData(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, this.ddlDictGroup.SelectedValue, this.txtKeywords.Text);
+		this.list.DataBind();
 
 		this.NPager1.RecordCount = count;
-
-		this.list.DataSource = _bus.GetDictItemData(this.NPager1.CurrentPage, this.NPager1.PageSize, this.ddlDictGroup.SelectedValue, this.txtKeywords.Text);
-		this.list.DataBind();
 
 		BindKit.BindOnClientClick(this.list, "Delete", "return confirm('确定要删除吗？');");
 	}
@@ -89,8 +87,8 @@ public partial class modules_system_DictItemList : AdminPage
 	{
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
-				string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
-				_bus.Delete("Id=" + id);
+				int id = ConvertKit.ConvertValue(this.list.DataKeys[e.RowIndex]["Id"], 0);
+				_dbus.DeleteItem(id);
 			}
 			BindData();
 		}

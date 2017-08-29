@@ -10,12 +10,13 @@ using NPiculet.Data;
 using NPiculet.Logic;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class system_Admin_UserEdit : AdminPage
 {
-    protected void Page_Load(object sender, EventArgs e)
+	private readonly UserBus _ubus = new UserBus();
+
+	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
 			BindOrgDropDownList();
@@ -43,18 +44,15 @@ public partial class system_Admin_UserEdit : AdminPage
 		}
 	}
 
-	private readonly SysUserInfoBus _userBus = new SysUserInfoBus();
-	private readonly SysUserDataBus _dataBus = new SysUserDataBus();
-
 	private void BindData()
 	{
 		var userId = WebParmKit.GetQuery("key", 0);
 		if (userId > 0) {
-			var model = _userBus.QueryModel("Id=" + userId);
+			var model = _ubus.GetUserInfo(userId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 
-				var data = _dataBus.QueryModel("UserAccount='" + model.Account + "'");
+				var data = _ubus.GetUserData(model.Account);
 				if (data != null) {
 					BindKit.BindModelToContainer(this.editor, data);
 
@@ -89,7 +87,7 @@ public partial class system_Admin_UserEdit : AdminPage
 		this.orgList.Items.Clear();
 		DataView _dv = null;
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			_dv = new SysAuthorizationBus().GetUserLinkOrg(int.Parse(this.Id.Value)).DefaultView;
+			_dv = new AuthorizationBus().GetUserLinkOrg(int.Parse(this.Id.Value)).DefaultView;
 		}
 		if (_dv != null) {
 			foreach (DataRowView dr in _dv) {
@@ -108,7 +106,7 @@ public partial class system_Admin_UserEdit : AdminPage
 		this.roleList.Items.Clear();
 		DataView _dv = null;
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			_dv = new SysAuthorizationBus().GetUserLinkRole(int.Parse(this.Id.Value)).DefaultView;
+			_dv = new AuthorizationBus().GetUserLinkRole(int.Parse(this.Id.Value)).DefaultView;
 		}
 		if (_dv != null) {
 			foreach (DataRowView dr in _dv) {
@@ -122,44 +120,44 @@ public partial class system_Admin_UserEdit : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var model = _userBus.CreateModel();
+			var user = new sys_user_info();
 
-			BindKit.FillModelFromContainer(this.editor, model);
+			BindKit.FillModelFromContainer(this.editor, user);
 
 			//保存用户信息
-			if (this.Id.Value == "") {
-				if (_userBus.UserExist(this.Account.Text)) {
+			if (user.Id == 0) {
+				if (_ubus.UserExist(this.Account.Text)) {
 					this.promptControl.ShowError("用户账号已存在，请重新输入！");
 					return;
 				}
 
 				//获取最大排序
-				int maxOrderBy = _userBus.GetMaxOrderBy();
+				int maxOrderBy = _ubus.GetMaxOrderBy();
 
-				model.UserSn = Guid.NewGuid().ToString().ToLower();
-				model.IsEnabled = 1;
-				model.IsDel = 0;
-				model.OrderBy = maxOrderBy + 1;
-				model.Creator = this.CurrentUserName;
-				model.CreateDate = DateTime.Now;
-				model.Id = _userBus.InsertIdentity(model);
+				user.UserSn = Guid.NewGuid().ToString().ToLower();
+				user.IsEnabled = 1;
+				user.IsDel = 0;
+				user.OrderBy = maxOrderBy + 1;
+				user.Creator = this.CurrentUserName;
+				user.CreateDate = DateTime.Now;
+				_ubus.SaveUser(user);
 			} else {
-				_userBus.Update(model, null);
+				_ubus.SaveUser(user);
 			}
 
-			var data = _dataBus.QueryModel("UserAccount='" + model.Account + "'");
+			var data = _ubus.GetUserData(user.Id);
 			if (data == null) {
-				data = _dataBus.CreateModel();
+				data = new sys_user_data();
 				BindKit.FillModelFromContainer(this.editor, data);
-				data.UserId = model.Id;
-				data.UserAccount = model.Account;
+				data.UserId = user.Id;
+				data.UserAccount = user.Account;
 				data.IsDel = 0;
-				_dataBus.Insert(data);
+				_ubus.SaveData(data);
 			} else {
 				BindKit.FillModelFromContainer(this.editor, data);
-				_dataBus.Update(data, "UserAccount='" + data.UserAccount + "'");
+				_ubus.SaveData(data, a => a.UserId == user.Id);
 			}
-			this.Id.Value = model.Id.ToString();
+			this.Id.Value = user.Id.ToString();
 
 			this.promptControl.ShowSuccess("保存成功！");
 
@@ -172,8 +170,7 @@ public partial class system_Admin_UserEdit : AdminPage
 	{
 		foreach (ListItem item in this.orgList.Items) {
 			if (item.Selected) {
-				string whereString = "UserId=" + this.Id.Value + " and OrgId=" + item.Value;
-				new SysLinkUserOrgBus().Delete(whereString);
+				new AuthorizationBus().DeleteUserOrg(ConvertKit.ConvertValue(this.Id.Value, 0), ConvertKit.ConvertValue(item.Value, 0));
 			}
 		}
 		BindOrgList();
@@ -183,8 +180,7 @@ public partial class system_Admin_UserEdit : AdminPage
 	{
 		foreach (ListItem item in this.roleList.Items) {
 			if (item.Selected) {
-				string whereString = "UserId=" + this.Id.Value + " and RoleId=" + item.Value;
-				new SysLinkUserRoleBus().Delete(whereString);
+				new AuthorizationBus().DeleteUserRole(ConvertKit.ConvertValue(this.Id.Value, 0), ConvertKit.ConvertValue(item.Value, 0));
 			}
 		}
 		BindRoleList();
@@ -196,13 +192,14 @@ public partial class system_Admin_UserEdit : AdminPage
 		string argument = WebParmKit.GetFormValue("__EVENTARGUMENT", "");
 		int uid = ConvertKit.ConvertValue<int>(this.Id.Value);
 		if (uid > 0) {
+			AuthorizationBus abus = new AuthorizationBus();
 			switch (target) {
 				case "addOrg":
-					SysLinkUserOrgBus ubus = new SysLinkUserOrgBus();
 					string[] orgArgs = argument.Split(',');
 
-					DataTable udt = ubus.Query("UserId=" + uid);
+					DataTable udt = abus.GetUserLinkOrg(uid);
 
+					List<sys_link_user_org> uolist = new List<sys_link_user_org>();
 					foreach (string arg in orgArgs) {
 						bool doInsert = true;
 						foreach (DataRow dr in udt.Rows) {
@@ -210,18 +207,19 @@ public partial class system_Admin_UserEdit : AdminPage
 							if (orgId == arg) doInsert = false;
 						}
 						if (doInsert)
-							ubus.Insert(new SysLinkUserOrg() {UserId = uid, OrgId = int.Parse(arg)});
+							uolist.Add(new sys_link_user_org() { UserId = uid, OrgId = int.Parse(arg) });
 					}
+					abus.UpdateUserOrgList(uid, uolist);
 
 					BindOrgList();
 					break;
 
 				case "addRole":
-					SysLinkUserRoleBus rbus = new SysLinkUserRoleBus();
 					string[] roleArgs = argument.Split(',');
 
-					DataTable rdt = rbus.Query("UserId=" + uid);
+					DataTable rdt = abus.GetUserLinkRole(uid);
 
+					List<sys_link_user_role> urlist = new List<sys_link_user_role>();
 					foreach (string arg in roleArgs) {
 						bool doInsert = true;
 						foreach (DataRow dr in rdt.Rows) {
@@ -229,8 +227,10 @@ public partial class system_Admin_UserEdit : AdminPage
 							if (orgId == arg) doInsert = false;
 						}
 						if (doInsert)
-							rbus.Insert(new SysLinkUserRole() { UserId = ConvertKit.ConvertValue(this.Id.Value, 0), RoleId = int.Parse(arg) });
+							urlist.Add(new sys_link_user_role() { UserId = ConvertKit.ConvertValue(this.Id.Value, 0), RoleId = int.Parse(arg) });
 					}
+					abus.UpdateUserRoleList(uid, urlist);
+
 					BindRoleList();
 					break;
 			}

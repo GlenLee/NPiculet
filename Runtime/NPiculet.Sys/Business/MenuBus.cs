@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Base.EF;
 using NPiculet.Data;
 
@@ -12,6 +14,30 @@ namespace NPiculet.Logic.Business
 	/// </summary>
 	public partial class MenuBus : IBusiness
 	{
+		/// <summary>
+		/// 获取菜单列表
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public List<sys_menu> GetMenuList(Expression<Func<sys_menu, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_menu.Where(predicate).OrderBy(a => a.OrderBy).ToList();
+			}
+		}
+
+		/// <summary>
+		/// 获取菜单
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public sys_menu GetMenu(Expression<Func<sys_menu, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_menu.FirstOrDefault(predicate);
+			}
+		}
+
 		/// <summary>
 		/// 获取主菜单
 		/// </summary>
@@ -100,5 +126,15 @@ namespace NPiculet.Logic.Business
 			}
 		}
 
+		/// <summary>
+		/// 保存数据
+		/// </summary>
+		/// <param name="data"></param>
+		public void Save(sys_menu data) {
+			using (var db = new NPiculetEntities()) {
+				db.sys_menu.AddOrUpdate(data);
+				db.SaveChanges();
+			}
+		}
 	}
 }

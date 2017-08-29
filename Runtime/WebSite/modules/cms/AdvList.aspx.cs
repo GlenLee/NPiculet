@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.UI.WebControls;
 using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
@@ -20,13 +21,13 @@ namespace modules.info
 
 		private void BindType()
 		{
-			BasDictItemBus ibus = new BasDictItemBus();
+			DictBus ibus = new DictBus();
 			var list = ibus.GetActiveItemList("Publicity");
 			BindKit.BindToListControl(this.ddlPosition, list, "Name", "Code");
 			this.ddlPosition.Items.Insert(0, new ListItem("全部", ""));
 		}
 
-		private readonly CmsAdvInfoBus _bus = new CmsAdvInfoBus();
+		private readonly CmsAdvBus _bus = new CmsAdvBus();
 
 		private void BindData()
 		{
@@ -63,7 +64,7 @@ namespace modules.info
 				var dataKey = list.DataKeys[e.RowIndex];
 				if (dataKey != null) {
 					string dataId = dataKey["Id"].ToString();
-					_bus.Delete("Id=" + dataId);
+					_bus.Delete(ConvertKit.ConvertValue(dataId, 0));
 				}
 			}
 			BindData();

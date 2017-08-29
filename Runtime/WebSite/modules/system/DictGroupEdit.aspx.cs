@@ -4,15 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Base.EF;
 using NPiculet.Logic;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class modules_system_DictGroupEdit : AdminPage
 {
-	private readonly BasDictGroupBus _bus = new BasDictGroupBus();
+	private readonly DictBus _dbus = new DictBus();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -25,7 +25,7 @@ public partial class modules_system_DictGroupEdit : AdminPage
 	{
 		int Id = WebParmKit.GetQuery("key", 0);
 		if (Id > 0) {
-			var model = _bus.QueryModel("Id=" + Id);
+			var model = _dbus.GetDictGroup(a => a.Id == Id);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.container, model);
 				this.OldCode.Value = model.Code;
@@ -36,7 +36,7 @@ public partial class modules_system_DictGroupEdit : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var model = _bus.CreateModel();
+			var model = new bas_dict_group();
 			BindKit.FillModelFromContainer(this.container, model);
 			model.IsEntity = 0;
 
@@ -45,12 +45,16 @@ public partial class modules_system_DictGroupEdit : AdminPage
 				model.IsDel = 0;
 				model.Creator = this.CurrentUserName;
 				model.CreateDate = DateTime.Now;
-				_bus.Insert(model);
+				_dbus.SaveGroup(model);
 			} else {
-				_bus.Update(model, null);
+				_dbus.SaveGroup(model);
 
 				string code = model.Code;
-				new BasDictItemBus().Update(new BasDictItem() { GroupCode = code }, "GroupCode='" + this.OldCode.Value + "'");
+				var items = _dbus.GetDictItemList(this.OldCode.Value);
+				foreach (var item in items) {
+					item.GroupCode = code;
+					_dbus.SaveItem(item);
+				}
 				this.OldCode.Value = code;
 			}
 

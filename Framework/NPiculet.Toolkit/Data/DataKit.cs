@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
-namespace NPiculet.Toolkit.Data {
+namespace NPiculet.Toolkit {
 	/// <summary>
 	/// 数据工具
 	/// </summary>

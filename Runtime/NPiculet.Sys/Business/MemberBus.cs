@@ -27,6 +27,18 @@ namespace NPiculet.Logic.Business
 		/// <summary>
 		/// 获取用户信息
 		/// </summary>
+		/// <param name="memberId"></param>
+		/// <returns></returns>
+		public sys_member_info GetMemberInfo(int memberId)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_member_info.FirstOrDefault(a => a.IsDel == 0 && a.Id == memberId);
+			}
+		}
+
+		/// <summary>
+		/// 获取用户信息
+		/// </summary>
 		/// <param name="account"></param>
 		/// <returns></returns>
 		public sys_member_info GetMemberInfo(string account)

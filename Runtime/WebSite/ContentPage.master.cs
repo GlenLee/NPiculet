@@ -36,7 +36,7 @@ public partial class ContentPage : System.Web.UI.MasterPage
 
     protected string GetPlatformName()
 	{
-		string pname = new ConfigManager().GetWebConfig("WebSiteName");
+		string pname = new ConfigManager().GetConfig("WebSiteName");
 		return string.IsNullOrEmpty(pname) ? ConfigurationManager.AppSettings["WebTitle"] : pname;
 	}
 

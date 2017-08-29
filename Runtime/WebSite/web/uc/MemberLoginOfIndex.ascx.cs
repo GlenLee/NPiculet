@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.UI;
-using NPiculet.Logic.Sys;
+using NPiculet.Authorization;
 
 namespace web.uc
 {

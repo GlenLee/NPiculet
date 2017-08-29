@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Base.EF;
 using NPiculet.Data;
 
@@ -54,14 +56,26 @@ namespace NPiculet.Logic.Business
 		/// </summary>
 		/// <param name="predicate"></param>
 		/// <returns></returns>
-		public List<sys_org_info> GetOrgList(Func<sys_org_info, bool> predicate = null)
+		public List<sys_org_info> GetOrgList(Expression<Func<sys_org_info, bool>> predicate = null)
 		{
 			using (var db = new NPiculetEntities()) {
 				if (predicate == null) {
-					return db.sys_org_info.ToList();
+					return db.sys_org_info.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
 				} else {
-					return db.sys_org_info.Where(predicate).ToList();
+					return db.sys_org_info.Where(predicate).OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
 				}
+			}
+		}
+
+		/// <summary>
+		/// 保存组织机构信息
+		/// </summary>
+		/// <param name="data"></param>
+		public void SaveOrg(sys_org_info data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.sys_org_info.AddOrUpdate(data);
+				db.SaveChanges();
 			}
 		}
 	}
