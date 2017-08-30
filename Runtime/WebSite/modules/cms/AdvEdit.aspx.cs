@@ -75,7 +75,7 @@ namespace modules.info
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
-				if (this.Id.Value == "0") {
+				if (model.Id == 0) {
 					//model.Type = "";
 					model.Click = 0;
 					model.IsEnabled = 1;

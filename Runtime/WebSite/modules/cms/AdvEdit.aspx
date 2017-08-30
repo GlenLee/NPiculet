@@ -126,5 +126,17 @@
 		</table>
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.thumb-link').on('click', function () {
+				$.alert({
+					title: '图片预览',
+					body: '<center><img src="' + $('.thumb-image').attr('src') + '"/></center>',
+					width: 'large'
+				});
+				return false;
+			});
+		});
+	</script>
 </asp:Content>
 

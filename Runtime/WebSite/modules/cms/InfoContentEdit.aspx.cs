@@ -28,9 +28,17 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			string code = GroupCode;
 			cms_content_group group;
 			if (code.IsNumeric()) {
-				group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == ConvertKit.ConvertValue(code, 0));
+				int dataId = ConvertKit.ConvertValue(code, 0);
+				group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == dataId);
 			} else {
 				group = _cbus.GetGroup(a => a.GroupCode == code);
+			}
+			if (group == null) {
+				this.AlertBeauty("没有找到数据，请检查数据完整性！");
+				this.btnSave.Visible = false;
+				this.btnPublish.Visible = false;
+				this.btnView.Visible = false;
+				return;
 			}
 
 			this.GroupName.Text = group.GroupName;
@@ -61,7 +69,8 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		string gcode = null, code = GroupCode;
 
 		if (code.IsNumeric()) {
-			var g = _cbus.GetGroup(a => a.Id == ConvertKit.ConvertValue(code, 0));
+			int id = ConvertKit.ConvertValue(code, 0);
+			var g = _cbus.GetGroup(a => a.Id == id);
 			if (g != null) gcode = g.GroupCode;
 		}
 
@@ -113,7 +122,8 @@ public partial class modules_info_InfoContentEdit : AdminPage
 			}
 
 			string code = GroupCode;
-			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == ConvertKit.ConvertValue(code, 0));
+			int dataId = ConvertKit.ConvertValue(code, 0);
+			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == dataId);
 
 			if (this.GroupType.ToLower() == "content") {
 				model.Title = this.InfoTitle.Text;
