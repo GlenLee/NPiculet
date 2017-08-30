@@ -5,17 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Authorization;
+using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
-using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 public partial class MemberResume : MemberPage
 {
 	private const string JOBSEEKER_CODE = "PageJobSeeker";
 
-	private readonly CmsContentPageBus _pageBus = new CmsContentPageBus();
+	private readonly CmsContentBus _cbus = new CmsContentBus();
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (Page.IsPostBack)
@@ -38,7 +38,7 @@ public partial class MemberResume : MemberPage
 	}
 
 
-	private CmsContentPage GetResumeModelFromDb()
+	private cms_content_page GetResumeModelFromDb()
 	{
 		if (CurrentUserInfo == null)
 			return null;
@@ -51,8 +51,7 @@ public partial class MemberResume : MemberPage
 		if (string.IsNullOrEmpty(account))
 			return null;
 
-		string whereString = "GroupCode='" + JOBSEEKER_CODE + "' and Author = '" + account + "'";
-		return _pageBus.QueryModel(whereString);
+		return _cbus.GetPage(a => a.GroupCode == JOBSEEKER_CODE && a.Author == account);
 	}
 
 	protected void btnSave_Click(object sender, EventArgs e)
@@ -67,22 +66,21 @@ public partial class MemberResume : MemberPage
 			model.IsEnabled = this.IsEnabled.SelectedIndex;
 			model.Title = this.InfoTitle.Text;
 
-			_pageBus.Update(model, null);
+			_cbus.SavePage(model);
 		}
 		else
 		{
-			model = new CmsContentPage
+			model = new cms_content_page()
 			{
 				Title = this.InfoTitle.Text,
 				GroupCode = JOBSEEKER_CODE,
-				CategoryId = 0,
 				Click = 0,
 				CreateDate = DateTime.Now,
 				Author = CurrentUserName,
 				IsEnabled = IsEnabled.SelectedIndex
 			};
 
-			model.Id = _pageBus.InsertIdentity(model);
+			_cbus.SavePage(model);
 		}
 
 		this.promptControl.ShowSuccess("保存成功！");

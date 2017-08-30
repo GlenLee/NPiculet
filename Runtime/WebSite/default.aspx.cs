@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using NPiculet.Logic.Sys;
+using NPiculet.Authorization;
 using NPiculet.Toolkit;
 
 public partial class _Default : System.Web.UI.Page

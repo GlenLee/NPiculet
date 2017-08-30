@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
-using NPiculet.Logic.Sys;
+using NPiculet.Authorization;
 using NPiculet.Toolkit;
 
 public partial class Login : System.Web.UI.Page

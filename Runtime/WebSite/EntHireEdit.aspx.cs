@@ -3,14 +3,14 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Data;
 using NPiculet.Toolkit;
 
 public partial class EntHireEdit : MemberPage
 {
-	private readonly CmsContentPageBus _pageBus = new CmsContentPageBus();
+	private readonly CmsContentBus _cbus = new CmsContentBus();
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (Page.IsPostBack)
@@ -31,9 +31,7 @@ public partial class EntHireEdit : MemberPage
 		string groupCode = WebParmKit.GetRequestString("code", "");
 		if (dataId > 0)
 		{
-			string whereString = "GroupCode='" + groupCode + "' and Id=" + dataId;
-
-			var model = _pageBus.QueryModel(whereString);
+			var model = _cbus.GetPage(a => a.GroupCode == groupCode && a.Id == dataId);
 			if (model != null)
 			{
 				BindKit.BindModelToContainer(this.EntHireEditor, model);
@@ -49,26 +47,25 @@ public partial class EntHireEdit : MemberPage
 		if (!Page.IsValid)
 			return;
 
-		var model = new CmsContentPage();
+		var model = new cms_content_page();
 		BindKit.FillModelFromContainer(this.EntHireEditor, model);
 		model.IsEnabled = this.IsEnabled.SelectedIndex;
 
-		if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0")
+		if (model.Id == 0)
 		{
 			model.Title = this.InfoTitle.Text;
 			model.GroupCode = this.GroupCode.Value;
-			model.CategoryId = 0;
 			model.Click = 0;
 			model.CreateDate = DateTime.Now;
 			model.Author = this.CurrentUserName;
 
-			model.Id = _pageBus.InsertIdentity(model);
+			_cbus.SavePage(model);
 			this.Id.Value = model.Id.ToString();
 		}
 		else
 		{
 			model.Title = this.InfoTitle.Text;
-			_pageBus.Update(model, null);
+			_cbus.SavePage(model);
 		}
 
 		this.promptControl.ShowSuccess("保存成功！");
