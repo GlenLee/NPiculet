@@ -9,6 +9,7 @@ using NPiculet.Logic;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
+using PageEventArgs = NPiculet.WebControls.PageEventArgs;
 
 public partial class system_Admin_UserList : AdminPage
 {
@@ -17,10 +18,6 @@ public partial class system_Admin_UserList : AdminPage
 		if (!Page.IsPostBack) {
 			BindData();
 		}
-
-		this.NPager1.PageClick += (o, args) => {
-			BindData();
-		};
 	}
 
 	private readonly UserBus _bus = new UserBus();
@@ -33,9 +30,9 @@ public partial class system_Admin_UserList : AdminPage
 			whereString += string.Format(" and (Account LIKE '%{0}%' or Name LIKE '%{0}%')", key);
 
 		int count;
-		DataTable dt = _bus.GetUserList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, whereString, "OrderBy, CreateDate DESC");
+		DataTable dt = _bus.GetUserList(out count, this.nPager.CurrentPage, this.nPager.PageSize, whereString, "OrderBy, CreateDate DESC");
 
-		this.NPager1.RecordCount = count;
+		this.nPager.RecordCount = count;
 
 		this.list.DataSource = dt.DefaultView;
 		this.list.DataBind();
@@ -45,8 +42,8 @@ public partial class system_Admin_UserList : AdminPage
 	{
 		if (e.RowIndex > -1) {
 			if (this.list.DataKeys.Count > e.RowIndex) {
-				string id = this.list.DataKeys[e.RowIndex]["Id"].ToString();
-				_bus.Delete(ConvertKit.ConvertValue(id, 0));
+				int id = ConvertKit.ConvertValue(this.list.DataKeys[e.RowIndex]["Id"], 0);
+				_bus.Delete(id);
 			}
 			BindData();
 		}
@@ -59,6 +56,10 @@ public partial class system_Admin_UserList : AdminPage
 
 	protected void btnSearch_Click(object sender, EventArgs e)
 	{
+		BindData();
+	}
+
+	protected void nPager_OnPageClick(object sender, PageEventArgs e) {
 		BindData();
 	}
 }

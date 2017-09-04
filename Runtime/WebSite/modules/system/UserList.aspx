@@ -63,5 +63,5 @@
 			</asp:TemplateField>
 		</Columns>
 	</asp:GridView>
-	<cc1:NPager ID="NPager1" runat="server" PageSize="15" />
+	<cc1:NPager ID="nPager" runat="server" PageSize="15" OnPageClick="nPager_OnPageClick" />
 </asp:Content>

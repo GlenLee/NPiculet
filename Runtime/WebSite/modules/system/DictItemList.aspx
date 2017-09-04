@@ -6,7 +6,7 @@
 	<div class="tools">
 		<ul class="toolbar">
 			<li>
-				<a href="DictItemEdit.aspx?group=<%= WebParmKit.GetQuery("group", "") %>&fix=<%= WebParmKit.GetQuery("fix", "") %>">
+				<a href="DictItemEdit.aspx?group=<%= GetGroupCode() %>&fix=<%= WebParmKit.GetQuery("fix", "") %>">
 					<i class="sui-icon icon-tb-add"></i>新增
 				</a>
 			</li>

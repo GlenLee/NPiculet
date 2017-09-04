@@ -44,7 +44,7 @@
                  </td>
 			</tr>
             <tr>
-				<td class="th">备注</td>
+				<td class="th">列头备注</td>
 				<td class="td">
                     <asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%"></asp:TextBox>
                 </td>

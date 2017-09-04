@@ -9,9 +9,13 @@ using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
 using NPiculet.Base.EF;
+using NPiculet.Cms.Business;
 
 public partial class System_MenuSet : AdminPage
 {
+	private readonly MenuBus _mbus = new MenuBus();
+	private List<sys_menu> _menus = null;
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
@@ -20,9 +24,6 @@ public partial class System_MenuSet : AdminPage
 			Belong_SelectedIndexChanged(sender, e);
 		}
 	}
-
-	private readonly MenuBus _bus = new MenuBus();
-	private List<sys_menu> _menus = null;
 
 	private void BindData()
 	{
@@ -35,7 +36,7 @@ public partial class System_MenuSet : AdminPage
 
 	private void BindTree(int parentId)
 	{
-		var data = _bus.GetMenuList(a => a.IsDel == 0);
+		var data = _mbus.GetMenuList(a => a.IsDel == 0);
 		if (data != null) {
 			_menus = data;
 			BuildTree(null, parentId);
@@ -142,9 +143,9 @@ public partial class System_MenuSet : AdminPage
 				data.IsDel = 0;
 				data.Creator = this.CurrentUserName;
 				data.CreateDate = DateTime.Now;
-				_bus.Save(data);
+				_mbus.Save(data);
 			} else {
-				_bus.Save(data);
+				_mbus.Save(data);
 			}
 
 			ClearControls();
@@ -171,7 +172,7 @@ public partial class System_MenuSet : AdminPage
 			data.IsDel = 0;
 			data.Creator = this.CurrentUserName;
 			data.CreateDate = DateTime.Now;
-			_bus.Save(data);
+			_mbus.Save(data);
 
 			ClearControls();
 
@@ -199,7 +200,7 @@ public partial class System_MenuSet : AdminPage
 			data.IsDel = 0;
 			data.Creator = this.CurrentUserName;
 			data.CreateDate = DateTime.Now;
-			_bus.Save(data);
+			_mbus.Save(data);
 
 			ClearControls();
 
@@ -212,8 +213,9 @@ public partial class System_MenuSet : AdminPage
 	protected void btnDelete_Click(object sender, EventArgs e)
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			//_bus.Delete("Id=" + this.Id.Value + " or Path like '" + this.Path.Value + "%'");
-			//_bus.Save(new SysMenu() { IsDel = 1 }, "Id=" + this.Id.Value);
+			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			string path = this.Path.Value;
+			_mbus.Delete(a => a.Id == id || a.Path.StartsWith(path));
 
 			ClearControls();
 			BindData();
@@ -226,7 +228,7 @@ public partial class System_MenuSet : AdminPage
 	{
 		ClearControls();
 		var val = this.tree.SelectedValue;
-		var data = _bus.GetMenuItem(Convert.ToInt32(val));
+		var data = _mbus.GetMenuItem(Convert.ToInt32(val));
 		if (data != null) {
 			BindKit.BindModelToContainer(this.editor, data);
 
@@ -254,7 +256,7 @@ public partial class System_MenuSet : AdminPage
 
 	protected void btnFix_Click(object sender, EventArgs e)
 	{
-		int count = _bus.FixMenuPath();
+		int count = _mbus.FixMenuPath();
 		this.promptControl.ShowSuccess("菜单层次深度及路径信息已修复完成，共修复了 {0} 条数据！", count);
 	}
 
@@ -272,16 +274,8 @@ public partial class System_MenuSet : AdminPage
 				this.phInfoGroup.Visible = true;
 				this.phDict.Visible = false;
 
-				using (NPiculetEntities db = new NPiculetEntities()) {
-					var group = (from g in db.cms_content_group
-								 where g.IsEnabled == 1 && g.ParentId == 0
-								 orderby g.OrderBy
-								 select g).ToList();
-					this.InfoGroupCategory.DataSource = group;
-					this.InfoGroupCategory.DataTextField = "GroupName";
-					this.InfoGroupCategory.DataValueField = "Id";
-					this.InfoGroupCategory.DataBind();
-				}
+				var cbus = new CmsContentBus();
+				BindKit.BindToListControl(this.InfoGroupCategory, cbus.GetGroupList(a => a.IsEnabled == 1 && a.ParentId == 0), "GroupName", "Id");
 
 				InfoGroupList_SelectedIndexChanged(sender, e);
 				break;
@@ -291,16 +285,8 @@ public partial class System_MenuSet : AdminPage
 				this.phInfoGroup.Visible = false;
 				this.phDict.Visible = true;
 
-				using (NPiculetEntities db = new NPiculetEntities()) {
-					var dict = (from d in db.bas_dict_group
-								 where d.IsEnabled == 1 && d.IsDel == 0
-								 orderby d.OrderBy
-								 select d).ToList();
-					this.DictList.DataSource = dict;
-					this.DictList.DataTextField = "Name";
-					this.DictList.DataValueField = "Code";
-					this.DictList.DataBind();
-				}
+				var dbus = new DictBus();
+				BindKit.BindToListControl(this.DictList, dbus.GetDictGroupList(a => a.IsEnabled == 1 && a.IsDel == 0), "Name", "Id");
 
 				DictList_SelectedIndexChanged(sender, e);
 				break;
@@ -309,17 +295,10 @@ public partial class System_MenuSet : AdminPage
 
 	protected void InfoGroupList_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		using (NPiculetEntities db = new NPiculetEntities()) {
-			int parentId = Convert.ToInt32(this.InfoGroupCategory.SelectedValue);
-			var group = (from g in db.cms_content_group
-						 where g.IsEnabled == 1 && g.ParentId == parentId
-						 orderby g.OrderBy
-						 select g).ToList();
-			this.InfoGroupList.DataSource = group;
-			this.InfoGroupList.DataTextField = "GroupName";
-			this.InfoGroupList.DataValueField = "Id";
-			this.InfoGroupList.DataBind();
-		}
+		int parentId = Convert.ToInt32(this.InfoGroupCategory.SelectedValue);
+
+		var cbus = new CmsContentBus();
+		BindKit.BindToListControl(this.InfoGroupList, cbus.GetGroupList(a => a.IsEnabled == 1 && a.ParentId == parentId), "GroupName", "Id");
 
 		InfoPageList_SelectedIndexChanged(sender, e);
 	}
@@ -337,6 +316,12 @@ public partial class System_MenuSet : AdminPage
 		this.Name.Text = this.DictList.SelectedItem.Text;
 
 		string url = "system/DictItemList.aspx?group={0}&fix=true&cols={1}";
-		this.Url.Text = string.Format(url, this.DictList.SelectedValue, "");
+
+		var dictId = ConvertKit.ConvertValue(this.DictList.SelectedValue, 0);
+		var dict = new DictBus().GetDictItem(a => a.Id == dictId);
+		if (dict != null)
+			this.Url.Text = string.Format(url, dict.GroupCode, dict.Memo);
+		else
+			this.Url.Text = string.Empty;
 	}
 }

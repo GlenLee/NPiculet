@@ -136,5 +136,18 @@ namespace NPiculet.Logic.Business
 				db.SaveChanges();
 			}
 		}
+
+		/// <summary>
+		/// 删除菜单
+		/// </summary>
+		/// <param name="predicate"></param>
+		public void Delete(Expression<Func<sys_menu, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				var query = db.sys_menu.Where(predicate);
+				db.sys_menu.RemoveRange(query);
+				db.SaveChanges();
+			}
+		}
 	}
 }

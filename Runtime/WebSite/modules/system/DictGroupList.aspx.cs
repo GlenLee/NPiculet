@@ -53,8 +53,8 @@ public partial class modules_system_DictGroupList : AdminPage
 		}
 	}
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-	    BindData();
-    }
+	protected void btnSearch_Click(object sender, EventArgs e)
+	{
+		BindData();
+	}
 }

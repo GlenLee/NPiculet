@@ -64,11 +64,15 @@ namespace NPiculet.Cms.Business
 		/// <summary>
 		/// 获取所有组列表
 		/// </summary>
+		/// <param name="predicate"></param>
 		/// <returns></returns>
-		public List<cms_content_group> GetGroupList()
+		public List<cms_content_group> GetGroupList(Expression<Func<cms_content_group, bool>> predicate = null)
 		{
 			using (var db = new NPiculetEntities()) {
-				return db.cms_content_group.OrderBy(a => a.OrderBy).ToList();
+				if (predicate == null)
+					return db.cms_content_group.OrderBy(a => a.OrderBy).ToList();
+				else
+					return db.cms_content_group.Where(predicate).OrderBy(a => a.OrderBy).ToList();
 			}
 		}
 

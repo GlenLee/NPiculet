@@ -82,13 +82,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="th">发新闻积分</td>
-				<td class="td">
-					<asp:TextBox ID="NewsPoint" runat="server" CssClass="input-large" Width="99%" MaxLength="8"></asp:TextBox>
-					<div class="caption">注：发新闻后可以获得的积分</div>
-				</td>
-			</tr>
-			<tr>
 				<td class="th">编辑限制</td>
 				<td class="td">
 					<asp:DropDownList ID="NewsEditLimit" runat="server">

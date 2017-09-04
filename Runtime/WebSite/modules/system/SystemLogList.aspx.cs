@@ -6,20 +6,26 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using NPiculet.Base.EF;
+using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
+using NPiculet.Toolkit;
+using PageEventArgs = NPiculet.WebControls.PageEventArgs;
 
-public partial class modules_system_SystemLogList : System.Web.UI.Page
+public partial class modules_system_SystemLogList : AdminPage
 {
-	ActionLogBus bus = new ActionLogBus();
+	ActionLogBus _lbus = new ActionLogBus();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		this.NPager1.PageSize = 15;
-		this.NPager1.PageClick += (o, args) => { BindLog(); };
-
 		if (!Page.IsPostBack) {
+			BindType();
 			BindLog();
 		}
+	}
+
+	private void BindType() {
+		var data = new DictBus().GetActiveItemList("SystemLog");
+		BindKit.BindToListControl(this.ddlActionType, data, "Name", "Code", true);
 	}
 
 	private void BindLog() {
@@ -30,9 +36,9 @@ public partial class modules_system_SystemLogList : System.Web.UI.Page
 		}
 
 		int count;
-		var dt = bus.GetRecordList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, predicate);
+		var dt = _lbus.GetRecordList(out count, this.nPager.CurrentPage, this.nPager.PageSize, predicate);
 
-		this.NPager1.RecordCount = count;
+		this.nPager.RecordCount = count;
 
 		this.logs.DataSource = dt;
 		this.logs.DataBind();
@@ -40,6 +46,10 @@ public partial class modules_system_SystemLogList : System.Web.UI.Page
 
 	protected void ddlActionType_OnSelectedIndexChanged(object sender, EventArgs e)
 	{
+		BindLog();
+	}
+
+	protected void nPager_OnPageClick(object sender, PageEventArgs e) {
 		BindLog();
 	}
 }

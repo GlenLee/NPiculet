@@ -78,7 +78,6 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			case "Image": return "图片列表";
 			default: return "无";
 		}
-		return type;
 	}
 
 	private void ClearControls()
@@ -231,7 +230,6 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			BindKit.BindModelToContainer(this.editor, data);
 			SetControlStatus();
 		}
-		ClearControls();
 	}
 
 }

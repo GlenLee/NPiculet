@@ -23,7 +23,7 @@ public partial class system_Admin_ConfigSet : AdminPage
 
 	private void BindData()
 	{
-		var configs = _cbus.GetConfigList(null);
+		var configs = _cbus.GetConfigList();
 
 		foreach (Control control in this.container.Controls) {
 			TextBox tb = control as TextBox;
@@ -77,7 +77,7 @@ public partial class system_Admin_ConfigSet : AdminPage
 					config.Creator = this.CurrentUserName;
 					config.CreateDate = DateTime.Now;
 
-					_cbus.Save(config, a => a.ConfigCode == tb.ID);
+					_cbus.Save(config, a => a.ConfigCode == cb.ID);
 				}
 
 				DropDownList ddl = control as DropDownList;
@@ -89,7 +89,7 @@ public partial class system_Admin_ConfigSet : AdminPage
 					config.Creator = this.CurrentUserName;
 					config.CreateDate = DateTime.Now;
 
-					_cbus.Save(config, a => a.ConfigCode == tb.ID);
+					_cbus.Save(config, a => a.ConfigCode == ddl.ID);
 				}
 			}
 

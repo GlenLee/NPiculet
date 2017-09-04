@@ -42,6 +42,9 @@ public partial class modules_system_DictItemList : AdminPage
 		};
 	}
 
+	/// <summary>
+	/// 替换表头文字
+	/// </summary>
 	private void BindTableHeader()
 	{
 		string colnumNames = WebParmKit.GetQuery("cols", "");
@@ -56,7 +59,7 @@ public partial class modules_system_DictItemList : AdminPage
 
 	private void BindDictGroup()
 	{
-		this.ddlDictGroup.DataSource = _dbus.GetDictGroup(a => a.IsDel == 0);
+		this.ddlDictGroup.DataSource = _dbus.GetDictGroupList(a => a.IsDel == 0);
 		this.ddlDictGroup.DataTextField = "Name";
 		this.ddlDictGroup.DataValueField = "Code";
 		this.ddlDictGroup.DataBind();
@@ -65,15 +68,6 @@ public partial class modules_system_DictItemList : AdminPage
 
 	private void BindData()
 	{
-		string whereString = "";
-		string key = this.txtKeywords.Text.FormatSqlParm();
-
-		if (!string.IsNullOrEmpty(this.ddlDictGroup.SelectedValue)) whereString = string.Format("`GroupCode`='{0}'", this.ddlDictGroup.SelectedValue);
-		if (!string.IsNullOrEmpty(key)) {
-			if (!string.IsNullOrEmpty(whereString)) whereString += " AND ";
-			whereString += string.Format("(Name LIKE '%{0}%' OR Code LIKE '%{0}%')", key);
-		}
-
 		int count;
 		this.list.DataSource = _dbus.GetDictItemData(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, this.ddlDictGroup.SelectedValue, this.txtKeywords.Text);
 		this.list.DataBind();
@@ -83,6 +77,11 @@ public partial class modules_system_DictItemList : AdminPage
 		BindKit.BindOnClientClick(this.list, "Delete", "return confirm('确定要删除吗？');");
 	}
 
+	/// <summary>
+	/// 删除
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
 	{
 		if (e.RowIndex > -1) {
@@ -94,13 +93,34 @@ public partial class modules_system_DictItemList : AdminPage
 		}
 	}
 
+	/// <summary>
+	/// 搜索
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	protected void btnSearch_Click(object sender, EventArgs e)
+	{
+		BindData();
+	}
+
+	/// <summary>
+	/// 获取状态字符串
+	/// </summary>
+	/// <param name="enabled"></param>
+	/// <returns></returns>
 	protected string GetStatusString(string enabled)
 	{
 		return enabled == "1" ? "启用" : "<span style=\"color:red\">停用</span>";
 	}
 
-	protected void btnSearch_Click(object sender, EventArgs e)
-	{
-		BindData();
+	/// <summary>
+	/// 获取字典组编码
+	/// </summary>
+	/// <returns></returns>
+	protected string GetGroupCode() {
+		string group = WebParmKit.GetQuery("group", "");
+		if (string.IsNullOrEmpty(group))
+			return this.ddlDictGroup.SelectedValue;
+		return group;
 	}
 }

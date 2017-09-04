@@ -1,17 +1,8 @@
-﻿/*
-Name: BindProcess Class
-Date: 2009-8-17
-Author: iSLeeCN
-Description: BindProcess Class.
-*/
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -112,12 +103,15 @@ namespace NPiculet.Toolkit
 		/// <param name="dv">数据源</param>
 		/// <param name="textField">文本字段</param>
 		/// <param name="valueField">值字段</param>
-		public static void BindToListControl(ListControl lc, DataView dv, string textField, string valueField)
+		/// <param name="createAllItem">创建一个“全部”选择项</param>
+		public static void BindToListControl(ListControl lc, DataView dv, string textField, string valueField, bool createAllItem= false)
 		{
 			lc.DataSource = dv;
 			lc.DataTextField = textField;
 			lc.DataValueField = valueField;
 			lc.DataBind();
+			if (createAllItem)
+				lc.Items.Insert(0, new ListItem("全部", ""));
 		}
 
 		/// <summary>
@@ -127,9 +121,10 @@ namespace NPiculet.Toolkit
 		/// <param name="dt">数据源</param>
 		/// <param name="textField">文本字段</param>
 		/// <param name="valueField">值字段</param>
-		public static void BindToListControl(ListControl lc, DataTable dt, string textField, string valueField)
+		/// <param name="createAllItem">创建一个“全部”选择项</param>
+		public static void BindToListControl(ListControl lc, DataTable dt, string textField, string valueField, bool createAllItem = false)
 		{
-			BindToListControl(lc, dt.DefaultView, textField, valueField);
+			BindToListControl(lc, dt.DefaultView, textField, valueField, createAllItem);
 		}
 
 		/// <summary>
@@ -139,8 +134,11 @@ namespace NPiculet.Toolkit
 		/// <param name="dr">数据源</param>
 		/// <param name="textField">文本字段</param>
 		/// <param name="valueField">值字段</param>
-		public static void BindToListControl(ListControl lc, IDataReader dr, string textField, string valueField)
+		/// <param name="createAllItem">创建一个“全部”选择项</param>
+		public static void BindToListControl(ListControl lc, IDataReader dr, string textField, string valueField, bool createAllItem = false)
 		{
+			if (createAllItem)
+				lc.Items.Add(new ListItem("全部", ""));
 			while (dr.Read()) {
 				lc.Items.Add(new ListItem(dr[textField].ToString(), dr[valueField].ToString()));
 			}
@@ -153,12 +151,15 @@ namespace NPiculet.Toolkit
 		/// <param name="list">数据源</param>
 		/// <param name="textField">文本字段</param>
 		/// <param name="valueField">值字段</param>
-		public static void BindToListControl(ListControl lc, IList list, string textField, string valueField)
+		/// <param name="createAllItem">创建一个“全部”选择项</param>
+		public static void BindToListControl(ListControl lc, IList list, string textField, string valueField, bool createAllItem = false)
 		{
 			lc.DataSource = list;
 			lc.DataTextField = textField;
 			lc.DataValueField = valueField;
 			lc.DataBind();
+			if (createAllItem)
+				lc.Items.Insert(0, new ListItem("全部", ""));
 		}
 
 		/// <summary>
@@ -168,12 +169,15 @@ namespace NPiculet.Toolkit
 		/// <param name="query">数据源</param>
 		/// <param name="textField">文本字段</param>
 		/// <param name="valueField">值字段</param>
-		public static void BindToListControl<T>(ListControl lc, IQueryable<T> query, string textField, string valueField)
+		/// <param name="createAllItem">创建一个“全部”选择项</param>
+		public static void BindToListControl<T>(ListControl lc, IQueryable<T> query, string textField, string valueField, bool createAllItem = false)
 		{
-			lc.DataSource = query;
+			lc.DataSource = query.ToList();
 			lc.DataTextField = textField;
 			lc.DataValueField = valueField;
 			lc.DataBind();
+			if (createAllItem)
+				lc.Items.Insert(0, new ListItem("全部", ""));
 		}
 
 		#endregion

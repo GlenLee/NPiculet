@@ -9,10 +9,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="searchbar" Runat="Server">
 	<div class="searchbar-wrap">
-		<asp:DropDownList runat="server" ID="ddlActionType" AutoPostBack="True" OnSelectedIndexChanged="ddlActionType_OnSelectedIndexChanged">
-			<asp:ListItem Value="">全部</asp:ListItem>
-			<asp:ListItem Value="Login">后台登陆 (Login)</asp:ListItem>
-		</asp:DropDownList>
+		<asp:DropDownList runat="server" ID="ddlActionType" AutoPostBack="True" OnSelectedIndexChanged="ddlActionType_OnSelectedIndexChanged"></asp:DropDownList>
 	</div>
 </asp:Content>
 
@@ -43,7 +40,7 @@
 			</asp:BoundField>
 		</Columns>
 	</asp:GridView>
-	<cc1:NPager ID="NPager1" runat="server" />
+	<cc1:NPager ID="nPager" runat="server" PageSize="15" OnPageClick="nPager_OnPageClick" />
 
 </asp:Content>
 

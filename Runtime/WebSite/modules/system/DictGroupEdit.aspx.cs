@@ -17,15 +17,18 @@ public partial class modules_system_DictGroupEdit : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			DataBind();
+			BindData();
 		}
 	}
 
-	private void DataBind()
+	/// <summary>
+	/// 绑定数据
+	/// </summary>
+	private void BindData()
 	{
-		int Id = WebParmKit.GetQuery("key", 0);
-		if (Id > 0) {
-			var model = _dbus.GetDictGroup(a => a.Id == Id);
+		int id = WebParmKit.GetQuery("key", 0);
+		if (id > 0) {
+			var model = _dbus.GetDictGroup(a => a.Id == id);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.container, model);
 				this.OldCode.Value = model.Code;
@@ -40,7 +43,7 @@ public partial class modules_system_DictGroupEdit : AdminPage
 			BindKit.FillModelFromContainer(this.container, model);
 			model.IsEntity = 0;
 
-			if (this.Id.Value == "") {
+			if (model.Id == 0) {
 				model.IsEntity = 0;
 				model.IsDel = 0;
 				model.Creator = this.CurrentUserName;
@@ -49,13 +52,10 @@ public partial class modules_system_DictGroupEdit : AdminPage
 			} else {
 				_dbus.SaveGroup(model);
 
-				string code = model.Code;
-				var items = _dbus.GetDictItemList(this.OldCode.Value);
-				foreach (var item in items) {
-					item.GroupCode = code;
-					_dbus.SaveItem(item);
+				if (this.OldCode.Value != model.Code) {
+					_dbus.UpdateDictItemCode(this.OldCode.Value, model.Code);
 				}
-				this.OldCode.Value = code;
+				this.OldCode.Value = model.Code;
 			}
 
 			this.promptControl.ShowSuccess("保存成功！");

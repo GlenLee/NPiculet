@@ -28,7 +28,7 @@
 			<asp:BoundField DataField="DisplayMode" HeaderText="展示方式">
 		        <HeaderStyle Width="80px" />
             </asp:BoundField>
-            <asp:BoundField DataField="Memo" HeaderText="备注" >
+            <asp:BoundField DataField="Memo" HeaderText="列头备注" >
 			</asp:BoundField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:D}" HeaderText="创建时间">
 		        <HeaderStyle Width="140px" />

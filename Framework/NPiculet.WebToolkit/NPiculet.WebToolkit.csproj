@@ -54,9 +54,9 @@
     <Compile Include="Status\CookieKit.cs" />
     <Compile Include="Status\SessionKit.cs" />
     <Compile Include="Status\StatusManager.cs" />
-    <Compile Include="ViewKit\BindKit.cs" />
-    <Compile Include="ViewKit\GridViewKit.cs" />
-    <Compile Include="ViewKit\TreeViewKit.cs" />
+    <Compile Include="ControlKit\BindKit.cs" />
+    <Compile Include="ControlKit\GridViewKit.cs" />
+    <Compile Include="ControlKit\TreeViewKit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\PageExtension.cs" />
     <Compile Include="Web\WebKit.cs" />

@@ -18,10 +18,13 @@ namespace NPiculet.Logic.Business
 		/// </summary>
 		/// <param name="predicate"></param>
 		/// <returns></returns>
-		public List<sys_config> GetConfigList(Expression<Func<sys_config, bool>> predicate)
+		public List<sys_config> GetConfigList(Expression<Func<sys_config, bool>> predicate = null)
 		{
 			using (var db = new NPiculetEntities()) {
-				return db.sys_config.Where(predicate).ToList();
+				if (predicate == null)
+					return db.sys_config.ToList();
+				else
+					return db.sys_config.Where(predicate).ToList();
 			}
 		}
 
@@ -46,8 +49,11 @@ namespace NPiculet.Logic.Business
 		{
 			using (var db = new NPiculetEntities()) {
 				var c = db.sys_config.FirstOrDefault(predicate);
-				config.Id = c.Id;
+				if (c != null) {
+					config.Id = c.Id;
+				}
 				db.sys_config.AddOrUpdate(config);
+				db.SaveChanges();
 			}
 		}
 	}
