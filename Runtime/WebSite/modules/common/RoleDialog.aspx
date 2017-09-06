@@ -6,8 +6,8 @@
 		th, td { padding:6px 4px;border:0; }
 	</style>
 	<script type="text/javascript">
-		function ok() {
-			var val = '';
+		function ok(v) {
+			var val = v ? v : '';
 			$('input[type=checkbox]').each(function (i, o) {
 				if (o.checked) {
 					if (val.length > 0) val += ',';
@@ -58,5 +58,5 @@
 			</asp:BoundField>
 		</Columns>
 	</asp:GridView>
-	<cc1:NPager ID="NPager1" runat="server" Mode="Simple" />
+	<cc1:NPager ID="nPager" runat="server" Mode="Simple" PageSize="15" OnPageClick="nPager_OnPageClick" />
 </asp:Content>

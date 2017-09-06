@@ -58,7 +58,7 @@ public partial class modules_system_AuthSet : AdminPage
 	{
 		this.TargetTypeName.Text = "角色";
 		RoleBus bus = new RoleBus();
-		var model = bus.GetRoleInfo(ConvertKit.ConvertValue(this.TargetId.Value, 0));
+		var model = bus.GetRole(ConvertKit.ConvertValue(this.TargetId.Value, 0));
 		if (model != null) {
 			this.TargetName.Text = model.RoleName;
 			this.TargetMemo.Text = model.Comment;
@@ -72,7 +72,7 @@ public partial class modules_system_AuthSet : AdminPage
 	{
 		this.TargetTypeName.Text = "用户";
 		UserBus bus = new UserBus();
-		var model = bus.GetUserInfo(ConvertKit.ConvertValue(this.TargetId.Value, 0));
+		var model = bus.GetUser(ConvertKit.ConvertValue(this.TargetId.Value, 0));
 		if (model != null) {
 			this.TargetName.Text = model.Name;
 			this.TargetMemo.Text = "用户帐号：" + model.Account;

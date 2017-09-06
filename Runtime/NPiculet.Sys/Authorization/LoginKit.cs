@@ -212,7 +212,7 @@ namespace NPiculet.Authorization
 		public static Administrator<int> AdminExist(string account)
 		{
 			UserBus ubus = new UserBus();
-			var user = ubus.GetUserInfo(account);
+			var user = ubus.GetUser(account);
 			Administrator<int> admin = null;
 			if (user != null) {
 				admin = new Administrator<int>();

@@ -127,13 +127,11 @@ public partial class System_MenuSet : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var data = new sys_menu();
-			BindKit.FillModelFromContainer(this.editor, data);
+			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			sys_menu data;
 
-			//处理“栏目”所属
-			ProcessBelong(ref data);
-
-			if (this.Id.Value == "") {
+			if (id == 0) {
+				data = new sys_menu();
 				data.ParentId = 0;
 				data.RootId = 0;
 				data.Path = "";
@@ -143,10 +141,15 @@ public partial class System_MenuSet : AdminPage
 				data.IsDel = 0;
 				data.Creator = this.CurrentUserName;
 				data.CreateDate = DateTime.Now;
-				_mbus.Save(data);
 			} else {
-				_mbus.Save(data);
+				data = _mbus.GetMenu(a => a.Id == id);
 			}
+
+			//处理“栏目”所属
+			ProcessBelong(ref data);
+
+			BindKit.FillModelFromContainer(this.editor, data);
+			_mbus.Save(data);
 
 			ClearControls();
 
@@ -165,6 +168,7 @@ public partial class System_MenuSet : AdminPage
 			//处理“栏目”所属
 			ProcessBelong(ref data);
 
+			data.Id = 0;
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 			data.RootId = GetRootId();
 			data.IsExternal = 0;
@@ -191,6 +195,7 @@ public partial class System_MenuSet : AdminPage
 			//处理“栏目”所属
 			ProcessBelong(ref data);
 
+			data.Id = 0;
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 			data.RootId = GetRootId();
 			data.Depth++;
@@ -307,7 +312,9 @@ public partial class System_MenuSet : AdminPage
 	{
 		this.Name.Text = this.InfoGroupList.SelectedItem.Text;
 
-		string url = "cms/InfoPageList.aspx?code=";
+		var cbus = new CmsContentBus();
+		var c = cbus.GetGroup(ConvertKit.ConvertValue(this.InfoGroupList.SelectedValue, 0));
+		string url = (c != null && c.GroupType == "Content") ? "cms/ContentEdit.aspx?gid=" : "cms/PageList.aspx?gid=";
 		this.Url.Text = url + this.InfoGroupList.SelectedValue;
 	}
 
@@ -318,9 +325,9 @@ public partial class System_MenuSet : AdminPage
 		string url = "system/DictItemList.aspx?group={0}&fix=true&cols={1}";
 
 		var dictId = ConvertKit.ConvertValue(this.DictList.SelectedValue, 0);
-		var dict = new DictBus().GetDictItem(a => a.Id == dictId);
+		var dict = new DictBus().GetDictGroup(a => a.Id == dictId);
 		if (dict != null)
-			this.Url.Text = string.Format(url, dict.GroupCode, dict.Memo);
+			this.Url.Text = string.Format(url, dict.Code, dict.Memo);
 		else
 			this.Url.Text = string.Empty;
 	}

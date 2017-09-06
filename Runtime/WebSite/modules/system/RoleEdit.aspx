@@ -20,7 +20,6 @@
 				area: ['800px', '500px'],
 				content: '../common/UserDialog.aspx',
 				end: function () {
-					console.log(result);
 					if (result && result.length > 0) {
 						__doPostBack('addUsers', result);
 					}

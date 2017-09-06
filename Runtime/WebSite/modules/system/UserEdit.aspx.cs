@@ -30,25 +30,20 @@ public partial class system_Admin_UserEdit : AdminPage
 	}
 
 	private void BindOrgDropDownList() {
-		using (var db = new NPiculetEntities()) {
-			var companys = (from o in db.sys_org_info
-				where o.Level == 0 && o.IsDel == 0
-				select o).ToList();
-			BindKit.BindToListControl(this.RootCompanyList, companys, "OrgName", "Id");
+		var obus = new OrgBus();
+		var companys = obus.GetOrgList(a => a.Level == 0 && a.IsDel == 0);
+		BindKit.BindToListControl(this.RootCompanyList, companys, "OrgName", "Id");
 
-			int pid = ConvertKit.ConvertValue(this.RootCompanyList.SelectedValue, 0);
-			var orgs = (from o in db.sys_org_info
-				where o.Level == 1&& o.IsDel == 0 && o.ParentId == pid
-				select o).ToList();
-			BindKit.BindToListControl(this.OrgId, orgs, "OrgName", "Id");
-		}
+		int pid = ConvertKit.ConvertValue(this.RootCompanyList.SelectedValue, 0);
+		var orgs = obus.GetOrgList(o => o.Level == 1 && o.IsDel == 0 && o.ParentId == pid);
+		BindKit.BindToListControl(this.OrgId, orgs, "OrgName", "Id");
 	}
 
 	private void BindData()
 	{
 		var userId = WebParmKit.GetQuery("key", 0);
 		if (userId > 0) {
-			var model = _ubus.GetUserInfo(userId);
+			var model = _ubus.GetUser(userId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 
@@ -71,12 +66,10 @@ public partial class system_Admin_UserEdit : AdminPage
 	/// <summary>
 	/// 绑定用户类型
 	/// </summary>
-	private void BindUserType()
-	{
-		using (var db = new NPiculetEntities()) {
-			var list = (from d in db.bas_dict_item where d.GroupCode == "UserType" orderby d.OrderBy select d).ToList();
-			BindKit.BindToListControl(this.Type, list, "Name", "Value");
-		}
+	private void BindUserType() {
+		var dbus = new DictBus();
+		var list = dbus.GetDictItemList(a => a.GroupCode == "UserType");
+		BindKit.BindToListControl(this.Type, list, "Name", "Value");
 	}
 
 	/// <summary>
@@ -120,12 +113,11 @@ public partial class system_Admin_UserEdit : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var user = new sys_user_info();
-
-			BindKit.FillModelFromContainer(this.editor, user);
+			var id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			sys_user_info user;
 
 			//保存用户信息
-			if (user.Id == 0) {
+			if (id == 0) {
 				if (_ubus.UserExist(this.Account.Text)) {
 					this.promptControl.ShowError("用户账号已存在，请重新输入！");
 					return;
@@ -134,16 +126,18 @@ public partial class system_Admin_UserEdit : AdminPage
 				//获取最大排序
 				int maxOrderBy = _ubus.GetMaxOrderBy();
 
+				user = new sys_user_info();
 				user.UserSn = Guid.NewGuid().ToString().ToLower();
 				user.IsEnabled = 1;
 				user.IsDel = 0;
 				user.OrderBy = maxOrderBy + 1;
 				user.Creator = this.CurrentUserName;
 				user.CreateDate = DateTime.Now;
-				_ubus.SaveUser(user);
 			} else {
-				_ubus.SaveUser(user);
+				user = _ubus.GetUser(a => a.Id == id && a.IsDel == 0);
 			}
+			BindKit.FillModelFromContainer(this.editor, user);
+			_ubus.SaveUser(user);
 
 			var data = _ubus.GetUserData(user.Id);
 			if (data == null) {

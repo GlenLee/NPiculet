@@ -14,6 +14,18 @@ namespace NPiculet.Logic.Business
 	public partial class RoleBus : IBusiness
 	{
 		/// <summary>
+		/// 获取角色信息
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public sys_role_info GetRole(Expression<Func<sys_role_info, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_role_info.FirstOrDefault(predicate);
+			}
+		}
+
+		/// <summary>
 		/// 角色是否存在
 		/// </summary>
 		/// <param name="roleName"></param>
@@ -32,9 +44,9 @@ namespace NPiculet.Logic.Business
 		/// </summary>
 		/// <param name="roleId"></param>
 		/// <returns></returns>
-		public sys_role_info GetRoleInfo(int roleId)
+		public sys_role_info GetRole(int roleId)
 		{
-			if (roleId > 0) return null;
+			if (roleId <= 0) return null;
 
 			using (var db = new NPiculetEntities()) {
 				return db.sys_role_info.FirstOrDefault(a => a.IsDel == 0 && a.Id == roleId);
@@ -46,7 +58,7 @@ namespace NPiculet.Logic.Business
 		/// </summary>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public sys_role_info GetRoleInfo(string roleName)
+		public sys_role_info GetRole(string roleName)
 		{
 			if (string.IsNullOrEmpty(roleName)) return null;
 

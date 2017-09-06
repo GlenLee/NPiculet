@@ -9,21 +9,16 @@ using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
+using NPiculet.WebControls;
 
 public partial class modules_common_UserDialog : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			this.NPager1.PageSize = 20;
-
 			BindOrgTree();
 			BindUserList();
 		}
-
-		this.NPager1.PageClick += (o, args) => {
-			BindUserList();
-		};
 
 		string target = WebParmKit.GetFormValue("__EVENTTARGET", "");
 
@@ -65,9 +60,9 @@ public partial class modules_common_UserDialog : AdminPage
 
 		UserBus ubus = new UserBus();
 		int count;
-		var data = ubus.GetUserList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, whereString);
+		var data = ubus.GetUserList(out count, this.nPager.CurrentPage, this.nPager.PageSize, whereString);
 
-		this.NPager1.RecordCount = count;
+		this.nPager.RecordCount = count;
 
 		this.list.DataSource = data;
 		this.list.DataBind();
@@ -84,13 +79,17 @@ public partial class modules_common_UserDialog : AdminPage
 
 	private List<sys_user_info> _selectedUserList
 	{
-		get
-		{
-			var data = ViewState["__SelectedUserList__"] as List<sys_user_info>;
-			if (data == null) data = new List<sys_user_info>();
-			return data;
+		get {
+			var json = Convert.ToString(ViewState["__SelectedUserList__"]);
+			if (string.IsNullOrEmpty(json)) {
+				return new List<sys_user_info>();
+			}
+			return JsonKit.Deserialize<List<sys_user_info>>(json);
 		}
-		set { ViewState["__SelectedUserList"] = value; }
+		set {
+			var val = JsonKit.Serialize(value);
+			ViewState["__SelectedUserList__"] = val;
+		}
 	}
 
 	private void EventDeleteSelected(string target)
@@ -121,12 +120,12 @@ public partial class modules_common_UserDialog : AdminPage
 			//sw.Start();
 			int arg = WebParmKit.GetFormValue("__EVENTARGUMENT", 0);
 			if (arg > 0) {
-				var user = new UserBus().GetUserInfo(arg);
+				var user = new UserBus().GetUser(arg);
 
 				var l = _selectedUserList;
 
 				if (user != null) {
-					bool contain = (from a in l where a.Id == user.Id select a).Count() > 0;
+					bool contain = (from a in l where a.Id == user.Id select a).Any();
 					if (!contain) {
 						l.Add(user);
 
@@ -163,5 +162,10 @@ public partial class modules_common_UserDialog : AdminPage
 			var val = ConvertKit.ConvertValue(tn.Value, 0);
 			BindUserList(val);
 		}
+	}
+
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e)
+	{
+		BindUserList();
 	}
 }

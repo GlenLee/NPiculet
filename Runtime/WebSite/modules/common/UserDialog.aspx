@@ -18,13 +18,15 @@
 		.ui-dialog-org { position:absolute;top:38px;bottom:0;left:0;width:30%;border-right: 1px solid #ddd; }
 		.ui-dialog-user { position:absolute;top:38px;bottom:40%;right:0;width:70%; }
 		.ui-dialog-selected { position:absolute;top:60%;bottom:0;right:0;width:70%; }
-		.wrap { width:100%;height:100%;overflow:auto; }
+		.wrap { position:absolute;top:0;bottom:28px;left:0;right:0;overflow:auto; }
 		.ui-dialog-org, .ui-dialog-user, .ui-dialog-selected { }
 
 		.ui-dialog-table { width:100%;margin-bottom:32px; }
 
-		.npager { position:absolute;bottom:0;width:100%;background-color:#ddd;margin-right:20px; }
+		.npager { position:absolute;bottom:0;width:100%;background-color:#ddd;margin:0 20px 0 0; }
 		.pagination { margin:0; }
+
+		.sui-table.table-bordered-simple { margin:0; }
 	</style>
 	<base target="_self"/>
 </asp:Content>
@@ -75,7 +77,7 @@
 				</Columns>
 			</asp:GridView>
 		</div>
-		<cc1:NPager ID="NPager1" runat="server" PageSize="10" />
+		<cc1:NPager ID="nPager" runat="server" PageSize="20" OnPageClick="nPager_OnPageClick" />
 	</div>
 
 	<div class="ui-dialog-selected">

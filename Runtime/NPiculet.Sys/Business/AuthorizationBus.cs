@@ -120,6 +120,23 @@ FROM sys_user_info u
 			return DbHelper.Query(sql);
 		}
 
+		private class AuthCompare : IEqualityComparer<sys_authorization>
+		{
+			public bool Equals(sys_authorization x, sys_authorization y) {
+				if (ReferenceEquals(x, y)) return true;
+				return x != null && y != null
+					&& x.TargetType == y.TargetType
+					&& x.TargetId == y.TargetId
+					&& x.FunctionType == y.FunctionType
+					&& x.FunctionId == y.FunctionId;
+			}
+
+			public int GetHashCode(sys_authorization obj) {
+				int hCode = obj.TargetId.GetHashCode() ^ obj.FunctionId.GetHashCode();
+				return hCode.GetHashCode();
+			}
+		}
+
 		/// <summary>
 		/// 更新授权列表
 		/// </summary>
@@ -131,15 +148,12 @@ FROM sys_user_info u
 			using (var db = new NPiculetEntities()) {
 				var data = db.sys_authorization.Where(a => a.TargetType == targetType && a.TargetId == targetId).ToList();
 				//计算差集新增
-				var except = authList.Except(data).ToList();
+				var except = authList.Except(data, new AuthCompare()).ToList();
 				db.sys_authorization.AddRange(except);
 				//删除多余数据
-				var delete = data.Except(authList);
+				var delete = data.Except(authList, new AuthCompare());
 				db.sys_authorization.RemoveRange(delete);
-			}
-			DbHelper.Execute(string.Format("DELETE FROM sys_authorization WHERE TargetType='{0}' and TargetId={1}", targetType, targetId));
-			using (var db = new NPiculetEntities()) {
-				db.sys_authorization.AddRange(authList);
+				db.BulkSaveChanges();
 			}
 		}
 
@@ -170,6 +184,7 @@ FROM sys_user_info u
 			using (var db = new NPiculetEntities()) {
 				db.ExecuteSql(string.Format("DELETE FROM sys_link_user_role WHERE UserId={0}", userId));
 				db.sys_link_user_role.AddRange(urList);
+				db.SaveChanges();
 			}
 		}
 
@@ -182,8 +197,10 @@ FROM sys_user_info u
 		{
 			using (var db = new NPiculetEntities()) {
 				var data = db.sys_link_user_role.Where(a => a.UserId == userId && a.RoleId == roleId).ToList();
-				if (data.Count > 0)
+				if (data.Count > 0) {
 					db.sys_link_user_role.RemoveRange(data);
+					db.SaveChanges();
+				}
 			}
 		}
 
@@ -196,8 +213,10 @@ FROM sys_user_info u
 		{
 			using (var db = new NPiculetEntities()) {
 				var data = db.sys_link_user_org.Where(a => a.UserId == userId && a.OrgId == orgId).ToList();
-				if (data.Count > 0)
+				if (data.Count > 0) {
 					db.sys_link_user_org.RemoveRange(data);
+					db.SaveChanges();
+				}
 			}
 		}
 	}

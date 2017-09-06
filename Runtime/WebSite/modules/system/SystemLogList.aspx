@@ -8,9 +8,9 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="searchbar" Runat="Server">
-	<div class="searchbar-wrap">
-		<asp:DropDownList runat="server" ID="ddlActionType" AutoPostBack="True" OnSelectedIndexChanged="ddlActionType_OnSelectedIndexChanged"></asp:DropDownList>
-	</div>
+	<ul class="searchbar-wrap">
+		<li><asp:DropDownList runat="server" ID="ddlActionType" AutoPostBack="True" OnSelectedIndexChanged="ddlActionType_OnSelectedIndexChanged"></asp:DropDownList></li>
+	</ul>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">

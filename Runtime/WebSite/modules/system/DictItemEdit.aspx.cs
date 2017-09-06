@@ -24,7 +24,7 @@ public partial class modules_system_DictItemEdit : AdminPage
 
 	private void BindGroupList()
 	{
-		BindKit.BindToListControl(this.GroupCode, _dbus.GetDictGroupList(), "Name", "Code");
+		BindKit.BindToListControl(this.GroupCode, _dbus.GetDictGroupList(a => a.IsDel == 0), "Name", "Code");
 
 		//获取字典分组
 		string group = WebParmKit.GetQuery("group", "");
@@ -52,18 +52,18 @@ public partial class modules_system_DictItemEdit : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var model = new bas_dict_item();
-			//model.Value = this.Value.Color;
+			var id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			bas_dict_item model;
 
-			BindKit.FillModelFromContainer(this.container, model);
-
-			if (this.Id.Value == "") {
+			if (id == 0) {
+				model = new bas_dict_item();
 				model.Creator = this.CurrentUserName;
 				model.CreateDate = DateTime.Now;
-				_dbus.SaveItem(model);
 			} else {
-				_dbus.SaveItem(model);
+				model = _dbus.GetDictItem(a => a.Id == id);
 			}
+			BindKit.FillModelFromContainer(this.container, model);
+			_dbus.SaveItem(model);
 
 			this.promptControl.ShowSuccess("保存成功！");
 		}

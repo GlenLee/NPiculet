@@ -21,8 +21,8 @@ namespace modules.info
 
 		private void BindType()
 		{
-			DictBus ibus = new DictBus();
-			var list = ibus.GetActiveItemList("Publicity");
+			DictBus dbus = new DictBus();
+			var list = dbus.GetActiveItemList("AdPosition");
 			BindKit.BindToListControl(this.Position, list, "Name", "Code");
 		}
 
@@ -48,7 +48,19 @@ namespace modules.info
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
 			if (Page.IsValid) {
-				var model = new cms_adv_info();
+				int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+				cms_adv_info model;
+
+				if (id == 0) {
+					model = new cms_adv_info();
+					model.Click = 0;
+					model.IsEnabled = 1;
+					model.CreateDate = DateTime.Now;
+					model.Creator = this.CurrentUserName;
+				} else {
+					model = _bus.GetAdv(id);
+				}
+
 				BindKit.FillModelFromContainer(this.editor, model);
 
 				model.Title = this.txtTitle.Text;
@@ -75,20 +87,12 @@ namespace modules.info
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
-				if (model.Id == 0) {
-					//model.Type = "";
-					model.Click = 0;
-					model.IsEnabled = 1;
-					model.CreateDate = DateTime.Now;
-					model.Creator = this.CurrentUserName;
+				//保存
+				_bus.Save(model);
 
-					_bus.Save(model);
+				this.Id.Value = model.Id.ToString();
 
-					this.Id.Value = model.Id.ToString();
-				} else {
-					_bus.Save(model);
-				}
-
+				//展示缩略图
 				ShowThumb(model);
 
 				this.promptControl.ShowSuccess("保存成功！");

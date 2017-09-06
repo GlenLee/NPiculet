@@ -140,7 +140,7 @@ namespace NPiculet.WebControls
 			output.Write(_manager.Show());
 		}
 
-        public delegate void PageClickEventHandler(object sender, PageEventArgs e);
+        public delegate void PageClickEventHandler(object sender, PageJumpEventArgs e);
         public event PageClickEventHandler PageClick;
 
 		protected override void OnPreRender(EventArgs e)
@@ -152,13 +152,8 @@ namespace NPiculet.WebControls
 				int argument = WebParmKit.GetFormValue("__EVENTARGUMENT", 1);
 				ViewState["__NPager__CurrentPage"] = argument;
 				var handler = PageClick;
-				if (handler != null) PageClick(this, new PageEventArgs() { PageIndex = argument });
+				if (handler != null) PageClick(this, new PageJumpEventArgs() { PageIndex = argument });
 			}
 		}
-	}
-
-	public class PageEventArgs : EventArgs
-	{
-		public int PageIndex { get; set; }
 	}
 }

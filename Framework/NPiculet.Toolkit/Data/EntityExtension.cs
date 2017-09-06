@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
+using NPiculet.Toolkit;
 
 namespace System.Data.Entity
 {
@@ -21,23 +23,12 @@ namespace System.Data.Entity
 		/// <returns></returns>
 		public static bool Save<TEntity>(this DbContext db, TEntity entity) where TEntity : class
 		{
-			db.Set<TEntity>().AddOrUpdate(entity);
-			return db.SaveChanges() > 0;
-		}
-
-		/// <summary>
-		/// 批量保存实例，根据主键自动判断更新或新增，并自动调用 SaveChanges()
-		/// </summary>
-		/// <typeparam name="TEntity"></typeparam>
-		/// <param name="db"></param>
-		/// <param name="entities"></param>
-		/// <returns></returns>
-		public static int SaveBatch<TEntity>(this DbContext db, List<TEntity> entities) where TEntity : class
-		{
-			foreach (var entity in entities) {
+			try {
 				db.Set<TEntity>().AddOrUpdate(entity);
+				return db.SaveChanges() > 0;
+			} catch (DbEntityValidationException ex) {
+				throw new Exception(LinQKit.GetErrorMessage(ex), ex);
 			}
-			return db.SaveChanges();
 		}
 
 		/// <summary>

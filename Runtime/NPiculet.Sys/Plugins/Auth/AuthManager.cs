@@ -50,7 +50,7 @@ namespace NPiculet.Logic.Plugin
 		/// <returns></returns>
 		public User<int> GetUserInfo(string account) {
 			User<int> u = null;
-			var user = _userBus.GetUserInfo(account);
+			var user = _userBus.GetUser(account);
 			if (user != null) {
 				u = new User<int>();
 				u.Id = user.Id;
@@ -82,7 +82,7 @@ namespace NPiculet.Logic.Plugin
 		/// <returns></returns>
 		public Role GetRoleInfo(string roleName) {
 			Role r = null;
-			var role = _roleBus.GetRoleInfo(roleName);
+			var role = _roleBus.GetRole(roleName);
 			if (role != null) {
 				r = new Role();
 				r.Id = role.Id;

@@ -33,9 +33,9 @@
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="操作">
-				<HeaderStyle Width="160"></HeaderStyle>
+				<HeaderStyle Width="120"></HeaderStyle>
 				<ItemTemplate>
-					<a href="AuthSet.aspx?key=<%# Eval("Id") %>&m=Role&p=RoleList.aspx">授权</a> |
+					<a href="AuthSet.aspx?key=<%# Eval("Id") %>&m=Role&p=RoleList.aspx">权限</a> |
 					<a href="RoleEdit.aspx?key=<%# Eval("Id") %>">编辑</a> |
 					<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('确定要删除吗？');">删除</asp:LinkButton>
 					<input type="hidden" name="dataId" value="<%# Eval("Id") %>"/>
@@ -43,6 +43,6 @@
 			</asp:TemplateField>
 		</Columns>
 	</asp:GridView>
-	<cc1:NPager ID="NPager1" runat="server" PageSize="15" />
+	<cc1:NPager ID="nPager" runat="server" PageSize="15" OnPageClick="nPager_OnPageClick" />
 </asp:Content>
 

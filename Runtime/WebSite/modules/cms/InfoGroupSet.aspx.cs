@@ -20,7 +20,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		}
 	}
 
-	private readonly CmsContentBus _bus = new CmsContentBus();
+	private readonly CmsContentBus _cbus = new CmsContentBus();
 
 	private List<cms_content_group> _groups = null;
 
@@ -35,7 +35,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 
 	private void BindTree(int parentId)
 	{
-		var data = _bus.GetGroupList();
+		var data = _cbus.GetGroupList();
 		if (data != null && data.Count > 0) {
 			_groups = data;
 			BuildTree(null, parentId);
@@ -102,18 +102,18 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-
 			//自动创建随机编码
 			if (string.IsNullOrWhiteSpace(this.GroupCode.Text)) {
 				this.GroupCode.Text = StringKit.GetRandomStringByNumber(6);
 			}
 
+			var id = ConvertKit.ConvertValue(this.Id.Value, 0);
 			bool upload;
 
-			if (this.Id.Value == "") {
+			if (id == 0) {
 				upload = CreateNewData();
 			} else {
-				var data = _bus.GetGroup(ConvertKit.ConvertValue(this.Id.Value, 0));
+				var data = _cbus.GetGroup(id);
 				if (data == null) {
 					upload = CreateNewData();
 				} else {
@@ -150,7 +150,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			);
 		}
 
-		_bus.SaveGroup(data);
+		_cbus.SaveGroup(data);
 		return true;
 	}
 
@@ -161,7 +161,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		var data = new cms_content_group();
 		if (!VerifyExistGroupCode(this.GroupCode.Text, data)) {
 			BindKit.FillModelFromContainer(this.editor, data);
-			_bus.SaveGroup(data);
+			_cbus.SaveGroup(data);
 			return true;
 		} else {
 			this.AlertBeauty("编码已存在，请更换编码！");
@@ -190,7 +190,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			BindKit.FillModelFromContainer(this.editor, data);
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 
-			_bus.SaveGroup(data);
+			_cbus.SaveGroup(data);
 
 			ClearControls();
 
@@ -205,7 +205,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			BindKit.FillModelFromContainer(this.editor, data);
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 
-			_bus.SaveGroup(data);
+			_cbus.SaveGroup(data);
 
 			ClearControls();
 
@@ -216,7 +216,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	protected void btnDelete_Click(object sender, EventArgs e)
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
-			_bus.DeleteGroup(ConvertKit.ConvertValue(this.Id.Value, 0));
+			_cbus.DeleteGroup(ConvertKit.ConvertValue(this.Id.Value, 0));
 
 			BindData();
 		}
@@ -225,7 +225,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	protected void tree_SelectedNodeChanged(object sender, EventArgs e)
 	{
 		var val = this.tree.SelectedValue;
-		var data = _bus.GetGroup(Convert.ToInt32(val));
+		var data = _cbus.GetGroup(Convert.ToInt32(val));
 		if (data != null) {
 			BindKit.BindModelToContainer(this.editor, data);
 			SetControlStatus();

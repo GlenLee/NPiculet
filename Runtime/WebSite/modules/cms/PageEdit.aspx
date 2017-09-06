@@ -1,10 +1,10 @@
-﻿<%@ Page Title="信息内容编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="InfoContentEdit.aspx.cs" Inherits="modules_info_InfoContentEdit" ValidateRequest="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PageEdit.aspx.cs" Inherits="modules_cms_PageEdit" %>
 <%@ Register TagPrefix="zx" TagName="Prompt" Src="~/modules/common/Prompt.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="header" Runat="Server">
-    <script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.all.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.all.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
@@ -12,7 +12,7 @@
 		<ul class="toolbar">
 			<li><%= GetBackUrl() %></li>
 			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
-			<li><asp:HyperLink ID="btnView" runat="server"><i class="sui-icon icon-tb-activity"></i>预览</asp:HyperLink></li>
+			<li><asp:HyperLink ID="btnView" runat="server" Target="_blank"><i class="sui-icon icon-tb-activity"></i>预览</asp:HyperLink></li>
 			<li><asp:LinkButton ID="btnPublish" runat="server" OnClick="btnPublish_Click" OnClientClick="return confirm('确定发布？只有在发布后文章才能被看到。');"><i class="sui-icon icon-tb-activity"></i>发布</asp:LinkButton></li>
 		</ul>
 	</div>
@@ -29,14 +29,14 @@
 				<td class="th">栏目</td>
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
 			</tr>
-			<tr<%= GetStyle() %>>
+			<tr>
 				<td class="th">主标题</td>
 				<td class="td">
 					<asp:TextBox ID="InfoTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="256"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="InfoTitle" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
-			<tr<%= GetStyle() %>>
+			<tr>
 				<td class="th">副标题</td>
 				<td class="td">
 					<asp:TextBox ID="SubTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="256"></asp:TextBox>
@@ -50,26 +50,26 @@
 					<asp:CheckBox runat="server" ID="OrderBy"/> <label for="<%= this.OrderBy.ClientID %>">置顶</label>
 				</td>
 			</tr>
-<asp:PlaceHolder runat="server" ID="pThumb">
-			<tr>
-				<td class="th">缩略图</td>
-				<td class="td">
-					<table cellpadding="0" cellspacing="0" style="border:0;">
-						<tr>
-							<td>
-								<asp:FileUpload ID="Thumb" runat="server" Width="400px" />
-								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片大于1024x1024会自动压缩。</div>
-							</td>
-							<td style="padding:4px">
-								<asp:HyperLink ID="ThumbHyperLink" runat="server" CssClass="thumb-link" Target="_blank">
-									<asp:Image ID="PreviewThumb" runat="server" Width="40px" Height="40px" Visible="false" CssClass="thumb-image" />
-								</asp:HyperLink>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-</asp:PlaceHolder>
+			<asp:PlaceHolder runat="server" ID="phThumb">
+				<tr>
+					<td class="th">缩略图</td>
+					<td class="td">
+						<table cellpadding="0" cellspacing="0" style="border:0;">
+							<tr>
+								<td>
+									<asp:FileUpload ID="Thumb" runat="server" Width="400px" />
+									<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片大于1024x1024会自动压缩。</div>
+								</td>
+								<td style="padding:4px">
+									<asp:HyperLink ID="ThumbHyperLink" runat="server" CssClass="thumb-link" Target="_blank">
+										<asp:Image ID="PreviewThumb" runat="server" Width="40px" Height="40px" Visible="false" CssClass="thumb-image" />
+									</asp:HyperLink>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</asp:PlaceHolder>
 			<tr>
 				<td class="th">内容</td>
 				<td class="td" style="height:300px; overflow:scroll">
@@ -94,4 +94,3 @@
 		</script>
 	</asp:PlaceHolder>
 </asp:Content>
-

@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Business;
+using NPiculet.Toolkit;
 
 namespace NPiculet.Cms.Business
 {
@@ -163,19 +165,6 @@ namespace NPiculet.Cms.Business
 		}
 
 		/// <summary>
-		/// 保存内容页
-		/// </summary>
-		/// <param name="groupCode"></param>
-		/// <param name="data"></param>
-		public void SavePageByGroup(string groupCode, cms_content_page data)
-		{
-			using (var db = new NPiculetEntities()) {
-				db.cms_content_page.AddOrUpdate(data);
-				db.SaveChanges();
-			}
-		}
-
-		/// <summary>
 		/// 获取页面列表
 		/// </summary>
 		/// <param name="count"></param>
@@ -183,13 +172,31 @@ namespace NPiculet.Cms.Business
 		/// <param name="pageSize"></param>
 		/// <param name="predicate"></param>
 		/// <returns></returns>
-		public List<cms_content_page> GetPageList(out int count, int curPage, int pageSize, Expression<Func<cms_content_page, bool>> predicate) {
+		public List<cms_content_page> GetPageList(out int count, int curPage, int pageSize, Expression<Func<cms_content_page, bool>> predicate = null) {
 			using (var db = new NPiculetEntities()) {
-				var query = db.cms_content_page.Where(predicate);
+				if (predicate == null) {
+					var query = db.cms_content_page;
+					count = query.Count();
+					return query.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
+				} else {
+					var query = db.cms_content_page.Where(predicate);
+					count = query.Count();
+					return query.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
+				}
+			}
+		}
 
-				count = query.Count();
-
-				return query.OrderByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
+		/// <summary>
+		/// 发布页面
+		/// </summary>
+		/// <param name="id"></param>
+		public void PublishPage(int id) {
+			using (var db = new NPiculetEntities()) {
+				var p = db.cms_content_page.FirstOrDefault(a => a.Id == id);
+				if (p != null) {
+					p.IsEnabled = 1;
+					db.SaveChanges();
+				}
 			}
 		}
 	}

@@ -13,17 +13,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
 	<ul class="searchbar-wrap">
-		<li>
-			<table class="admin-search-table">
-				<tr>
-					<td>关键字</td>
-					<td>
-						<asp:TextBox ID="txtKeywords" runat="server"></asp:TextBox>
-						<asp:LinkButton ID="btnSearch" runat="server" OnClick="btnSearch_Click"><i class="sui-icon icon-tb-search"></i>搜索</asp:LinkButton>
-					</td>
-				</tr>
-			</table>
-		</li>
+		<li><asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索账号或名称"></asp:TextBox></li>
+		<li><asp:LinkButton ID="btnSearch" runat="server" OnClick="btnSearch_Click"><i class="sui-icon icon-tb-search"></i>搜索</asp:LinkButton></li>
 	</ul>
 </asp:Content>
 

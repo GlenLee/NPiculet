@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Base.EF;
 using NPiculet.Data;
 using NPiculet.Logic.Business;
@@ -40,6 +41,30 @@ namespace NPiculet.Cms.Business
 		}
 
 		/// <summary>
+		/// 获取广告信息
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public cms_adv_info GetAdv(Expression<Func<cms_adv_info, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.cms_adv_info.FirstOrDefault(predicate);
+			}
+		}
+
+		/// <summary>
+		/// 获取广告信息
+		/// </summary>
+		/// <param name="advId"></param>
+		/// <returns></returns>
+		public cms_adv_info GetAdv(int advId)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.cms_adv_info.FirstOrDefault(a => a.Id == advId);
+			}
+		}
+
+		/// <summary>
 		/// 根据类型获取单个广告
 		/// </summary>
 		/// <param name="position"></param>
@@ -48,6 +73,27 @@ namespace NPiculet.Cms.Business
 		{
 			using (var db = new NPiculetEntities()) {
 				return db.cms_adv_info.FirstOrDefault(a => a.IsEnabled == 1 && a.Position == position);
+			}
+		}
+
+		/// <summary>
+		/// 获取广告列表
+		/// </summary>
+		/// <param name="count"></param>
+		/// <param name="curPage"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public List<cms_adv_info> GetAdList(out int count, int curPage, int pageSize, Expression<Func<cms_adv_info, bool>> predicate = null)
+		{
+			using (var db = new NPiculetEntities()) {
+				var query = (from a in db.cms_adv_info select a);
+				if (predicate != null)
+					query = db.cms_adv_info.Where(predicate);
+
+				count = query.Count();
+
+				return query.OrderByDescending(a => a.CreateDate).ThenBy(a => a.OrderBy).Pagination(curPage, pageSize).ToList();
 			}
 		}
 
@@ -62,18 +108,6 @@ namespace NPiculet.Cms.Business
 				return (from a in db.cms_adv_info
 					where a.IsEnabled == 1 && a.Position == position
 					select a).ToList();
-			}
-		}
-
-		/// <summary>
-		/// 获取广告信息
-		/// </summary>
-		/// <param name="advId"></param>
-		/// <returns></returns>
-		public cms_adv_info GetAdv(int advId)
-		{
-			using (var db = new NPiculetEntities()) {
-				return db.cms_adv_info.FirstOrDefault(a => a.Id == advId);
 			}
 		}
 	}

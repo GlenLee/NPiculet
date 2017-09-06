@@ -167,8 +167,9 @@ namespace NPiculet.Logic.Business
 			using (NPiculetEntities db = new NPiculetEntities()) {
 				var query = (from i in db.bas_dict_item
 					join g in db.bas_dict_group on i.GroupCode equals g.Code
+					where g.IsDel == 0
 					orderby i.GroupCode, i.OrderBy, i.CreateDate
-					select new {i.Id, i.GroupCode, i.Code, i.Name, i.Value, i.OrderBy, i.IsEnabled, i.CreateDate, GroupName = g.Name});
+					select new { i.Id, i.GroupCode, i.Code, i.Name, i.Value, i.OrderBy, i.IsEnabled, i.CreateDate, GroupName = g.Name });
 
 				query = query.WhereIf(!string.IsNullOrEmpty(groupCode), q => q.GroupCode == groupCode);
 				query = query.WhereIf(!string.IsNullOrEmpty(keywords), q => q.Name.Contains(keywords) || q.Code.Contains(keywords));
@@ -191,7 +192,7 @@ namespace NPiculet.Logic.Business
 				foreach (var item in items) {
 					item.GroupCode = newCode;
 				}
-				db.SaveBatch(items);
+				db.BulkUpdate(items);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
+using NPiculet.WebControls;
 
 public partial class modules_system_RoleList : AdminPage
 {
@@ -17,10 +18,6 @@ public partial class modules_system_RoleList : AdminPage
 		if (!Page.IsPostBack) {
 			BindData();
 		}
-
-		this.NPager1.PageClick += (o, args) => {
-			BindData();
-		};
 	}
 
 	private readonly RoleBus _bus = new RoleBus();
@@ -46,10 +43,10 @@ public partial class modules_system_RoleList : AdminPage
 
 		int count;
 
-		this.list.DataSource = _bus.GetRoleList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, predicate);
+		this.list.DataSource = _bus.GetRoleList(out count, this.nPager.CurrentPage, this.nPager.PageSize, predicate);
 		this.list.DataBind();
 
-		this.NPager1.RecordCount = count;
+		this.nPager.RecordCount = count;
 	}
 
 	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -72,4 +69,8 @@ public partial class modules_system_RoleList : AdminPage
     {
 	    BindData();
     }
+
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
+		BindData();
+	}
 }

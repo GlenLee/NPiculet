@@ -22,7 +22,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" AllowPaging="True" CssClass="sui-table table-primary">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
 		<Columns>
 			<asp:BoundField DataField="Position" HeaderText="广告位置">
 				<HeaderStyle Width="80px" />
@@ -43,13 +43,16 @@
 				<ItemStyle HorizontalAlign="Center" />
 				<ItemTemplate><a href="AdvEdit.aspx?key=<%# Eval("Id") %>">编辑</a></ItemTemplate>
 			</asp:TemplateField>
-			<asp:CommandField ShowDeleteButton="True" HeaderText="删除">
-				<HeaderStyle Width="50px" />
-				<ItemStyle HorizontalAlign="Center" />
-			</asp:CommandField>
+			<asp:TemplateField HeaderText="删除">
+				<HeaderStyle Width="50"></HeaderStyle>
+				<ItemStyle HorizontalAlign="Center"></ItemStyle>
+				<ItemTemplate>
+					<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('确定要删除吗？');">删除</asp:LinkButton>
+				</ItemTemplate>
+			</asp:TemplateField>
 		</Columns>
 	</asp:GridView>
-	<asp:NPager runat="server" ID="nPager" PageSize="15" />
+	<asp:NPager runat="server" ID="nPager" PageSize="10" OnPageClick="nPager_OnPageClick" />
 
 	<!-- Modal -->
 	<div id="modal" tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade">

@@ -9,7 +9,7 @@ using NPiculet.Logic;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
-using PageEventArgs = NPiculet.WebControls.PageEventArgs;
+using NPiculet.WebControls;
 
 public partial class system_Admin_UserList : AdminPage
 {
@@ -59,7 +59,7 @@ public partial class system_Admin_UserList : AdminPage
 		BindData();
 	}
 
-	protected void nPager_OnPageClick(object sender, PageEventArgs e) {
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
 		BindData();
 	}
 }

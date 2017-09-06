@@ -36,7 +36,7 @@ namespace NPiculet.Logic.Base
 		/// <param name="ajaxControl"></param>
 		protected virtual void AlertBeauty(string msg, Control ajaxControl = null)
 		{
-			string js = "layer.alert('" + msg + "');";
+			string js = "$(document).ready(function(){layer.alert('" + msg + "');});";
 			if (ajaxControl == null) {
 				Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "msg", js, true);
 			} else {

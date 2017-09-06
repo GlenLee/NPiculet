@@ -9,7 +9,7 @@ using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
-using PageEventArgs = NPiculet.WebControls.PageEventArgs;
+using NPiculet.WebControls;
 
 public partial class modules_system_SystemLogList : AdminPage
 {
@@ -49,7 +49,7 @@ public partial class modules_system_SystemLogList : AdminPage
 		BindLog();
 	}
 
-	protected void nPager_OnPageClick(object sender, PageEventArgs e) {
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
 		BindLog();
 	}
 }

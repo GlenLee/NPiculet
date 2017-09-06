@@ -6,11 +6,14 @@ using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
+using NPiculet.WebControls;
 
 namespace modules.info
 {
 	public partial class AdvList : AdminPage
 	{
+		private readonly CmsAdvBus _abus = new CmsAdvBus();
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Page.IsPostBack) {
@@ -21,39 +24,28 @@ namespace modules.info
 
 		private void BindType()
 		{
-			DictBus ibus = new DictBus();
-			var list = ibus.GetActiveItemList("Publicity");
-			BindKit.BindToListControl(this.ddlPosition, list, "Name", "Code");
+			DictBus dbus = new DictBus();
+			var data = dbus.GetActiveItemList("AdPosition");
+			BindKit.BindToListControl(this.ddlPosition, data, "Name", "Code");
 			this.ddlPosition.Items.Insert(0, new ListItem("全部", ""));
 		}
 
-		private readonly CmsAdvBus _bus = new CmsAdvBus();
-
 		private void BindData()
 		{
-			using (var db = new NPiculetEntities()) {
+			var where = LinQKit.CreateWhere<cms_adv_info>(null);
 
-				var query = (from a in db.cms_adv_info select a);
-
-				//过滤条件
-				if (!string.IsNullOrEmpty(this.ddlPosition.SelectedValue)) {
-					string val = this.ddlPosition.SelectedValue;
-					query = query.Where(q => q.Position == val);
-				}
-				//if (!string.IsNullOrEmpty(this.txtKeywords.Text)) {
-				//	string key = this.txtKeywords.Text;
-				//	query = query.Where(q => q.Description.Contains(key));
-				//}
-
-				//排序
-				query = query.OrderByDescending(q => q.CreateDate);
-
-				this.nPager.RecordCount = query.Count();
-
-				list.DataSource = query.Pagination(this.nPager.CurrentPage, this.nPager.PageSize).ToList();
-				list.DataBind();
+			if (!string.IsNullOrEmpty(this.ddlPosition.SelectedValue)) {
+				string val = this.ddlPosition.SelectedValue;
+				where = (q => q.Position == val);
 			}
 
+			int count;
+			var data = _abus.GetAdList(out count, this.nPager.CurrentPage, this.nPager.PageSize, where);
+
+			this.nPager.RecordCount = count;
+
+			list.DataSource = data;
+			list.DataBind();
 		}
 
 		protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -63,14 +55,18 @@ namespace modules.info
 			if (list.DataKeys.Count > e.RowIndex) {
 				var dataKey = list.DataKeys[e.RowIndex];
 				if (dataKey != null) {
-					string dataId = dataKey["Id"].ToString();
-					_bus.Delete(ConvertKit.ConvertValue(dataId, 0));
+					int dataId = ConvertKit.ConvertValue(dataKey["Id"], 0);
+					_abus.Delete(dataId);
 				}
 			}
 			BindData();
 		}
 
 		protected void btnSearch_Click(object sender, EventArgs e) {
+			BindData();
+		}
+
+		protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
 			BindData();
 		}
 	}

@@ -17,6 +17,18 @@ namespace NPiculet.Logic.Business
 		/// <summary>
 		/// 获取组织机构信息。
 		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public sys_org_info GetOrgInfo(Expression<Func<sys_org_info, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_org_info.FirstOrDefault(predicate);
+			}
+		}
+
+		/// <summary>
+		/// 获取组织机构信息。
+		/// </summary>
 		/// <param name="orgId"></param>
 		/// <returns></returns>
 		public sys_org_info GetOrgInfo(int orgId)

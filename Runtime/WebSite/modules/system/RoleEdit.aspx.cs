@@ -22,14 +22,14 @@ public partial class modules_system_RoleEdit : AdminPage
 		}
 	}
 
-	private readonly RoleBus _bus = new RoleBus();
+	private readonly RoleBus _rbus = new RoleBus();
 
 	private void BindData()
 	{
 		this._userList.Visible = false;
 		var dataId = WebParmKit.GetQuery("key", 0);
 		if (dataId > 0) {
-			var model = _bus.GetRoleInfo(dataId);
+			var model = _rbus.GetRole(dataId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 
@@ -41,18 +41,19 @@ public partial class modules_system_RoleEdit : AdminPage
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var model = new sys_role_info();
+			var id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			sys_role_info model;
 
-			BindKit.FillModelFromContainer(this.editor, model);
-
-			if (this.Id.Value == "") {
+			if (id == 0) {
+				model = new sys_role_info();
 				model.IsDel = 0;
 				model.Creator = this.CurrentUserName;
 				model.CreateDate = DateTime.Now;
-				_bus.Save(model);
 			} else {
-				_bus.Save(model);
+				model = _rbus.GetRole(a => a.Id == id);
 			}
+			BindKit.FillModelFromContainer(this.editor, model);
+			_rbus.Save(model);
 
 			this.promptControl.ShowSuccess("保存成功！");
 		}

@@ -9,8 +9,10 @@
 *.userosscache
 *.sln.docstates
 *.log
+error*.txt
+debug*.txt
+info*.txt
 logs/*.txt
-*/logs/*.txt
 uploads/
 
 # User-specific files (MonoDevelop/Xamarin Studio)

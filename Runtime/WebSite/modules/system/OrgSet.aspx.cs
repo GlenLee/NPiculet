@@ -113,10 +113,11 @@ public partial class modules_system_OrgSet : AdminPage
 		if (Page.IsValid) {
 			this.CurName.Text = "";
 
-			var data = new sys_org_info();
-			BindKit.FillModelFromContainer(this.editor, data);
+			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			sys_org_info data;
 
-			if (this.Id.Value == "") {
+			if (id == 0) {
+				data = new sys_org_info();
 				data.FullName = data.Alias;
 				data.ParentId = 0;
 				data.RootId = 0;
@@ -125,12 +126,12 @@ public partial class modules_system_OrgSet : AdminPage
 				data.IsDel = 0;
 				data.Creator = this.CurrentUserName;
 				data.CreateDate = DateTime.Now;
-				_obus.SaveOrg(data);
 			} else {
+				data = _obus.GetOrgInfo(id);
 				data.FullName = data.FullName.IndexOf("/") > -1 ? data.FullName.Substring(0, data.FullName.LastIndexOf("/")) + "/" + data.Alias : data.Alias;
-
-				_obus.SaveOrg(data);
 			}
+			BindKit.FillModelFromContainer(this.editor, data);
+			_obus.SaveOrg(data);
 
 			ClearControls();
 
@@ -145,6 +146,7 @@ public partial class modules_system_OrgSet : AdminPage
 		if (Page.IsValid) {
 			var data = new sys_org_info();
 			BindKit.FillModelFromContainer(this.editor, data);
+			data.Id = 0;
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 			data.RootId = GetRootId();
 			data.FullName = data.FullName.IndexOf("/") > -1 ? data.FullName.Substring(0, data.FullName.LastIndexOf("/")) + "/" + data.Alias : data.Alias;
@@ -166,6 +168,7 @@ public partial class modules_system_OrgSet : AdminPage
 		if (Page.IsValid) {
 			var data = new sys_org_info();
 			BindKit.FillModelFromContainer(this.editor, data);
+			data.Id = 0;
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 			data.RootId = GetRootId();
 			data.Path = data.Path + "/" + this.Id.Value;

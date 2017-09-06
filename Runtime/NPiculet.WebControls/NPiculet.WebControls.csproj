@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NPager\NPager.cs" />
+    <Compile Include="NPager\PageJumpEventArgs.cs" />
     <Compile Include="NPager\PaginationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

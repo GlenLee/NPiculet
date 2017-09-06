@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Linq.Expressions;
 using NPiculet.Authorization;
@@ -17,6 +18,30 @@ namespace NPiculet.Logic.Business
 	/// </summary>
 	public partial class UserBus : IBusiness
 	{
+		/// <summary>
+		/// 获取用户信息
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public sys_user_info GetUser(Expression<Func<sys_user_info, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_user_info.FirstOrDefault(predicate);
+			}
+		}
+
+		/// <summary>
+		/// 获取用户资料
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public sys_user_data GetUserData(Expression<Func<sys_user_data, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_user_data.FirstOrDefault(predicate);
+			}
+		}
+
 		/// <summary>
 		/// 创建一个加密密码字符串
 		/// </summary>
@@ -34,7 +59,7 @@ namespace NPiculet.Logic.Business
 		/// </summary>
 		/// <param name="userId"></param>
 		/// <returns></returns>
-		public sys_user_info GetUserInfo(int userId)
+		public sys_user_info GetUser(int userId)
 		{
 			using (var db = new NPiculetEntities()) {
 				return db.sys_user_info.FirstOrDefault(a => a.IsDel == 0 && a.Id == userId);
@@ -46,7 +71,7 @@ namespace NPiculet.Logic.Business
 		/// </summary>
 		/// <param name="account"></param>
 		/// <returns></returns>
-		public sys_user_info GetUserInfo(string account)
+		public sys_user_info GetUser(string account)
 		{
 			using (var db = new NPiculetEntities()) {
 				return db.sys_user_info.FirstOrDefault(a => a.IsDel == 0 && a.Account == account);

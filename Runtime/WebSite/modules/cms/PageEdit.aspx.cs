@@ -12,42 +12,16 @@ using NPiculet.Logic.Base;
 using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
-public partial class modules_info_InfoContentEdit : AdminPage
+public partial class modules_cms_PageEdit : AdminPage
 {
-	[Category("业务参数"), Browsable(true), Description("栏目编码")]
-	public string GroupCode { get { return WebParmKit.GetQuery("code", ""); } }
-
-	[Category("业务参数"), Browsable(true), Description("栏目类型")]
-	public string GroupType { get { return WebParmKit.GetQuery("type", ""); } }
+	public int GroupId { get { return WebParmKit.GetQuery("gid", 0); } }
+	public string GroupCode { get { return WebParmKit.GetQuery("group", ""); } }
 
 	private readonly CmsContentBus _cbus = new CmsContentBus();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			string code = GroupCode;
-			cms_content_group group;
-			if (code.IsNumeric()) {
-				int dataId = ConvertKit.ConvertValue(code, 0);
-				group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == dataId);
-			} else {
-				group = _cbus.GetGroup(a => a.GroupCode == code);
-			}
-			if (group == null) {
-				this.AlertBeauty("没有找到数据，请检查数据完整性！");
-				this.btnSave.Visible = false;
-				this.btnPublish.Visible = false;
-				this.btnView.Visible = false;
-				return;
-			}
-
-			this.GroupName.Text = group.GroupName;
-
-			if (this.GroupType.ToLower() == "content") {
-				this.InfoTitle.Text = group.GroupName;
-				this.pThumb.Visible = false;
-			}
-
 			BindData();
 			InitControl();
 		}
@@ -56,52 +30,63 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	/// <summary>
 	/// 初始化控件
 	/// </summary>
-	private void InitControl() {
+	private void InitControl()
+	{
 		if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
 			this.btnPublish.Visible = false;
 		} else {
 			this.btnPublish.Visible = true;
+			this.btnView.NavigateUrl = "~/view/" + this.Id.Value;
 		}
 	}
 
 	private void BindData()
 	{
-		string gcode = null, code = GroupCode;
-
-		if (code.IsNumeric()) {
-			int id = ConvertKit.ConvertValue(code, 0);
-			var g = _cbus.GetGroup(a => a.Id == id);
-			if (g != null) gcode = g.GroupCode;
+		int gid = this.GroupId;
+		string code = this.GroupCode;
+		var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == gid);
+		if (group == null) {
+			this.AlertBeauty("没有找到数据，请检查数据完整性！");
+			this.btnSave.Visible = false;
+			this.btnPublish.Visible = false;
+			this.btnView.Visible = false;
+			return;
 		}
+
+		this.Title = group.GroupName;
+		this.GroupName.Text = group.GroupName;
 
 		int dataId = WebParmKit.GetQuery("id", 0);
 		if (dataId > 0) {
-			var model = _cbus.GetPage(a => (a.GroupCode == code || a.GroupCode == gcode) && a.Id == dataId);
+			var model = _cbus.GetPage(a => a.GroupCode == group.GroupCode && a.Id == dataId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 				this.InfoTitle.Text = model.Title;
 
 				ShowThumb(model.Thumb);
+
+				//处理置顶
+				this.OrderBy.Checked = model.OrderBy == 0;
 			}
 
 			this.btnView.Visible = true;
 		} else {
 			this.btnView.Visible = false;
 		}
-
-		if (this.GroupType.ToLower() == "content") {
-			var model = _cbus.GetPage(a => a.GroupCode == code || a.GroupCode == gcode);
-			if (model != null) {
-				BindKit.BindModelToContainer(this.editor, model);
-				this.InfoTitle.Text = model.Title;
-			}
-		}
 	}
 
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
-			var model = new cms_content_page();
+			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			cms_content_page model;
+
+			if (id == 0) {
+				model = new cms_content_page();
+			} else {
+				model = _cbus.GetPage(a => a.Id == id);
+			}
+
 			BindKit.FillModelFromContainer(this.editor, model);
 
 			if (!string.IsNullOrEmpty(this.Thumb.FileName)) {
@@ -121,24 +106,19 @@ public partial class modules_info_InfoContentEdit : AdminPage
 				ShowThumb(model.Thumb);
 			}
 
+			//处理置顶
+			model.OrderBy = this.OrderBy.Checked ? 0 : 1;
+
+			//处理组信息
 			string code = GroupCode;
 			int dataId = ConvertKit.ConvertValue(code, 0);
 			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == dataId);
 
-			if (this.GroupType.ToLower() == "content") {
-				model.Title = this.InfoTitle.Text;
-
-				_cbus.SavePageByGroup(group.GroupCode, model);
-				//if (!_cbus.Update(model, "GroupCode='" + group.GroupCode + "'")) {
-				//	InsertNewData(model, group);
-				//}
+			if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
+				InsertNewData(model, group);
 			} else {
-				if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
-					InsertNewData(model, group);
-				} else {
-					model.Title = this.InfoTitle.Text;
-					_cbus.SavePage(model);
-				}
+				model.Title = this.InfoTitle.Text;
+				_cbus.SavePage(model);
 			}
 
 			this.Id.Value = model.Id.ToString();
@@ -149,9 +129,16 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		InitControl();
 	}
 
-	private void InsertNewData(cms_content_page model, cms_content_group group) {
+	/// <summary>
+	/// 新增数据
+	/// </summary>
+	/// <param name="model"></param>
+	/// <param name="group"></param>
+	private void InsertNewData(cms_content_page model, cms_content_group group)
+	{
 		var user = this.CurrentUserInfo;
 
+		model.Id = 0;
 		model.Title = this.InfoTitle.Text;
 		model.GroupCode = group.GroupCode;
 		model.Click = 0;
@@ -171,6 +158,10 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		pbus.SavePointLog(this.CurrentUserInfo, "cms_content_page", model.Id.ToString(), point, "发布文章，增加积分", model.Title);
 	}
 
+	/// <summary>
+	/// 显示缩略图
+	/// </summary>
+	/// <param name="thumbPath"></param>
 	private void ShowThumb(string thumbPath)
 	{
 		if (!string.IsNullOrEmpty(thumbPath)) {
@@ -182,20 +173,18 @@ public partial class modules_info_InfoContentEdit : AdminPage
 		}
 	}
 
-	protected string GetBackUrl()
-	{
-		if (this.GroupType == "List") {
-			return "<a href=\"InfoPageList.aspx?code=" + this.GroupCode + "\"><i class=\"sui-icon icon-tb-back\"></i>返回</a>";
-		}
-		return "";
-	}
-
-	protected string GetStyle()
-	{
-		if (this.GroupType.ToLower() == "content") {
-			return " style=\"display:none;\"";
-		}
-		return "";
+	/// <summary>
+	/// 组合返回链接
+	/// </summary>
+	/// <returns></returns>
+	protected string GetBackUrl() {
+		int gid = this.GroupId;
+		string code = this.GroupCode;
+		string url = "<a href=\"PageList.aspx?";
+		if (gid > 0) url += "gid=" + gid;
+		if (!string.IsNullOrEmpty(code)) url += "group=" + code;
+		url += "\"><i class=\"sui-icon icon-tb-back\"></i>返回</a>";
+		return url;
 	}
 
 	/// <summary>
@@ -203,11 +192,11 @@ public partial class modules_info_InfoContentEdit : AdminPage
 	/// </summary>
 	/// <param name="sender"></param>
 	/// <param name="e"></param>
-	protected void btnPublish_Click(object sender, EventArgs e) {
+	protected void btnPublish_Click(object sender, EventArgs e)
+	{
 		if (!string.IsNullOrEmpty(this.Id.Value) && this.Id.Value != "0") {
-			var p = _cbus.GetPage(a => a.Id == ConvertKit.ConvertValue(this.Id.Value, 0));
-			p.IsEnabled = 1;
-			_cbus.SavePage(p);
+			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			_cbus.PublishPage(id);
 			this.IsEnabled.Checked = true;
 		}
 	}

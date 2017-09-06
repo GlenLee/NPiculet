@@ -2,20 +2,15 @@
 using System.Web.UI;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
+using NPiculet.WebControls;
 
 public partial class modules_common_RoleDialog : AdminPage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			this.NPager1.PageSize = 15;
-
 			BindRoleList();
 		}
-		//分页事件
-		this.NPager1.PageClick += (o, args) => {
-			BindRoleList();
-		};
 	}
 
 	private void BindRoleList()
@@ -23,11 +18,15 @@ public partial class modules_common_RoleDialog : AdminPage
 		RoleBus bus = new RoleBus();
 
 		int count;
-		var data = bus.GetRoleList(out count, this.NPager1.CurrentPage, this.NPager1.PageSize, a => a.IsDel == 0 && a.IsEnabled == 1);
+		var data = bus.GetRoleList(out count, this.nPager.CurrentPage, this.nPager.PageSize, a => a.IsDel == 0 && a.IsEnabled == 1);
 
-		this.NPager1.RecordCount = count;
+		this.nPager.RecordCount = count;
 
 		this.list.DataSource = data;
 		this.list.DataBind();
+	}
+
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
+		BindRoleList();
 	}
 }

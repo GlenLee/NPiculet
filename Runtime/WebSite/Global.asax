@@ -32,9 +32,6 @@
 		} catch (Exception ex) {
 			throw new Exception("没有正确读取JSON配置：" + json, ex);
 		}
-
-		//routes.MapPageRoute("", "View/{id}", "~/web/ContentView.aspx");
-		//routes.MapPageRoute("", "List/{groupCode}", "~/web/ContentList.aspx");
 	}
 
 	void Application_End(object sender, EventArgs e)
@@ -49,13 +46,9 @@
 		var err = Server.GetLastError();
 		if (err != null) {
 			//var baseErr = err.GetBaseException();
+
 			//记录事件日志
 			Logger.Error("应用程序错误！", err);
-			//string msg = "Error Caught in Application_Error event\n"
-			//    + "Error in:" + Request.Url.ToString()
-			//    + "\nError Message:" + baseErr.Message
-			//    + "\nStack Trace:" + baseErr.StackTrace;
-			//EventLog.WriteEntry("Sample_WebApp", msg, EventLogEntryType.Error);  
 		}
 		//清除错误
 		//Server.ClearError(); 

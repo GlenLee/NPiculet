@@ -17,7 +17,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
 	<ul class="searchbar-wrap">
 		<li><asp:DropDownList runat="server" ID="ddlDictGroup"/></li>
-		<li>关键字：<asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称或编码"></asp:TextBox></li>
+		<li><asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索名称或编码"></asp:TextBox></li>
 		<li><asp:Button ID="btnSearch" runat="server" Text="搜索" onclick="btnSearch_Click"/></li>
 	</ul>
 </asp:Content>
@@ -40,7 +40,7 @@
 			<asp:BoundField DataField="OrderBy" HeaderText="排序">
 				<HeaderStyle Width="70px" />
 			</asp:BoundField>
-			<asp:BoundField DataField="CreateDate" DataFormatString="{0:D}" HeaderText="创建时间">
+			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="创建时间">
 		        <HeaderStyle Width="140px" />
             </asp:BoundField>
 			<asp:TemplateField HeaderText="启用">

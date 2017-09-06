@@ -6,5 +6,5 @@
 <script type="text/javascript">
 	setTimeout(function () {
 		$('.sui-msg').slideUp();
-	}, 10000);
+	}, 6000);
 </script>
