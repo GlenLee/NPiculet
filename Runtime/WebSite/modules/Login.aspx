@@ -160,7 +160,7 @@
 			<h1 class="login-title"><%= GetPlatformName() %></h1>
 			<div class="login-screen">
 				<div class="login-icon">
-					<img src="../images/logo.png" />
+					<img src="../styles/admin/logo.png" />
 				</div>
 
 				<div class="login-form">

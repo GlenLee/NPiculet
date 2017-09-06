@@ -233,6 +233,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Platform" Type="varchar" MaxLength="32" />
           <Property Name="Name" Type="varchar" MaxLength="64" />
           <Property Name="Code" Type="varchar" MaxLength="32" />
           <Property Name="Key" Type="varchar" MaxLength="128" />
@@ -281,49 +282,13 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="sys_member_corporation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" />
-          <Property Name="UserAccount" Type="varchar" MaxLength="32" />
-          <Property Name="CorporationTel" Type="varchar" MaxLength="255" />
-          <Property Name="CorporationBreifName" Type="varchar" MaxLength="255" />
-          <Property Name="CorporationNature" Type="varchar" MaxLength="255" />
-          <Property Name="BusinessLicences" Type="varchar" MaxLength="255" />
-          <Property Name="CorporationName" Type="varchar" MaxLength="255" />
-          <Property Name="ApprovalDocument" Type="varchar" MaxLength="255" />
-          <Property Name="FireSafety" Type="varchar" MaxLength="255" />
-          <Property Name="InternetCulture" Type="varchar" MaxLength="255" />
-          <Property Name="BodyCorporateIdView" Type="varchar" MaxLength="255" />
-          <Property Name="BodyCorporateTel" Type="varchar" MaxLength="255" />
-          <Property Name="BodyCorporateIdCard" Type="varchar" MaxLength="255" />
-          <Property Name="BodyCorporate" Type="varchar" MaxLength="255" />
-          <Property Name="ChargeManIdView" Type="varchar" MaxLength="255" />
-          <Property Name="ChargeMan" Type="varchar" MaxLength="255" />
-          <Property Name="ChargeManTel" Type="varchar" MaxLength="255" />
-          <Property Name="ChargeManIdCard" Type="varchar" MaxLength="255" />
-          <Property Name="CorporationAddress" Type="varchar" MaxLength="255" />
-          <Property Name="longitude" Type="varchar" MaxLength="255" />
-          <Property Name="Altitudes" Type="varchar" MaxLength="255" />
-          <Property Name="BillboardView" Type="varchar" MaxLength="255" />
-          <Property Name="EnterView" Type="varchar" MaxLength="255" />
-          <Property Name="AllStaffForegroundView" Type="varchar" MaxLength="255" />
-          <Property Name="ChargForegroundView" Type="varchar" MaxLength="255" />
-          <Property Name="ForegroundView" Type="varchar" MaxLength="255" />
-          <Property Name="HallPanoramicView" Type="varchar" MaxLength="255" />
-          <Property Name="HallView" Type="varchar" MaxLength="255" />
-          <Property Name="CorporationIntro" Type="longtext" />
-          <Property Name="MemberLevel" Type="varchar" MaxLength="255" />
-        </EntityType>
         <EntityType Name="sys_member_data">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="UserAccount" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="MemberAccount" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Nickname" Type="varchar" MaxLength="32" />
           <Property Name="Birthday" Type="varchar" MaxLength="16" />
           <Property Name="Sex" Type="varchar" MaxLength="8" />
@@ -352,7 +317,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserSn" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="MemberSn" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="Account" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="32" Nullable="false" />
@@ -525,7 +490,6 @@
           <EntitySet Name="sys_config" EntityType="Self.sys_config" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_link_user_org" EntityType="Self.sys_link_user_org" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_link_user_role" EntityType="Self.sys_link_user_role" Schema="npiculet" store:Type="Tables" />
-          <EntitySet Name="sys_member_corporation" EntityType="Self.sys_member_corporation" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_member_data" EntityType="Self.sys_member_data" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_member_info" EntityType="Self.sys_member_info" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="npiculet" store:Type="Tables" />
@@ -559,15 +523,14 @@
           <EntitySet Name="sys_config" EntityType="NPiculetModel.sys_config" />
           <EntitySet Name="sys_link_user_org" EntityType="NPiculetModel.sys_link_user_org" />
           <EntitySet Name="sys_link_user_role" EntityType="NPiculetModel.sys_link_user_role" />
-          <EntitySet Name="sys_member_corporation" EntityType="NPiculetModel.sys_member_corporation" />
-          <EntitySet Name="sys_member_data" EntityType="NPiculetModel.sys_member_data" />
-          <EntitySet Name="sys_member_info" EntityType="NPiculetModel.sys_member_info" />
           <EntitySet Name="sys_menu" EntityType="NPiculetModel.sys_menu" />
           <EntitySet Name="sys_org_group" EntityType="NPiculetModel.sys_org_group" />
           <EntitySet Name="sys_org_info" EntityType="NPiculetModel.sys_org_info" />
           <EntitySet Name="sys_role_info" EntityType="NPiculetModel.sys_role_info" />
           <EntitySet Name="sys_user_data" EntityType="NPiculetModel.sys_user_data" />
           <EntitySet Name="sys_user_info" EntityType="NPiculetModel.sys_user_info" />
+          <EntitySet Name="sys_member_data" EntityType="NPiculetModel.sys_member_data" />
+          <EntitySet Name="sys_member_info" EntityType="NPiculetModel.sys_member_info" />
         </EntityContainer>
         <EntityType Name="bas_attachment">
           <Key>
@@ -803,6 +766,7 @@
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="Platform" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_authorization">
           <Key>
@@ -844,102 +808,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sys_member_corporation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="UserAccount" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CorporationTel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CorporationBreifName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CorporationNature" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BusinessLicences" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CorporationName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ApprovalDocument" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FireSafety" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="InternetCulture" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BodyCorporateIdView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BodyCorporateTel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BodyCorporateIdCard" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BodyCorporate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ChargeManIdView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ChargeMan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ChargeManTel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ChargeManIdCard" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CorporationAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="longitude" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Altitudes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BillboardView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EnterView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="AllStaffForegroundView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ChargForegroundView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ForegroundView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="HallPanoramicView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="HallView" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CorporationIntro" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="MemberLevel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="sys_member_data">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="UserAccount" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Nickname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Birthday" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MemberCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="IdCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Education" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
-          <Property Name="QQ" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Weixin" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Weibo" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Interest" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="PointCurrent" Type="Decimal" />
-          <Property Name="PointTotal" Type="Decimal" />
-          <Property Name="Exp" Type="Decimal" />
-          <Property Name="Cash" Type="Decimal" />
-          <Property Name="Cost" Type="Decimal" />
-          <Property Name="HeadIcon" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="RechargeStatus" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="IsDel" Type="Int32" />
-        </EntityType>
-        <EntityType Name="sys_member_info">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserSn" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="MemberLevel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="MemberLevelStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BindSource" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="BindDate" Type="DateTime" />
-          <Property Name="LoginTimes" Type="Int32" />
-          <Property Name="LastLoginDate" Type="DateTime" />
-          <Property Name="LastLogoutDate" Type="DateTime" />
-          <Property Name="PassQuestion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PassAnswer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FailedCount" Type="Int32" />
-          <Property Name="FailedDate" Type="DateTime" />
-          <Property Name="OrderBy" Type="Int32" />
-          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="IsDel" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDate" Type="DateTime" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
         </EntityType>
         <EntityType Name="sys_menu">
           <Key>
@@ -1064,6 +932,65 @@
           <Property Name="OrderBy" Type="Int32" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="IsDel" Type="Int32" Nullable="false" />
+          <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="sys_member_data">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberAccount" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Nickname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MemberCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="IdCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Education" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
+          <Property Name="QQ" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Weixin" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Weibo" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Interest" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PointCurrent" Type="Decimal" />
+          <Property Name="PointTotal" Type="Decimal" />
+          <Property Name="Exp" Type="Decimal" />
+          <Property Name="Cash" Type="Decimal" />
+          <Property Name="Cost" Type="Decimal" />
+          <Property Name="HeadIcon" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="IsDel" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sys_member_info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberSn" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="MemberLevel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="MemberLevelStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BindSource" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="BindDate" Type="DateTime" />
+          <Property Name="LoginTimes" Type="Int32" />
+          <Property Name="LastLoginDate" Type="DateTime" />
+          <Property Name="LastLogoutDate" Type="DateTime" />
+          <Property Name="PassQuestion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PassAnswer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FailedCount" Type="Int32" />
+          <Property Name="FailedDate" Type="DateTime" />
+          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="IsDel" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
@@ -1315,6 +1242,7 @@
           <EntitySetMapping Name="sys_app">
             <EntityTypeMapping TypeName="NPiculetModel.sys_app">
               <MappingFragment StoreEntitySet="sys_app">
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
@@ -1366,105 +1294,6 @@
               <MappingFragment StoreEntitySet="sys_link_user_role">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_member_corporation">
-            <EntityTypeMapping TypeName="NPiculetModel.sys_member_corporation">
-              <MappingFragment StoreEntitySet="sys_member_corporation">
-                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
-                <ScalarProperty Name="CorporationIntro" ColumnName="CorporationIntro" />
-                <ScalarProperty Name="HallView" ColumnName="HallView" />
-                <ScalarProperty Name="HallPanoramicView" ColumnName="HallPanoramicView" />
-                <ScalarProperty Name="ForegroundView" ColumnName="ForegroundView" />
-                <ScalarProperty Name="ChargForegroundView" ColumnName="ChargForegroundView" />
-                <ScalarProperty Name="AllStaffForegroundView" ColumnName="AllStaffForegroundView" />
-                <ScalarProperty Name="EnterView" ColumnName="EnterView" />
-                <ScalarProperty Name="BillboardView" ColumnName="BillboardView" />
-                <ScalarProperty Name="Altitudes" ColumnName="Altitudes" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
-                <ScalarProperty Name="CorporationAddress" ColumnName="CorporationAddress" />
-                <ScalarProperty Name="ChargeManIdCard" ColumnName="ChargeManIdCard" />
-                <ScalarProperty Name="ChargeManTel" ColumnName="ChargeManTel" />
-                <ScalarProperty Name="ChargeMan" ColumnName="ChargeMan" />
-                <ScalarProperty Name="ChargeManIdView" ColumnName="ChargeManIdView" />
-                <ScalarProperty Name="BodyCorporate" ColumnName="BodyCorporate" />
-                <ScalarProperty Name="BodyCorporateIdCard" ColumnName="BodyCorporateIdCard" />
-                <ScalarProperty Name="BodyCorporateTel" ColumnName="BodyCorporateTel" />
-                <ScalarProperty Name="BodyCorporateIdView" ColumnName="BodyCorporateIdView" />
-                <ScalarProperty Name="InternetCulture" ColumnName="InternetCulture" />
-                <ScalarProperty Name="FireSafety" ColumnName="FireSafety" />
-                <ScalarProperty Name="ApprovalDocument" ColumnName="ApprovalDocument" />
-                <ScalarProperty Name="CorporationName" ColumnName="CorporationName" />
-                <ScalarProperty Name="BusinessLicences" ColumnName="BusinessLicences" />
-                <ScalarProperty Name="CorporationNature" ColumnName="CorporationNature" />
-                <ScalarProperty Name="CorporationBreifName" ColumnName="CorporationBreifName" />
-                <ScalarProperty Name="CorporationTel" ColumnName="CorporationTel" />
-                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_member_data">
-            <EntityTypeMapping TypeName="NPiculetModel.sys_member_data">
-              <MappingFragment StoreEntitySet="sys_member_data">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="RechargeStatus" ColumnName="RechargeStatus" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="HeadIcon" ColumnName="HeadIcon" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Cash" ColumnName="Cash" />
-                <ScalarProperty Name="Exp" ColumnName="Exp" />
-                <ScalarProperty Name="PointTotal" ColumnName="PointTotal" />
-                <ScalarProperty Name="PointCurrent" ColumnName="PointCurrent" />
-                <ScalarProperty Name="Interest" ColumnName="Interest" />
-                <ScalarProperty Name="Weibo" ColumnName="Weibo" />
-                <ScalarProperty Name="Weixin" ColumnName="Weixin" />
-                <ScalarProperty Name="QQ" ColumnName="QQ" />
-                <ScalarProperty Name="Education" ColumnName="Education" />
-                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
-                <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
-                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_member_info">
-            <EntityTypeMapping TypeName="NPiculetModel.sys_member_info">
-              <MappingFragment StoreEntitySet="sys_member_info">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="Updater" ColumnName="Updater" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
-                <ScalarProperty Name="FailedDate" ColumnName="FailedDate" />
-                <ScalarProperty Name="FailedCount" ColumnName="FailedCount" />
-                <ScalarProperty Name="PassAnswer" ColumnName="PassAnswer" />
-                <ScalarProperty Name="PassQuestion" ColumnName="PassQuestion" />
-                <ScalarProperty Name="LastLogoutDate" ColumnName="LastLogoutDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
-                <ScalarProperty Name="BindDate" ColumnName="BindDate" />
-                <ScalarProperty Name="BindSource" ColumnName="BindSource" />
-                <ScalarProperty Name="MemberLevelStatus" ColumnName="MemberLevelStatus" />
-                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="UserSn" ColumnName="UserSn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1599,6 +1428,67 @@
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="UserSn" ColumnName="UserSn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_member_data">
+            <EntityTypeMapping TypeName="NPiculetModel.sys_member_data">
+              <MappingFragment StoreEntitySet="sys_member_data">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="HeadIcon" ColumnName="HeadIcon" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Cash" ColumnName="Cash" />
+                <ScalarProperty Name="Exp" ColumnName="Exp" />
+                <ScalarProperty Name="PointTotal" ColumnName="PointTotal" />
+                <ScalarProperty Name="PointCurrent" ColumnName="PointCurrent" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="Weibo" ColumnName="Weibo" />
+                <ScalarProperty Name="Weixin" ColumnName="Weixin" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+                <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_member_info">
+            <EntityTypeMapping TypeName="NPiculetModel.sys_member_info">
+              <MappingFragment StoreEntitySet="sys_member_info">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="FailedDate" ColumnName="FailedDate" />
+                <ScalarProperty Name="FailedCount" ColumnName="FailedCount" />
+                <ScalarProperty Name="PassAnswer" ColumnName="PassAnswer" />
+                <ScalarProperty Name="PassQuestion" ColumnName="PassQuestion" />
+                <ScalarProperty Name="LastLogoutDate" ColumnName="LastLogoutDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="BindDate" ColumnName="BindDate" />
+                <ScalarProperty Name="BindSource" ColumnName="BindSource" />
+                <ScalarProperty Name="MemberLevelStatus" ColumnName="MemberLevelStatus" />
+                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="MemberSn" ColumnName="MemberSn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

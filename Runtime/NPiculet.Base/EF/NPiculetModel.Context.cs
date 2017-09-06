@@ -44,14 +44,13 @@ namespace NPiculet.Base.EF
         public virtual DbSet<sys_config> sys_config { get; set; }
         public virtual DbSet<sys_link_user_org> sys_link_user_org { get; set; }
         public virtual DbSet<sys_link_user_role> sys_link_user_role { get; set; }
-        public virtual DbSet<sys_member_corporation> sys_member_corporation { get; set; }
-        public virtual DbSet<sys_member_data> sys_member_data { get; set; }
-        public virtual DbSet<sys_member_info> sys_member_info { get; set; }
         public virtual DbSet<sys_menu> sys_menu { get; set; }
         public virtual DbSet<sys_org_group> sys_org_group { get; set; }
         public virtual DbSet<sys_org_info> sys_org_info { get; set; }
         public virtual DbSet<sys_role_info> sys_role_info { get; set; }
         public virtual DbSet<sys_user_data> sys_user_data { get; set; }
         public virtual DbSet<sys_user_info> sys_user_info { get; set; }
+        public virtual DbSet<sys_member_data> sys_member_data { get; set; }
+        public virtual DbSet<sys_member_info> sys_member_info { get; set; }
     }
 }

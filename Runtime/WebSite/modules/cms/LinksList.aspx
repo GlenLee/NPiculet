@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="友链管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksList.aspx.cs" Inherits="modules.info.LinksList" %>
+<%@ Register TagPrefix="uc" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" Runat="Server">
 </asp:Content>
@@ -16,7 +17,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" AllowPaging="True" CssClass="sui-table table-primary" PageSize="15">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
 		<Columns>
 			<asp:BoundField DataField="Description" HeaderText="描述" />
 			<asp:BoundField DataField="Url" HeaderText="链接" />
@@ -25,11 +26,14 @@
 				<ItemStyle HorizontalAlign="Center" />
 				<ItemTemplate><a href="LinksEdit.aspx?key=<%# Eval("Id") %>">编辑</a></ItemTemplate>
 			</asp:TemplateField>
-			<asp:CommandField ShowDeleteButton="True" HeaderText="删除" >
-				<HeaderStyle Width="50px" />
-				<ItemStyle HorizontalAlign="Center" />
-			</asp:CommandField>
+			<asp:TemplateField HeaderText="删除">
+				<HeaderStyle Width="50px"></HeaderStyle>
+				<ItemStyle HorizontalAlign="Center"></ItemStyle>
+				<ItemTemplate>
+					<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('确定要删除吗？');">删除</asp:LinkButton>
+				</ItemTemplate>
+			</asp:TemplateField>
 		</Columns>
-		<PagerSettings FirstPageText="第一页" LastPageText="最后页" Mode="NumericFirstLast" NextPageText="上一页" PreviousPageText="下一页" />
 	</asp:GridView>
+	<uc:NPager ID="nPager" runat="server" PageSize="15" OnPageClick="nPager_OnPageClick"/>
 </asp:Content>

@@ -7,150 +7,65 @@ using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using NPiculet.Authorization;
+using NPiculet.Cms.Business;
+using NPiculet.Logic.Business;
+using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 public partial class _Default : System.Web.UI.Page
 {
-	private NPiculetEntities _db = new NPiculetEntities();
-
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (!IsPostBack)
-		{
-			BindMemeberList();
-			BindLawList();
-			BindNewsList();
-			BindConsultNewsList();
-			BindAssociatorShow();
-			BindBarList();
-			BindAssociationNews();
-			BindPagePolicyList();
-			BindEntHireList();
-			BindSaleList();
-			BindAdvToRepeater(RecommendBrands, AdvType.推荐品牌, 20);
-			BindAdvToRepeater(AdvertisingOfTop, AdvType.轮播广告, 5);
-			BindAdvToRepeater(BottomBanner, AdvType.底部广告, 2);
-		}
-
-		var member = LoginKit.GetCurrentMember();
-		bool login = (member != null);
-		indexLoginForm.Visible = !login;
-		indexUserInfo.Visible = login;
-	}
-
-	public enum AdvStatus
-	{
-		编辑中 = -1,
-		待审核 = 0,
-		已审核 = 1,
-		未通过 = 2
-	}
-
-	public enum AdvType
-	{
-		轮播广告 = 0,
-		底部广告 = 1,
-		右侧广告 = 2,
-		推荐品牌 = 3
-	}
-
-	public enum HireStatus
-	{
-		未公开 = 0,
-		已公开 = 1
-	}
-
-	public static void BindAdvToRepeater(Repeater repeater, AdvType type, int recNum)
-	{
-		using (NPiculetEntities db = new NPiculetEntities()) {
-			int status = (int)AdvStatus.已审核;
-			string advType = type.ToString();
-			var data = db.cms_adv_info.Where(x => x.Position == advType
-			                                      && x.IsEnabled == status
-			                                      && (x.EndDate == null || x.EndDate <= DateTime.Now)).
-				OrderBy(x => x.OrderBy).
-				Take(recNum).ToList();
-			if (data.Count() < 1)
-				return;
-			repeater.DataSource = data;
-			repeater.DataBind();
+		if (!IsPostBack) {
+			BindMainNews();
+			BindImageList();
+			BindNews();
+			BindPointList();
+			BindExtLink();
 		}
 	}
 
-	private void BindEntHireList()
+	private void BindImageList()
 	{
-		var list = _db.cms_content_page.Where
-			(row => row.GroupCode == "EntHire" && row.IsEnabled == (int)HireStatus.已公开)
-			.OrderByDescending(x => x.CreateDate)
-			.Take(8)
-			.ToList();
+		using (var db = new NPiculetEntities()) {
 
-		TopEntHireList.DataSource = list;
-		TopEntHireList.DataBind();
-	}
+			var news = (from a in db.cms_content_page
+				where a.IsEnabled == 1 && a.GroupCode == "images"
+				orderby a.OrderBy descending, a.CreateDate descending
+				select a).Skip(6).Take(6).ToList();
 
-	private void BindMemeberList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageJobSeeker" && x.IsEnabled == (int)HireStatus.已公开)
-			.OrderByDescending(x => x.CreateDate)
-			.Take(7)
-			.ToList();
-
-		if (data.Count >= 1)
-		{
-			this.TopJobSeekers.DataSource = data;
-			this.TopJobSeekers.DataBind();
-		}
-	}
-	private void BindLawList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageLaw")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(12)
-			.ToList();
-		if (data.Count >= 1)
-		{
-			this.LawList.DataSource = data;
-			this.LawList.DataBind();
+			this.imagesList.DataSource = news;
+			this.imagesList.DataBind();
 		}
 	}
 
-	private void BindNewsList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageNew")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(7)
-			.ToList();
-		if (data.Count >= 1)
-		{
-			var hotNews = data[0];
-			var hotNewsUrl = "~/web/ContentView.aspx?groupCode="+ hotNews.GroupCode + "&id=" + hotNews.Id;
-			hotNewsImg.ImageUrl = string.IsNullOrEmpty(hotNews.Thumb) ? "~/styles/images/noimage.jpg" : hotNews.Thumb;
-			hotNewsTitle.Text = hotNews.Title;
-			hotNewsInfo.Text = GetHotNewsContent(hotNews.Content);
-			hotNewsInfo.NavigateUrl = hotNewsTitleLink.NavigateUrl = hotNewsImgLink.NavigateUrl = hotNewsUrl;
-			hotNewsTitleMore.NavigateUrl = hotNewsTitleLink.NavigateUrl;
+	private void BindMainNews() {
+		using (var db = new NPiculetEntities()) {
+			var news = (from a in db.cms_content_page
+				where a.IsEnabled == 1 && a.GroupCode == "images"
+				orderby a.OrderBy descending, a.CreateDate descending
+				select a).Take(6).ToList();
+			this.newsImages.DataSource = news.Take(3);
+			this.newsImages.DataBind();
 
-			data.RemoveAt(0);
-			this.newslist.DataSource = data;
+			this.newslist.DataSource = news.Skip(1).Take(6);
 			this.newslist.DataBind();
-		}
-	}
 
-	private void BindSaleList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "Sale").OrderByDescending(x => x.CreateDate).Take(8).ToList();
-		if (data.Count >= 1) {
-			this.salelist.DataSource = data;
-			this.salelist.DataBind();
+			if (news.Count > 0) {
+				var mainNews = news.First();
+				this.hotNewsTitleLink.Text = mainNews.Title.Left(24, "…");
+				this.hotNewsTitleLink.ToolTip = mainNews.Title;
+				this.hotNewsTitleLink.NavigateUrl = "~/view/" + mainNews.Id;
+				hotNewsInfo.Text = GetHotNewsContent(mainNews.Content);
+				hotNewsTitleMore.NavigateUrl = hotNewsTitleLink.NavigateUrl;
+			}
 		}
 	}
 
 	private string GetHotNewsContent(string originalText)
 	{
-		const int stringLen = 120;
-		string temp = NoHtml(originalText);
+		const int stringLen = 80;
+		string temp = "　　" + NoHtml(originalText);
 		if (temp.Length > stringLen)
 			return temp.Substring(0, stringLen - 1);
 		return temp;
@@ -158,6 +73,7 @@ public partial class _Default : System.Web.UI.Page
 
 	private static string NoHtml(string htmlstring)
 	{
+		htmlstring = htmlstring.Replace("　", " ");
 		//删除脚本
 		htmlstring = Regex.Replace(htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
 		//删除HTML
@@ -175,25 +91,13 @@ public partial class _Default : System.Web.UI.Page
 		htmlstring = Regex.Replace(htmlstring, @"&(pound|#163);", "\xa3", RegexOptions.IgnoreCase);
 		htmlstring = Regex.Replace(htmlstring, @"&(copy|#169);", "\xa9", RegexOptions.IgnoreCase);
 		htmlstring = Regex.Replace(htmlstring, @"&#(\d+);", "", RegexOptions.IgnoreCase);
-		htmlstring.Replace("<", "");
-		htmlstring.Replace(">", "");
-		htmlstring.Replace("\r\n", "");
+		htmlstring = Regex.Replace(htmlstring, @" +", " ", RegexOptions.IgnoreCase);
+		htmlstring = htmlstring.Replace("<", "");
+		htmlstring = htmlstring.Replace(">", "");
+		htmlstring = htmlstring.Replace("\r\n", "");
 		htmlstring = HttpContext.Current.Server.HtmlEncode(htmlstring).Trim();
 
 		return htmlstring;
-	}
-
-	private void BindConsultNewsList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageConsultNews")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(12)
-			.ToList();
-		if (data.Count >= 1)
-		{
-			this.ConsultNewsList.DataSource = data;
-			this.ConsultNewsList.DataBind();
-		}
 	}
 
 	protected string IsNewIcon()
@@ -205,71 +109,10 @@ public partial class _Default : System.Web.UI.Page
 		return "";
 	}
 
-	private void BindAssociatorShow()
+	protected string GetMainNewsTitle()
 	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageAssociatorShow")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(7)
-			.ToList();
-		if (data.Count >= 1)
-		{
-			this.AssociatorShowList.DataSource = data;
-			this.AssociatorShowList.DataBind();
-		}
-	}
-
-	private void BindBarList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageBar")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(14)
-			.ToList();
-		if (data.Count >= 1)
-		{
-			this.BarList.DataSource = data;
-			this.BarList.DataBind();
-		}
-	}
-
-	private void BindAssociationNews()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PageAssociationNews")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(9)
-			.ToList();
-		if (data.Count >= 1) {
-			var anNews = data[0];
-			var anNewsUrl = "~/web/ContentView.aspx?groupCode=" + anNews.GroupCode + "&id=" + anNews.Id;
-			anImage.ImageUrl = string.IsNullOrEmpty(anNews.Thumb) ? "~/styles/images/noimage.jpg" : anNews.Thumb;
-			anTitle.Text = anNews.Title;
-			anLink3.Text = GetHotNewsContent(anNews.Content);
-			anLink.NavigateUrl = anLink2.NavigateUrl = anLink3.NavigateUrl = anLink4.NavigateUrl = anNewsUrl;
-
-			data.RemoveAt(0);
-
-			this.AssociationNewsList.DataSource = data;
-			this.AssociationNewsList.DataBind();
-		}
-	}
-
-	private void BindPagePolicyList()
-	{
-		var data = _db.cms_content_page.Where(x => x.GroupCode == "PagePolicy")
-			.OrderByDescending(x => x.CreateDate)
-			.Take(14)
-			.ToList();
-		if (data.Count >= 1)
-		{
-			this.PagePolicyList.DataSource = data;
-			this.PagePolicyList.DataBind();
-		}
-	}
-
-	protected string GetGameTitle()
-	{
-		var length = 24;
 		var title = Convert.ToString(Eval("Title"));
-		return title.Length > length ? title.Substring(0, length - 1) + "…" : title;
+		return title.Left(30, "…");
 	}
 
 	protected string GetNewsTitle()
@@ -279,13 +122,129 @@ public partial class _Default : System.Web.UI.Page
 		return title.Length > length ? title.Substring(0, length - 1) + "…" : title;
 	}
 
-	protected string GetAdvImageUrl()
+	protected int count;
+
+	private void BindNews()
 	{
-		throw new NotImplementedException();
+		using (var db = new NPiculetEntities()) {
+
+			var query = (from a in db.cms_content_group
+				join b in db.cms_content_group on a.ParentId equals b.Id
+				where a.IsEnabled == 1 && b.GroupCode == "index"
+				orderby a.OrderBy, a.Id
+				select a).ToList();
+
+			this.news1.DataSource = query.Skip(1).Take(3);
+			this.news1.DataBind();
+
+			this.news2.DataSource = query.Skip(4).Take(3);
+			this.news2.DataBind();
+
+			count = query.Count - 7;
+
+			this.news3.DataSource = query.Skip(7);
+			this.news3.DataBind();
+		}
 	}
 
-	protected string GetAdvLinkUrl()
+	/// <summary>
+	/// 绑定积分列表
+	/// </summary>
+	private void BindPointList()
 	{
-		throw new NotImplementedException();
+		using (var db = new NPiculetEntities()) {
+
+			var orgs = (from a in db.sys_org_info
+				where a.IsDel == 0 && a.IsEnabled == 1 && a.Level == 1
+				orderby a.Point descending, a.OrderBy, a.CreateDate descending
+				select new {
+					a.ParentId,
+					a.OrgName,
+					a.Point
+				}).ToList();
+
+			this.placePointsList.DataSource = orgs.Where(a => a.ParentId == 1).Select((q, i) => new { q.ParentId, q.OrgName, q.Point, Ranking = i + 1 });
+			this.placePointsList.DataBind();
+
+			this.deptPointsList.DataSource = orgs.Where(a => a.ParentId == 18).Select((q, i) => new { q.ParentId, q.OrgName,  q.Point, Ranking = i + 1 });
+			this.deptPointsList.DataBind();
+		}
+	}
+
+	protected string ShowRanking() {
+		int ranking = ConvertKit.ConvertValue(Eval("Ranking"), 0);
+		return ranking <= 3 ? "<img src=\"styles/web/page/cup" + ranking + ".png\" alt=\"\"/>" : ranking.ToString();
+	}
+
+	private void BindExtLink()
+	{
+		using (var db = new NPiculetEntities()) {
+			var query = (from a in db.cms_friendlinks_info where a.IsEnabled == 1 select a).ToList();
+			this.float_link_1.DataSource = query.Where(q => q.Type == "省厅各直属部门");
+			this.float_link_1.DataBind();
+			this.float_link_2.DataSource = query.Where(q => q.Type == "全国经侦");
+			this.float_link_2.DataBind();
+			this.float_link_3.DataSource = query.Where(q => q.Type == "全省经侦");
+			this.float_link_3.DataBind();
+			this.float_link_4.DataSource = query.Where(q => q.Type == "各业务处室");
+			this.float_link_4.DataBind();
+		}
+	}
+
+	/// <summary>
+	/// 获取顶部广告
+	/// </summary>
+	/// <returns></returns>
+	private string GetAd(string type)
+	{
+		string ad = "<a href=\"{0}\"><img src=\"{1}\" alt=\"{2}\"/></a>";
+
+		var abus = new CmsAdvBus();
+		var a = abus.GetSingleAd(type);
+		if (a != null) {
+			string url = string.IsNullOrEmpty(a.Url) ? "#" : (a.Url.Left(4) == "http" ? a.Url : ResolveClientUrl(a.Url));
+			string imgUrl = ResolveClientUrl(a.Image);
+
+			return string.Format(ad, url, imgUrl, a.Description);
+		}
+		return "";
+	}
+
+	/// <summary>
+	/// 获取顶部广告
+	/// </summary>
+	/// <returns></returns>
+	protected string GetTopAd() {
+		return GetAd("MainPageTop");
+	}
+
+	/// <summary>
+	/// 获取中部广告
+	/// </summary>
+	/// <returns></returns>
+	protected string GetMiddleAd()
+	{
+		return GetAd("MainPageMiddle");
+	}
+
+	/// <summary>
+	/// 获取业务
+	/// </summary>
+	/// <param name="code"></param>
+	/// <param name="i"></param>
+	/// <returns></returns>
+	protected string GetBusLinkUrl(string code, int i) {
+		using (var db = new NPiculetEntities()) {
+			var query = (from a in db.cms_friendlinks_info where a.Type == code select a).ToList();
+			return query.Count > i ? query[i].Url : "#";
+		}
+	}
+
+	protected string GetExtUrl() {
+		string url = Convert.ToString(Eval("Url"));
+		if (url.IndexOf("http://") > -1 || url.IndexOf("https://") > -1)
+			return url;
+		else
+			return ResolveClientUrl(url);
 	}
 }

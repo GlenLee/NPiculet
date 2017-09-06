@@ -21,5 +21,6 @@ namespace NPiculet.Base.EF
         public string Creator { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public int IsEnabled { get; set; }
+        public string Platform { get; set; }
     }
 }

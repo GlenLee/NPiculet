@@ -16,7 +16,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+	              OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
 			<asp:BoundField DataField="Name" HeaderText="字典组名称" >
@@ -26,16 +26,16 @@
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="DisplayMode" HeaderText="展示方式">
-		        <HeaderStyle Width="80px" />
-            </asp:BoundField>
-            <asp:BoundField DataField="Memo" HeaderText="列头备注" >
+				<HeaderStyle Width="80px" />
+			</asp:BoundField>
+			<asp:BoundField DataField="Memo" HeaderText="列头备注" >
 			</asp:BoundField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:D}" HeaderText="创建时间">
-		        <HeaderStyle Width="140px" />
-            </asp:BoundField>
+				<HeaderStyle Width="140px" />
+			</asp:BoundField>
 			<asp:BoundField DataField="IsEnabled" HeaderText="已启用">
-		        <HeaderStyle Width="60px" />
-            </asp:BoundField>
+				<HeaderStyle Width="60px" />
+			</asp:BoundField>
 			<asp:TemplateField HeaderText="操作">
 				<HeaderStyle Width="100px"></HeaderStyle>
 				<ItemTemplate>

@@ -31,18 +31,18 @@
 			</asp:BoundField>
 			<asp:BoundField DataField="Name" HeaderText="字典项名称">
 				<HeaderStyle Width="160px" />
-            </asp:BoundField>
+			</asp:BoundField>
 			<asp:BoundField DataField="Code" HeaderText="字典项编码">
 				<HeaderStyle Width="160px" />
 			</asp:BoundField>
-            <asp:BoundField DataField="Value" HeaderText="属性值">
+			<asp:BoundField DataField="Value" HeaderText="属性值">
 			</asp:BoundField>
 			<asp:BoundField DataField="OrderBy" HeaderText="排序">
 				<HeaderStyle Width="70px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="创建时间">
-		        <HeaderStyle Width="140px" />
-            </asp:BoundField>
+				<HeaderStyle Width="140px" />
+			</asp:BoundField>
 			<asp:TemplateField HeaderText="启用">
 				<HeaderStyle Width="60px" />
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>

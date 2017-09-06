@@ -13,7 +13,7 @@ public partial class IndexPage : System.Web.UI.MasterPage
 
 	}
 
-	protected string GetPlatformName()
+	protected string GetWebSiteName()
 	{
 		string pname = new ConfigManager().GetConfig("WebSiteName");
 		return string.IsNullOrEmpty(pname) ? "管理后台" : pname;

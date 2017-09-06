@@ -8,8 +8,6 @@ using System.Web.UI.WebControls;
 using NPiculet.Authorization;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Business;
-using NPiculet.Logic.Sys;
-using NPiculet.Toolkit;
 
 public partial class web_uc_ImageUpload : System.Web.UI.UserControl
 {

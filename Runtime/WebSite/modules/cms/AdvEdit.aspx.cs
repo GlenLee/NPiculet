@@ -13,7 +13,7 @@ namespace modules.info
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Page.IsPostBack) {
-				this.Id.Value = WebParmKit.GetQuery("key", 0).ToString();
+				this.Id.Value = WebParmKit.GetQuery("key", "");
 				BindType();
 				BindData();
 			}

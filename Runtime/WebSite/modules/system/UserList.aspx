@@ -45,7 +45,7 @@
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="操作">
-				<HeaderStyle Width="140"></HeaderStyle>
+				<HeaderStyle Width="140px"></HeaderStyle>
 				<ItemTemplate>
 					<a href="AuthSet.aspx?key=<%# Eval("Id") %>&m=User&p=UserList.aspx" CssClass="btn btn-default" >授权</a> |
 					<a href="UserEdit.aspx?key=<%# Eval("Id") %>" CssClass="btn btn-default" >编辑</a> |

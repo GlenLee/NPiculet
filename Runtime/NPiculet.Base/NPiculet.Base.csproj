@@ -130,9 +130,6 @@
     <Compile Include="EF\sys_link_user_role.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\sys_member_corporation.cs">
-      <DependentUpon>NPiculetModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\sys_member_data.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>

@@ -1,20 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/IndexPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
-
+<%@ Import Namespace="NPiculet.Toolkit" %>
 <%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc1" TagName="NavMenu" %>
-<%@ Register Src="~/web/uc/MemberLoginOfIndex.ascx" TagPrefix="mli" TagName="MemberLogin" %>
-<%@ Register Src="~/web/uc/MemberSimpleInfo.ascx" TagPrefix="mli" TagName="MemberInfo" %>
-<%@ Register Src="~/web/uc/FriendLinks.ascx" TagPrefix="fl" TagName="FriendLinks" %>
+<%@ Register Src="~/web/uc/HomeWidget.ascx" TagPrefix="uc" TagName="HomeWidget" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 	<style type="text/css">
+		 #myCarousel { box-sizing: border-box; background-color: #fff; border: 1px solid #ccc; }
+		.sui-carousel { margin: 0; }
+		.carousel-control { background-color:transparent;border:0;border-image-width:0; }
+		.carousel-caption { background-color:rgba(0,0,0,.3);padding:5px 10px; }
 		.carousel-inner {
-			height: 250px;
+			height: 330px;
 		}
-
-		.sui-form {
-			margin: 0;
+		.carousel-inner img {
+			width: 100%;
+			height: 330px;
 		}
 	</style>
+	<script type="text/javascript">
+		function showPointsTable(me, i) {
+			$(me).parent().parent().find('li').removeClass('active');
+			$(me).parent().addClass('active');
+			$('table.points').hide();
+			$('table.pointslist' + i).show();
+			console.log('table.pointslist' + i);
+		}
+	</script>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="nav">
@@ -22,365 +33,302 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-	<div id="conetentBody" runat="server" class="sui-form">
-		<div class="ui-body-row sui-row-fluid">
-			<div class="span3">
-				<form id="LoginForm" runat="server" class="sui-form">
-					<!-- Widget 开始 -->
-					<asp:PlaceHolder runat="server" ID="indexLoginForm">
-						<mli:MemberLogin runat="server"></mli:MemberLogin>
-					</asp:PlaceHolder>
-					<asp:PlaceHolder runat="server" ID="indexUserInfo">
-						<mli:MemberInfo runat="server"></mli:MemberInfo>
-					</asp:PlaceHolder>
-				</form>
-				<!-- Widget 结束 -->
-			</div>
-			<div class="span6">
-				<!-- 滚动图片 开始 -->
-				<div id="myCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
-					<ol class="carousel-indicators">
-						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-						<li data-target="#myCarousel" data-slide-to="1"></li>
-						<li data-target="#myCarousel" data-slide-to="2"></li>
-					</ol>
-					<div class="carousel-inner">
-						<asp:Repeater ID="AdvertisingOfTop" runat="server">
-							<ItemTemplate>
-								<div class="<%#Container.ItemIndex == 0 ? "active" : "" %> item">
-									<a href="<%# Eval("Url") %>" target="_blank">
-										<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Image"))) %>" alt="" />
-									</a>
-									<div class="carousel-caption">
-										<h4><%#Eval("Description") %></h4>
-									</div>
+	<div class="ui-body-row sui-row-fluid">
+		<div class="span5">
+			<!-- 滚动图片 开始 -->
+			<div id="myCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+				</ol>
+				<div class="carousel-inner">
+					<asp:Repeater ID="newsImages" runat="server">
+						<ItemTemplate>
+							<div class="<%#Container.ItemIndex == 0 ? "active" : "" %> item">
+								<a href="view/<%# Eval("Id") %>" target="_blank">
+									<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Thumb"))) %>" alt="" />
+								</a>
+								<div class="carousel-caption">
+									<h4><%#Eval("Title") %></h4>
 								</div>
-							</ItemTemplate>
-						</asp:Repeater>
-					</div>
-					<a href="#myCarousel" data-slide="prev" class="carousel-control left">‹</a><a href="#myCarousel" data-slide="next" class="carousel-control right">›</a>
+							</div>
+						</ItemTemplate>
+					</asp:Repeater>
 				</div>
-				<!-- 滚动图片 结束 -->
+				<a href="#myCarousel" data-slide="prev" class="carousel-control left">‹</a><a href="#myCarousel" data-slide="next" class="carousel-control right">›</a>
 			</div>
-			<div class="span3">
-				<!-- Widget 开始 -->
-				<div class="ui-widget blue-icon" style="height: 250px">
-					<div class="title">
-						&nbsp;&nbsp;会员展示
-						<a href="web/PageAssociatorShow.aspx">MORE</a>
-					</div>
-					<div class="content">
-						<ul>
-							<asp:Repeater ID="AssociatorShowList" runat="server">
-								<ItemTemplate>
-									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
-								</ItemTemplate>
-							</asp:Repeater>
-						</ul>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
+			<!-- 滚动图片 结束 -->
 		</div>
-		<div class="ui-body-row sui-row-fluid">
-			<div class="span3">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title square">
-						&nbsp;&nbsp;法律专栏
-						<a href="web/PageLaw.aspx">MORE</a>
+		<div class="span7">
+			<!-- Widget 开始 -->
+			<div class="ui-widget main-news">
+				<div class="header">
+					<span class="title">图片新闻</span> 
+					<a class="more" href="web/images">更多</a>
+					<div class="title-line">
+						<div class="gray" style="width: 85%"></div>
 					</div>
-					<div class="content" style="min-height: 300px;">
+				</div>
+				<div class="content" style="min-height: 300px;">
+					<div class="top-news">
+						<h3><asp:HyperLink ID="hotNewsTitleLink" runat="server" Target="_blank"></asp:HyperLink></h3>
+						<p><asp:Literal ID="hotNewsInfo" runat="server"></asp:Literal>……<asp:HyperLink ID="hotNewsTitleMore" runat="server">[详情]</asp:HyperLink></p>
+					</div>
+					<div class="split-line"></div>
 						<ul>
-							<asp:Repeater ID="LawList" runat="server">
+							<asp:Repeater ID="newslist" runat="server">
 								<ItemTemplate>
-									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
+									<li class="sui-row-fluid">
+										<div class="span10"><a href="view/<%# Eval("Id") %>" target="_blank"><%# GetMainNewsTitle() %></a></div>
+										<div class="span2" style="text-align: right"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
+									</li>
 								</ItemTemplate>
 							</asp:Repeater>
 						</ul>
-					</div>
 				</div>
-				<!-- Widget 结束 -->
 			</div>
-			<div class="span6">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title square">
-						&nbsp;&nbsp;&nbsp;&nbsp;新&nbsp;&nbsp;闻
-						<a href="web/PageNew.aspx">MORE</a>
-					</div>
-					<div class="content" style="min-height: 300px;">
-						<div class="sui-row">
-							<div class="span3">
-								<div style="padding: 0 10px 10px 10px;">
-									<asp:HyperLink ID="hotNewsImgLink" runat="server">
-										<asp:Image runat="server" ID="hotNewsImg" BorderWidth="0" />
-									</asp:HyperLink>
-								</div>
-							</div>
-							<div class="span8">
-								<asp:HyperLink ID="hotNewsTitleLink" runat="server">
-									<asp:Label runat="server" ID="hotNewsTitle" Font-Size="Medium" ForeColor="#2A7BC4" />
-								</asp:HyperLink>
-								<br />
-								<asp:HyperLink ID="hotNewsInfo" runat="server"></asp:HyperLink>
-							</div>
-							<div class="span12">
-								<div style="text-align: right; padding-right: 20px;">
-									<asp:HyperLink ID="hotNewsTitleMore" runat="server" Style="color: #FF9934">【查看详情】</asp:HyperLink>
-								</div>
-								<hr class="split" />
-							</div>
-							<div class="span12">
-								<ul>
-									<asp:Repeater ID="newslist" runat="server">
-										<ItemTemplate>
-											<li class="sui-row-fluid">
-												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
-												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
-											</li>
-										</ItemTemplate>
-									</asp:Repeater>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-			<div class="span3">
-				<!-- Widget 开始 -->
-				<div class="ui-widget ui-news">
-					<div class="title square">
-						&nbsp;&nbsp;综合资讯 <a href="web/PageConsultNews.aspx">MORE</a>
-					</div>
-					<div class="content" style="min-height: 300px;">
-						<ul>
-							<asp:Repeater ID="ConsultNewsList" runat="server">
-								<ItemTemplate>
-									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a><%# IsNewIcon() %></li>
-								</ItemTemplate>
-							</asp:Repeater>
-						</ul>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-		</div>
-
-		<!-- 人才库 -->
-		<div class="ui-body-row sui-row-fluid">
-			<div class="span12">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title shading">
-						<span>&nbsp;&nbsp;人才库</span> <a href="web/PageJobSeeker.aspx">MORE</a>
-					</div>
-					<div class="content">
-						<div class="sui-row">
-							<!-- 热招职位 -->
-							<div class="ui-job-widget span6">
-								<h4 class="sui-row-fluid">
-									<div class="span9">
-										<img src="styles/images/job1.png" alt="" />&nbsp;&nbsp;热招职位
-										<%--<a href="#" class="icon1">发布招聘职位</a>--%>
-									</div>
-									<div class="span3">
-										<a href="#">更多职位 &gt;&gt;</a>
-									</div>
-								</h4>
-								<ul>
-									<asp:Repeater ID="TopEntHireList" runat="server">
-										<ItemTemplate>
-											<li class="sui-row-fluid">
-												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
-												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
-											</li>
-										</ItemTemplate>
-									</asp:Repeater>
-								</ul>
-							</div>
-							<!-- 人才简历 -->
-							<div class="ui-job-widget span6">
-								<h4 class="sui-row-fluid">
-									<div class="span9">
-										<img src="styles/images/job2.png" alt="" />&nbsp;&nbsp;人才简历
-										<%--<a href="#" class="icon2">发布求职简历</a>--%>
-									</div>
-									<div class="span3">
-										<a href="#">更多简历 &gt;&gt;</a>
-									</div>
-								</h4>
-								<ul>
-									<asp:Repeater ID="TopJobSeekers" runat="server">
-										<ItemTemplate>
-											<li class="sui-row-fluid">
-												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
-												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
-											</li>
-										</ItemTemplate>
-									</asp:Repeater>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-		</div>
-		<!-- 人才库 END -->
-
-		<div class="ui-body-row sui-row-fluid">
-			<div class="span3">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title square">
-						&nbsp;&nbsp;网吧培训 <a href="web/PageBar.aspx">MORE</a>
-					</div>
-					<div class="content" style="min-height: 355px;">
-						<ul>
-							<asp:Repeater ID="BarList" runat="server">
-								<ItemTemplate>
-									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
-								</ItemTemplate>
-							</asp:Repeater>
-						</ul>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-			<div class="span6">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title square">
-						&nbsp;&nbsp;协会动态 <a href="web/PageAssociationNews.aspx">MORE</a>
-					</div>
-					<div class="content" style="min-height: 355px;">
-						<div class="sui-row">
-							<div class="span3">
-								<div style="padding: 0 10px 10px 10px;">
-									<asp:HyperLink ID="anLink" runat="server">
-										<asp:Image runat="server" ID="anImage" ImageUrl="~/styles/images/noimage.jpg" BorderWidth="0" />
-									</asp:HyperLink>
-								</div>
-							</div>
-							<div class="span8">
-								<asp:HyperLink ID="anLink2" runat="server">
-									<asp:Label runat="server" ID="anTitle" Font-Size="Medium" ForeColor="#2A7BC4" />
-								</asp:HyperLink>
-								<br />
-								<asp:HyperLink ID="anLink3" runat="server"></asp:HyperLink>
-							</div>
-							<div class="span12">
-								<div style="text-align: right; padding-right: 20px;">
-									<asp:HyperLink ID="anLink4" runat="server" Style="color: #FF9934">【查看详情】</asp:HyperLink>
-								</div>
-								<hr class="split" />
-							</div>
-							<div class="span12">
-								<ul>
-									<asp:Repeater ID="AssociationNewsList" runat="server">
-										<ItemTemplate>
-											<li class="sui-row-fluid">
-												<div class="span10"><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></div>
-												<div class="span2"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
-											</li>
-										</ItemTemplate>
-									</asp:Repeater>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-			<div class="span3">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title square">
-						&nbsp;&nbsp;政策文件 <a href="web/PagePolicy.aspx">MORE</a>
-					</div>
-					<div class="content" style="min-height: 355px;">
-						<ul>
-							<asp:Repeater ID="PagePolicyList" runat="server">
-								<ItemTemplate>
-									<li>
-										<a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
-								</ItemTemplate>
-							</asp:Repeater>
-						</ul>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-		</div>
-		<div class="ui-body-row sui-row-fluid">
-			<div class="span9">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title">
-						&nbsp;&nbsp;推荐品牌
-					</div>
-					<div class="content">
-						<div class="sui-row-fluid">
-							<asp:Repeater ID="RecommendBrands" runat="server">
-								<ItemTemplate>
-									<div class="span2" style="width: 140px; height: 80px; margin: 2px; line-height: 80px;">
-										<a href="<%# ResolveClientUrl(Convert.ToString(Eval("Url"))) %>" target="_blank">
-											<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Image"))) %>" alt="" style="width: 140px;" />
-										</a>
-									</div>
-								</ItemTemplate>
-							</asp:Repeater>
-						</div>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
-			<div class="span3">
-				<!-- Widget 开始 -->
-				<div class="ui-widget">
-					<div class="title square">
-						&nbsp;&nbsp;网吧交易区 <a href="web/PageSale.aspx">MORE</a>
-					</div>
-					<div class="content">
-						<ul>
-							<asp:Repeater ID="salelist" runat="server">
-								<ItemTemplate>
-									<li><a href="web/ContentView.aspx?id=<%# Eval("Id") %>"><%# GetGameTitle() %></a></li>
-								</ItemTemplate>
-							</asp:Repeater>
-						</ul>
-					</div>
-				</div>
-				<!-- Widget 结束 -->
-			</div>
+			<!-- Widget 结束 -->
 		</div>
 	</div>
-</asp:Content>
-<asp:Content runat="server" ContentPlaceHolderID="footer">
+	<!-- 顶部宣传 -->
+	<div class="ui-body-row sui-row-fluid">
+		<div class="span12 banner-top">
+			<%= GetTopAd() %>
+		</div>
+	</div>
 
-	<asp:Repeater runat="server" ID="BottomBanner">
-		<ItemTemplate>
-			<div class="ui-adb">
-				<a href="<%# Eval("Url") %>" target="_blank">
-					<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Image"))) %>" alt="" />
-				</a>
+	<!-- 图片新闻 -->
+	<div class="ui-body-row sui-row-fluid images-news">
+<asp:Repeater runat="server" ID="imagesList">
+	<ItemTemplate>
+		<div class="span2">
+			<a href="view/<%# Eval("Id") %>" target="_blank">
+				<img src="<%# ResolveClientUrl(Convert.ToString(Eval("Thumb"))) %>" alt=""/>
+				<span><%# Convert.ToString(Eval("Title")).Left(22, "…") %></span>
+			</a>
+		</div>
+	</ItemTemplate>
+</asp:Repeater>
+	</div>
+
+	<!-- 中部内容 开始 -->
+	<div class="ui-body-row sui-row-fluid">
+		<asp:Repeater runat="server" ID="news1">
+			<ItemTemplate>
+				<div class="span4"><uc:HomeWidget runat="server" ID="HomeWidget12" GroupCode='<%# Eval("GroupCode") %>' /></div>
+			</ItemTemplate>
+		</asp:Repeater>
+	</div>
+	<div class="ui-body-row sui-row-fluid">
+		<asp:Repeater runat="server" ID="news2">
+			<ItemTemplate>
+				<div class="span4"><uc:HomeWidget runat="server" ID="HomeWidget12" GroupCode='<%# Eval("GroupCode") %>' /></div>
+			</ItemTemplate>
+		</asp:Repeater>
+	</div>
+		
+	<div class="banner-middle">
+		<%= GetMiddleAd() %>
+	</div>
+
+	<!-- 分栏内容 开始 -->
+	<div class="ui-body-row sui-row-fluid">
+		<div class="span8">
+			<!-- 新闻栏 Start -->
+			<asp:Repeater runat="server" ID="news3">
+				<ItemTemplate>
+					<%# Container.ItemIndex % 2 == 0 ? "<div class=\"ui-body-row sui-row-fluid\">" : "" %>
+						<div class="span6"><uc:HomeWidget runat="server" ID="homeWidget" GroupCode='<%# Eval("GroupCode") %>' /></div>
+					<%# Container.ItemIndex % 2 == 1 || Container.ItemIndex == count - 1 ? "</div>" : "" %>
+				</ItemTemplate>
+			</asp:Repeater>
+			<!-- 新闻栏 End -->
+			
+			<!-- 专题导航栏 Start -->
+			<div class="ui-body-row sui-row-fluid zhuangti">
+				<div class="span6"><a href="list/guangrong"><img src="styles/web/page/btn_nav_honor.png" alt=""/></a></div>
+				<div class="span6"><a href="list/tashanzhishi"><img src="styles/web/page/btn_nav_stone.png" alt=""/></a></div>
 			</div>
-		</ItemTemplate>
-	</asp:Repeater>
+			<div class="ui-body-row sui-row-fluid zhuangti">
+				<div class="span6"><a href="list/jingwulianluo"><img src="styles/web/page/btn_nav_contact.png" alt=""/></a></div>
+				<div class="span6"><a href="list/qingbao"><img src="styles/web/page/btn_nav_info.png" alt=""/></a></div>
+			</div>
+			<!-- 专题导航栏 End -->
 
-	<asp:PlaceHolder runat="server" ID="FriendLinks">
-		<fl:FriendLinks runat="server"></fl:FriendLinks>
-	</asp:PlaceHolder>
+		</div>
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?6a4289932a1d5208efc892cc8b5eb3e5";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+		<!-- 侧边栏 Start -->
+		<div class="span4">
+			<div>
+				<!-- 快捷导航 Start -->
+				<div class="ui-widget ui-widget-simple">
+					<div class="header">
+						<span class="title">业务平台</span> 
+						<div class="title-line"></div>
+					</div>
+					<div class="content">
+						<ul class="quick-nav">
+							<li class="bb br"><a href="<%= GetBusLinkUrl("业务平台", 0) %>" target="_blank"><i class="icons sprite1"></i><span>经侦信息系统</span></a></li>
+							<li class="bb br"><a href="<%= GetBusLinkUrl("业务平台", 1) %>" target="_blank"><i class="icons sprite2"></i><span>云南省综合<br/>信息查询系统</span></a></li>
+							<li class="bb"><a href="<%= GetBusLinkUrl("业务平台", 2) %>" target="_blank"><i class="icons sprite3"></i><span>信息化自动<br/>预警系统</span></a></li>
+							<li class="br"><a href="<%= GetBusLinkUrl("业务平台", 3) %>" target="_blank"><i class="icons sprite4"></i><span>全国公安信<br/>息综合查询</span></a></li>
+							<li class="br"><a href="<%= GetBusLinkUrl("业务平台", 4) %>" target="_blank"><i class="icons sprite5"></i><span>经侦民警<br/>信息系统</span></a></li>
+							<li><a href="<%= GetBusLinkUrl("业务平台", 5) %>" target="_blank"><i class="icons sprite6"></i><span>泛亚专案系统</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- 快捷导航 End -->
+				<div style="height:20px;"></div>
+<!--
+				<div>
+					<a href="list/guangrong"><img src="styles/web/page/btn_nav_honor.png" alt="" style="display: block; margin-bottom: 10px;"/></a>
+					<a href="list/tashanzhishi"><img src="styles/web/page/btn_nav_stone.png" alt="" style="display: block; margin-bottom: 10px;"/></a>
+					<a href="list/jingwulianluo"><img src="styles/web/page/btn_nav_contact.png" alt="" style="display: block; margin-bottom: 10px;"/></a>
+					<a href="list/qingbao"><img src="styles/web/page/btn_nav_info.png" alt="" style="display: block; margin-bottom: 10px;"/></a>
+				</div>
+				<div style="height:20px;"></div>
+-->
+				<!-- 积分统计 Start -->
+				<div class="ui-widget ui-widget-simple">
+					<div class="header">
+						<span class="title">积分排名</span> 
+						<div class="title-line"></div>
+					</div>
+					<div class="content">
+						<ul class="sui-nav nav-tabs nav-large">
+							<li class="active"><a onclick="showPointsTable(this, 1)">各州市排名</a></li>
+							<li><a onclick="showPointsTable(this, 2)">各处室排名</a></li>
+						</ul>
+						<table class="table points pointslist1">
+							<thead>
+							<tr>
+								<th>名称</th>
+								<th>积分</th>
+								<th>名次</th>
+							</tr>
+							</thead>
+							<tbody>
+							<asp:Repeater ID="placePointsList" runat="server">
+								<ItemTemplate>
+									<tr>
+										<td><%# Eval("OrgName") %></td>
+										<td><%# Eval("Point") %></td>
+										<td><%# ShowRanking() %></td>
+									</tr>
+								</ItemTemplate>
+							</asp:Repeater>
+							</tbody>
+						</table>
+						<table class="table points pointslist2">
+							<thead>
+							<tr>
+								<th>名称</th>
+								<th>积分</th>
+								<th>名次</th>
+							</tr>
+							</thead>
+							<tbody>
+							<asp:Repeater ID="deptPointsList" runat="server">
+								<ItemTemplate>
+									<tr>
+										<td><%# Eval("OrgName") %></td>
+										<td><%# Eval("Point") %></td>
+										<td><%# ShowRanking() %></td>
+									</tr>
+								</ItemTemplate>
+							</asp:Repeater>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- 积分统计 End -->
+			</div>
+		</div>
+		<!-- 侧边栏 End -->
+	</div>
+	<!-- 分栏内容 结束 -->
+
+	<!-- 浮动导航 Start -->
+	<div class="float-nav">
+		<ul class="buttons">
+			<li onmouseout="$('.float-more-1').stop().fadeOut();" onmouseover="$('.float-more-1').stop().fadeIn();">
+				<a href="#" class="item"><i><img src="styles/web/page/float_icon_1.png" alt=""/></i><span>省厅各<br/>直属部门</span></a>
+				<div class="ui-widget ui-widget-simple float-more-1">
+					<div class="header">
+						<span class="title">应用地址</span>
+						<div class="title-line"></div>
+					</div>
+					<div class="content">
+						<ul>
+							<asp:Repeater runat="server" ID="float_link_1">
+								<ItemTemplate>
+									<li><a href="<%# GetExtUrl() %>" title="<%# Eval("Description") %>" target="_blank"><%# Eval("Description") %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li onmouseout="$('.float-more-2').stop().fadeOut();" onmouseover="$('.float-more-2').stop().fadeIn();">
+				<a href="#" class="item"><i><img src="styles/web/page/float_icon_2.png" alt=""/></i><span>全国经侦</span></a>
+				<div class="ui-widget ui-widget-simple float-more-2">
+					<div class="header">
+						<span class="title">应用地址</span>
+						<div class="title-line"></div>
+					</div>
+					<div class="content">
+						<ul>
+							<asp:Repeater runat="server" ID="float_link_2">
+								<ItemTemplate>
+									<li><a href="<%# GetExtUrl() %>" title="<%# Eval("Description") %>" target="_blank"><%# Eval("Description") %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li onmouseout="$('.float-more-3').stop().fadeOut();" onmouseover="$('.float-more-3').stop().fadeIn();">
+				<a href="#" class="item"><i><img src="styles/web/page/float_icon_3.png" alt=""/></i><span>全省经侦</span></a>
+				<div class="ui-widget ui-widget-simple float-more-3">
+					<div class="header">
+						<span class="title">应用地址</span>
+						<div class="title-line"></div>
+					</div>
+					<div class="content">
+						<ul>
+							<asp:Repeater runat="server" ID="float_link_3">
+								<ItemTemplate>
+									<li><a href="<%# GetExtUrl() %>" title="<%# Eval("Description") %>" target="_blank"><%# Eval("Description") %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+			</li>
+			<li onmouseout="$('.float-more-4').stop().fadeOut();" onmouseover="$('.float-more-4').stop().fadeIn();">
+				<a href="#" class="item"><i><img src="styles/web/page/float_icon_4.png" alt=""/></i><span>各业务处室</span></a>
+				<div class="ui-widget ui-widget-simple float-more-4">
+					<div class="header">
+						<span class="title">应用地址</span>
+						<div class="title-line"></div>
+					</div>
+					<div class="content">
+						<ul>
+							<asp:Repeater runat="server" ID="float_link_4">
+								<ItemTemplate>
+									<li><a href="<%# GetExtUrl() %>" title="<%# Eval("Description") %>" target="_blank"><%# Eval("Description") %></a></li>
+								</ItemTemplate>
+							</asp:Repeater>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+	</div>
+	<div class="btn-go-top">
+		<a href="#"><img src="styles/web/page/btn_go_top.png" alt=""/></a>
+	</div>
+	<!-- 浮动导航 End -->
 </asp:Content>

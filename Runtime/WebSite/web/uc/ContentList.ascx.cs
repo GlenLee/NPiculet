@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NPiculet.Base.EF;
+using NPiculet.Logic.Business;
+using NPiculet.Toolkit;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,13 +9,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using NPiculet.Base.EF;
 using NPiculet.Cms.Business;
-using NPiculet.Toolkit;
 
 public partial class web_uc_ContentList : System.Web.UI.UserControl
 {
-	private readonly CmsContentBus _cbus = new CmsContentBus();
+	private readonly CmsContentBus _bus = new CmsContentBus();
 
 	public string GroupCode { get; set; }
 
@@ -29,19 +30,17 @@ public partial class web_uc_ContentList : System.Web.UI.UserControl
 		};
 	}
 
-
 	private void BindData(int pageIndex) {
-		var p = LinQKit.CreateWhere<cms_content_page>(a => a.GroupCode == GroupCode);
+		var where = LinQKit.CreateWhere<cms_content_page>(a => a.IsEnabled == 1 && a.GroupCode == GroupCode);
 
-		string search = WebParmKit.GetRequestString("key", "").FormatSqlParm();
+		string search = WebParmKit.GetQuery("key", "").FormatSqlParm();
 		if (!string.IsNullOrEmpty(search)) {
-			p.And(a => a.Title.Contains(search));
+			where = where.And(a => a.Title.Contains(search));
 		}
-
 		int count;
-		var data = _cbus.GetPageList(out count, pageIndex, this.NPager1.PageSize, p);
+		var data = _bus.GetPageList(out count, pageIndex, this.NPager1.PageSize, where);
 
-		this.list.DataSource = data.ToList();
+		this.list.DataSource = data;
 		this.list.DataBind();
 
 		this.NPager1.RecordCount = count;
