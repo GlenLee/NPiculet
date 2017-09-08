@@ -8,11 +8,11 @@
 	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
 	<script src="../styles/sui/js/sui.min.js"></script>
 	<style type="text/css">
-		html, body { padding:0;margin:0;width:100%;height:100%;background-color:#005bea;background-image: linear-gradient(to top, #00c6fb, #005bea); }
+		html, body { padding:0;margin:0;width:100%;height:100%;background-color:#00cdac;background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%); }
 		div, p, input, select { box-sizing:border-box; }
 		a, a:hover { text-decoration:none; }
 		.login {
-			color: #ffffff;
+			color: #fff;
 			position: relative;
 			padding-top: 120px;
 		}
@@ -20,7 +20,7 @@
 			text-align: center;
 			font-family: Arial, "黑体";
 			font-size: 36px;
-			text-shadow: #00008b 1px 2px 0;
+			text-shadow: #666 1px 2px 0;
 		}
 		.login-screen {
 			position:relative;
@@ -32,12 +32,15 @@
 			position: absolute;
 			top: 60px;
 			left: 20px;
-			width: 120px;
+			width: 128px;
 		}
 		.login-icon > img {
 			display: block;
 			margin-bottom: 6px;
 			width: 100%;
+			border-radius: 64px;
+			border: 3px solid #f7f7f7;
+			background-color: #fff;
 		}
 		.login-form {
 			width: 320px;
@@ -127,12 +130,13 @@
 			padding: 10px 19px;
 			font-size: 17px;
 			line-height: 1.471;
+			border: 0;
 			border-radius: 6px;
 		}
 		.btn-primary {
 			color: #ffffff;
-			background-color:#005bea;
-			background-image: linear-gradient(to top, #0066ff 0%, #005bea 100%);
+			background-color:#00cdac;
+			background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%);
 		}
 		.login-link {
 			color: #bfc9ca;

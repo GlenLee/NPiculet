@@ -1,11 +1,14 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="IndexPage.master.cs" Inherits="IndexPage" %>
 <%@ Register TagPrefix="uc" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
-<%@ Register TagPrefix="uc" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
 <%@ Register TagPrefix="uc" TagName="PageTop" Src="~/web/uc/PageTop.ascx" %>
+<%@ Register TagPrefix="uc" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
+<%@ Register TagPrefix="uc" TagName="PageFooter"Src="~/web/uc/PageFooter.ascx"  %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title><%= GetWebSiteName() %></title>
 	<uc:WebQuote runat="server" ID="WebQuote" />
 	<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
@@ -22,7 +25,7 @@
 			</div>
 			<!-- 内容结束 -->
 		</div>
-		<!--#include file="web/uc/footer.html"-->
+		<uc:PageFooter runat="server" ID="PageFooter" />
 	</div>
 </body>
 </html>

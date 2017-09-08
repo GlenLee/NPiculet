@@ -12,7 +12,7 @@
 			</tr>
 			<asp:Repeater runat="server" ID="list">
 				<ItemTemplate>
-					<tr onclick="window.location.href='/web/ContentView.aspx?groupCode=<%# Eval("GroupCode") %>&id=<%# Eval("Id") %>'" style="cursor:pointer;">
+					<tr>
 						<td><a href="/web/ContentView.aspx?groupCode=<%# Eval("GroupCode") %>&id=<%# Eval("Id") %>"><%# Eval("Title") %></a></td>
 						<td style="text-align: center; width: 120px;">【<%# Eval("CreateDate", "{0:yyyy-MM-dd}") %>】</td>
 					</tr>

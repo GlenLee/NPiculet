@@ -3,96 +3,12 @@ html, body { margin:0;padding:0;width:100%;height:100%; }
 body { box-sizing:border-box;overflow-x:hidden; }
 a, a:hover, a:focus, a:active, a:link { text-decoration:none;color:#000; }
 
-/* fix SUI */
-.sui-breadcrumb {
-	margin:5px 0;
-	font-size: 1.2em;
-	color: #666;
-
-	a {
-		color: #666;
-	}
-}
-.sui-breadcrumb > .active {
-	color: #666;
-}
-
-.sui-table.table-primary {
-    border-collapse:separate !important;
-    border:0 !important;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    background-color:#fff;
-}
-.sui-table.table-primary th {
-    border:1px solid #2A7BC4;
-    border-right:none;
-    background-color:#69f;
-}
-.sui-table.table-primary tbody:first-child tr:first-child th {
-    border-top:1px solid #2A7BC4;
-}
-.sui-table.table-primary tbody:first-child tr:first-child > th:first-child {
-	border-top-left-radius:6px;
-}
-.sui-table.table-primary tbody:first-child tr:first-child > th:last-child {
-    border-right:1px solid #2A7BC4;
-	border-top-right-radius:6px;
-}
-.sui-table.table-primary td {
-    border:1px solid #ddd;
-    border-top:none;
-    border-right:none;
-}
-.sui-table.table-primary tbody:first-child tr:first-child > td {
-    border-top:1px solid #ddd;
-}
-.sui-table.table-primary tbody:last-child tr > td:last-child {
-    border-right:1px solid #ddd;
-}
-.sui-table.table-primary tbody:last-child tr:last-child > td:first-child {
-	border-bottom-left-radius:6px;
-}
-.sui-table.table-primary tbody:last-child tr:last-child > td:last-child {
-	border-bottom-right-radius:6px;
-}
-
-.sui-table { background-color:#fff; }
-.sui-table .th { width:100px;text-align:right; }
-.sui-table .td { }
+/* fix UI */
 
 /* Just Index Page */
 .page-index {
 	.ui-body {
 		background-color: #fff;
-	}
-
-	.sui-row-fluid {
-		.span4, .span6, .span8 {
-			&:first-child {
-				margin-left: 0;
-			}
-
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-
-		.span4 {
-			width: 32.33333%;
-			margin-left: 1.5%;
-		}
-
-		.span6 {
-			width: 48.875%;
-			margin-left: 2.25%;
-		}
-
-		.span8 {
-			width: 66.16666%;
-			margin-left: 0.75%;
-		}
 	}
 }
 
@@ -104,9 +20,7 @@ a, a:hover, a:focus, a:active, a:link { text-decoration:none;color:#000; }
 
 /* UI */
 .ui-init() { } /* 初始化UI主框架样式 */
-.ui-page {
-	background: #efefef url(web/page/top_bg_b5.jpg) repeat-x center top;
-}
+.ui-page { }
 .ui-wrap { }
 
 /* UI Top */
@@ -174,6 +88,7 @@ a, a:hover, a:focus, a:active, a:link { text-decoration:none;color:#000; }
 
 /* UI Navbar */
 .ui-nav {
+	display: none;
 	.ui-init();
 	width: @ui-width;
 	height: @nav-height;
@@ -271,102 +186,6 @@ a, a:hover, a:focus, a:active, a:link { text-decoration:none;color:#000; }
 	width: @ui-width;
 	margin: 0 auto;
 	background-color: #fff;
-
-	.float-nav {
-		position: fixed;
-		right: 0;
-		top: 210px;
-
-		.buttons {
-			ul, li {
-				list-style-type: none;
-				padding: 0;
-				margin: 0;
-			}
-
-			a.item {
-				box-sizing: border-box;
-				position: relative;
-				display: block;
-				width: 70px;
-				padding: 8px 5px;
-				background-color: #fff;
-				color: @base-color;
-
-				&.more {
-					padding-left: 36px;
-					height: 33px;
-					line-height: 33px;
-					background: url(web/page/float_btn_more.png) no-repeat;
-				}
-
-				i {
-					display: block;
-					height: 42px;
-					margin-bottom: 3px;
-					line-height: 42px;
-					text-align: center;
-				}
-
-				span {
-					display: block;
-					text-align: center;
-				}
-			}
-		}
-
-		.float-more-1, .float-more-2, .float-more-3, .float-more-4 {
-			display: none;
-			position: absolute;
-			left: -455px;
-			width: 450px !important;
-
-			ul li {
-				box-sizing: border-box;
-				display: inline;
-				display: inline-block;
-				width: 32.5%;
-				padding-left: 15px;
-				background: url(web/page/icon_arrow.png) no-repeat left center;
-			}
-		}
-
-		.float-more-1 {
-			top: 0;
-		}
-
-		.float-more-2 {
-			top: 80px;
-		}
-
-		.float-more-3 {
-			top: 160px;
-		}
-
-		.float-more-4 {
-			top: 240px;
-		}
-	}
-
-	.btn-go-top {
-		position: absolute;
-		right: -62px;
-		bottom: 0;
-	}
-
-	.banner-top {
-		img {
-			width: 100%;
-		}
-	}
-
-	.banner-middle {
-		margin-bottom: 20px;
-
-		img {
-			width: 100%;
-		}
-	}
 
 	.ui-body-row {
 		margin-bottom: 20px;
