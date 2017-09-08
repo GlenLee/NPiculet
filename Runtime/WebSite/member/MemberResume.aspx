@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="MemberPage.master" AutoEventWireup="true" CodeFile="MemberResume.aspx.cs" Inherits="MemberResume" %>
 
 
-<%@ Register TagPrefix="uc1" TagName="MemberSidebar" Src="uc/MemberSidebar.ascx" %>
+<%@ Register TagPrefix="uc" TagName="MemberSidebar" Src="uc/MemberSidebar.ascx" %>
 <%@ Register Src="~/modules/common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -19,7 +19,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="sui-row-fluid" style="margin-top: 10px;">
             <div class="span3">
-                <uc1:MemberSidebar ID="MemberSidebar1" runat="server" Actived="MemberResume.aspx" />
+                <uc:MemberSidebar ID="MemberSidebar1" runat="server" Actived="MemberResume.aspx" />
             </div>
             <div class="span9 sui-form">
                 <div class="title">我的简历</div>

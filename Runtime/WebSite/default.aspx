@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/IndexPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
-<%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc1" TagName="NavMenu" %>
+<%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc" TagName="NavMenu" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 	<style type="text/css">
@@ -8,7 +8,7 @@
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="nav">
-	<uc1:NavMenu runat="server" ID="NavMenu" Active="0" />
+	<uc:NavMenu runat="server" ID="NavMenu" Active="0" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">

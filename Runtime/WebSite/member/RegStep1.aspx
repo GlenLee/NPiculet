@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="RegStep1.aspx.cs" Inherits="RegStep1" %>
 
-<%@ Register TagPrefix="uc1" TagName="NavMenu" Src="~/web/uc/NavMenu.ascx" %>
+<%@ Register TagPrefix="uc" TagName="NavMenu" Src="~/web/uc/NavMenu.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="nav" runat="Server">
-    <uc1:NavMenu runat="server" ID="NavMenu" Active="-1" />
+    <uc:NavMenu runat="server" ID="NavMenu" Active="-1" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="Server">

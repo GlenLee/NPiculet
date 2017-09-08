@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="角色编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="RoleEdit.aspx.cs" Inherits="modules_system_RoleEdit" %>
-<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc1" %>
+<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc" %>
 
 <asp:Content ID="Content0" ContentPlaceHolderID="header" runat="server">
 	<style type="text/css">
@@ -42,7 +42,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<uc1:Prompt ID="promptControl" runat="server" />
+	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
 		<table class="sui-table table-primary">
 			<tr>

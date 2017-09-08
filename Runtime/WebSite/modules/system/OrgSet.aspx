@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="组织机构管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="OrgSet.aspx.cs" Inherits="modules_system_OrgSet" %>
-<%@ Register TagPrefix="uc1" TagName="Prompt" Src="~/modules/common/Prompt.ascx" %>
+<%@ Register TagPrefix="uc" TagName="Prompt" Src="~/modules/common/Prompt.ascx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
@@ -24,7 +24,7 @@
 				<div style="width:100%;height:100%;overflow:auto;"><asp:TreeView ID="tree" runat="server" CssClass="admin-tree" OnSelectedNodeChanged="tree_SelectedNodeChanged"></asp:TreeView></div>
 			</td>
 			<td>
-				<uc1:Prompt ID="promptControl" runat="server" />
+				<uc:Prompt ID="promptControl" runat="server" />
 <asp:PlaceHolder ID="editor" runat="server">
 				<table class="sui-table table-primary">
 					<tr>
