@@ -1,25 +1,31 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="IndexPage.master.cs" Inherits="IndexPage" %>
+<%@ Register TagPrefix="uc" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
+<%@ Register TagPrefix="uc" TagName="PageTop" Src="~/web/uc/PageTop.ascx" %>
+<%@ Register TagPrefix="uc" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
+<%@ Register TagPrefix="uc" TagName="PageFooter"Src="~/web/uc/PageFooter.ascx"  %>
 
-<%@ Register TagPrefix="uc1" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
-<%@ Register TagPrefix="ph" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><%= GetPlatformName() %></title>
-    <uc1:WebQuote runat="server" ID="WebQuote" />
-    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title><%= GetWebSiteName() %></title>
+	<uc:WebQuote runat="server" ID="WebQuote" />
+	<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
-<body>
-    <ph:PageHeader ID="pageHeader" runat="server"/>
-    <div class="ui-header"></div>
-    <asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>
-    <!-- 内容开始 -->
-    <div class="ui-body">
-        <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
-    </div>
-    <!-- 内容结束 -->
-    <asp:ContentPlaceHolder ID="footer" runat="server"></asp:ContentPlaceHolder>
-    <!--#include file="web/uc/footer.html"--> 
+<body class="page-index">
+	<uc:PageTop runat="server" ID="pageTop" />
+	<div class="ui-page">
+		<div class="ui-wrap">
+			<uc:PageHeader ID="pageHeader" runat="server" />
+			<asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>
+			<!-- 内容开始 -->
+			<div class="ui-body">
+				<asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
+			</div>
+			<!-- 内容结束 -->
+		</div>
+		<uc:PageFooter runat="server" ID="PageFooter" />
+	</div>
 </body>
 </html>

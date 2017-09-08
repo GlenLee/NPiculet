@@ -15,8 +15,8 @@ namespace NPiculet.Base.EF
     public partial class sys_member_data
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string UserAccount { get; set; }
+        public int MemberId { get; set; }
+        public string MemberAccount { get; set; }
         public string Nickname { get; set; }
         public string Birthday { get; set; }
         public string Sex { get; set; }
@@ -37,7 +37,6 @@ namespace NPiculet.Base.EF
         public Nullable<decimal> Cost { get; set; }
         public string HeadIcon { get; set; }
         public string Memo { get; set; }
-        public string RechargeStatus { get; set; }
         public Nullable<int> IsDel { get; set; }
     }
 }

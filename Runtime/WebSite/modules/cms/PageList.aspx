@@ -46,7 +46,7 @@
 				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="删除">
-				<HeaderStyle Width="50"></HeaderStyle>
+				<HeaderStyle Width="50px"></HeaderStyle>
 				<ItemStyle HorizontalAlign="Center"></ItemStyle>
 				<ItemTemplate>
 					<asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('确定要删除吗？');">删除</asp:LinkButton>

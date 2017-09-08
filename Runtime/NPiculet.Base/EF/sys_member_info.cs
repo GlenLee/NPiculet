@@ -15,7 +15,7 @@ namespace NPiculet.Base.EF
     public partial class sys_member_info
     {
         public int Id { get; set; }
-        public string UserSn { get; set; }
+        public string MemberSn { get; set; }
         public string Account { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

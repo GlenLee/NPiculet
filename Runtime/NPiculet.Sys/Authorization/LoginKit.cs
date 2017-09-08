@@ -126,7 +126,7 @@ namespace NPiculet.Authorization
 				member = new Member<int>();
 				member.Id = user.Id;
 				member.Type = user.Type;
-				member.Sn = user.UserSn;
+				member.Sn = user.MemberSn;
 				member.Name = user.Name;
 				member.Level = user.MemberLevel;
 				member.Account = user.Account;

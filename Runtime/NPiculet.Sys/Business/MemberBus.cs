@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using NPiculet.Base.EF;
 using NPiculet.Data;
@@ -25,7 +26,7 @@ namespace NPiculet.Logic.Business
 		}
 
 		/// <summary>
-		/// 获取用户信息
+		/// 获取会员信息
 		/// </summary>
 		/// <param name="memberId"></param>
 		/// <returns></returns>
@@ -37,7 +38,7 @@ namespace NPiculet.Logic.Business
 		}
 
 		/// <summary>
-		/// 获取用户信息
+		/// 获取会员信息
 		/// </summary>
 		/// <param name="account"></param>
 		/// <returns></returns>
@@ -49,7 +50,7 @@ namespace NPiculet.Logic.Business
 		}
 
 		/// <summary>
-		/// 用户是否存在。
+		/// 会员是否存在。
 		/// </summary>
 		/// <param name="account"></param>
 		/// <param name="password"></param>
@@ -65,7 +66,7 @@ namespace NPiculet.Logic.Business
 		}
 
 		/// <summary>
-		/// 用户是否存在。
+		/// 会员是否存在。
 		/// </summary>
 		/// <param name="account"></param>
 		/// <returns></returns>
@@ -79,12 +80,17 @@ namespace NPiculet.Logic.Business
 		}
 
 		/// <summary>
-		/// 获取用户列表。
+		/// 获取会员列表
 		/// </summary>
+		/// <param name="count"></param>
+		/// <param name="curPage"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="whereString"></param>
+		/// <param name="orderBy"></param>
 		/// <returns></returns>
-		public DataTable GetMemberList(int curPage, int pageSize, string whereString = null, string orderBy = null)
+		public DataTable GetMemberList(out int count, int curPage, int pageSize, string whereString = null, string orderBy = null)
 		{
-			string sql = @"SELECT * FROM (SELECT u.Id, u.UserSn, u.Account, u.Password, u.Name
+			string sql = @"SELECT * FROM (SELECT u.Id, u.MemberSn, u.Account, u.Password, u.Name, u.MemberLevel
 	, u.LoginTimes, u.LastLoginDate, u.LastLogoutDate, u.PassQuestion, u.PassAnswer
 	, u.FailedCount, u.FailedDate, u.IsEnabled, u.IsDel, u.Status, u.OrderBy, u.Creator, u.CreateDate, u.UpdateDate
 	, u.BindSource, u.BindDate
@@ -92,30 +98,32 @@ namespace NPiculet.Logic.Business
 	, d.IdCard, d.Education, d.QQ, d.Weixin, d.Weibo, d.Interest, d.PointCurrent, d.PointTotal
 	, d.Exp, d.Cash, d.Cost, d.HeadIcon, d.Memo
 FROM sys_member_info u
-	LEFT JOIN sys_member_data d ON u.Account=d.UserAccount AND d.IsDel=0
+	LEFT JOIN sys_member_data d ON u.Id=d.MemberId AND d.IsDel=0
 WHERE u.IsDel=0) t";
 			if (!string.IsNullOrEmpty(whereString)) sql += " WHERE " + whereString;
 			sql += (string.IsNullOrEmpty(orderBy)) ? " ORDER BY OrderBy, Id DESC" : " ORDER BY " + orderBy;
 			sql += " LIMIT " + pageSize + " OFFSET " + ((curPage - 1) * pageSize);
 
+			count = DbHelper.QueryValue<int>("SELECT COUNT(*) FROM sys_member_info WHERE " + whereString);
+
 			return DbHelper.Query(sql);
 		}
 
 		/// <summary>
-		/// 获取用户头像
+		/// 获取会员头像
 		/// </summary>
 		/// <param name="memberId"></param>
 		/// <returns></returns>
 		public string GetMemberHeadIcon(int memberId)
 		{
 			using (var db = new NPiculetEntities()) {
-				var member = db.sys_member_data.FirstOrDefault(a => a.UserId == memberId);
+				var member = db.sys_member_data.FirstOrDefault(a => a.MemberId == memberId);
 				return (member != null) ? member.HeadIcon : "";
 			}
 		}
 
 		/// <summary>
-		/// 更改用户密码。
+		/// 更改会员密码。
 		/// </summary>
 		/// <param name="account"></param>
 		/// <param name="newpass"></param>
@@ -142,14 +150,74 @@ WHERE u.IsDel=0) t";
 		}
 
 		/// <summary>
-		/// 获取用户资料
+		/// 获取会员资料
 		/// </summary>
-		/// <param name="userId"></param>
+		/// <param name="memberId"></param>
 		/// <returns></returns>
-		public sys_member_data GetMemberData(int userId)
+		public sys_member_data GetMemberData(int memberId)
 		{
 			using (var db = new NPiculetEntities()) {
-				return db.sys_member_data.FirstOrDefault(a => a.IsDel == 0 && a.UserId == userId);
+				return db.sys_member_data.FirstOrDefault(a => a.IsDel == 0 && a.MemberId == memberId);
+			}
+		}
+
+		/// <summary>
+		/// 删除会员（标记删除）
+		/// </summary>
+		/// <param name="memberId"></param>
+		public void Delete(int memberId)
+		{
+			using (var db = new NPiculetEntities()) {
+				var member = db.sys_member_info.FirstOrDefault(a => a.Id == memberId);
+				if (member != null) {
+					member.IsDel = 1;
+
+					var data = db.sys_member_data.FirstOrDefault(a => a.MemberId == memberId);
+					if (data != null)
+						data.IsDel = 1;
+
+					db.SaveChanges();
+				}
+			}
+		}
+
+		/// <summary>
+		/// 更新状态
+		/// </summary>
+		/// <param name="memberId"></param>
+		/// <param name="status"></param>
+		public void UpdateStatus(int memberId, string status)
+		{
+			using (var db = new NPiculetEntities()) {
+				var member = db.sys_member_info.FirstOrDefault(a => a.Id == memberId);
+				if (member != null) {
+					member.Status = status;
+					db.SaveChanges();
+				}
+			}
+		}
+
+		/// <summary>
+		/// 保存会员
+		/// </summary>
+		/// <param name="member"></param>
+		public void SaveMember(sys_member_info member)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.sys_member_info.AddOrUpdate(member);
+				db.SaveChanges();
+			}
+		}
+
+		/// <summary>
+		/// 保存会员资料
+		/// </summary>
+		/// <param name="data"></param>
+		public void SaveMemberData(sys_member_data data)
+		{
+			using (var db = new NPiculetEntities()) {
+				db.sys_member_data.AddOrUpdate(data);
+				db.SaveChanges();
 			}
 		}
 	}

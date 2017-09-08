@@ -282,7 +282,7 @@ WHERE u.IsDel=0) t";
 		/// 保存用户资料
 		/// </summary>
 		/// <param name="data"></param>
-		public void SaveData(sys_user_data data) {
+		public void SaveUserData(sys_user_data data) {
 			using (var db = new NPiculetEntities()) {
 				db.Save(data);
 			}
@@ -293,7 +293,7 @@ WHERE u.IsDel=0) t";
 		/// </summary>
 		/// <param name="data"></param>
 		/// <param name="predicate"></param>
-		public void SaveData(sys_user_data data, Expression<Func<sys_user_data, bool>> predicate)
+		public void SaveUserData(sys_user_data data, Expression<Func<sys_user_data, bool>> predicate)
 		{
 			using (var db = new NPiculetEntities()) {
 				var current = db.sys_user_data.FirstOrDefault(predicate);

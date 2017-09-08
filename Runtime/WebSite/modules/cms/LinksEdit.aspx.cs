@@ -10,79 +10,70 @@ namespace modules.info
 {
 	public partial class LinksEdit : AdminPage
 	{
-		readonly NPiculetEntities _db = new NPiculetEntities();
-
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!Page.IsPostBack)
-			{
-				this.Id.Value = WebParmKit.GetQuery("key", 0).ToString();
+			if (!Page.IsPostBack) {
+				this.Id.Value = WebParmKit.GetQuery("key", "");
 				BindData();
 			}
 		}
 
-		private void BindData()
-		{
-			var id = Convert.ToInt32(this.Id.Value);
-			if (id <= 0)
-				return;
-			var model = _db.cms_friendlinks_info.SingleOrDefault(x => x.Id == id);
-			if (model == null)
-				return;
-			BindKit.BindModelToContainer(this.editor, model);
-			ShowThumb(model.Image);
+		private void BindData() {
+			var id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			if (id > 0) {
+				using (var db = new NPiculetEntities()) {
+					var model = db.cms_friendlinks_info.FirstOrDefault(a => a.Id == id);
+					if (model != null) {
+						BindKit.BindModelToContainer(this.editor, model);
+						ShowThumb(model.Image);
+					}
+				}
+			}
 		}
 
 		protected void btnSave_Click(object sender, EventArgs e)
 		{
-			if (!Page.IsValid)
-				return;
-			var model = new cms_friendlinks_info();
-			BindKit.FillModelFromContainer(this.editor, model);
+			if (!Page.IsValid) return;
 
-			if (!string.IsNullOrEmpty(this.AdvImage.FileName))
-			{
-				//清理老图像
-				if (!string.IsNullOrEmpty(this.PreviewImage.ImageUrl))
-				{
-					var f = new FileInfo(Server.MapPath(this.PreviewImage.ImageUrl));
-					if (f.Exists) f.Delete();
+			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
+			cms_friendlinks_info model;
+
+			using (var db = new NPiculetEntities()) {
+				if (id == 0) {
+					model = new cms_friendlinks_info();
+					model.Click = 0;
+					model.IsEnabled = 1;
+					model.CreateDate = DateTime.Now;
+					model.Creator = this.CurrentUserName;
+				} else {
+					model = db.cms_friendlinks_info.FirstOrDefault(a => a.Id == id);
 				}
-				//更新新图
-				model.Image = FileWebKit.SaveZoomImage(this.AdvImage.PostedFile, 1024, 1024);
-			}
+				BindKit.FillModelFromContainer(this.editor, model);
 
-			if (this.Id.Value == "0")
-			{
-				//model.Type = "";
-				model.Click = 0;
-				model.IsEnabled = 1;
-				model.CreateDate = DateTime.Now;
-				model.Creator = this.CurrentUserName;
-				model = _db.cms_friendlinks_info.Add(model);
-				_db.SaveChanges();
-				Id.Value = model.Id.ToString();
-			}
-			else
-			{
-				_db.Entry(model).State = System.Data.Entity.EntityState.Modified;
-				_db.SaveChanges();
-			}
+				if (!string.IsNullOrEmpty(this.AdvImage.FileName)) {
+					//清理老图像
+					if (!string.IsNullOrEmpty(this.PreviewImage.ImageUrl)) {
+						var f = new FileInfo(Server.MapPath(this.PreviewImage.ImageUrl));
+						if (f.Exists) f.Delete();
+					}
+					//更新新图
+					model.Image = FileWebKit.SaveZoomImage(this.AdvImage.PostedFile, 1024, 1024);
+				}
 
-			ShowThumb(model.Image);
-			this.promptControl.ShowSuccess("保存成功！");
+				db.SaveChanges();
+
+				ShowThumb(model.Image);
+				this.promptControl.ShowSuccess("保存成功！");
+			}
 		}
 
 		private void ShowThumb(string imagePath)
 		{
-			if (!string.IsNullOrEmpty(imagePath))
-			{
+			if (!string.IsNullOrEmpty(imagePath)) {
 				this.ImageHyperLink.NavigateUrl = imagePath;
 				this.PreviewImage.ImageUrl = imagePath;
 				this.PreviewImage.Visible = true;
-			}
-			else
-			{
+			} else {
 				this.PreviewImage.Visible = false;
 			}
 		}

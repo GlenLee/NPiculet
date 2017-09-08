@@ -146,10 +146,10 @@ public partial class system_Admin_UserEdit : AdminPage
 				data.UserId = user.Id;
 				data.UserAccount = user.Account;
 				data.IsDel = 0;
-				_ubus.SaveData(data);
+				_ubus.SaveUserData(data);
 			} else {
 				BindKit.FillModelFromContainer(this.editor, data);
-				_ubus.SaveData(data, a => a.UserId == user.Id);
+				_ubus.SaveUserData(data, a => a.UserId == user.Id);
 			}
 			this.Id.Value = user.Id.ToString();
 

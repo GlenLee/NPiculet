@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Jump.aspx.cs" Inherits="web_Jump" %>
