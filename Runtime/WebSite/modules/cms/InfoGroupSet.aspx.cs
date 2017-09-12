@@ -217,6 +217,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
 			_cbus.DeleteGroup(ConvertKit.ConvertValue(this.Id.Value, 0));
+			_cbus.DeletePageList(a => a.GroupCode == this.GroupCode.Text);
 
 			BindData();
 		}

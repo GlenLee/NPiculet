@@ -7,7 +7,7 @@
 	<title>Sidebar</title>
 	<link href="../styles/fonts/font-awesome.min.css" rel="stylesheet" />
 	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
-	<script src="../scripts/lib/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script src="../scripts/lib/jquery-1.12.4.min.js" type="text/javascript"></script>
 	<script src="../styles/sui/js/sui.min.js" type="text/javascript"></script>
 	<style type="text/css">
 		html, body { margin:0;padding:0;width:100%;height:100%;font-size:14px;background-color:#E7E8ED;color:#666; }

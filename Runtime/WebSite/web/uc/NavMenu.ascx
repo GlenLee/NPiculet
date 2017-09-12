@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="NavMenu.ascx.cs" Inherits="web_uc_NavMenu" %>
-<div class="ui-nav">
+<div class="ui-navbar">
 	<div class="controls">
 		<ul class="menus">
 <asp:Repeater runat="server" ID="list">

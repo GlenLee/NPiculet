@@ -1,48 +1,29 @@
-﻿@import "less/lib.less";
+﻿// Init variables
+@nav-bg-color: #015293;
+@base-color: #015293;
+@nav-height: 45px;
 
-html, body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-}
+// Import libs
+@import "less/lib.less";
+@import "less/framework.less";
 
-body {
-	box-sizing: border-box;
-	overflow-x: hidden;
-}
+// Fix UI framework
 
-a, a:hover, a:focus, a:active, a:link {
-	text-decoration: none;
-	color: #000;
-}
-
-/* fix UI */
-
-/* Just Index Page */
+// Just Index Page
 .page-index {
 	.ui-body {
 		background-color: #fff;
 	}
 }
 
-/* Init Variable */
-@ui-width: 1000px;
-@nav-bg-color: #015293;
-@base-color: #015293;
-@nav-height: 45px;
+// UI init
+.ui-init() {}
+// 初始化UI主框架样式
+.ui-page {}
 
-/* UI */
-.ui-init() {
-}
-/* 初始化UI主框架样式 */
-.ui-page {
-}
+.ui-wrap {}
 
-.ui-wrap {
-}
-
-/* UI Top */
+// UI Top
 .ui-top {
 	width: @ui-width;
 	height: 100px;

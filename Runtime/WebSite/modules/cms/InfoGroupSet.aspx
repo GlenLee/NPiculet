@@ -9,7 +9,7 @@
 			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click">保存</asp:LinkButton></li>
 			<li><asp:LinkButton ID="btnAdd" runat="server" OnClick="btnAdd_Click">新增同级</asp:LinkButton></li>
 			<li><asp:LinkButton ID="btnChild" runat="server" OnClick="btnChild_Click">新增下级</asp:LinkButton></li>
-			<li><asp:LinkButton ID="btnDelete" runat="server" OnClick="btnDelete_Click" OnClientClick="return confirm('确定要删除数据吗？');">删除</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnDelete" runat="server" OnClick="btnDelete_Click" OnClientClick="return confirm('删除栏目也会删除其下所有新闻，确定要继续吗？');">删除</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>

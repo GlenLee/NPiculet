@@ -11,11 +11,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-	<ul class="sui-breadcrumb">
+	<ol class="breadcrumb">
 		<li>当前位置：</li>
 		<li><a href="<%= ResolveClientUrl("~/") %>">首页</a></li>
 		<li class="active">信息列表</li>
-	</ul>
+	</ol>
 	<div class="sui-row sui-row-fluid ui-content-list">
 		<div class="span9">
 			<!-- 列表 开始 -->

@@ -110,9 +110,9 @@ public partial class modules_cms_PageEdit : AdminPage
 			model.OrderBy = this.OrderBy.Checked ? 0 : 1;
 
 			//处理组信息
-			string code = GroupCode;
-			int dataId = ConvertKit.ConvertValue(code, 0);
-			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == dataId);
+			int gid = this.GroupId;
+			string code = this.GroupCode;
+			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == gid);
 
 			if (string.IsNullOrEmpty(this.Id.Value) || this.Id.Value == "0") {
 				InsertNewData(model, group);

@@ -260,11 +260,12 @@ WHERE u.IsDel=0) t";
 		public void Delete(int uid)
 		{
 			using (var db = new NPiculetEntities()) {
-				var user = db.sys_user_data.FirstOrDefault(a => a.Id == uid);
-				if (user != null) {
-					user.IsDel = 1;
-					db.SaveChanges();
-				}
+				var user = db.sys_user_info.FirstOrDefault(a => a.Id == uid);
+				if (user != null) user.IsDel = 1;
+				var data = db.sys_user_data.FirstOrDefault(a => a.UserId == uid);
+				if (data != null) data.IsDel = 1;
+
+				db.SaveChanges();
 			}
 		}
 

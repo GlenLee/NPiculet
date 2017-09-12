@@ -69,7 +69,7 @@ public partial class system_Admin_UserEdit : AdminPage
 	private void BindUserType() {
 		var dbus = new DictBus();
 		var list = dbus.GetDictItemList(a => a.GroupCode == "UserType");
-		BindKit.BindToListControl(this.Type, list, "Name", "Value");
+		BindKit.BindToListControl(this.Type, list, "Name", "Code");
 	}
 
 	/// <summary>
@@ -137,6 +137,7 @@ public partial class system_Admin_UserEdit : AdminPage
 				user = _ubus.GetUser(a => a.Id == id && a.IsDel == 0);
 			}
 			BindKit.FillModelFromContainer(this.editor, user);
+			user.Type = this.Type.SelectedValue;
 			_ubus.SaveUser(user);
 
 			var data = _ubus.GetUserData(user.Id);
