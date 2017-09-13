@@ -1,4 +1,4 @@
-﻿/* 圆角 */
+﻿// 圆角
 .radius (@radius: 5px) {
 	-webkit-border-radius: @radius;
 	-moz-border-radius: @radius;
@@ -11,14 +11,14 @@
 	border-radius: @topleft @topright @bottomright @bottomleft;
 }
 
-/* 阴影 */
+// 阴影
 .box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
 	-webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
 	-moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
 	box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
 }
 
-/* 过渡效果动画：linear, ease-in */
+// 过渡效果动画：linear, ease-in
 .transition (@prop: all, @time: 1s, @ease: linear) {
 	-webkit-transition: @prop @time @ease;
 	-moz-transition: @prop @time @ease;
@@ -27,7 +27,7 @@
 	transition: @prop @time @ease;
 }
 
-/* 转换、旋转 */
+// 旋转元素
 .transform (@rotate: 90deg, @scale: 1, @skew: 1deg, @translate: 10px) {
 	-webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
 	-moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
@@ -36,7 +36,7 @@
 	transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
 }
 
-/* 线性渐变 */
+// 线性渐变
 .linear-gradient (@origin: top, @start: #ffffff, @stop: #000000) {
 	background-color: @start;
 	background-image: -webkit-linear-gradient(@origin, @start, @stop);
@@ -54,7 +54,7 @@
 	background-image: linear-gradient(@origin, rgba(0,0,0,0.0), rgba(0,0,0,@alpha));
 }
 
-/* 边框 */
+// 设置边框
 .border-v(@width: 1px, @style: solid, @color: #ccc) {
 	border-left: @width @style @color;
 	border-right: @width @style @color;
@@ -74,7 +74,7 @@
 	border-top: @width @style @color;
 }
 
-/* 清除 */
+// 自清除浮动
 .clearfix {
 	zoom: 1;
 
@@ -88,11 +88,13 @@
 	}
 }
 
+// 自清除浮动的其他方法1
 .clearfix1() {
 	overflow: auto;
 	_height: 1%;
 }
 
+// 自清除浮动的其他方法2
 .clearfix2() {
 	overflow: hidden;
 	_zoom: 1;

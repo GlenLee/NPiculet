@@ -199,5 +199,16 @@ namespace NPiculet.Cms.Business
 				}
 			}
 		}
+
+		/// <summary>
+		/// 批量删除内容页，请谨慎操作
+		/// </summary>
+		/// <param name="predicate"></param>
+		public void DeletePageList(Expression<Func<cms_content_page, bool>> predicate) {
+			using (var db = new NPiculetEntities()) {
+				db.cms_content_page.RemoveRange(db.cms_content_page.Where(predicate));
+				db.SaveChanges();
+			}
+		}
 	}
 }

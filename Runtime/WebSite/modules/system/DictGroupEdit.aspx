@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="字典分组管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="DictGroupEdit.aspx.cs" Inherits="modules_system_DictGroupEdit" %>
-<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc1" %>
+<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
@@ -11,7 +11,7 @@
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" Runat="Server">
-    <uc1:Prompt ID="promptControl" runat="server" />
+    <uc:Prompt ID="promptControl" runat="server" />
     <asp:PlaceHolder ID="container" runat="server">
 		<table class="sui-table table-primary">
 			<tr>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="会员信息" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="MemberEdit.aspx.cs" Inherits="modules_member_MemberEdit" %>
-<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc1" %>
+<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc" %>
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="header">
@@ -18,7 +18,7 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
-	<uc1:Prompt ID="promptControl" runat="server" />
+	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 	<asp:UpdatePanel ID="UpdatePanel1" runat="server">
 		<ContentTemplate>

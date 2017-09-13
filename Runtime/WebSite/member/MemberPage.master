@@ -1,48 +1,50 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MemberPage.master.cs" Inherits="MemberMasterPage" %>
-
-<%@ Register TagPrefix="uc1" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
-<%@ Register TagPrefix="ph" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
-
+<%@ Register TagPrefix="uc" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
+<%@ Register Src="~/member/uc/PageFooter.ascx" TagPrefix="uc" TagName="PageFooter" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><%= GetPlatformName() %></title>
-    <uc1:WebQuote runat="server" ID="WebQuote" />
-    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><%= GetPlatformName() %></title>
+	<uc:WebQuote runat="server" ID="WebQuote" />
+	<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-    <ph:PageHeader ID="pageHeader" runat="server" />
 
-    <form id="frm" runat="server">
+<div class="ui-header">
+	<div class="layout">
+		<div class="web-title">pcx.cn</div>
+	</div>
+</div>
+<form id="frm" runat="server">
 
-        <div class="ui-member-header">
-            <div class="wrap">
-                <div class="logo"></div>
-                <div class="nav">
-                    <ul>
-                        <li>
-                            <asp:HyperLink runat="server" NavigateUrl="~/default.aspx">首页</asp:HyperLink></li>
-                        <li class="active">个人中心</li>
-                    </ul>
-                </div>
-                <div class="bar">
-                    <div class="search">
-                        <asp:TextBox ID="keyword" runat="server" placeholder="请输入搜索关键字" />
-                        <asp:LinkButton runat="server"><i class="sui-icon icon-tb-search"></i>&nbsp;搜索</asp:LinkButton>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>
-        <!-- 内容开始 -->
-        <div class="ui-body">
-            <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
-        </div>
-        <!-- 内容结束 -->
-        <asp:ContentPlaceHolder ID="footer" runat="server"></asp:ContentPlaceHolder>
-        <!--#include file="uc/footer.html"--> 
-    </form>
+	<div class="ui-member-header">
+		<div class="wrap">
+			<div class="logo"></div>
+			<div class="nav">
+				<ul>
+					<li>
+						<asp:HyperLink runat="server" NavigateUrl="~/default.aspx">首页</asp:HyperLink></li>
+					<li class="active">个人中心</li>
+				</ul>
+			</div>
+			<div class="bar">
+				<div class="search">
+					<asp:TextBox ID="keyword" runat="server" placeholder="请输入搜索关键字" />
+					<asp:LinkButton runat="server"><i class="sui-icon icon-tb-search"></i>&nbsp;搜索</asp:LinkButton>
+				</div>
+			</div>
+		</div>
+	</div>
+	<asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>
+	<!-- 内容开始 -->
+	<div class="ui-body">
+		<asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
+	</div>
+	<!-- 内容结束 -->
+	<asp:ContentPlaceHolder ID="footer" runat="server"></asp:ContentPlaceHolder>
+	<uc:PageFooter runat="server" ID="PageFooter" />
+</form>
 
 </body>
 </html>

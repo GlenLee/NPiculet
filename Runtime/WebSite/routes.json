@@ -11,9 +11,14 @@
 			"url": "~/web/ContentList.aspx"
 		},
 		{
+			"name": "search",
+			"route": "search",
+			"url": "~/web/Search.aspx"
+		},
+		{
 			"name": "web",
-			"route": "Web/{page}",
-			"url": "~/web/$1.aspx"
+			"route": "web/{groupCode}",
+			"url": "~/web/Jump.aspx"
 		},
 		{
 			"name": "aboutus",

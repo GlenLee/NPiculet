@@ -127,7 +127,7 @@ namespace NPiculet.WebControls
 			_manager.PageSize = this.PageSize;
 			_manager.CurrentPage = this.CurrentPage;
 			_manager.RecordCount = this.RecordCount;
-			_manager.FixCss = "sui-pagination pagination-large";
+			_manager.FixCss = "pagination";
 			//manager.FirstString = "<i class=\"step backward icon\"></i>";
 			//manager.PrevString = "<i class=\"caret left icon\"></i>";
 			//manager.NextString = "<i class=\"caret right icon\"></i>";
@@ -136,7 +136,7 @@ namespace NPiculet.WebControls
 			_manager.NextStaticString = "";
 			//跳转页链接，参数：{0}页面地址、{1}当前页码、{2}链接文字
 			//public string PageUrlString = "<a href=\"{0}?Page={1}\">{2}</a>";
-			_manager.PageUrlString = "<li class=\"item{3}\"><a href=\"" + Page.ClientScript.GetPostBackClientHyperlink(this, "{1}") + "\">{2}</a></li>";
+			_manager.PageUrlString = "<li{3}><a href=\"" + Page.ClientScript.GetPostBackClientHyperlink(this, "{1}") + "\">{2}</a></li>";
 			output.Write(_manager.Show());
 		}
 

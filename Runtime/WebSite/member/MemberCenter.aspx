@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="MemberPage.master" AutoEventWireup="true" CodeFile="MemberCenter.aspx.cs" Inherits="MemberCenter" %>
 
-<%@ Register TagPrefix="uc1" TagName="MemberSidebar" Src="uc/MemberSidebar.ascx" %>
+<%@ Register TagPrefix="uc" TagName="MemberSidebar" Src="uc/MemberSidebar.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
@@ -24,7 +24,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="sui-row-fluid" style="margin-top: 10px;">
             <div class="span3">
-                <uc1:MemberSidebar ID="MemberSidebar1" runat="server" Actived="MemberCenter.aspx" />
+                <uc:MemberSidebar ID="MemberSidebar1" runat="server" Actived="MemberCenter.aspx" />
             </div>
             <div class="span9">
                 <div class="title">个人资料</div>

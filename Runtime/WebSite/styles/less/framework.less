@@ -1,0 +1,74 @@
+﻿// 一个标准的网站页面结构范例（此CSS仅用于说明页面结构，并不会输出任何样式），其中每个部分都应该是可以省略的
+.ui-frame {
+	// 框架，应是全屏，可用于放背景
+	.ui-header {
+		// 头部
+	}
+
+	.ui-navbar {
+		// 导航条
+	}
+
+	.ui-body {
+		// 页体
+
+		.ui-sidebar {
+			// 侧边栏
+		}
+
+		.ui-content {
+			// 内页正文内容
+		}
+	}
+
+	.ui-footer {
+		// 底部
+	}
+}
+
+// 规范页面
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 9pt;
+}
+
+a, a:hover, a:focus, a:active, a:link {
+	text-decoration: none;
+	color: #333;
+}
+
+// 主框架
+@ui-width: 1000px;
+.ui-frame {
+	min-height: 100%; //避免背景不全
+	background-color: #f7f7f7;
+}
+.ui-header {
+}
+.ui-navbar {
+	width: @ui-width;
+	margin: 0 auto;
+}
+.ui-body {
+	width: @ui-width;
+	margin: 0 auto;
+}
+.ui-sidebar {
+	display: inline-block;
+	width:28%;
+	vertical-align: top;
+}
+.ui-content {
+	display: inline-block;
+	width: 70%;
+	vertical-align: top;
+}
+.ui-footer {
+}

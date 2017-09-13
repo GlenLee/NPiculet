@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="字典数据管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="DictItemEdit.aspx.cs" Inherits="modules_system_DictItemEdit" %>
 <%@ Import Namespace="NPiculet.Toolkit" %>
-<%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="uc1" %>
+<%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="uc" %>
 
 <asp:Content ID="Content1" runat="server" ContentPlaceHolderID="header">
 </asp:Content>
@@ -15,7 +15,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="Server">
-	<uc1:Prompt ID="promptControl" runat="server" />
+	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="container" runat="server">
 		<table class="sui-table table-primary">
 			<tr>

@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ContentSidebar.ascx.cs" Inherits="web_uc_ContentSidebar" %>
-<div class="ui-content-sidebar">
+<div class="col-md-3 ui-content-sidebar">
 	<div class="ui-widget">
 		<div class="header">
 			<span class="title">栏目导航</span>

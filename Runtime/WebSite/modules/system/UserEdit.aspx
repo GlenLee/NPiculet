@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="用户编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="UserEdit.aspx.cs" Inherits="system_Admin_UserEdit" %>
-<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc1" %>
+<%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="header">
 	<link href="../../styles/sui/css/sui-append.min.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<uc1:Prompt ID="promptControl" runat="server" />
+	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
 		<table class="sui-table table-primary">
 			<thead>

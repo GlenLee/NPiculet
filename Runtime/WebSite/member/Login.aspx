@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Login" %>
-<%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc1" TagName="NavMenu" %>
+<%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc" TagName="NavMenu" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 	<style type="text/css">
@@ -36,10 +36,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="nav" runat="Server">
-	<uc1:NavMenu runat="server" ID="NavMenu" Active="-1" />
+	<uc:NavMenu runat="server" ID="NavMenu" Active="-1" />
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="Server">
+	<form runat="server" ID="frm">
 	<div class="sui-form form-horizontal">
 		<div class="title">
 			<i class="sui-icon icon-touch-user3-sign"></i>&nbsp;用户登录
@@ -75,7 +76,5 @@
 			</tr>
 		</table>
 	</div>
-</asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="footer" runat="Server">
+	</form>
 </asp:Content>
