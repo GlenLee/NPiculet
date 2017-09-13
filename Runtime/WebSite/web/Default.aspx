@@ -20,7 +20,6 @@
 		<li><%= GetWebSiteName() %></li>
 	</ol>
 	<div class="ui-sidebar">
-		<h5>Sidebar</h5>
 		
 		<form runat="server">
 			<uc:LoginWidget runat="server" id="LoginWidget1" />
@@ -28,16 +27,24 @@
 
 	</div>
 	<div class="ui-content">
-		<h5>Content</h5>
-		
-		<asp:Repeater ID="news" runat="server">
-			<ItemTemplate>
-				<li class="row">
-					<div class="col-md-10"><a href="../view/<%# Eval("Id") %>" target="_blank"><%# Eval("Title") %></a></div>
-					<div class="col-md-2" style="text-align: right"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
-				</li>
-			</ItemTemplate>
-		</asp:Repeater>
+
+		<div class="ui-widget">
+			<div class="header">
+				<div class="title">新闻</div>
+			</div>
+			<div class="content">
+				<ul>
+					<asp:Repeater ID="news" runat="server">
+						<ItemTemplate>
+							<li class="row">
+								<div class="col-md-10"><a href="../view/<%# Eval("Id") %>" target="_blank"><%# Eval("Title") %></a></div>
+								<div class="col-md-2" style="text-align: right"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></div>
+							</li>
+						</ItemTemplate>
+					</asp:Repeater>
+				</ul>
+			</div>
+		</div>
 
 	</div>
 </asp:Content>

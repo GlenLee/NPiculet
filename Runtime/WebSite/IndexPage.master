@@ -1,5 +1,4 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="IndexPage.master.cs" Inherits="IndexPage" %>
-<%@ Register TagPrefix="uc" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
 <%@ Register TagPrefix="uc" TagName="PageFooter"Src="~/web/uc/PageFooter.ascx"  %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,7 +18,11 @@
 
 <body class="page-index">
 	<div class="ui-frame">
-		<uc:PageHeader ID="pageHeader" runat="server" />
+		<div class="ui-header">
+			<div class="layout">
+				<div class="web-title">pcx.cn</div>
+			</div>
+		</div>
 		<asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>
 		<!-- 内容开始 -->
 		<div class="ui-body">

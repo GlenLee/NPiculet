@@ -1,6 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MemberPage.master.cs" Inherits="MemberMasterPage" %>
 <%@ Register TagPrefix="uc" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
-<%@ Register TagPrefix="uc" TagName="PageHeader" Src="~/web/uc/PageHeader.ascx" %>
 <%@ Register Src="~/member/uc/PageFooter.ascx" TagPrefix="uc" TagName="PageFooter" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,8 +10,12 @@
 	<asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
-<uc:PageHeader ID="pageHeader" runat="server" />
 
+<div class="ui-header">
+	<div class="layout">
+		<div class="web-title">pcx.cn</div>
+	</div>
+</div>
 <form id="frm" runat="server">
 
 	<div class="ui-member-header">

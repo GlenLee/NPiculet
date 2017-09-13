@@ -82,7 +82,7 @@ namespace NPiculet.WebControls
 		/// <summary> 分页大小 </summary>
 		public int PageSize = 10;
 		/// <summary> 统计描述，文字中参数：{0}当前页、{1}总页数、{2}总记录数 </summary>
-		public string TotalString = "<li><a class=\"item\">第{0}/{1}页 共{2}条记录</a><li>";
+		public string TotalString = "<li><a>第{0}/{1}页 共{2}条记录</a><li>";
 		/// <summary> 传值，格式：&valuename1=value1&valuename2=value2 </summary>
 		public string RefererString = String.Empty;
 		/// <summary> 统计描述的显示位置 </summary>
@@ -90,7 +90,7 @@ namespace NPiculet.WebControls
 		/// <summary> 页面地址 </summary>
 		public string PageUrl = String.Empty;
 		/// <summary> 跳转页链接，参数：{0}页面地址、{1}当前页码、{2}链接文字 </summary>
-		public string PageUrlString = "<li><a class=\"item{3}\" href=\"{0}?Page={1}\">{2}</a></li>";
+		public string PageUrlString = "<li{3}><a href=\"{0}?Page={1}\">{2}</a></li>";
 
 		#endregion
 
@@ -301,9 +301,9 @@ namespace NPiculet.WebControls
 			//显示通用信息
 			this.CreateCommonInfo();
 			//返回结果
-			string html = "<div class=\"npager";
-			if (!string.IsNullOrWhiteSpace(FixCss)) html += " " + FixCss;
-			html += "\"><ul>" + str + "</ul></div>";
+			string html = "<nav class=\"npager\"><ul";
+			if (!string.IsNullOrWhiteSpace(FixCss)) html += " class=\"" + FixCss + "\"";
+			html += ">" + str + "</ul></nav>";
 			return html;
 		}
 
@@ -320,12 +320,12 @@ namespace NPiculet.WebControls
 					, PageUrl
 					, page.ToString() + RefererString
 					, text
-					, actived ? " active" : ""
+					, actived ? " class=\"active\"" : ""
 				);
 			} else {
 				if (ShowNoLinkText) {
 					if (text.Length > 0) {
-						return "<li><a class=\"item disable\">" + text + "</a></li>";
+						return "<li class=\"disabled\"><a>" + text + "</a></li>";
 					}
 				}
 				return String.Empty;
