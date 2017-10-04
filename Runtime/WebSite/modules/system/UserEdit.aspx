@@ -63,7 +63,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<thead>
 				<tr>
 					<th colspan="4">基本信息</th>
@@ -106,7 +106,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<thead>
 				<tr>
 					<th colspan="6">用户资料</th>

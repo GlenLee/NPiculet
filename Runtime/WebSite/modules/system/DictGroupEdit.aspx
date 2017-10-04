@@ -13,7 +13,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="content" Runat="Server">
     <uc:Prompt ID="promptControl" runat="server" />
     <asp:PlaceHolder ID="container" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">字典组名称</td>
 				<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>

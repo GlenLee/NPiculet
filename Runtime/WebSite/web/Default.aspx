@@ -4,9 +4,6 @@
 <%@ Register TagPrefix="uc" TagName="PageTop" Src="~/web/uc/PageTop.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-	<style type="text/css">
-		img { display: block; margin: 0 auto; border: 2px solid #f7f7f7; border-radius: 64px; }
-	</style>
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="nav">

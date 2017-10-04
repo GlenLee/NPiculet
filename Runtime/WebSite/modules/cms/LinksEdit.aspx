@@ -19,7 +19,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">类型</td>
 				<td class="td">友情链接</td>

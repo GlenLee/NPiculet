@@ -22,7 +22,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<Columns>
 			<asp:BoundField DataField="Position" HeaderText="广告位置">
 				<HeaderStyle Width="80px" />

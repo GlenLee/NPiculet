@@ -41,7 +41,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<table class="sui-table table-primary">
+	<table class="table table-primary">
 		<tr>
 			<th colspan="2">目标信息</th>
 		</tr>

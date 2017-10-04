@@ -26,7 +26,7 @@
 		.npager { position:absolute;bottom:0;width:100%;background-color:#ddd;margin:0 20px 0 0; }
 		.pagination { margin:0; }
 
-		.sui-table.table-bordered-simple { margin:0; }
+		.table.table-bordered-simple { margin:0; }
 	</style>
 	<base target="_self"/>
 </asp:Content>
@@ -50,7 +50,7 @@
 	<div class="ui-dialog-user">
 		<div class="wrap">
 
-			<asp:GridView runat="server" ID="list" AutoGenerateColumns="False" CssClass="sui-table table-bordered-simple">
+			<asp:GridView runat="server" ID="list" AutoGenerateColumns="False" CssClass="table table-bordered-simple">
 				<Columns>
 					<asp:TemplateField HeaderText="序号">
 						<HeaderStyle Width="40px"></HeaderStyle>
@@ -82,7 +82,7 @@
 
 	<div class="ui-dialog-selected">
 		<div class="wrap">
-			<asp:GridView runat="server" ID="selectedList" AutoGenerateColumns="False" CssClass="sui-table table-bordered-simple">
+			<asp:GridView runat="server" ID="selectedList" AutoGenerateColumns="False" CssClass="table table-bordered-simple">
 				<Columns>
 					<asp:TemplateField HeaderText="序号">
 						<HeaderStyle Width="40px"></HeaderStyle>

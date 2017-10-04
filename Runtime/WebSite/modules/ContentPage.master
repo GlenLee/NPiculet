@@ -12,8 +12,8 @@
 </head>
 <body>
 <form id="frm" runat="server" class="sui-form">
-	<div class="ui-nav">
-		<ul class="sui-breadcrumb">
+	<div class="ui-navbar">
+		<ul class="breadcrumb">
 			<li>首页</li>
 			<li><%= GetTitle() %></li>
 		</ul>

@@ -18,7 +18,7 @@ body {
 	padding: 0 15px 15px 15px;
 }
 
-.ui-nav {
+.ui-navbar {
 	margin: 15px;
 	border: 1px solid #ccc;
 	.radius(3px);
@@ -28,67 +28,70 @@ body {
 .caption { color:#aaa; }
 
 /* fix SUI */
-.sui-breadcrumb {
+.breadcrumb {
 	margin: 0;
+	background-color: #fff;
 }
 
-.sui-table.table-primary {
+.table.table-primary {
 	border-collapse: separate !important;
 	border: 0 !important;
 	.radius(3px);
 	background-color: #fff;
 }
 
-.sui-table.table-primary th {
+.table.table-primary th {
 	border: 1px solid #2A7BC4;
 	border-right: none;
+	text-align: center;
 	background-color: @base-color;
+	color: #fff;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child th {
+.table.table-primary tbody:first-child tr:first-child th {
 	border-top: 1px solid #2A7BC4;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child > th:first-child {
+.table.table-primary tbody:first-child tr:first-child > th:first-child {
 	border-top-left-radius: 3px;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child > th:last-child {
+.table.table-primary tbody:first-child tr:first-child > th:last-child {
 	border-right: 1px solid #2A7BC4;
 	border-top-right-radius: 3px;
 }
 
-.sui-table.table-primary td {
+.table.table-primary td {
 	border: 1px solid #ddd;
 	border-top: none;
 	border-right: none;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child > td {
+.table.table-primary tbody:first-child tr:first-child > td {
 	border-top: 1px solid #ddd;
 }
 
-.sui-table.table-primary tbody:last-child tr > td:last-child {
+.table.table-primary tbody:last-child tr > td:last-child {
 	border-right: 1px solid #ddd;
 }
 
-.sui-table.table-primary tbody:last-child tr:last-child > td:first-child {
+.table.table-primary tbody:last-child tr:last-child > td:first-child {
 	border-bottom-left-radius: 3px;
 }
 
-.sui-table.table-primary tbody:last-child tr:last-child > td:last-child {
+.table.table-primary tbody:last-child tr:last-child > td:last-child {
 	border-bottom-right-radius: 3px;
 }
 
-.sui-table {
+.table {
 	background-color: #fff;
 }
 
-.sui-table .th {
+.table .th {
 	width: 100px;
 	text-align: right;
 }
-.sui-table .td {}
+.table .td {}
 
 /* bar */
 ul.searchbar-wrap, ul.searchbar-wrap li {

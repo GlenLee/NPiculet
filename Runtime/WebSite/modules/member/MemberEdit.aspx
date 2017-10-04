@@ -24,7 +24,7 @@
 		<ContentTemplate>
 
 			<asp:PlaceHolder ID="editor" runat="server">
-				<table class="sui-table table-primary">
+				<table class="table table-primary">
 					<tr>
 						<th colspan="4">基本信息</th>
 					</tr>
@@ -67,7 +67,7 @@
 						<td class="td"><asp:Literal runat="server" ID="PointCurrent">0</asp:Literal> / <asp:Literal runat="server" ID="PointTotal">0</asp:Literal></td>
 					</tr>
 				</table>
-				<table class="sui-table table-primary">
+				<table class="table table-primary">
 					<tr>
 						<th colspan="6">用户资料</th>
 					</tr>
@@ -112,7 +112,7 @@
 				<asp:HiddenField ID="Id" runat="server" />
 			</asp:PlaceHolder>
 
-			<asp:GridView runat="server" ID="details" Width="100%" AutoGenerateColumns="False" CssClass="sui-table table-primary">
+			<asp:GridView runat="server" ID="details" Width="100%" AutoGenerateColumns="False" CssClass="table table-primary">
 				<Columns>
 					<asp:TemplateField HeaderText="序号">
 						<HeaderStyle Width="50px" />

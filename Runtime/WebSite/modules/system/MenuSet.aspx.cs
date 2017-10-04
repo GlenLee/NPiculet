@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,9 +20,9 @@ public partial class System_MenuSet : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			BindData();
 			SetControlStatus();
 			Belong_SelectedIndexChanged(sender, e);
+			BindData();
 		}
 	}
 
@@ -219,8 +220,13 @@ public partial class System_MenuSet : AdminPage
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
 			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
-			string path = this.Path.Value;
-			_mbus.Delete(a => a.Id == id || a.Path.StartsWith(path));
+			string path = this.Path.Value + "/" + id;
+
+			if (string.IsNullOrEmpty(path)) {
+				_mbus.Delete(a => a.Id == id);
+			} else {
+				_mbus.Delete(a => a.Id == id || a.Path.StartsWith(path));
+			}
 
 			ClearControls();
 			BindData();

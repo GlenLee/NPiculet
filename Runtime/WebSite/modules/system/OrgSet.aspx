@@ -26,7 +26,7 @@
 			<td>
 				<uc:Prompt ID="promptControl" runat="server" />
 <asp:PlaceHolder ID="editor" runat="server">
-				<table class="sui-table table-primary">
+				<table class="table table-primary">
 					<tr>
 						<th colspan="2">基本信息</th>
 					</tr>
@@ -36,27 +36,27 @@
 					</tr>
 					<tr>
 						<td class="th">名称</td>
-						<td class="td"><asp:TextBox ID="OrgName" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+						<td class="td"><asp:TextBox ID="OrgName" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="OrgName" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">编码</td>
-						<td class="td"><asp:TextBox ID="OrgCode" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="OrgCode" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">简称</td>
-						<td class="td"><asp:TextBox ID="Alias" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+						<td class="td"><asp:TextBox ID="Alias" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r2" runat="server" ControlToValidate="Alias" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">排序</td>
-						<td class="td"><asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="200px" MaxLength="8" Text="0"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">备注</td>
-						<td class="td"><asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Memo" runat="server" CssClass="form-control" Width="99%" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">显示</td>

@@ -24,7 +24,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">栏目</td>
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
@@ -43,11 +43,17 @@
 				</td>
 			</tr>
 			<tr>
+				<td></td>
+				<td>
+					<input runat="server" id="teest" class="magic-checkbox"/><label for="<%= this.teest.ClientID %>">发布</label>
+				</td>
+			</tr>
+			<tr>
 				<td class="th">设置</td>
 				<td class="td">
 					<asp:CheckBox runat="server" ID="IsEnabled"/> <label for="<%= this.IsEnabled.ClientID %>">发布</label>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<asp:CheckBox runat="server" ID="OrderBy"/> <label for="<%= this.OrderBy.ClientID %>">置顶</label>
+					<asp:CheckBox runat="server" ID="OrderBy" CssClass="magic-checkbox"/> <label for="<%= this.OrderBy.ClientID %>">置顶</label>
 				</td>
 			</tr>
 			<asp:PlaceHolder runat="server" ID="phThumb">

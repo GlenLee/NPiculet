@@ -4,9 +4,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>欢迎登录<%= GetPlatformName() %></title>
-	<script src="../scripts/lib/jquery-1.11.3.min.js"></script>
-	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
-	<script src="../styles/sui/js/sui.min.js"></script>
+	<script type="text/javascript" src="../scripts/lib/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
 	<style type="text/css">
 		html, body { padding:0;margin:0;width:100%;height:100%;background-color:#00cdac;background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%); }
 		div, p, input, select { box-sizing:border-box; }
@@ -146,9 +145,6 @@
 			text-align: center;
 		}
 	</style>
-	<script type="text/javascript" src="../scripts/lib/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
-	<%--<script src="js/cloud.js" type="text/javascript"></script>--%>
 	<script type="text/javascript">
 		if (window.top.location.href !== window.location.href) {
 			window.top.location.href = window.location.href;

@@ -13,7 +13,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id,OrgName,Point" CssClass="sui-table table-primary">
+	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id,OrgName,Point" CssClass="table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
@@ -33,7 +33,7 @@
 	</asp:GridView>
 	
 	<h4>积分操作日志</h4>
-	<asp:GridView ID="pointLogs" runat="server" Width="100%" AutoGenerateColumns="False" CssClass="sui-table table-primary">
+	<asp:GridView ID="pointLogs" runat="server" Width="100%" AutoGenerateColumns="False" CssClass="table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>

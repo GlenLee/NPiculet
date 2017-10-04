@@ -58,16 +58,15 @@ public partial class modules_system_PointSet : AdminPage
 			if (row.RowType == DataControlRowType.DataRow) {
 				var dataKey = this.list.DataKeys[row.RowIndex];
 				if (dataKey != null) {
-					string dataId = Convert.ToString(dataKey["Id"]);
+					int orgId = ConvertKit.ConvertValue(dataKey["Id"], 0);
 					string orgName = Convert.ToString(dataKey["OrgName"]);
-					int cpoint = ConvertKit.ConvertValue(dataKey["Point"], 0);
-					int mpoint = ConvertKit.ConvertValue((row.FindControl("point") as TextBox).Text, 0);
-					if (cpoint != mpoint) {
-						var org = _obus.GetOrgInfo(ConvertKit.ConvertValue(dataId, 0));
-						org.Point = mpoint;
-						_obus.SaveOrg(org);
-						int point = mpoint - cpoint;
-						pbus.SavePointLog(this.CurrentUserInfo, "cms_point_log", dataId, point, "手动调整，" + (point > 0 ? "增加积分" : "减少积分"), orgName);
+					decimal cpoint = ConvertKit.ConvertValue(dataKey["Point"], 0m);
+
+					string val = (row.FindControl("point") as TextBox).Text;
+					decimal mpoint = ConvertKit.ConvertValue(val, 0m);
+					if (!string.IsNullOrEmpty(val) && cpoint != mpoint) {
+						decimal point = mpoint - cpoint;
+						pbus.SavePointLog(this.CurrentUserInfo, orgId, "cms_point_log", orgId.ToString(), point, "手动调整，" + (point > 0 ? "增加积分" : "减少积分"), orgName);
 					}
 				}
 			}

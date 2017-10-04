@@ -17,7 +17,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="content" runat="Server">
 	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="container" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">字典组</td>
 				<td class="td">

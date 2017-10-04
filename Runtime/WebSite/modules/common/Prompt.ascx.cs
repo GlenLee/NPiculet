@@ -17,7 +17,7 @@ public partial class system_UserControls_Prompt : System.Web.UI.UserControl
 
 	private void ShowPrompt(string msg, string css, params object[] args)
 	{
-		this.prompt.Attributes["class"] = "sui-msg msg-large msg-block " + css;
+		this.prompt.Attributes["class"] = "alert " + css;
 		this.promptContent.Text = string.Format(msg, args);
 		this.prompt.Visible = true;
 	}
@@ -29,21 +29,21 @@ public partial class system_UserControls_Prompt : System.Web.UI.UserControl
 
 	public void ShowSuccess(string msg, params object[] args)
 	{
-		ShowPrompt(msg, "msg-warning", args);
+		ShowPrompt(msg, "alert-success", args);
 	}
 
 	public void ShowWarning(string msg, params object[] args)
 	{
-		ShowPrompt(msg, "msg-success", args);
+		ShowPrompt(msg, "alert-warning", args);
 	}
 
 	public void ShowInfo(string msg, params object[] args)
 	{
-		ShowPrompt(msg, "msg-info", args);
+		ShowPrompt(msg, "alert-info", args);
 	}
 
 	public void ShowError(string msg, params object[] args)
 	{
-		ShowPrompt(msg, "msg-error", args);
+		ShowPrompt(msg, "alert-danger", args);
 	}
 }

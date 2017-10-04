@@ -32,5 +32,25 @@ namespace NPiculet.Toolkit
 		{
 			return predicate;
 		}
+
+		/// <summary>
+		/// 创建一个总是返回 true 的条件
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static Expression<Func<T, bool>> True<T>() {
+			return a => true;
+		}
+
+
+		/// <summary>
+		/// 创建一个总是返回 false 的条件
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public static Expression<Func<T, bool>> False<T>()
+		{
+			return a => false;
+		}
 	}
 }

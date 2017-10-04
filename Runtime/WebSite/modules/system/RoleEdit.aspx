@@ -44,7 +44,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<uc:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<th colspan="2">基本信息</th>
 			</tr>

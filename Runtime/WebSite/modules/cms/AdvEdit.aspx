@@ -22,7 +22,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">广告位置</td>
 				<td class="td">

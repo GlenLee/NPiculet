@@ -60,8 +60,8 @@
   <ItemGroup>
     <Compile Include="Convert\ConvertKit.cs" />
     <Compile Include="Data\DataKit.cs" />
-    <Compile Include="Data\ExpressionsExtension.cs" />
     <Compile Include="Data\EntityExtension.cs" />
+    <Compile Include="Data\ExpressionsExtension.cs" />
     <Compile Include="Data\QueryableExtension.cs" />
     <Compile Include="Data\LinQKit.cs" />
     <Compile Include="Draw2D\HitKit.cs" />

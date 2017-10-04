@@ -48,7 +48,8 @@
 			//var baseErr = err.GetBaseException();
 
 			//记录事件日志
-			Logger.Error("应用程序错误！", err);
+			string msg = "应用程序错误！";
+			Logger.Error(msg, err);
 		}
 		//清除错误
 		//Server.ClearError(); 

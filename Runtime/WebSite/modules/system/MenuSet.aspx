@@ -25,7 +25,7 @@
 			<td>
 				<uc:Prompt ID="promptControl" runat="server" />
 <asp:PlaceHolder ID="editor" runat="server">
-				<table class="sui-table table-primary">
+				<table class="table table-primary">
 					<tr>
 						<th colspan="2">基本信息</th>
 					</tr>
@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<td class="th">所属</td>
-						<td class="td"><asp:DropDownList ID="Belong" runat="server" AutoPostBack="true" OnSelectedIndexChanged="Belong_SelectedIndexChanged">
+						<td class="td"><asp:DropDownList ID="Belong" runat="server" CssClass="form-control" Width="200px" AutoPostBack="true" OnSelectedIndexChanged="Belong_SelectedIndexChanged">
 							<asp:ListItem Value="1">普通菜单</asp:ListItem>
 							<asp:ListItem Value="2">栏目</asp:ListItem>
 							<asp:ListItem Value="3">字典</asp:ListItem>
@@ -44,22 +44,23 @@
 <asp:PlaceHolder ID="phNormalMenu" runat="server" Visible="false">
 					<tr>
 						<td class="th">名称</td>
-						<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+						<td class="td">
+							<asp:TextBox ID="Name" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="Name" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">编码</td>
-						<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox></td>
 					</tr>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="phInfoGroup" runat="server" Visible="false">
 					<tr>
 						<td class="th">选择栏目</td>
 						<td class="td">
-							<asp:DropDownList ID="InfoGroupCategory" runat="server" AutoPostBack="true" OnSelectedIndexChanged="InfoGroupList_SelectedIndexChanged"></asp:DropDownList>
+							<asp:DropDownList ID="InfoGroupCategory" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="InfoGroupList_SelectedIndexChanged"></asp:DropDownList>
 							&nbsp;
-							<asp:DropDownList ID="InfoGroupList" runat="server" AutoPostBack="true" OnSelectedIndexChanged="InfoPageList_SelectedIndexChanged"></asp:DropDownList>
+							<asp:DropDownList ID="InfoGroupList" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="InfoPageList_SelectedIndexChanged"></asp:DropDownList>
 						</td>
 					</tr>
 </asp:PlaceHolder>
@@ -71,29 +72,20 @@
 						</td>
 					</tr>
 </asp:PlaceHolder>
-					<tr style="display:none;">
-						<td class="th">类型</td>
-						<td class="td"><asp:DropDownList ID="Type" runat="server">
-							<asp:ListItem Value="0">无</asp:ListItem>
-							<asp:ListItem Value="1">内容页</asp:ListItem>
-							<asp:ListItem Value="2">普通列表</asp:ListItem>
-							<asp:ListItem Value="3">图片列表</asp:ListItem>
-						</asp:DropDownList></td>
-					</tr>
 					<tr>
 						<td class="th">显示窗口</td>
-						<td class="td"><asp:DropDownList ID="Target" runat="server">
+						<td class="td"><asp:DropDownList ID="Target" runat="server" CssClass="form-control" Width="200px">
 							<asp:ListItem Value="mainFrame">主窗口</asp:ListItem>
 							<asp:ListItem Value="_blank">弹出窗口</asp:ListItem>
 						</asp:DropDownList></td>
 					</tr>
 					<tr>
 						<td class="th">图标</td>
-						<td class="td"><asp:TextBox ID="Icon" runat="server" CssClass="input-large" Width="99%" MaxLength="512"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Icon" runat="server" CssClass="form-control" MaxLength="512"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">链接</td>
-						<td class="td"><asp:TextBox ID="Url" runat="server" CssClass="input-large" Width="99%" MaxLength="512"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Url" runat="server" CssClass="form-control" MaxLength="512"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">显示</td>
@@ -102,14 +94,14 @@
 					<tr>
 						<td class="th">排序</td>
 						<td class="td">
-							<asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
+							<asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 							<asp:RegularExpressionValidator ID="re2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="只能是英文及数字" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">说明</td>
-						<td class="td"><asp:TextBox ID="Comment" runat="server" CssClass="input-large" Width="99%" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Comment" runat="server" CssClass="form-control" Height="60px" TextMode="MultiLine"></asp:TextBox></td>
 					</tr>
 				</table>
 				<asp:HiddenField ID="Id" runat="server" />
