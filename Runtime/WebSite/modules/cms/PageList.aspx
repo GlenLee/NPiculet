@@ -35,7 +35,7 @@
 				<ItemTemplate><%# GetOrderByString() %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="发布时间">
-				<HeaderStyle Width="120px" />
+				<HeaderStyle Width="140px" />
 				<ItemStyle HorizontalAlign="Center" />
 			</asp:BoundField>
 			<asp:TemplateField HeaderText="编辑">

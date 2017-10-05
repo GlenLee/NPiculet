@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Toolkit;
+using NPiculet.WebControls;
 
 public partial class modules_cms_ContentTmplList : AdminPage
 {
@@ -66,7 +67,7 @@ public partial class modules_cms_ContentTmplList : AdminPage
 		BindData();
 	}
 
-	protected void nPager_OnPageClick(object sender, NPiculet.WebControls.PageEventArgs e) {
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
 		BindData();
 	}
 }

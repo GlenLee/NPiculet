@@ -58,9 +58,9 @@
 					<tr>
 						<td class="th">选择栏目</td>
 						<td class="td">
-							<asp:DropDownList ID="InfoGroupCategory" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="InfoGroupList_SelectedIndexChanged"></asp:DropDownList>
+							<asp:DropDownList ID="InfoGroupCategory" runat="server" CssClass="form-control" Width="200px" AutoPostBack="true" OnSelectedIndexChanged="InfoGroupList_SelectedIndexChanged"></asp:DropDownList>
 							&nbsp;
-							<asp:DropDownList ID="InfoGroupList" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="InfoPageList_SelectedIndexChanged"></asp:DropDownList>
+							<asp:DropDownList ID="InfoGroupList" runat="server" CssClass="form-control" Width="200px" AutoPostBack="true" OnSelectedIndexChanged="InfoPageList_SelectedIndexChanged"></asp:DropDownList>
 						</td>
 					</tr>
 </asp:PlaceHolder>
@@ -68,7 +68,7 @@
 					<tr>
 						<td class="th">选择字典</td>
 						<td class="td">
-							<asp:DropDownList ID="DictList" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DictList_SelectedIndexChanged"></asp:DropDownList>
+							<asp:DropDownList ID="DictList" runat="server" CssClass="form-control" Width="200px" AutoPostBack="true" OnSelectedIndexChanged="DictList_SelectedIndexChanged"></asp:DropDownList>
 						</td>
 					</tr>
 </asp:PlaceHolder>

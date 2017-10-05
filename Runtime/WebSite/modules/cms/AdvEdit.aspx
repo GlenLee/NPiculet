@@ -26,12 +26,12 @@
 			<tr>
 				<td class="th">广告位置</td>
 				<td class="td">
-					<asp:DropDownList ID="Position" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Position_OnSelectedIndexChanged"></asp:DropDownList></td>
+					<asp:DropDownList ID="Position" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="Position_OnSelectedIndexChanged"></asp:DropDownList></td>
 			</tr>
 			<tr>
 				<td class="th">名称</td>
 				<td class="td">
-					<asp:TextBox ID="txtTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="255"></asp:TextBox>
+					<asp:TextBox ID="txtTitle" runat="server" CssClass="form-control" MaxLength="255"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="txtTitle" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
@@ -74,18 +74,18 @@
 			<tr>
 				<td class="th">链接</td>
 				<td class="td">
-					<asp:TextBox ID="Url" runat="server" CssClass="input-large" Width="98%" MaxLength="1024"></asp:TextBox></td>
+					<asp:TextBox ID="Url" runat="server" CssClass="form-control" MaxLength="1024"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">排序</td>
 				<td class="td">
-					<asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="100px" MaxLength="6"></asp:TextBox></td>
+					<asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="100px" MaxLength="6"></asp:TextBox></td>
 			</tr>
 <asp:PlaceHolder runat="server" ID="phCover" Visible="False">
 			<tr>
 				<td class="th">时效</td>
 				<td class="td">
-					开始时间：<asp:TextBox ID="StartDate" runat="server" CssClass="input-large" Width="120px"></asp:TextBox> - 结束时间：<asp:TextBox ID="EndDate" runat="server" CssClass="input-large" Width="120px"></asp:TextBox>
+					开始时间：<asp:TextBox ID="StartDate" runat="server" CssClass="form-control" Width="120px"></asp:TextBox> - 结束时间：<asp:TextBox ID="EndDate" runat="server" CssClass="form-control" Width="120px"></asp:TextBox>
 					<script type="text/javascript">
 						$('#<%= this.StartDate.ClientID %>').datepicker({});
 						$('#<%= this.EndDate.ClientID %>').datepicker({});
@@ -115,12 +115,12 @@
 			<tr>
 				<td class="th">附加样式</td>
 				<td class="td">
-					<asp:TextBox ID="Css" runat="server" CssClass="input-large" Width="98%" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
+					<asp:TextBox ID="Css" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">附加脚本</td>
 				<td class="td">
-					<asp:TextBox ID="Script" runat="server" CssClass="input-large" Width="98%" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
+					<asp:TextBox ID="Script" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
 			</tr>
 </asp:PlaceHolder>
 		</table>

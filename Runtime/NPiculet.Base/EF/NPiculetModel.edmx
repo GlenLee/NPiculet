@@ -162,6 +162,41 @@
           <Property Name="OrderBy" Type="int" />
           <Property Name="CreateDate" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
+        <EntityType Name="cms_content_tmpl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="64" />
+          <Property Name="Template" Type="longtext" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="IsEnabled" Type="int" />
+          <Property Name="CreateDate" Type="datetime" Precision="0" />
+          <Property Name="Creator" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl_field">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="64" />
+          <Property Name="Code" Type="varchar" MaxLength="64" />
+          <Property Name="Type" Type="varchar" MaxLength="16" />
+          <Property Name="CreateDate" Type="datetime" Precision="0" />
+          <Property Name="Creator" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl_value">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateId" Type="int" />
+          <Property Name="FieldId" Type="int" />
+          <Property Name="DataId" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="16" />
+          <Property Name="Value" Type="text" />
+        </EntityType>
         <EntityType Name="cms_friendlinks_info">
           <Key>
             <PropertyRef Name="Id" />
@@ -309,7 +344,6 @@
           <Property Name="Cost" Type="decimal" Precision="16" Scale="2" />
           <Property Name="HeadIcon" Type="varchar" MaxLength="128" />
           <Property Name="Memo" Type="varchar" MaxLength="128" />
-          <Property Name="RechargeStatus" Type="varchar" MaxLength="16" />
           <Property Name="IsDel" Type="int" />
         </EntityType>
         <EntityType Name="sys_member_info">
@@ -480,6 +514,9 @@
           <EntitySet Name="cms_adv_info" EntityType="Self.cms_adv_info" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_group" EntityType="Self.cms_content_group" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_page" EntityType="Self.cms_content_page" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="cms_content_tmpl" EntityType="Self.cms_content_tmpl" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="cms_content_tmpl_field" EntityType="Self.cms_content_tmpl_field" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="cms_content_tmpl_value" EntityType="Self.cms_content_tmpl_value" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_friendlinks_info" EntityType="Self.cms_friendlinks_info" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_points_log" EntityType="Self.cms_points_log" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_action_detail" EntityType="Self.sys_action_detail" Schema="npiculet" store:Type="Tables" />
@@ -531,6 +568,9 @@
           <EntitySet Name="sys_user_info" EntityType="NPiculetModel.sys_user_info" />
           <EntitySet Name="sys_member_data" EntityType="NPiculetModel.sys_member_data" />
           <EntitySet Name="sys_member_info" EntityType="NPiculetModel.sys_member_info" />
+          <EntitySet Name="cms_content_tmpl" EntityType="NPiculetModel.cms_content_tmpl" />
+          <EntitySet Name="cms_content_tmpl_field" EntityType="NPiculetModel.cms_content_tmpl_field" />
+          <EntitySet Name="cms_content_tmpl_value" EntityType="NPiculetModel.cms_content_tmpl_value" />
         </EntityContainer>
         <EntityType Name="bas_attachment">
           <Key>
@@ -995,6 +1035,41 @@
           <Property Name="UpdateDate" Type="DateTime" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Template" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="IsEnabled" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl_field">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl_value">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="FieldId" Type="Int32" />
+          <Property Name="DataId" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1489,6 +1564,44 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="MemberSn" ColumnName="MemberSn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_tmpl">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl">
+              <MappingFragment StoreEntitySet="cms_content_tmpl">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_tmpl_field">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl_field">
+              <MappingFragment StoreEntitySet="cms_content_tmpl_field">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_tmpl_value">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl_value">
+              <MappingFragment StoreEntitySet="cms_content_tmpl_value">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DataId" ColumnName="DataId" />
+                <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
