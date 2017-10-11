@@ -21,13 +21,13 @@
 			<tr>
 				<td class="th">字典组</td>
 				<td class="td">
-					<asp:DropDownList runat="server" ID="GroupCode" />
+					<asp:DropDownList runat="server" ID="GroupCode" CssClass="form-control"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="th">字典项名称</td>
 				<td class="td">
-					<asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+					<asp:TextBox ID="Name" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Name">
 					</asp:RequiredFieldValidator>
@@ -36,7 +36,7 @@
 			<tr>
 				<td class="th">字典项编码</td>
 				<td class="td">
-					<asp:TextBox ID="Code" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+					<asp:TextBox ID="Code" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Code"></asp:RequiredFieldValidator>
 				</td>
@@ -44,12 +44,12 @@
 			<tr>
 				<td class="th">属性值</td>
 				<td class="td">
-					<asp:TextBox ID="Value" runat="server" CssClass="input-large" Width="200px" MaxLength="255"></asp:TextBox></td>
+					<asp:TextBox ID="Value" runat="server" CssClass="form-control" Width="200px" MaxLength="255"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">排序</td>
 				<td class="td">
-					<asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="200px" MaxLength="8"></asp:TextBox></td>
+					<asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="200px" MaxLength="8"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">是否启用</td>
@@ -60,7 +60,7 @@
 			<tr>
 				<td class="th">备注</td>
 				<td class="td">
-					<asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%"></asp:TextBox>
+					<asp:TextBox ID="Memo" runat="server" CssClass="form-control" Width="99%"></asp:TextBox>
 				</td>
 			</tr>
 		</table>

@@ -22,6 +22,9 @@ public partial class modules_cms_PageEdit : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
+
+			this.Author.Text = this.CurrentUserName;
+
 			BindData();
 			InitControl();
 		}

@@ -70,10 +70,11 @@ public partial class modules_cms_ContentTmplEdit : AdminPage
 				db.cms_content_tmpl.AddOrUpdate(tmpl);
 				db.SaveChanges();
 			}
-
 			this.Id.Value = tmpl.Id.ToString();
 
 			this.promptControl.ShowSuccess("保存成功！");
+
+			BindFields();
 		}
 	}
 

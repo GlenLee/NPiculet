@@ -32,14 +32,26 @@
 			<tr>
 				<td class="th">主标题</td>
 				<td class="td">
-					<asp:TextBox ID="InfoTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="256"></asp:TextBox>
+					<asp:TextBox ID="InfoTitle" runat="server" CssClass="form-control" Width="98%" MaxLength="256"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="InfoTitle" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
 			<tr>
 				<td class="th">副标题</td>
 				<td class="td">
-					<asp:TextBox ID="SubTitle" runat="server" CssClass="input-large" Width="98%" MaxLength="256"></asp:TextBox>
+					<asp:TextBox ID="SubTitle" runat="server" CssClass="form-control" Width="98%" MaxLength="256"></asp:TextBox>
+				</td>
+			</tr>
+			<tr>
+				<td class="th">作者</td>
+				<td class="td">
+					<asp:TextBox ID="Author" runat="server" CssClass="form-control" Width="98%" MaxLength="256"></asp:TextBox>
+				</td>
+			</tr>
+			<tr>
+				<td class="th">来源</td>
+				<td class="td">
+					<asp:TextBox ID="Source" runat="server" CssClass="form-control" Width="98%" MaxLength="256"></asp:TextBox>
 				</td>
 			</tr>
 			<tr>

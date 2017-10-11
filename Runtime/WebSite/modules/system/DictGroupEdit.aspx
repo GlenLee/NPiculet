@@ -16,13 +16,13 @@
 		<table class="table table-primary">
 			<tr>
 				<td class="th">字典组名称</td>
-				<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+				<td class="td"><asp:TextBox ID="Name" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Name"></asp:RequiredFieldValidator>
 			</tr>
 			<tr>
 				<td class="th">字典组编码</td>
-				<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+				<td class="td"><asp:TextBox ID="Code" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="Code"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
@@ -32,7 +32,7 @@
 			<tr>
 				<td class="th">展示方式</td>
 				<td class="td">
-                    <asp:DropDownList ID="DisplayMode" runat="server">
+                    <asp:DropDownList ID="DisplayMode" runat="server" CssClass="form-control">
 						<asp:ListItem Text="DropDownList">下拉列表</asp:ListItem>
                     </asp:DropDownList>
                  </td>
@@ -46,7 +46,7 @@
             <tr>
 				<td class="th">列头备注</td>
 				<td class="td">
-                    <asp:TextBox ID="Memo" runat="server" CssClass="input-large" Width="99%"></asp:TextBox>
+                    <asp:TextBox ID="Memo" runat="server" CssClass="form-control" Width="99%"></asp:TextBox>
                 </td>
 			</tr>
 		</table>

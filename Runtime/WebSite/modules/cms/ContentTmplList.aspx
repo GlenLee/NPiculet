@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="ContentTmplEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增模板</a></li>
+			<li><a href="ContentTmplEdit.aspx"><i class="fa fa-plus"></i>新增模板</a></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -21,7 +21,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%" DataKeyNames="Id"
-	              OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<Columns>
 			<asp:BoundField DataField="Name" HeaderText="名称" />
 			<asp:TemplateField HeaderText="发布">
@@ -30,7 +30,7 @@
 				<ItemTemplate><%# GetIsEnabledString() %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="发布时间">
-				<HeaderStyle Width="120px" />
+				<HeaderStyle Width="140px" />
 				<ItemStyle HorizontalAlign="Center" />
 			</asp:BoundField>
 			<asp:TemplateField HeaderText="编辑">

@@ -27,7 +27,12 @@ body {
 
 .caption { color:#aaa; }
 
-/* fix SUI */
+/* fix UI */
+.form-control {
+	display: inline;
+	width: auto;
+}
+
 .breadcrumb {
 	margin: 0;
 	background-color: #fff;
@@ -94,6 +99,10 @@ body {
 }
 .table .td {}
 
+.quote h5 {
+	font-weight:bold;
+}
+
 /* bar */
 ul.searchbar-wrap, ul.searchbar-wrap li {
 	margin: 0;
@@ -132,8 +141,8 @@ ul.searchbar-wrap li {
 	border: 1px solid #1299ec;
 	width: 150px;
 	height: 24px;
-	line-height: 24px;
-	text-indent: 10px;
+	/*line-height: 24px;*/
+	text-indent: 6px;
 	margin-right: 8px;
 	.radius(3px);
 }
@@ -154,10 +163,6 @@ ul.searchbar-wrap li {
 
 .searchbar-wrap a i {
 	margin-right: 5px;
-}
-
-.searchbar-wrap input[type=text], .admin-search-table input[type=text], .prosearch input[type=text] {
-	padding: 4px 8px;
 }
 
 ul.toolbar, ul.toolbar li {

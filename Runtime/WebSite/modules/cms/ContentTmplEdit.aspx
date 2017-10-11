@@ -22,11 +22,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">名称</td>
 				<td class="td">
-					<asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="500px" MaxLength="512"></asp:TextBox>
+					<asp:TextBox ID="Name" runat="server" CssClass="form-control" Width="500px" MaxLength="512"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="Name" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td class="th">排序</td>
-				<td class="td"><asp:TextBox ID="Sort" runat="server" CssClass="input-large" Width="500px" MaxLength="6"></asp:TextBox></td>
+				<td class="td"><asp:TextBox ID="Sort" runat="server" CssClass="form-control" Width="500px" MaxLength="6"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">模板</td>
@@ -62,45 +62,36 @@
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
 	<asp:PlaceHolder ID="phFields" runat="server">
-	<table class="sui-table table-primary">
-		<thead>
-		<tr>
-			<th>字段</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<td class="td">
-				<asp:LinkButton ID="btnSaveField" runat="server" OnClick="btnSaveField_Click" CssClass="link-btn">保存</asp:LinkButton>
-			</td>
-		</tr>
-		<tr>
-			<td class="td">
+		<div class="panel panel-info" id="_userList" runat="server">
+			<div class="panel-heading">
+				<h4 class="panel-title">自定义字段</h4>
+			</div>
+			<div class="panel-body">
 				<asp:GridView runat="server" ID="fields" AutoGenerateColumns="False" ShowFooter="True" DataKeyNames="Id"
-					OnRowDeleting="fields_OnRowDeleting" OnRowCommand="fields_OnRowCommand">
+					CssClass="table table-primary" OnRowDeleting="fields_OnRowDeleting" OnRowCommand="fields_OnRowCommand">
 					<Columns>
 						<asp:TemplateField HeaderText="名称">
 							<ItemTemplate>
-								<asp:TextBox runat="server" ID="Name" Text='<%# Eval("Name") %>'></asp:TextBox>
+								<asp:TextBox runat="server" ID="Name" CssClass="form-control" Text='<%# Eval("Name") %>'></asp:TextBox>
 							</ItemTemplate>
 							<FooterTemplate>
-								<asp:TextBox runat="server" ID="Name"></asp:TextBox>
+								<asp:TextBox runat="server" ID="Name" CssClass="form-control"></asp:TextBox>
 							</FooterTemplate>
 						</asp:TemplateField>
 						<asp:TemplateField HeaderText="编码">
 							<ItemTemplate>
-								<asp:TextBox runat="server" ID="Code" Text='<%# Eval("Code") %>'></asp:TextBox>
+								<asp:TextBox runat="server" ID="Code" CssClass="form-control" Text='<%# Eval("Code") %>'></asp:TextBox>
 							</ItemTemplate>
 							<FooterTemplate>
-								<asp:TextBox runat="server" ID="Code"></asp:TextBox>
+								<asp:TextBox runat="server" ID="Code" CssClass="form-control"></asp:TextBox>
 							</FooterTemplate>
 						</asp:TemplateField>
 						<asp:TemplateField HeaderText="类型">
 							<ItemTemplate>
-								<asp:TextBox runat="server" ID="Type" Text='<%# Eval("Type") %>'></asp:TextBox>
+								<asp:TextBox runat="server" ID="Type" CssClass="form-control" Text='<%# Eval("Type") %>'></asp:TextBox>
 							</ItemTemplate>
 							<FooterTemplate>
-								<asp:TextBox runat="server" ID="Type"></asp:TextBox>
+								<asp:TextBox runat="server" ID="Type" CssClass="form-control"></asp:TextBox>
 							</FooterTemplate>
 						</asp:TemplateField>
 						<asp:TemplateField>
@@ -114,9 +105,20 @@
 						</asp:TemplateField>
 					</Columns>
 				</asp:GridView>
-			</td>
-		</tr>
-		</tbody>
-	</table>
+			</div>
+			<div class="panel-footer">
+				<asp:LinkButton ID="btnSaveField" runat="server" OnClick="btnSaveField_Click" CssClass="link-btn">保存</asp:LinkButton>
+			</div>
+		</div>
 	</asp:PlaceHolder>
+	<script>
+			$("input[type=checkbox]").iCheck("check");
+			$(document).ready(function () {
+				$('input[type=checkbox]').iCheck({
+					checkboxClass: 'icheckbox_minimal-blue',
+					radioClass: 'iradio_minimal-blue',
+					increaseArea: '20%'
+				});
+			});
+	</script>
 </asp:Content>

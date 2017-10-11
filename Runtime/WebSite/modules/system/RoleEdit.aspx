@@ -50,13 +50,13 @@
 			</tr>
 			<tr>
 				<td class="th">名称</td>
-				<td class="td"><asp:TextBox ID="RoleName" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+				<td class="td"><asp:TextBox ID="RoleName" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic"
 						ErrorMessage="必填" ForeColor="red" ControlToValidate="RoleName"></asp:RequiredFieldValidator></td>
 			</tr>
 			<tr>
 				<td class="th">备注</td>
-				<td class="td"><asp:TextBox ID="Comment" runat="server" CssClass="input-large" Width="99%" MaxLength="255"></asp:TextBox></td>
+				<td class="td"><asp:TextBox ID="Comment" runat="server" CssClass="form-control" Width="99%" MaxLength="255"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">是否启用</td>
@@ -65,19 +65,20 @@
 		</table>
 		<asp:HiddenField ID="Id" runat="server" />
 
-		<blockquote id="_userList" runat="server">
-			<div class="quote">
-				<h5>拥有用户</h5>
-				<span>
+		<div class="panel panel-info" id="_userList" runat="server">
+			<div class="panel-heading">
+				<h4 class="panel-title">拥有用户</h4>
+			</div>
+			<div class="panel-body">
+				<div>
 					<a href="#" onclick="addUser();">添加</a>
 					<asp:LinkButton runat="server" ID="btnDelUser" Text="删除" onclick="btnDelUser_Click"></asp:LinkButton>
-				</span>
-				<div class="cr"></div>
+				</div>
+				<div class="content role-list">
+					<asp:CheckBoxList runat="server" ID="userList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6"/>
+				</div>
 			</div>
-			<div class="content role-list">
-				<asp:CheckBoxList runat="server" ID="userList" RepeatColumns="5" RepeatDirection="Horizontal" CellPadding="6"/>
-			</div>
-		</blockquote>
+		</div>
 	</asp:PlaceHolder>
 </asp:Content>
 
