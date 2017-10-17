@@ -8,8 +8,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="DictItemList.aspx?group=<%= WebParmKit.GetQuery("group", "") %>&fix=<%= WebParmKit.GetQuery("fix", "") %>"><i class="sui-icon icon-tb-back"></i>返回</a></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+			<li><a href="DictItemList.aspx?group=<%= WebParmKit.GetQuery("group", "") %>&fix=<%= WebParmKit.GetQuery("fix", "") %>"><i class="fa fa-arrow-left"></i>返回</a></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>

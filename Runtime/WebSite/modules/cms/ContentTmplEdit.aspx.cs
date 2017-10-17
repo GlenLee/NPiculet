@@ -35,15 +35,19 @@ public partial class modules_cms_ContentTmplEdit : AdminPage
 
 	private void BindFields()
 	{
-		var tid = WebParmKit.GetQuery("id", 0);
+		var tid = ConvertKit.ConvertValue(this.Id.Value, 0);
 		if (tid > 0) {
 			this.phFields.Visible = true;
 
 			using (var db = new NPiculetEntities()) {
 				var data = db.cms_content_tmpl_field.Where(a => a.TemplateId == tid).ToList();
 				if (data.Count == 0) {
-					data.Add(new cms_content_tmpl_field() {Name = "xyz"});
+					data.Add(new cms_content_tmpl_field() { Name = "" });
+					this.fields.DataBound += (sender, e) => {
+						this.fields.Rows[0].Visible = false;
+					};
 				}
+
 				this.fields.DataSource = data;
 				this.fields.DataBind();
 			}

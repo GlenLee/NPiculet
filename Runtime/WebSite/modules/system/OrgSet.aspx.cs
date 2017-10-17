@@ -90,7 +90,7 @@ public partial class modules_system_OrgSet : AdminPage
 	{
 		bool visible = !string.IsNullOrEmpty(this.Id.Value);
 
-		this.btnSave.Text = visible ? "保存" : "新增根节点";
+		this.btnSave.Text = visible ? "<i class=\"fa fa-check\"></i>保存" : "<i class=\"fa fa-plus\"></i>新增根节点";
 		this.btnAuth.Visible = visible;
 		this.btnSame.Visible = visible;
 		this.btnChild.Visible = visible;

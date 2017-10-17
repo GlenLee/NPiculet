@@ -7,7 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="LinksEdit.aspx">新增</a></li>
+			<li><a href="LinksEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 		</ul>
 	</div>
 </asp:Content>

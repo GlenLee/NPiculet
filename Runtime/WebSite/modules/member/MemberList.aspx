@@ -12,7 +12,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="MemberEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="MemberEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 			<%--<li><asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton></li>--%>
 			<%--<li><asp:LinkButton runat="server" ID="btnResetPass" Text="重设密码"></asp:LinkButton></li>--%>
 			<li><asp:LinkButton runat="server" ID="btnRobot" Text="标记为外挂" OnClientClick="return confirm('选中账号将被标记为“外挂”！');" onclick="btnRobot_Click"></asp:LinkButton></li>

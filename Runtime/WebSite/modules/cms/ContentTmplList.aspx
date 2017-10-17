@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="ContentTmplList.aspx.cs" Inherits="modules_cms_ContentTmplList" %>
+﻿<%@ Page Title="模板管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="ContentTmplList.aspx.cs" Inherits="modules_cms_ContentTmplList" %>
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="header" Runat="Server">
@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="ContentTmplEdit.aspx"><i class="fa fa-plus"></i>新增模板</a></li>
+			<li><a href="ContentTmplEdit.aspx"><i class="fa fa-check"></i>新增模板</a></li>
 		</ul>
 	</div>
 </asp:Content>

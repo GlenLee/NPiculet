@@ -4,12 +4,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><asp:LinkButton ID="btnAuth" runat="server" OnClick="btnAuth_Click">授权</asp:LinkButton></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click">保存</asp:LinkButton></li>
-			<li><asp:LinkButton ID="btnSame" runat="server" OnClick="btnSame_Click">新增同级</asp:LinkButton></li>
-			<li><asp:LinkButton ID="btnChild" runat="server" OnClick="btnChild_Click">新增下级</asp:LinkButton></li>
-			<li><asp:LinkButton ID="btnDelete" runat="server" OnClick="btnDelete_Click">删除</asp:LinkButton></li>
-			<li><asp:LinkButton ID="btnFix" runat="server" OnClick="btnFix_Click" CausesValidation="False">修复结构</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnAuth" runat="server" OnClick="btnAuth_Click"><i class="fa fa-key"></i>授权</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnSame" runat="server" OnClick="btnSame_Click"><i class="fa fa-plus"></i>新增同级</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnChild" runat="server" OnClick="btnChild_Click"><i class="fa fa-plus"></i>新增下级</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnDelete" runat="server" OnClick="btnDelete_Click"><i class="fa fa-close"></i>删除</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnFix" runat="server" OnClick="btnFix_Click" CausesValidation="False"><i class="fa fa-wrench"></i>修复结构</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>

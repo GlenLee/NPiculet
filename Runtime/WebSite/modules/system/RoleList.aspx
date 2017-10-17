@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="RoleEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="RoleEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 			<%--<asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton>--%>
 		</ul>
 	</div>

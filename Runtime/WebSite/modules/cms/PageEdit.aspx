@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PageEdit.aspx.cs" Inherits="modules_cms_PageEdit" %>
+﻿<%@ Page Title="页面编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PageEdit.aspx.cs" Inherits="modules_cms_PageEdit" %>
 <%@ Register TagPrefix="zx" TagName="Prompt" Src="~/modules/common/Prompt.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="header" Runat="Server">
@@ -11,9 +11,9 @@
 	<div class="tools">
 		<ul class="toolbar">
 			<li><%= GetBackUrl() %></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
-			<li><asp:HyperLink ID="btnView" runat="server" Target="_blank"><i class="sui-icon icon-tb-activity"></i>预览</asp:HyperLink></li>
-			<li><asp:LinkButton ID="btnPublish" runat="server" OnClick="btnPublish_Click" OnClientClick="return confirm('确定发布？只有在发布后文章才能被看到。');"><i class="sui-icon icon-tb-activity"></i>发布</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
+			<li><asp:HyperLink ID="btnView" runat="server" Target="_blank"><i class="fa fa-eye"></i>预览</asp:HyperLink></li>
+			<li><asp:LinkButton ID="btnPublish" runat="server" OnClick="btnPublish_Click" OnClientClick="return confirm('确定发布？只有在发布后文章才能被看到。');"><i class="fa fa-upload"></i>发布</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -52,12 +52,6 @@
 				<td class="th">来源</td>
 				<td class="td">
 					<asp:TextBox ID="Source" runat="server" CssClass="form-control" Width="98%" MaxLength="256"></asp:TextBox>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					<input runat="server" id="teest" class="magic-checkbox"/><label for="<%= this.teest.ClientID %>">发布</label>
 				</td>
 			</tr>
 			<tr>

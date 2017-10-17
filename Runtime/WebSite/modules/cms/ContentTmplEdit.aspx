@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="ContentTmplEdit.aspx.cs" Inherits="modules_cms_ContentTmplEdit" %>
+﻿<%@ Page Title="模板编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="ContentTmplEdit.aspx.cs" Inherits="modules_cms_ContentTmplEdit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">
@@ -11,7 +11,7 @@
 	<div class="tools">
 		<ul class="toolbar">
 			<li><a href="ContentTmplList.aspx">返回</a></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()" CssClass="link-btn">保存</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()">保存</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -107,7 +107,7 @@
 				</asp:GridView>
 			</div>
 			<div class="panel-footer">
-				<asp:LinkButton ID="btnSaveField" runat="server" OnClick="btnSaveField_Click" CssClass="link-btn">保存</asp:LinkButton>
+				<asp:LinkButton ID="btnSaveField" runat="server" OnClick="btnSaveField_Click">保存</asp:LinkButton>
 			</div>
 		</div>
 	</asp:PlaceHolder>

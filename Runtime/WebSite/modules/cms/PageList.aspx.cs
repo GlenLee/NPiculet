@@ -41,7 +41,7 @@ public partial class modules_cms_PageList : AdminPage
 			this.AlertBeauty("没有找到组数据，请检查菜单及栏目配置！");
 			return;
 		}
-		this.Title = cg.GroupName;
+		this.Page.Header.Title = cg.GroupName;
 
 		//新增页链接
 		string editUrl = "PageEdit.aspx?";
@@ -79,6 +79,11 @@ public partial class modules_cms_PageList : AdminPage
 		this.nPager.RecordCount = count;
 	}
 
+	/// <summary>
+	/// 删除数据
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
 	{
 		if (e.RowIndex > -1) {
@@ -97,33 +102,30 @@ public partial class modules_cms_PageList : AdminPage
 		}
 	}
 
+	/// <summary>
+	/// 获取启用状态
+	/// </summary>
+	/// <returns></returns>
 	protected string GetIsEnabledString()
 	{
 		string enabled = Convert.ToString(Eval("IsEnabled"));
 		return enabled == "1" ? "发布" : "<span style=\"color:red\">编辑</span>";
 	}
 
+	/// <summary>
+	/// 获取排序状态
+	/// </summary>
+	/// <returns></returns>
 	protected string GetOrderByString()
 	{
 		string top = Convert.ToString(Eval("OrderBy"));
 		return top == "0" ? "置顶" : "";
 	}
 
-	protected void btnSearch_Click(object sender, EventArgs e)
-	{
-		BindData();
-	}
-
-	protected void nPager_OnPageClick(object sender, PageEventArgs e)
-	{
-		BindData();
-	}
-
-	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e)
-	{
-		BindData();
-	}
-
+	/// <summary>
+	/// 获取编辑页地址及参数
+	/// </summary>
+	/// <returns></returns>
 	protected string GetEditPageUrl()
 	{
 		int gid = this.GroupId;
@@ -133,5 +135,15 @@ public partial class modules_cms_PageList : AdminPage
 
 		string id = Convert.ToString(Eval("Id"));
 		return url + "&id=" + id;
+	}
+
+	protected void btnSearch_Click(object sender, EventArgs e)
+	{
+		BindData();
+	}
+
+	protected void nPager_OnPageClick(object sender, PageJumpEventArgs e)
+	{
+		BindData();
 	}
 }

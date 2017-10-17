@@ -147,13 +147,16 @@ public partial class modules_cms_PageEdit : AdminPage
 		model.Click = 0;
 		model.CreateDate = DateTime.Now;
 		model.IsEnabled = 0;
-		model.OrgId = user.Organization.Id;
+		if (user.Organization != null)
+			model.OrgId = user.Organization.Id;
 		model.UserId = user.Id;
 		model.Author = user.Name;
 
 		_cbus.SavePage(model);
 
 		BindKit.BindModelToContainer(this.editor, model);
+
+		this.OrderBy.Checked = model.OrderBy == 0;
 
 		//保存日志和加积分
 		int point = ConvertKit.ConvertValue(new ConfigManager().GetConfig("NewsPoint"), 0);
@@ -186,7 +189,7 @@ public partial class modules_cms_PageEdit : AdminPage
 		string url = "<a href=\"PageList.aspx?";
 		if (gid > 0) url += "gid=" + gid;
 		if (!string.IsNullOrEmpty(code)) url += "group=" + code;
-		url += "\"><i class=\"sui-icon icon-tb-back\"></i>返回</a>";
+		url += "\"><i class=\"fa fa-arrow-left\"></i>返回</a>";
 		return url;
 	}
 

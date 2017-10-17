@@ -7,7 +7,7 @@
 		<ul class="toolbar">
 			<li>
 				<a href="DictItemEdit.aspx?group=<%= GetGroupCode() %>&fix=<%= WebParmKit.GetQuery("fix", "") %>">
-					<i class="sui-icon icon-tb-add"></i>新增
+					<i class="fa fa-plus"></i>新增
 				</a>
 			</li>
 		</ul>

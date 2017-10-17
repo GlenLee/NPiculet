@@ -30,8 +30,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="<%= WebParmKit.GetQuery("p", "") %>"><i class="sui-icon icon-tb-back"></i>返回</a></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+			<li><a href="<%= WebParmKit.GetQuery("p", "") %>"><i class="fa fa-arrow-left"></i>返回</a></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
 			<li><asp:LinkButton ID="btnAuth" runat="server" OnClick="btnAuth_Click"><i class="sui-icon icon-tb-unlock"></i>授权</asp:LinkButton></li>
 		</ul>
 	</div>

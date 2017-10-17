@@ -7,8 +7,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="LinksList.aspx">返回</a></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" CssClass="link-btn">保存</asp:LinkButton></li>
+			<li><a href="LinksList.aspx"><i class="fa fa-arrow-left"></i>返回</a></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -27,14 +27,14 @@
 			<tr>
 				<td class="th">描述</td>
 				<td class="td">
-					<asp:TextBox ID="Description" runat="server" CssClass="input-large" Width="500px" MaxLength="512"></asp:TextBox>
+					<asp:TextBox ID="Description" runat="server" CssClass="form-control" Width="500px" MaxLength="512"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="Description" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
 			<tr>
 				<td class="th">链接</td>
 				<td class="td">
-					<asp:TextBox ID="Url" runat="server" CssClass="input-large" Width="500px" MaxLength="512"></asp:TextBox></td>
+					<asp:TextBox ID="Url" runat="server" CssClass="form-control" Width="500px" MaxLength="512"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">图片</td>

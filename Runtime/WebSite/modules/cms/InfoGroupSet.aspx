@@ -33,7 +33,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<table cellpadding="0" cellspacing="2" style="border:0;width:100%;">
 		<tr style="vertical-align:top;">
-			<td style="width:400px;border:1px solid #ccc;padding:4px;">
+			<td style="width:400px;padding:4px;">
 				<div style="width:100%;height:100%;overflow:auto;"><asp:TreeView ID="tree" runat="server" onselectednodechanged="tree_SelectedNodeChanged"></asp:TreeView></div>
 			</td>
 			<td>
@@ -42,19 +42,19 @@
 					<tr>
 						<td class="th">编码</td>
 						<td class="td">
-							<asp:TextBox ID="GroupCode" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+							<asp:TextBox ID="GroupCode" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 							<span class="caption">（若不指定，将随机生成一个）</span>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">名称</td>
-						<td class="td"><asp:TextBox ID="GroupName" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+						<td class="td"><asp:TextBox ID="GroupName" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="GroupName" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">类型</td>
-						<td class="td"><asp:DropDownList ID="GroupType" runat="server">
+						<td class="td"><asp:DropDownList ID="GroupType" runat="server" CssClass="form-control">
 							<asp:ListItem Value="">无</asp:ListItem>
 							<asp:ListItem Value="Content">单页</asp:ListItem>
 							<asp:ListItem Value="List">列表</asp:ListItem>
@@ -64,7 +64,7 @@
 					</tr>
 					<tr id="externalUrl" style="display:none;">
 						<td class="th">链接</td>
-						<td class="td"><asp:TextBox ID="Url" runat="server" CssClass="input-large" Width="98%" MaxLength="512"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Url" runat="server" CssClass="form-control" Width="98%" MaxLength="512"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">开启</td>
@@ -73,21 +73,21 @@
 					<tr>
 						<td class="th">积分</td>
 						<td class="td">
-							<asp:TextBox ID="Point" runat="server" CssClass="input-large" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
+							<asp:TextBox ID="Point" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
 							<asp:RegularExpressionValidator ID="re3" runat="server" ControlToValidate="Point" Display="Dynamic" ErrorMessage="只能是数字" ForeColor="Red" ValidationExpression="\d+(\.\d+)?"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">排序</td>
 						<td class="td">
-							<asp:TextBox ID="OrderBy" runat="server" CssClass="input-large" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
+							<asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 							<asp:RegularExpressionValidator ID="re2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="只能是数字" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">说明</td>
-						<td class="td"><asp:TextBox ID="Comment" runat="server" CssClass="input-large" Width="98%" MaxLength="65535"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Comment" runat="server" CssClass="form-control" MaxLength="65535"></asp:TextBox></td>
 					</tr>
 				</table>
 				<asp:HiddenField ID="Id" runat="server" />

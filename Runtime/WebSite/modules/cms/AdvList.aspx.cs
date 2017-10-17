@@ -69,5 +69,12 @@ namespace modules.info
 		protected void nPager_OnPageClick(object sender, PageJumpEventArgs e) {
 			BindData();
 		}
+
+		protected string GetPositionName() {
+			string code = Convert.ToString(Eval("Position"));
+			var dbus = new DictBus();
+			var item = dbus.GetDictItem("AdPosition", code);
+			return item == null ? "" : item.Name;
+		}
 	}
 }

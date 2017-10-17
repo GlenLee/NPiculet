@@ -8,8 +8,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="MemberList.aspx"><i class="sui-icon icon-tb-back"></i>返回</a></li>
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+			<li><a href="MemberList.aspx"><i class="fa fa-arrow-left"></i>返回</a></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -31,20 +31,20 @@
 					<tr>
 						<td class="th">类型</td>
 						<td class="td">
-							<asp:DropDownList ID="MemberLevel" runat="server" CssClass="input-large">
+							<asp:DropDownList ID="MemberLevel" runat="server" CssClass="form-control">
 								<asp:ListItem>个人用户</asp:ListItem>
 								<asp:ListItem>企业用户</asp:ListItem>
 							</asp:DropDownList>
 						</td>
 						<td class="th">姓名</td>
 						<td class="td">
-							<asp:TextBox ID="Name" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+							<asp:TextBox ID="Name" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r4" runat="server" Display="Dynamic" ErrorMessage="必填" ForeColor="red" ControlToValidate="Name"></asp:RequiredFieldValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">帐号</td>
-						<td class="td"><asp:TextBox ID="Account" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+						<td class="td"><asp:TextBox ID="Account" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r2" runat="server" Display="Dynamic"
 								ErrorMessage="必填" ForeColor="red" ControlToValidate="Account"></asp:RequiredFieldValidator>
 							<asp:RegularExpressionValidator ID="re2"
@@ -52,7 +52,7 @@
 								ValidationExpression="\w+" ForeColor="red"></asp:RegularExpressionValidator>
 						</td>
 						<td class="th">密码</td>
-						<td class="td"><asp:TextBox ID="Password" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+						<td class="td"><asp:TextBox ID="Password" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r3" runat="server" Display="Dynamic"
 								ErrorMessage="必填" ForeColor="red" ControlToValidate="Password"></asp:RequiredFieldValidator>
 							<asp:RegularExpressionValidator ID="re3"
@@ -74,7 +74,7 @@
 					<tr>
 						<td class="th">昵称</td>
 						<td class="td">
-							<asp:TextBox ID="Nickname" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+							<asp:TextBox ID="Nickname" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox>
 						</td>
 						<td class="th">性别</td>
 						<td class="td">
@@ -88,24 +88,24 @@
 					</tr>
 					<tr>
 						<td class="th">住址</td>
-						<td class="td"><asp:TextBox ID="Address" runat="server" CssClass="input-large" Width="200px" MaxLength="255"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Address" runat="server" CssClass="form-control" Width="200px" MaxLength="255"></asp:TextBox></td>
 						<td class="th">手机</td>
-						<td class="td"><asp:TextBox ID="Mobile" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Mobile" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox></td>
 						<td class="th">邮箱</td>
 						<td class="td">
-							<asp:TextBox ID="Email" runat="server" CssClass="input-large" Width="200px" MaxLength="32"></asp:TextBox>
+							<asp:TextBox ID="Email" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 							<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ErrorMessage="格式不正确" ControlToValidate="Email" Display="Dynamic" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>
 						<td class="th">QQ</td>
 						<td class="td">
-							<asp:TextBox ID="QQ" runat="server" CssClass="input-large" Width="200px" MaxLength="16"></asp:TextBox>
+							<asp:TextBox ID="QQ" runat="server" CssClass="form-control" Width="200px" MaxLength="16"></asp:TextBox>
 							<asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="QQ" Display="Dynamic" ErrorMessage="格式不正确" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
 						</td>
 						<td class="th">教育程度</td>
 						<td class="td">
-							<asp:TextBox ID="Education" runat="server" CssClass="input-large" Width="200px" MaxLength="64"></asp:TextBox>
+							<asp:TextBox ID="Education" runat="server" CssClass="form-control" Width="200px" MaxLength="64"></asp:TextBox>
 						</td>
 					</tr>
 				</table>

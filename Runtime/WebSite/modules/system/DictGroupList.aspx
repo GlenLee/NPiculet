@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="DictGroupEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="DictGroupEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 		</ul>
 	</div>
 </asp:Content>
