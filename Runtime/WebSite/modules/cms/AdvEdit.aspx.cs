@@ -75,6 +75,7 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
+					model.Image = FileWebKit.SaveZoomImage(this.BannerImage.PostedFile, defaultWidth > 0 ? defaultWidth : 1000);
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
@@ -85,6 +86,7 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
+					model.Cover = FileWebKit.SaveZoomImage(this.BannerCover.PostedFile, defaultWidth > 0 ? defaultWidth : 1000);
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
