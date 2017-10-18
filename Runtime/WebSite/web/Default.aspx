@@ -11,7 +11,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-	<uc:PageTop runat="server" ID="pageTop" />
 	<ol class="breadcrumb">
 		<li>pcx.cn</li>
 		<li><%= GetWebSiteName() %></li>

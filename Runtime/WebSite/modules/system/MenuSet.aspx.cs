@@ -177,11 +177,11 @@ public partial class System_MenuSet : AdminPage
 			} else {
 				data = _mbus.GetMenu(a => a.Id == id);
 			}
+			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
 			ProcessBelong(ref data);
 
-			BindKit.FillModelFromContainer(this.editor, data);
 			_mbus.Save(data);
 
 			ClearControls();

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="页面编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PageEdit.aspx.cs" Inherits="modules_cms_PageEdit" %>
+<%@ Import Namespace="NPiculet.Logic.Sys" %>
 <%@ Register TagPrefix="zx" TagName="Prompt" Src="~/modules/common/Prompt.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="header" Runat="Server">
@@ -70,7 +71,7 @@
 							<tr>
 								<td>
 									<asp:FileUpload ID="Thumb" runat="server" Width="400px" />
-									<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片大于1024x1024会自动压缩。</div>
+									<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片高宽大于<%= new ConfigManager().GetConfig("ImageWidth") %>会自动压缩。</div>
 								</td>
 								<td style="padding:4px">
 									<asp:HyperLink ID="ThumbHyperLink" runat="server" CssClass="thumb-link" Target="_blank">

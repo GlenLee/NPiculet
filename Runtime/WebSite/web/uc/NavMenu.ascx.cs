@@ -18,7 +18,7 @@ public partial class web_uc_NavMenu : System.Web.UI.UserControl
 
 	private void BindData() {
 		var gbus = new CmsContentBus();
-		_groups = gbus.GetSubGroupList("top");
+		_groups = gbus.GetSubGroupList("Home");
 		this.list.DataSource = _groups;
 		this.list.DataBind();
 	}

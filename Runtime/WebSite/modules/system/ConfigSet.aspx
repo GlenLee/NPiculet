@@ -94,6 +94,12 @@
 					</asp:DropDownList>
 				</td>
 			</tr>
+			<tr>
+				<td class="th">图片默认最大宽度</td>
+				<td class="td">
+					<asp:TextBox ID="ImageWidth" runat="server" CssClass="form-control" MaxLength="8"></asp:TextBox>
+				</td>
+			</tr>
 		</table>
 	</asp:PlaceHolder>
 </asp:Content>

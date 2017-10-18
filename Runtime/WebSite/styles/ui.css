@@ -54,12 +54,12 @@ a:link {
   background-color: #fff;
 }
 .ui-top {
-  height: 100px;
+  height: 60px;
   text-align: center;
 }
 .ui-top a img {
   width: 1000px;
-  height: 100px;
+  height: 100%;
 }
 .ui-top .full-win {
   position: fixed;
@@ -77,7 +77,7 @@ a:link {
 .ui-top .full-win img {
   width: 1000px;
 }
-.ui-top .full-win .close {
+.ui-top .full-win .full-win-close {
   box-sizing: border-box;
   width: 1000px;
   height: 30px;
@@ -85,7 +85,7 @@ a:link {
   text-align: right;
   padding: 5px 20px;
 }
-.ui-top .full-win .close * {
+.ui-top .full-win .full-win-close * {
   color: #fff;
   font-weight: bold;
 }
@@ -96,7 +96,8 @@ a:link {
   padding: 30px;
 }
 .ui-header .layout .web-title {
-  font-size: 14px;
+  text-align: center;
+  font-size: 3em;
   font-family: Georgia, Arial;
 }
 /* UI Navbar */
