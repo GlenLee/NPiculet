@@ -50,7 +50,7 @@
 				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:BoundField DataField="MemberLevel" HeaderText="等级">
-				<HeaderStyle Width="80px" />
+				<HeaderStyle Width="100px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="Account" HeaderText="帐号" >
 				<HeaderStyle Width="160px" />
@@ -60,7 +60,7 @@
 			</asp:BoundField>
 			<asp:BoundField DataField="Name" HeaderText="姓名" />
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="创建时间">
-				<HeaderStyle Width="120px" />
+				<HeaderStyle Width="140px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="Status" HeaderText="状态">
 				<HeaderStyle Width="80px" />

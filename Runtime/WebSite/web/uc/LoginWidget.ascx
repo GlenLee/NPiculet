@@ -50,39 +50,24 @@
 	<h5>
 		<i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;用户信息
 	</h5>
-<div class="ui-widget" style="height:250px;position:relative;">
-	<div class="content" style="padding:0;">
-		<div class=" row">
-			<div class="col-xs-4">
-				<img src="styles/images/head-pic.jpg" alt="" style="width:80px;margin:20px 5px 5px 5px;" />
-			</div>
-			<div class="col-xs-8">
-				<div>&nbsp;</div>
-				<div class="row" style="margin: 0em 0em 1em 0em">
-					<div class="col-xs-4">登陆名：</div>
-					<div class="col-xs-8">
-						<asp:Literal runat="server" ID="txtAccount" />
-					</div>
-				</div>
-				<div class="row" style="margin: 0em 0em 1em 0em">
-					<div class="col-xs-4">用户名：</div>
-					<div class="col-xs-8">
-						<asp:Literal runat="server" ID="txtName" />
-					</div>
-				</div>
-				<div class="row" style="margin: 1em 0em 1em 0em">
-					<div class="col-xs-4">会员等级：</div>
-					<div class="col-xs-8">
-						<asp:Label runat="server" ID="txtLevel" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row" style="position:absolute;bottom:0;width:100%;">
-			<div class="col-xs-12" style="text-align:center;background-color:#eee;line-height:50px;font-size:16px;">
-				<asp:HyperLink runat="server" NavigateUrl="~/member/Logout.aspx">退出</asp:HyperLink>
-			</div>
-		</div>
-	</div>
-</div>
+	<table class="table">
+		<tbody>
+			<tr>
+				<td>登陆名：</td>
+				<td><asp:Literal runat="server" ID="txtAccount" /></td>
+			</tr>
+			<tr>
+				<td>用户名：</td>
+				<td><asp:Literal runat="server" ID="txtName" /></td>
+			</tr>
+			<tr>
+				<td>会员等级：</td>
+				<td><asp:Label runat="server" ID="txtLevel" /></td>
+			</tr>
+			<tr>
+				<td><asp:HyperLink runat="server" NavigateUrl="~/member/Logout.aspx" CssClass="btn btn-default">退出</asp:HyperLink></td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
 </asp:PlaceHolder>
