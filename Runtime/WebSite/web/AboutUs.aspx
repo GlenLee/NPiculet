@@ -14,22 +14,21 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<div class="ui-content-view">
-		<ul class="sui-breadcrumb">
+		<ul class="breadcrumb">
 			<li>当前位置：</li>
 			<li>首页</li>
 			<li class="active">技术支持</li>
 		</ul>
-		<div class="sui-row-fluid">
-			<div class="span12 content-info">
-				<!-- 内容 开始 -->
-				<div class="content-article">
-					<ul>
-						<li>云南达速科技有限公司</li>
-						<li>联系电话：0871-65618058</li>
-					</ul>
-				</div>
-				<!-- 内容 结束 -->
+		<div class="content-info">
+			<!-- 内容 开始 -->
+			<div class="content-article">
+				<ul>
+					<li>作者：李萨</li>
+					<li>官方网站：<a href="http://pcx.cn" target="_blank">http://pcx.cn</a></li>
+				</ul>
+				<p>&nbsp;</p>
 			</div>
+			<!-- 内容 结束 -->
 		</div>
 	</div>
 </asp:Content>

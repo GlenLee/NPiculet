@@ -240,6 +240,33 @@ a:link {
   font-size: 14px;
   line-height: 2.2em;
 }
+.ui-content-list .content-list .images-table tr {
+  background: none;
+}
+.ui-content-list .content-list .images-table td {
+  padding: 6px;
+  vertical-align: top;
+}
+.ui-content-list .content-list .images-table td.thumb {
+  width: 120px;
+  padding: 6px;
+}
+.ui-content-list .content-list .images-table td.thumb img {
+  display: block;
+  width: 120px;
+  height: 90px;
+  background-color: #eee;
+}
+.ui-content-list .content-list .images-table td.title {
+  line-height: 1.5em;
+}
+.ui-content-list .content-list .images-table td.title h4 {
+  margin-top: 4px;
+}
+.ui-content-list .content-list .images-table td.title span {
+  font-size: 12px;
+  color: #999;
+}
 .ui-content-view .content-info {
   padding: 0 15px;
 }

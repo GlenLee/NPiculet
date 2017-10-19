@@ -22,7 +22,7 @@
 					<div class="form-group">
 						<input type="search" id="keyword" name="keyword" class="form-control" placeholder="关键字">
 					</div>
-					<button type="submit" class="btn btn-default">搜索</button>
+					<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/">PCX.CN</a></li>

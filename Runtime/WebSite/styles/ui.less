@@ -245,6 +245,42 @@ ui-frame {}
 				line-height: 2.2em;
 			}
 		}
+
+		.images-table {
+			tr {
+				background: none;
+			}
+
+			td {
+				padding: 6px;
+				vertical-align: top;
+
+				&.thumb {
+					width: 120px;
+					padding: 6px;
+
+					img {
+						display: block;
+						width: 120px;
+						height: 90px;
+						background-color: #eee;
+					}
+				}
+
+				&.title {
+					line-height: 1.5em;
+
+					h4 {
+						margin-top: 4px;
+					}
+
+					span {
+						font-size: 12px;
+						color: #999;
+					}
+				}
+			}
+		}
 	}
 }
 

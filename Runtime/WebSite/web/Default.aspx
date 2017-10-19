@@ -20,7 +20,7 @@
 
 		<div class="ui-widget">
 			<div class="header">
-				<div class="title">新闻</div>
+				<div class="title"><i class="glyphicon glyphicon-list-alt"></i>&nbsp;&nbsp;新闻</div>
 				<div class="title-line"></div>
 			</div>
 			<div class="content">

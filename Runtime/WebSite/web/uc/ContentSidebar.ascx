@@ -2,7 +2,7 @@
 <div class="ui-content-sidebar">
 	<div class="ui-widget">
 		<div class="header">
-			<span class="title">栏目导航</span>
+			<span class="title"><i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;栏目导航</span>
 			<div class="title-line"></div>
 		</div>
 		<div class="content">

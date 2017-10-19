@@ -27,37 +27,35 @@
 			<!-- 列表 开始 -->
 			<div class="content-list">
 				<div class="content-title">
-					&nbsp;<i class="sui-icon icon-tb-search"></i>&nbsp;&nbsp;搜索结果<asp:Literal runat="server" Id="keyword"></asp:Literal>
+					&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;搜索结果<asp:Literal runat="server" Id="keyword"></asp:Literal>
 				</div>
-				<div class="content-table">
-					<asp:PlaceHolder runat="server" ID="phShowTable">
-						<table>
-							<tbody>
+<asp:PlaceHolder runat="server" ID="phShowTable">
+				<table class="content-table">
+					<tbody>
+					<tr>
+						<th style="width:90px;">类型</th>
+						<th>标题</th>
+						<th style="width:120px;">发布时间</th>
+					</tr>
+					<asp:Repeater runat="server" ID="list">
+						<ItemTemplate>
 							<tr>
-								<th style="width:90px;">类型</th>
-								<th>标题</th>
-								<th style="width:120px;">发布时间</th>
+								<td style="width:100px;">[<%# Eval("GroupName") %>]</td>
+								<td class="title"><a href="/view/<%# Eval("Id") %>" target="_blank"><%# GetNewsTitle() %></a></td>
+								<td style="width:120px;" class="date"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></td>
 							</tr>
-							<asp:Repeater runat="server" ID="list">
-								<ItemTemplate>
-									<tr>
-										<td style="width:100px;">[<%# Eval("GroupName") %>]</td>
-										<td class="title"><a href="/view/<%# Eval("Id") %>" target="_blank"><%# GetNewsTitle() %></a></td>
-										<td style="width:120px;" class="date"><%# Eval("CreateDate", "{0:yyyy-MM-dd}") %></td>
-									</tr>
-								</ItemTemplate>
-							</asp:Repeater>
-							</tbody>
-						</table>
-						<form runat="server">
-							<uc:NPager ID="nPager" runat="server" PageSize="15" />
-						</form>
-					</asp:PlaceHolder>
-					<asp:PlaceHolder runat="server" ID="phEmpty">
-						<div class="data-empty">没有数据</div>
-					</asp:PlaceHolder>
-				</div>
-			</div>
+						</ItemTemplate>
+					</asp:Repeater>
+					</tbody>
+				</table>
+				<form runat="server">
+					<uc:NPager ID="nPager" runat="server" PageSize="15" />
+				</form>
+</asp:PlaceHolder>
+<asp:PlaceHolder runat="server" ID="phEmpty">
+				<div class="data-empty">没有数据</div>
+</asp:PlaceHolder>
+		</div>
 			<!-- 列表 结束 -->
 		</div>
 		<div class="col-md-3">
