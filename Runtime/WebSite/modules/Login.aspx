@@ -4,8 +4,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>欢迎登录<%= GetPlatformName() %></title>
-	<script type="text/javascript" src="../scripts/lib/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
+	<script type="text/javascript" src="../scripts/libs/jquery/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../scripts/libs/layer/layer.js"></script>
 	<link href="../styles/fonts/font-awesome.min.css" rel="stylesheet" />
 	<style type="text/css">
 		html, body { padding:0;margin:0;width:100%;height:100%;background-color:#00cdac;background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%); }
