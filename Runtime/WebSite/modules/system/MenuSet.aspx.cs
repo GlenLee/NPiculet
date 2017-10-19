@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,47 +20,26 @@ public partial class System_MenuSet : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
-			BindData();
 			SetControlStatus();
-			Belong_SelectedIndexChanged(sender, e);
+			BindBelong();
+			BindData();
 		}
 	}
 
-	private void BindData()
+	#region 设置控件状态
+
+	/// <summary>
+	/// 设置控件状态
+	/// </summary>
+	private void SetControlStatus()
 	{
-		this.tree.Nodes.Clear();
-		BindTree(0);
-		this.tree.ExpandAll();
+		bool visible = !string.IsNullOrEmpty(this.Id.Value);
 
-		SetControlStatus();
-	}
-
-	private void BindTree(int parentId)
-	{
-		var data = _mbus.GetMenuList(a => a.IsDel == 0);
-		if (data != null) {
-			_menus = data;
-			BuildTree(null, parentId);
-		}
-	}
-
-	private void BuildTree(TreeNode node, int parentId) {
-		var query = (from a in _menus where a.ParentId == parentId orderby a.OrderBy select a);
-		foreach (var menu in query) {
-
-			var tn = new TreeNode();
-			//tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(menu.Type)) + ")</span>";
-			tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + Convert.ToString(menu.OrderBy) + ")</span>";
-			tn.Value = Convert.ToString(menu.Id);
-
-			if (!Convert.ToBoolean(menu.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
-			if (node == null) {
-				this.tree.Nodes.Add(tn);
-			} else {
-				node.ChildNodes.Add(tn);
-			}
-			BuildTree(tn, Convert.ToInt32(menu.Id));
-		}
+		this.btnSave.Text = visible ? "<i class=\"fa fa-check\"></i>保存" : "<i class=\"fa fa-plus\"></i>新增根节点";
+		this.btnSame.Visible = visible;
+		this.btnChild.Visible = visible;
+		this.btnDelete.Visible = visible;
+		this.btnFix.Visible = !visible;
 	}
 
 	/// <summary>
@@ -83,19 +63,63 @@ public partial class System_MenuSet : AdminPage
 		SetControlStatus();
 	}
 
-	/// <summary>
-	/// 设置控件状态
-	/// </summary>
-	private void SetControlStatus()
-	{
-		bool visible = !string.IsNullOrEmpty(this.Id.Value);
+	#endregion
 
-		this.btnSave.Text = visible ? "保存" : "新增根节点";
-		this.btnSame.Visible = visible;
-		this.btnChild.Visible = visible;
-		this.btnDelete.Visible = visible;
-		this.btnFix.Visible = !visible;
+	#region 绑定菜单树
+
+	/// <summary>
+	/// 绑定菜单数据
+	/// </summary>
+	private void BindData()
+	{
+		this.tree.Nodes.Clear();
+		BindTree(0);
+		this.tree.ExpandAll();
+
+		SetControlStatus();
 	}
+
+	/// <summary>
+	/// 绑定数据树
+	/// </summary>
+	/// <param name="parentId"></param>
+	private void BindTree(int parentId)
+	{
+		var data = _mbus.GetMenuList(a => a.IsDel == 0);
+		if (data != null) {
+			_menus = data;
+			BuildTree(null, parentId);
+		}
+	}
+
+	/// <summary>
+	/// 绑定数据树
+	/// </summary>
+	/// <param name="node"></param>
+	/// <param name="parentId"></param>
+	private void BuildTree(TreeNode node, int parentId)
+	{
+		var query = (from a in _menus where a.ParentId == parentId orderby a.OrderBy select a);
+		foreach (var menu in query) {
+
+			var tn = new TreeNode();
+			//tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(menu.Type)) + ")</span>";
+			tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + Convert.ToString(menu.OrderBy) + ")</span>";
+			tn.Value = Convert.ToString(menu.Id);
+
+			if (!Convert.ToBoolean(menu.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
+			if (node == null) {
+				this.tree.Nodes.Add(tn);
+			} else {
+				node.ChildNodes.Add(tn);
+			}
+			BuildTree(tn, Convert.ToInt32(menu.Id));
+		}
+	}
+
+	#endregion
+
+	#region 数据控制类
 
 	/// <summary>
 	/// 获取根ID
@@ -124,6 +148,15 @@ public partial class System_MenuSet : AdminPage
 		}
 	}
 
+	#endregion
+
+	#region 数据维护功能
+
+	/// <summary>
+	/// 保存或新增数据
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void btnSave_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
@@ -144,11 +177,11 @@ public partial class System_MenuSet : AdminPage
 			} else {
 				data = _mbus.GetMenu(a => a.Id == id);
 			}
+			BindKit.FillModelFromContainer(this.editor, data);
 
 			//处理“栏目”所属
 			ProcessBelong(ref data);
 
-			BindKit.FillModelFromContainer(this.editor, data);
 			_mbus.Save(data);
 
 			ClearControls();
@@ -159,6 +192,11 @@ public partial class System_MenuSet : AdminPage
 		}
 	}
 
+	/// <summary>
+	/// 新增同级数据
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void btnSame_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
@@ -186,6 +224,11 @@ public partial class System_MenuSet : AdminPage
 		}
 	}
 
+	/// <summary>
+	/// 新增同级子数据
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void btnChild_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid) {
@@ -215,12 +258,22 @@ public partial class System_MenuSet : AdminPage
 		}
 	}
 
+	/// <summary>
+	/// 删除数据
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void btnDelete_Click(object sender, EventArgs e)
 	{
 		if (!string.IsNullOrEmpty(this.Id.Value)) {
 			int id = ConvertKit.ConvertValue(this.Id.Value, 0);
-			string path = this.Path.Value;
-			_mbus.Delete(a => a.Id == id || a.Path.StartsWith(path));
+			string path = this.Path.Value + "/" + id;
+
+			if (string.IsNullOrEmpty(path)) {
+				_mbus.Delete(a => a.Id == id);
+			} else {
+				_mbus.Delete(a => a.Id == id || a.Path.StartsWith(path));
+			}
 
 			ClearControls();
 			BindData();
@@ -229,43 +282,71 @@ public partial class System_MenuSet : AdminPage
 		}
 	}
 
-	protected void tree_SelectedNodeChanged(object sender, EventArgs e)
-	{
-		ClearControls();
-		var val = this.tree.SelectedValue;
-		var data = _mbus.GetMenuItem(Convert.ToInt32(val));
-		if (data != null) {
-			BindKit.BindModelToContainer(this.editor, data);
-
-			//获取数据时，处理“栏目”所属
-			switch (data.Belong) {
-				case 2:
-					//data.Code = this.InfoGroupList.SelectedValue + "," + this.InfoPageList.SelectedValue;
-					string[] belongs = !string.IsNullOrWhiteSpace(data.Code) && data.Code.IndexOf(",") > -1 ? data.Code.Split(',') : null;
-					if (belongs != null) {
-						string categoryId = belongs[0], groupId = belongs[1];
-						BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
-						BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
-					}
-					break;
-				case 3:
-					BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, data.Code, true);
-					break;
-			}
-
-			this.CurName.Text = data.Name;
-			SetControlStatus();
-			Belong_SelectedIndexChanged(sender, e);
-		}
-	}
-
+	/// <summary>
+	/// 修复菜单层次路径
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void btnFix_Click(object sender, EventArgs e)
 	{
 		int count = _mbus.FixMenuPath();
 		this.promptControl.ShowSuccess("菜单层次深度及路径信息已修复完成，共修复了 {0} 条数据！", count);
 	}
 
+	#endregion
+
+	#region 菜单业务功能
+
+	/// <summary>
+	/// 选中菜单时编辑
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	protected void tree_SelectedNodeChanged(object sender, EventArgs e)
+	{
+		ClearControls();
+
+		var val = this.tree.SelectedValue;
+		var data = _mbus.GetMenuItem(Convert.ToInt32(val));
+		if (data != null) {
+			BindKit.BindModelToContainer(this.editor, data);
+			SetControlStatus();
+			BindBelong();
+
+			//获取数据时，处理“栏目”所属
+			switch (data.Belong) {
+				case 2:
+					string[] belongs = (data.Code ?? "").Split(',');
+					if (belongs.Length == 2) {
+						string categoryId = belongs[0], groupId = belongs[1];
+						BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
+						BindInfoGroupList();
+						BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
+					}
+					break;
+				case 3:
+					BindKit.SelectItemInSingleListControl(this.DictList, data.Code, true);
+					break;
+			}
+
+			this.CurName.Text = data.Name;
+		}
+	}
+
+	/// <summary>
+	/// 处理菜单归属
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void Belong_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		BindBelong();
+	}
+
+	/// <summary>
+	/// 绑定归属
+	/// </summary>
+	private void BindBelong()
 	{
 		switch (this.Belong.SelectedValue) {
 			case "1":
@@ -279,10 +360,8 @@ public partial class System_MenuSet : AdminPage
 				this.phInfoGroup.Visible = true;
 				this.phDict.Visible = false;
 
-				var cbus = new CmsContentBus();
-				BindKit.BindToListControl(this.InfoGroupCategory, cbus.GetGroupList(a => a.IsEnabled == 1 && a.ParentId == 0), "GroupName", "Id");
-
-				InfoGroupList_SelectedIndexChanged(sender, e);
+				BindInfoGroupCategory();
+				BindInfoGroupList();
 				break;
 
 			case "3":
@@ -290,25 +369,47 @@ public partial class System_MenuSet : AdminPage
 				this.phInfoGroup.Visible = false;
 				this.phDict.Visible = true;
 
-				var dbus = new DictBus();
-				BindKit.BindToListControl(this.DictList, dbus.GetDictGroupList(a => a.IsEnabled == 1 && a.IsDel == 0), "Name", "Id");
-
-				DictList_SelectedIndexChanged(sender, e);
+				BindDictList();
 				break;
 		}
 	}
 
-	protected void InfoGroupList_SelectedIndexChanged(object sender, EventArgs e)
+	/// <summary>
+	/// 绑定信息组根分类
+	/// </summary>
+	private void BindInfoGroupCategory()
+	{
+		var cbus = new CmsContentBus();
+		BindKit.BindToListControl(this.InfoGroupCategory, cbus.GetGroupList(a => a.IsEnabled == 1 && a.ParentId == 0), "GroupName", "Id");
+	}
+
+	/// <summary>
+	/// 绑定信息组列表
+	/// </summary>
+	private void BindInfoGroupList()
 	{
 		int parentId = Convert.ToInt32(this.InfoGroupCategory.SelectedValue);
-
 		var cbus = new CmsContentBus();
 		BindKit.BindToListControl(this.InfoGroupList, cbus.GetGroupList(a => a.IsEnabled == 1 && a.ParentId == parentId), "GroupName", "Id");
 
-		InfoPageList_SelectedIndexChanged(sender, e);
+		InfoGroupList_SelectedIndexChanged(this.InfoGroupCategory, new EventArgs());
 	}
 
-	protected void InfoPageList_SelectedIndexChanged(object sender, EventArgs e)
+	/// <summary>
+	/// 选择信息组，联动信息栏目下拉框
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	protected void InfoGroupCategory_SelectedIndexChanged(object sender, EventArgs e) {
+		BindInfoGroupList();
+	}
+
+	/// <summary>
+	/// 生成信息维护页地址
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	protected void InfoGroupList_SelectedIndexChanged(object sender, EventArgs e)
 	{
 		this.Name.Text = this.InfoGroupList.SelectedItem.Text;
 
@@ -318,6 +419,22 @@ public partial class System_MenuSet : AdminPage
 		this.Url.Text = url + this.InfoGroupList.SelectedValue;
 	}
 
+	/// <summary>
+	/// 绑定字典列表
+	/// </summary>
+	private void BindDictList()
+	{
+		var dbus = new DictBus();
+		BindKit.BindToListControl(this.DictList, dbus.GetDictGroupList(a => a.IsEnabled == 1 && a.IsDel == 0), "Name", "Id");
+
+		DictList_SelectedIndexChanged(this.Belong, new EventArgs());
+	}
+
+	/// <summary>
+	/// 生成字典维护页地址
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void DictList_SelectedIndexChanged(object sender, EventArgs e)
 	{
 		this.Name.Text = this.DictList.SelectedItem.Text;
@@ -331,4 +448,7 @@ public partial class System_MenuSet : AdminPage
 		else
 			this.Url.Text = string.Empty;
 	}
+
+	#endregion
+
 }

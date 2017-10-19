@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ContentView.ascx.cs" Inherits="web_uc_ContentView" %>
-<asp:HyperLink runat="server" ID="btnBack" CssClass="btn-back">返回</asp:HyperLink>
+<asp:HyperLink runat="server" ID="btnBack" CssClass="btn-back"><i class="glyphicon glyphicon-chevron-left"></i>&nbsp;返回</asp:HyperLink>
 <div class="content-title"><asp:Literal ID="title" runat="server"></asp:Literal></div>
 <div class="content-from">
 	发布人：<asp:Literal ID="author" runat="server"></asp:Literal>&nbsp;&nbsp;&nbsp;&nbsp;

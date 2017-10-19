@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="ContentPage.master.cs" Inherits="ContentPage" %>
 <%@ Register TagPrefix="uc" TagName="WebQuote" Src="~/web/uc/WebQuote.ascx" %>
 <%@ Register TagPrefix="uc" TagName="PageFooter"Src="~/web/uc/PageFooter.ascx"  %>
+<%@ Register TagPrefix="uc" TagName="PageTop" Src="~/web/uc/PageTop.ascx" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -13,9 +14,10 @@
 <body>
 
 <div class="ui-frame">
+	<uc:PageTop runat="server" ID="pageTop" />
 	<div class="ui-header">
 		<div class="layout">
-			<div class="web-title">pcx.cn</div>
+			<div class="web-title"><%= GetWebSiteName() %></div>
 		</div>
 	</div>
 	<asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>

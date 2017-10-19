@@ -192,6 +192,7 @@ WHERE u.IsDel=0) t";
 			using (var db = new NPiculetEntities()) {
 				var query = (from a in db.sys_org_info
 					join u in db.sys_user_info on a.Id equals u.OrgId
+					where u.Id == userId
 					select a);
 				return query.FirstOrDefault();
 			}

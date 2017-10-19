@@ -12,7 +12,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="MemberEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="MemberEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 			<%--<li><asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton></li>--%>
 			<%--<li><asp:LinkButton runat="server" ID="btnResetPass" Text="重设密码"></asp:LinkButton></li>--%>
 			<li><asp:LinkButton runat="server" ID="btnRobot" Text="标记为外挂" OnClientClick="return confirm('选中账号将被标记为“外挂”！');" onclick="btnRobot_Click"></asp:LinkButton></li>
@@ -36,7 +36,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
@@ -50,7 +50,7 @@
 				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:BoundField DataField="MemberLevel" HeaderText="等级">
-				<HeaderStyle Width="80px" />
+				<HeaderStyle Width="100px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="Account" HeaderText="帐号" >
 				<HeaderStyle Width="160px" />
@@ -60,7 +60,7 @@
 			</asp:BoundField>
 			<asp:BoundField DataField="Name" HeaderText="姓名" />
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="创建时间">
-				<HeaderStyle Width="120px" />
+				<HeaderStyle Width="140px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="Status" HeaderText="状态">
 				<HeaderStyle Width="80px" />

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="DictGroupEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="DictGroupEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -16,7 +16,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-	              OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+	              OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
 			<asp:BoundField DataField="Name" HeaderText="字典组名称" >

@@ -52,5 +52,8 @@ namespace NPiculet.Base.EF
         public virtual DbSet<sys_user_info> sys_user_info { get; set; }
         public virtual DbSet<sys_member_data> sys_member_data { get; set; }
         public virtual DbSet<sys_member_info> sys_member_info { get; set; }
+        public virtual DbSet<cms_content_tmpl> cms_content_tmpl { get; set; }
+        public virtual DbSet<cms_content_tmpl_field> cms_content_tmpl_field { get; set; }
+        public virtual DbSet<cms_content_tmpl_value> cms_content_tmpl_value { get; set; }
     }
 }

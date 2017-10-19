@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="RoleEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="RoleEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 			<%--<asp:LinkButton runat="server" ID="btnDel" Text="删除"></asp:LinkButton>--%>
 		</ul>
 	</div>
@@ -21,7 +21,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
 			<asp:BoundField DataField="RoleName" HeaderText="名称" >
@@ -33,7 +33,7 @@
 				<ItemTemplate><%# GetStatusString(Eval("IsEnabled").ToString()) %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="操作">
-				<HeaderStyle Width="120px"></HeaderStyle>
+				<HeaderStyle Width="140px"></HeaderStyle>
 				<ItemTemplate>
 					<a href="AuthSet.aspx?key=<%# Eval("Id") %>&m=Role&p=RoleList.aspx">权限</a> |
 					<a href="RoleEdit.aspx?key=<%# Eval("Id") %>">编辑</a> |

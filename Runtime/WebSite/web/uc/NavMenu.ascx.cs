@@ -18,7 +18,7 @@ public partial class web_uc_NavMenu : System.Web.UI.UserControl
 
 	private void BindData() {
 		var gbus = new CmsContentBus();
-		_groups = gbus.GetSubGroupList("top");
+		_groups = gbus.GetSubGroupList("Home");
 		this.list.DataSource = _groups;
 		this.list.DataBind();
 	}
@@ -27,8 +27,6 @@ public partial class web_uc_NavMenu : System.Web.UI.UserControl
 		string active = WebParmKit.GetQuery("groupCode", "");
 		string current = Convert.ToString(Eval("GroupCode"));
 		return active == current ? " class=\"active\"" : "";
-		//int index = Convert.ToInt32(Eval("OrderBy"));
-		//return Active == index ? " class=\"active\"" : "";
 	}
 
 	protected string GetPageUrl() {
@@ -46,12 +44,5 @@ public partial class web_uc_NavMenu : System.Web.UI.UserControl
 			}
 			return ResolveClientUrl(url);
 		}
-	}
-
-	protected string GetBorderStyle(int i) {
-		int count = _groups.Count - 1;
-		if (i == count)
-			return " class=\"end\"";
-		return "";
 	}
 }

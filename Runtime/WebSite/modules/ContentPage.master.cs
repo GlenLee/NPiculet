@@ -12,8 +12,9 @@ public partial class modules_ContentPage : System.Web.UI.MasterPage
 
 	}
 
-	protected string GetTitle()
-	{
-		return this.Page.Title;
+	protected override void OnPreRender(EventArgs e) {
+		base.OnPreRender(e);
+
+		this.pageTitle.Text = this.Page.Header.Title;
 	}
 }

@@ -5,4 +5,8 @@
 <VisualWebDeveloper>
 
   <iisExpressSettings windowsAuthentication="disabled" anonymousAuthentication="enabled" useClassicPipelineMode="false"/>
+
+  <Globals>
+    <UserProperties routes_1json__JSONSchema="http://json.schemastore.org/composer"/>
+  </Globals>
 </VisualWebDeveloper>

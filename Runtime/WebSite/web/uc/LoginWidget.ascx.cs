@@ -19,14 +19,16 @@ public partial class web_uc_LoginWidget : System.Web.UI.UserControl
 	private void BindData()
 	{
 		var user = LoginKit.GetCurrentMember();
-		if (user == null) return;
+		if (user == null) {
+			this.phLogin.Visible = true;
+			this.phUserInfo.Visible = false;
+		} else {
+			this.phLogin.Visible = false;
+			this.phUserInfo.Visible = true;
 
-		var mbus = new MemberBus();
-		var member = mbus.GetMemberInfo(user.Id);
-		if (member != null) {
-			lblAccount.Text = member.Account;
-			lblMemberLevel.Text = member.MemberLevel;
-			lblName.Text = member.Name;
+			this.txtAccount.Text = user.Account;
+			this.txtLevel.Text = user.Level;
+			this.txtName.Text = user.Name;
 		}
 	}
 

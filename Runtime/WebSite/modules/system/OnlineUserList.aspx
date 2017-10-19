@@ -12,7 +12,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		CssClass="sui-table table-primary">
+		CssClass="table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>

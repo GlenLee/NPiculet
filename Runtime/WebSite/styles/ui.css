@@ -40,12 +40,12 @@ a:link {
   width: 1000px;
   margin: 0 auto;
 }
-.ui-sidebar {
+.ui-body .ui-sidebar {
   display: inline-block;
   width: 28%;
   vertical-align: top;
 }
-.ui-content {
+.ui-body .ui-content {
   display: inline-block;
   width: 70%;
   vertical-align: top;
@@ -54,12 +54,12 @@ a:link {
   background-color: #fff;
 }
 .ui-top {
-  height: 100px;
+  height: 60px;
   text-align: center;
 }
 .ui-top a img {
   width: 1000px;
-  height: 100px;
+  height: 100%;
 }
 .ui-top .full-win {
   position: fixed;
@@ -77,7 +77,7 @@ a:link {
 .ui-top .full-win img {
   width: 1000px;
 }
-.ui-top .full-win .close {
+.ui-top .full-win .full-win-close {
   box-sizing: border-box;
   width: 1000px;
   height: 30px;
@@ -85,7 +85,7 @@ a:link {
   text-align: right;
   padding: 5px 20px;
 }
-.ui-top .full-win .close * {
+.ui-top .full-win .full-win-close * {
   color: #fff;
   font-weight: bold;
 }
@@ -96,42 +96,15 @@ a:link {
   padding: 30px;
 }
 .ui-header .layout .web-title {
-  font-size: 14px;
+  text-align: center;
+  font-size: 3em;
   font-family: Georgia, Arial;
 }
 /* UI Navbar */
-.ui-navbar {
-  height: 45px;
-  background-color: #015293;
-  font-size: 0;
-}
-.ui-navbar ul,
-.ui-navbar li {
-  list-style-type: none;
-  height: 45px;
-  line-height: 45px;
-}
-.ui-navbar ul {
-  vertical-align: top;
-  font-size: 9pt;
-}
-.ui-navbar ul li {
-  display: inline-block;
-}
-.ui-navbar ul li a {
-  display: block;
-  height: 45px;
-  line-height: 45px;
-  text-align: center;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #fff;
-}
-.ui-navbar ul li a.active {
-  background: url(web/page/nav_active.png) no-repeat bottom center;
-}
-.ui-navbar ul li a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.ui-navbar .navbar-brand img {
+  width: 20px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
 }
 /* UI Body */
 .ui-body {
@@ -149,6 +122,7 @@ a:link {
 }
 /* UI Footer */
 .ui-footer {
+  margin-top: 15px;
   padding: 20px;
   border-top: 2px solid #015293;
   background-color: #efefef;
@@ -159,7 +133,6 @@ a:link {
 }
 /* UI Widget */
 .ui-widget {
-  border-bottom: 1px solid #E0E0E0;
   background-color: #fff;
 }
 .ui-widget .header {
@@ -239,18 +212,19 @@ a:link {
   color: #015293;
 }
 /* UI Content Page */
+.ui-content-sidebar {
+  padding-right: 10px;
+}
 .ui-content-list .content-list {
-  border: 1px solid #ccc;
-  padding: 10px 10px 0 10px;
+  padding: 2px 10px 0 20px;
   background-color: #fff;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 .ui-content-list .content-list .content-title {
   border-bottom: 2px solid #015293;
   font-size: 16px;
   font-weight: bold;
+  line-height: 28px;
+  height: 30px;
   color: #015293;
 }
 .ui-content-list .content-list .content-table {
@@ -266,20 +240,43 @@ a:link {
   font-size: 14px;
   line-height: 2.2em;
 }
+.ui-content-list .content-list .images-table tr {
+  background: none;
+}
+.ui-content-list .content-list .images-table td {
+  padding: 6px;
+  vertical-align: top;
+}
+.ui-content-list .content-list .images-table td.thumb {
+  width: 120px;
+  padding: 6px;
+}
+.ui-content-list .content-list .images-table td.thumb img {
+  display: block;
+  width: 120px;
+  height: 90px;
+  background-color: #eee;
+}
+.ui-content-list .content-list .images-table td.title {
+  line-height: 1.5em;
+}
+.ui-content-list .content-list .images-table td.title h4 {
+  margin-top: 4px;
+}
+.ui-content-list .content-list .images-table td.title span {
+  font-size: 12px;
+  color: #999;
+}
 .ui-content-view .content-info {
   padding: 0 15px;
-  border: 1px solid #eee;
-  background-color: #fff;
 }
 .ui-content-view .content-info a.btn-back {
   display: block;
   width: 70px;
   height: 24px;
   margin-top: 10px;
-  padding-left: 25px;
   line-height: 24px;
   font-size: 14px;
-  background: url(web/page/icon_back.png) no-repeat left center;
   color: #999;
 }
 .ui-content-view .content-info .content-title {
@@ -318,7 +315,7 @@ a:link {
   display: block;
   height: 1px;
   margin: 10px 0;
-  background: url(web/page/split_line.png) repeat-x;
+  border-top: 2px dotted #ddd;
 }
 .bar-bottom img {
   margin-top: 20px;
@@ -345,6 +342,14 @@ a:link {
   color: #999;
 }
 /* Business CSS */
+.verifycode {
+  width: 80px;
+  height: 30px;
+  border: 1px solid #ddd;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
 .zhuangti div {
   text-align: center;
 }
@@ -408,6 +413,7 @@ a:link {
 }
 /* Pager */
 .npager {
+  margin: 15px 0 10px 0;
   text-align: center;
 }
 .npager ul {

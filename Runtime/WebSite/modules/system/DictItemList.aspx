@@ -7,7 +7,7 @@
 		<ul class="toolbar">
 			<li>
 				<a href="DictItemEdit.aspx?group=<%= GetGroupCode() %>&fix=<%= WebParmKit.GetQuery("fix", "") %>">
-					<i class="sui-icon icon-tb-add"></i>新增
+					<i class="fa fa-plus"></i>新增
 				</a>
 			</li>
 		</ul>
@@ -23,7 +23,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
-	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id" OnRowDeleting="list_RowDeleting"  CssClass="sui-table table-primary">
+	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id" OnRowDeleting="list_RowDeleting"  CssClass="table table-primary">
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>
 			<asp:BoundField DataField="GroupName" HeaderText="字典组">

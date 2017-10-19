@@ -35,7 +35,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 
 	<asp:GridView runat="server" ID="list" Width="100%" AutoGenerateColumns="False"
-		BorderWidth="0" CssClass="sui-table table-bordered-simple">
+		BorderWidth="0" CssClass="table table-bordered-simple">
 		<Columns>
 			<asp:TemplateField>
 				<HeaderStyle HorizontalAlign="Center" Width="40px"></HeaderStyle>

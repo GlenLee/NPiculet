@@ -18,7 +18,7 @@ body {
 	padding: 0 15px 15px 15px;
 }
 
-.ui-nav {
+.ui-navbar {
 	margin: 15px;
 	border: 1px solid #ccc;
 	.radius(3px);
@@ -27,68 +27,85 @@ body {
 
 .caption { color:#aaa; }
 
-/* fix SUI */
-.sui-breadcrumb {
-	margin: 0;
+/* fix UI */
+select.form-control {
+	display: inline;
+	width: auto;
+}
+.form-control.inline {
+	display: inline;
+	width: auto;
 }
 
-.sui-table.table-primary {
+.breadcrumb {
+	margin: 0;
+	background-color: #fff;
+}
+
+.table.table-primary {
 	border-collapse: separate !important;
 	border: 0 !important;
 	.radius(3px);
 	background-color: #fff;
 }
 
-.sui-table.table-primary th {
+.table.table-primary th {
 	border: 1px solid #2A7BC4;
 	border-right: none;
+	text-align: center;
 	background-color: @base-color;
+	color: #fff;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child th {
+.table.table-primary tbody:first-child tr:first-child th {
 	border-top: 1px solid #2A7BC4;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child > th:first-child {
+.table.table-primary tbody:first-child tr:first-child > th:first-child {
 	border-top-left-radius: 3px;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child > th:last-child {
+.table.table-primary tbody:first-child tr:first-child > th:last-child {
 	border-right: 1px solid #2A7BC4;
 	border-top-right-radius: 3px;
 }
 
-.sui-table.table-primary td {
+.table.table-primary td {
 	border: 1px solid #ddd;
 	border-top: none;
 	border-right: none;
 }
 
-.sui-table.table-primary tbody:first-child tr:first-child > td {
+.table.table-primary tbody:first-child tr:first-child > td {
 	border-top: 1px solid #ddd;
 }
 
-.sui-table.table-primary tbody:last-child tr > td:last-child {
+.table.table-primary tbody:last-child tr > td:last-child {
 	border-right: 1px solid #ddd;
 }
 
-.sui-table.table-primary tbody:last-child tr:last-child > td:first-child {
+.table.table-primary tbody:last-child tr:last-child > td:first-child {
 	border-bottom-left-radius: 3px;
 }
 
-.sui-table.table-primary tbody:last-child tr:last-child > td:last-child {
+.table.table-primary tbody:last-child tr:last-child > td:last-child {
 	border-bottom-right-radius: 3px;
 }
 
-.sui-table {
+.table {
 	background-color: #fff;
 }
 
-.sui-table .th {
+.table .th {
 	width: 100px;
 	text-align: right;
+	vertical-align: middle;
 }
-.sui-table .td {}
+.table .td {}
+
+.quote h5 {
+	font-weight:bold;
+}
 
 /* bar */
 ul.searchbar-wrap, ul.searchbar-wrap li {
@@ -119,6 +136,7 @@ ul.searchbar-wrap li {
 	line-height: 24px;
 	text-indent: 10px;
 	margin-right: 8px;
+	.radius(3px);
 }
 
 .searchbar-wrap input[type=text] {
@@ -127,9 +145,10 @@ ul.searchbar-wrap li {
 	border: 1px solid #1299ec;
 	width: 150px;
 	height: 24px;
-	line-height: 24px;
-	text-indent: 10px;
+	/*line-height: 24px;*/
+	text-indent: 6px;
 	margin-right: 8px;
+	.radius(3px);
 }
 
 .searchbar-wrap input[type=submit], .admin-search-table input[type=submit], .searchbar-wrap a, .admin-search-table a {
@@ -148,10 +167,6 @@ ul.searchbar-wrap li {
 
 .searchbar-wrap a i {
 	margin-right: 5px;
-}
-
-.searchbar-wrap input[type=text], .admin-search-table input[type=text], .prosearch input[type=text] {
-	padding: 4px 8px;
 }
 
 ul.toolbar, ul.toolbar li {

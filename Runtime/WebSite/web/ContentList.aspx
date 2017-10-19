@@ -13,7 +13,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
 	<ol class="breadcrumb">
 		<li>当前位置：</li>
-		<li><a href="<%= ResolveClientUrl("~/") %>">首页</a></li>
+		<li><a href="<%= ResolveClientUrl("~/web/") %>">首页</a></li>
 		<li class="active">信息列表</li>
 	</ol>
 	
@@ -23,7 +23,7 @@
 			<!-- 列表 开始 -->
 			<div class="content-list">
 				<div class="content-title">
-					<asp:Literal ID="title" runat="server"></asp:Literal>
+					<i class="glyphicon glyphicon-list-alt"></i>&nbsp;&nbsp;<asp:Literal ID="title" runat="server"></asp:Literal>
 				</div>
 				<asp:PlaceHolder runat="server" ID="phShowTable">
 					<table class="content-table">
@@ -52,10 +52,11 @@
 			</div>
 			<!-- 列表 结束 -->
 		</div>
-	
-		<!-- 侧边栏 开始 -->
-		<uc:ContentSidebar runat="server" id="contentSidebar" />
-		<!-- 侧边栏 结束 -->
+		<div class="col-md-3">
+			<!-- 侧边栏 开始 -->
+			<uc:ContentSidebar runat="server" id="contentSidebar" />
+			<!-- 侧边栏 结束 -->
+		</div>
 	</div>
 
 </asp:Content>

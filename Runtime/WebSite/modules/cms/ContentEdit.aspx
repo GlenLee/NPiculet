@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="ContentEdit.aspx.cs" Inherits="modules_cms_ContentEdit" %>
+﻿<%@ Page Title="内容编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="ContentEdit.aspx.cs" Inherits="modules_cms_ContentEdit" %>
 <%@ Register TagPrefix="zx" TagName="Prompt" Src="~/modules/common/Prompt.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="header" Runat="Server">
@@ -10,7 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="sui-icon icon-tb-check"></i>保存</asp:LinkButton></li>
+			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click" OnClientClick="save()"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
 			<li><asp:HyperLink ID="btnView" runat="server" Target="_blank"><i class="sui-icon icon-tb-activity"></i>预览</asp:HyperLink></li>
 		</ul>
 	</div>
@@ -22,31 +22,11 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<zx:Prompt ID="promptControl" runat="server" />
 	<asp:PlaceHolder ID="editor" runat="server">
-		<table class="sui-table table-primary">
+		<table class="table table-primary">
 			<tr>
 				<td class="th">栏目</td>
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
 			</tr>
-<asp:PlaceHolder runat="server" ID="phThumb">
-			<tr>
-				<td class="th">缩略图</td>
-				<td class="td">
-					<table cellpadding="0" cellspacing="0" style="border:0;">
-						<tr>
-							<td>
-								<asp:FileUpload ID="Thumb" runat="server" Width="400px" />
-								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片大于1024x1024会自动压缩。</div>
-							</td>
-							<td style="padding:4px">
-								<asp:HyperLink ID="ThumbHyperLink" runat="server" CssClass="thumb-link" Target="_blank">
-									<asp:Image ID="PreviewThumb" runat="server" Width="40px" Height="40px" Visible="false" CssClass="thumb-image" />
-								</asp:HyperLink>
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-</asp:PlaceHolder>
 			<tr>
 				<td class="th">内容</td>
 				<td class="td" style="height:300px; overflow:scroll">

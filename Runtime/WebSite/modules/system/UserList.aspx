@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="UserEdit.aspx"><i class="sui-icon icon-tb-add"></i>新增</a></li>
+			<li><a href="UserEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 			<%--<li><asp:LinkButton runat="server" ID="btnDel"><i class="sui-icon icon-tb-delete"></i>删除</asp:LinkButton></li>
 			<li><asp:LinkButton runat="server" ID="btnResetPass"><i class="sui-icon icon-tb-edit"></i>重设密码</asp:LinkButton></li>--%>
 		</ul>
@@ -20,7 +20,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="Id"
-		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<PagerSettings Mode="NumericFirstLast" />
 		<RowStyle HorizontalAlign="Center" />
 		<Columns>

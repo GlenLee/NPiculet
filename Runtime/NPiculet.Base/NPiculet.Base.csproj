@@ -85,6 +85,15 @@
     <Compile Include="EF\cms_content_page.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\cms_content_tmpl.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\cms_content_tmpl_field.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\cms_content_tmpl_value.cs">
+      <DependentUpon>NPiculetModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\cms_friendlinks_info.cs">
       <DependentUpon>NPiculetModel.tt</DependentUpon>
     </Compile>

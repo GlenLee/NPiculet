@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PageList.aspx.cs" Inherits="modules_cms_PageList" %>
+﻿<%@ Page Title="页面管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="PageList.aspx.cs" Inherits="modules_cms_PageList" %>
 <%@ Register TagPrefix="cc1" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="header" Runat="Server">
@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><asp:HyperLink runat="server" ID="btnAdd"><i class="sui-icon icon-tb-add"></i>新增信息</asp:HyperLink></li>
+			<li><asp:HyperLink runat="server" ID="btnAdd"><i class="fa fa-plus"></i>新增信息</asp:HyperLink></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -21,7 +21,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%" DataKeyNames="Id,Title"
-		OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<Columns>
 			<asp:BoundField DataField="Title" HeaderText="标题" />
 			<asp:TemplateField HeaderText="发布">
@@ -35,7 +35,7 @@
 				<ItemTemplate><%# GetOrderByString() %></ItemTemplate>
 			</asp:TemplateField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="发布时间">
-				<HeaderStyle Width="120px" />
+				<HeaderStyle Width="140px" />
 				<ItemStyle HorizontalAlign="Center" />
 			</asp:BoundField>
 			<asp:TemplateField HeaderText="编辑">

@@ -16,8 +16,8 @@
 			"url": "~/web/Search.aspx"
 		},
 		{
-			"name": "web",
-			"route": "web/{groupCode}",
+			"name": "site",
+			"route": "site/{groupCode}",
 			"url": "~/web/Jump.aspx"
 		},
 		{

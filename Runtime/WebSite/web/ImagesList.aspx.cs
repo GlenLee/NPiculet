@@ -46,6 +46,14 @@ public partial class web_ImagesList : System.Web.UI.Page
 		this.list.DataBind();
 
 		this.nPager.RecordCount = count;
+
+		if (count > 0) {
+			this.phShowTable.Visible = true;
+			this.phEmpty.Visible = false;
+		} else {
+			this.phShowTable.Visible = false;
+			this.phEmpty.Visible = true;
+		}
 	}
 
 	protected string GetNewsTitle()

@@ -4,13 +4,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>欢迎登录<%= GetPlatformName() %></title>
-	<script src="../scripts/lib/jquery-1.11.3.min.js"></script>
-	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
-	<script src="../styles/sui/js/sui.min.js"></script>
+	<script type="text/javascript" src="../scripts/lib/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
+	<link href="../styles/fonts/font-awesome.min.css" rel="stylesheet" />
 	<style type="text/css">
 		html, body { padding:0;margin:0;width:100%;height:100%;background-color:#00cdac;background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%); }
 		div, p, input, select { box-sizing:border-box; }
 		a, a:hover { text-decoration:none; }
+		.version { text-align: center; color: #fff; }
 		.login {
 			color: #fff;
 			position: relative;
@@ -146,9 +147,6 @@
 			text-align: center;
 		}
 	</style>
-	<script type="text/javascript" src="../scripts/lib/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="../scripts/plugin/layer/layer.js"></script>
-	<%--<script src="js/cloud.js" type="text/javascript"></script>--%>
 	<script type="text/javascript">
 		if (window.top.location.href !== window.location.href) {
 			window.top.location.href = window.location.href;
@@ -170,12 +168,12 @@
 				<div class="login-form">
 					<div class="form-group">
 						<asp:TextBox ID="txtAccount" runat="server" CssClass="form-control login-field" placeholder="请输入登录帐号"></asp:TextBox>
-						<i class="sui-icon icon-tb-my"></i>
+						<i class="fa fa-user"></i>
 					</div>
 
 					<div class="form-group">
 						<asp:TextBox ID="txtPassword" runat="server" CssClass="form-control login-field" TextMode="Password" placeholder="请输入登录密码"></asp:TextBox>
-						<i class="sui-icon icon-tb-unlock"></i>
+						<i class="fa fa-lock"></i>
 					</div>
 
 					<asp:Button ID="btnLogin" runat="server" Text="&nbsp;&nbsp;&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;&nbsp;&nbsp;" CssClass="btn-primary btn-lg flat-btn-block" OnClick="btnLogin_Click" />
@@ -183,6 +181,7 @@
 			</div>
 		</div>
 	</form>
+	<div class="version">version: 2.0.1</div>
 
 </body>
 </html>

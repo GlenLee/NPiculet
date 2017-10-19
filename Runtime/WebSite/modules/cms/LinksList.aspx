@@ -7,7 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" Runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="LinksEdit.aspx">新增</a></li>
+			<li><a href="LinksEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
 		</ul>
 	</div>
 </asp:Content>
@@ -17,7 +17,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" Runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="sui-table table-primary">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<Columns>
 			<asp:BoundField DataField="Description" HeaderText="描述" />
 			<asp:BoundField DataField="Url" HeaderText="链接" />

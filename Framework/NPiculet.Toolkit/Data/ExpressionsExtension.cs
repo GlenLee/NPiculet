@@ -2,6 +2,7 @@
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
+using NPiculet.Toolkit;
 
 namespace System.Data.Entity
 {

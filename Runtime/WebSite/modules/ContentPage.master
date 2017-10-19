@@ -12,10 +12,10 @@
 </head>
 <body>
 <form id="frm" runat="server" class="sui-form">
-	<div class="ui-nav">
-		<ul class="sui-breadcrumb">
+	<div class="ui-navbar">
+		<ul class="breadcrumb">
 			<li>首页</li>
-			<li><%= GetTitle() %></li>
+			<li><asp:Literal runat="server" ID="pageTitle"></asp:Literal></li>
 		</ul>
 	</div>
 	<div class="ui-content-box">

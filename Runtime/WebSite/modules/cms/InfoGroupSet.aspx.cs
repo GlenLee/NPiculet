@@ -57,7 +57,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 				tn.Text = "<span style=\"color:red;\">" + Convert.ToString(g.GroupName) + "</span>";
 			}
 			//组编码及类型
-			tn.Text +=  " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetGroupTypeName(Convert.ToString(g.GroupType)) + ")</span>";
+			tn.Text += " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetGroupTypeName(Convert.ToString(g.GroupType)) + ")</span>";
 			//组ID
 			tn.Value = Convert.ToString(g.Id);
 
@@ -76,6 +76,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 			case "Content": return "单页";
 			case "List": return "列表";
 			case "Image": return "图片列表";
+			case "External": return "外部链接";
 			default: return "无";
 		}
 	}
@@ -85,7 +86,9 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		this.Id.Value = String.Empty;
 		this.GroupCode.Text = String.Empty;
 		this.GroupName.Text = String.Empty;
-		this.Memo.Text = String.Empty;
+		this.Point.Text = String.Empty;
+		this.Comment.Text = String.Empty;
+		this.OrderBy.Text = String.Empty;
 
 		SetControlStatus();
 	}
@@ -136,6 +139,11 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	{
 		string oldGroupCode = data.GroupCode;
 
+		//自动创建随机编码
+		if (string.IsNullOrWhiteSpace(this.GroupCode.Text)) {
+			this.GroupCode.Text = StringKit.GetRandomStringByNumber(6);
+		}
+
 		BindKit.FillModelFromContainer(this.editor, data);
 
 		//更新字典数据
@@ -157,9 +165,16 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	/// <summary>
 	/// 创建一条新数据
 	/// </summary>
-	private bool CreateNewData() {
+	private bool CreateNewData()
+	{
 		var data = new cms_content_group();
 		if (!VerifyExistGroupCode(this.GroupCode.Text, data)) {
+
+			//自动创建随机编码
+			if (string.IsNullOrWhiteSpace(this.GroupCode.Text)) {
+				this.GroupCode.Text = StringKit.GetRandomStringByNumber(6);
+			}
+
 			BindKit.FillModelFromContainer(this.editor, data);
 			_cbus.SaveGroup(data);
 			return true;
@@ -175,7 +190,8 @@ public partial class modules_info_InfoGroupSet : AdminPage
 	/// <param name="groupCode"></param>
 	/// <param name="currentGroup"></param>
 	/// <returns></returns>
-	private bool VerifyExistGroupCode(string groupCode, cms_content_group currentGroup) {
+	private bool VerifyExistGroupCode(string groupCode, cms_content_group currentGroup)
+	{
 		var list = DbHelper.Query("SELECT Id FROM cms_content_group WHERE vGroupCode=@GroupCode and Id!=@Id",
 			DbHelper.CreateParameter("GroupCode", groupCode),
 			DbHelper.CreateParameter("Id", currentGroup.Id)
@@ -188,6 +204,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		if (Page.IsValid) {
 			var data = new cms_content_group();
 			BindKit.FillModelFromContainer(this.editor, data);
+			data.Id = 0;
 			data.ParentId = Convert.ToInt32(this.ParentId.Value);
 
 			_cbus.SaveGroup(data);
@@ -203,6 +220,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		if (Page.IsValid) {
 			var data = new cms_content_group();
 			BindKit.FillModelFromContainer(this.editor, data);
+			data.Id = 0;
 			data.ParentId = Convert.ToInt32(this.Id.Value);
 
 			_cbus.SaveGroup(data);
@@ -225,6 +243,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 
 	protected void tree_SelectedNodeChanged(object sender, EventArgs e)
 	{
+		ClearControls();
 		var val = this.tree.SelectedValue;
 		var data = _cbus.GetGroup(Convert.ToInt32(val));
 		if (data != null) {

@@ -21,13 +21,6 @@
 					发布时间：<asp:Literal ID="date" runat="server"></asp:Literal>
 				</div>
 				<div class="content-article"><asp:Literal ID="content" runat="server"></asp:Literal></div>
-				<!-- 内容 结束 -->
-				<div class="split-line"></div>
-				<!-- 导读 -->
-				<ul class="quote">
-					<asp:PlaceHolder runat="server" ID="phPrevLink" Visible="False"><li><a>上一条：<asp:Literal runat="server" ID="btnPrevTitle"></asp:Literal></a></li></asp:PlaceHolder>
-					<asp:PlaceHolder runat="server" ID="phNextLink" Visible="False"><li><a>下一条：<asp:Literal runat="server" ID="btnNextTitle"></asp:Literal></a></li></asp:PlaceHolder>
-				</ul>
 			</div>
 		</div>
 	</div>

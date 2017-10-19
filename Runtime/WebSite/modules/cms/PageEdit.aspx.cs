@@ -22,6 +22,9 @@ public partial class modules_cms_PageEdit : AdminPage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!Page.IsPostBack) {
+
+			this.Author.Text = this.CurrentUserName;
+
 			BindData();
 			InitControl();
 		}
@@ -98,7 +101,8 @@ public partial class modules_cms_PageEdit : AdminPage
 				//更新新图
 				if (this.Thumb.PostedFile.ContentLength > 0) {
 					if (FileKit.IsImage(this.Thumb.PostedFile.FileName)) {
-						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, 1200);
+						int defaultWidth = new ConfigManager().GetConfig<int>("ImageWidth");
+						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, defaultWidth > 0 ? defaultWidth : 1000);
 					} else {
 						this.Alert("您上传的不是图片！");
 					}
@@ -144,13 +148,16 @@ public partial class modules_cms_PageEdit : AdminPage
 		model.Click = 0;
 		model.CreateDate = DateTime.Now;
 		model.IsEnabled = 0;
-		model.OrgId = user.Organization.Id;
+		if (user.Organization != null)
+			model.OrgId = user.Organization.Id;
 		model.UserId = user.Id;
 		model.Author = user.Name;
 
 		_cbus.SavePage(model);
 
 		BindKit.BindModelToContainer(this.editor, model);
+
+		this.OrderBy.Checked = model.OrderBy == 0;
 
 		//保存日志和加积分
 		int point = ConvertKit.ConvertValue(new ConfigManager().GetConfig("NewsPoint"), 0);
@@ -183,7 +190,7 @@ public partial class modules_cms_PageEdit : AdminPage
 		string url = "<a href=\"PageList.aspx?";
 		if (gid > 0) url += "gid=" + gid;
 		if (!string.IsNullOrEmpty(code)) url += "group=" + code;
-		url += "\"><i class=\"sui-icon icon-tb-back\"></i>返回</a>";
+		url += "\"><i class=\"fa fa-arrow-left\"></i>返回</a>";
 		return url;
 	}
 

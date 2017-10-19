@@ -14,7 +14,6 @@ public partial class web_ContentView : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e) {
 		BindQuote();
-		BindBottomAd();
 	}
 
 	private void BindQuote() {
@@ -33,19 +32,6 @@ public partial class web_ContentView : System.Web.UI.Page
 				this.phNextLink.Visible = true;
 				this.btnNextTitle.Text = string.Format(url, next.Id, next.Title.Left(60, "…"));
 			}
-		}
-	}
-
-	protected void BindBottomAd()
-	{
-		var abus = new CmsAdvBus();
-		var a = abus.GetSingleAd("5");
-		if (a != null) {
-			//this.bottomBanner.Visible = true;
-			if (!string.IsNullOrEmpty(a.Url)) this.bottomBanner.NavigateUrl = a.Url;
-			this.bottomBanner.ImageUrl = a.Image;
-		} else {
-			//this.bottomBanner.Visible = false;
 		}
 	}
 }
