@@ -181,7 +181,7 @@
 			</div>
 		</div>
 	</form>
-	<div class="version">version: 2.0.0</div>
+	<div class="version">version: 2.0.1</div>
 
 </body>
 </html>
