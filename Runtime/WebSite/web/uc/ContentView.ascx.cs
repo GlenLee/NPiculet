@@ -47,7 +47,7 @@ public partial class web_uc_ContentView : System.Web.UI.UserControl
 		if (data != null) {
 			data.Click++;
 
-			string backUrl = WebParmKit.GetQuery("back", "~/web/" + data.GroupCode);
+			string backUrl = WebParmKit.GetQuery("back", "~/site/" + data.GroupCode);
 			this.btnBack.NavigateUrl = backUrl;
 
 			this.title.Text = data.Title;

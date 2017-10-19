@@ -52,10 +52,11 @@
 			</div>
 			<!-- 列表 结束 -->
 		</div>
-	
-		<!-- 侧边栏 开始 -->
-		<uc:ContentSidebar runat="server" id="contentSidebar" />
-		<!-- 侧边栏 结束 -->
+		<div class="col-md-3">
+			<!-- 侧边栏 开始 -->
+			<uc:ContentSidebar runat="server" id="contentSidebar" />
+			<!-- 侧边栏 结束 -->
+		</div>
 	</div>
 
 </asp:Content>

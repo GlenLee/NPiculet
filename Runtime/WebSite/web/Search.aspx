@@ -17,13 +17,13 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-	<ul class="sui-breadcrumb">
+	<ul class="breadcrumb">
 		<li>当前位置：</li>
 		<li><a href="<%= ResolveClientUrl("~/") %>">首页</a></li>
 		<li class="active">全站搜索</li>
 	</ul>
-	<div class="sui-row sui-row-fluid ui-content-list">
-		<div class="span9">
+	<div class="row ui-content-list">
+		<div class="col-md-9">
 			<!-- 列表 开始 -->
 			<div class="content-list">
 				<div class="content-title">
@@ -60,12 +60,9 @@
 			</div>
 			<!-- 列表 结束 -->
 		</div>
-		<div class="span3">
+		<div class="col-md-3">
 			<!-- 侧边栏 开始 -->
 			<uc:ContentSidebar runat="server" id="contentSidebar" />
-			<div style="padding: 15px 0;">
-				<asp:Image ImageUrl="../images/web/banner_service.png" runat="server" AlternateText=""/>
-			</div>
 			<!-- 侧边栏 结束 -->
 		</div>
 	</div>

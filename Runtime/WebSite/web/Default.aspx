@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ContentPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="web_Default" %>
 <%@ Register Src="~/web/uc/NavMenu.ascx" TagPrefix="uc" TagName="NavMenu" %>
 <%@ Register Src="~/web/uc/LoginWidget.ascx" TagPrefix="uc" TagName="LoginWidget" %>
-<%@ Register TagPrefix="uc" TagName="PageTop" Src="~/web/uc/PageTop.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -11,22 +10,18 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="Server">
-	<ol class="breadcrumb">
-		<li>pcx.cn</li>
-		<li><%= GetWebSiteName() %></li>
-	</ol>
 	<div class="ui-sidebar">
-		
 		<form runat="server">
 			<uc:LoginWidget runat="server" id="LoginWidget1" />
 		</form>
-
 	</div>
+
 	<div class="ui-content">
 
 		<div class="ui-widget">
 			<div class="header">
 				<div class="title">新闻</div>
+				<div class="title-line"></div>
 			</div>
 			<div class="content">
 				<ul>

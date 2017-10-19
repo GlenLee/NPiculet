@@ -17,7 +17,7 @@
 	<uc:PageTop runat="server" ID="pageTop" />
 	<div class="ui-header">
 		<div class="layout">
-			<div class="web-title">pcx.cn</div>
+			<div class="web-title"><%= GetWebSiteName() %></div>
 		</div>
 	</div>
 	<asp:ContentPlaceHolder ID="nav" runat="server"></asp:ContentPlaceHolder>
