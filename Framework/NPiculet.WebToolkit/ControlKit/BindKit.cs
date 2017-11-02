@@ -647,6 +647,24 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
+		/// 为对象指定的属性填充值
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="obj"></param>
+		/// <param name="name"></param>
+		/// <param name="val"></param>
+		public static void FillProperty<T>(T obj, string name, object val) {
+			if (obj != null) {
+				Type type = obj.GetType();
+				PropertyInfo info = type.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+				//属性可写
+				if (info != null && info.CanWrite) {
+					info.SetValue(obj, val, null);
+				}
+			}
+		}
+
+		/// <summary>
 		/// 将容器中的控件数据填充到数据模型。
 		/// </summary>
 		/// <param name="namingContainer">容器</param>

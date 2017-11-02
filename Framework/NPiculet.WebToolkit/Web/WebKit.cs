@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,7 +9,7 @@ namespace NPiculet.Toolkit
 	public class WebKit
 	{
 		/// <summary> 
-		/// È¡µÃ¿Í‘ô¶Ë¼òµ¥Ö÷»úµØÖ· 
+		/// å–å¾—å®¢æˆ¶ç«¯ç®€å•ä¸»æœºåœ°å€ 
 		/// </summary> 
 		public static string GetSimpleIP()
 		{
@@ -21,7 +21,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary> 
-		/// È¡µÃ¿Í‘ô¶ËÖ÷»ú IPv4 µØÖ· 
+		/// å–å¾—å®¢æˆ¶ç«¯ä¸»æœº IPv4 åœ°å€ 
 		/// </summary> 
 		/// <returns></returns> 
 		public static string GetClientIPv4()
@@ -36,9 +36,9 @@ namespace NPiculet.Toolkit
 			if (ipv4 != String.Empty) {
 				return ipv4;
 			}
-			// Ô­´úÂëÊ¹ÓÃ Dns.GetHostName ·½·¨È¡»ØµÄÊÇ Server ¶Ë×ÊÁÏ£¬·Ç Client ¶Ë¡£ 
-			// ¸ÄÎªÀûÓÃ Dns.GetHostEntry ·½·¨£¬ÓÉ»ñÈ¡µÄ IPv6 Î»Ö··´²é DNS ¼ÇÂ¼£¬ 
-			// ÔÙÖğÒ»ÅĞ¶ÏÊÇ·ñÊôÓÚ IPv4 Ğ­Òé¶¨£¬Èç¹ûÊÇ×ª»»Îª IPv4 µØÖ·¡£ 
+			// åŸä»£ç ä½¿ç”¨ Dns.GetHostName æ–¹æ³•å–å›çš„æ˜¯ Server ç«¯èµ„æ–™ï¼Œé Client ç«¯ã€‚ 
+			// æ”¹ä¸ºåˆ©ç”¨ Dns.GetHostEntry æ–¹æ³•ï¼Œç”±è·å–çš„ IPv6 ä½å€åæŸ¥ DNS è®°å½•ï¼Œ 
+			// å†é€ä¸€åˆ¤æ–­æ˜¯å¦å±äº IPv4 åè®®å®šï¼Œå¦‚æœæ˜¯è½¬æ¢ä¸º IPv4 åœ°å€ã€‚ 
 			foreach (IPAddress ip in Dns.GetHostEntry(GetClientIP()).AddressList)
 			//foreach (IPAddress ip in Dns.GetHostAddresses(Dns.GetHostName())) 
             {
@@ -51,7 +51,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// È¡µÃ¿É´©Í¸´úÀíµÄ¿Í‘ô¶ËÖ÷»úµØÖ·
+		/// å–å¾—å¯ç©¿é€ä»£ç†çš„å®¢æˆ¶ç«¯ä¸»æœºåœ°å€
 		/// </summary>
 		public static string GetClientIP()
 		{
@@ -59,12 +59,12 @@ namespace NPiculet.Toolkit
 
 			result = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
 			if (result != null && result != String.Empty) {
-				//¿ÉÄÜÓĞ´úÀí 
-				if (result.IndexOf(".") == -1)    //Ã»ÓĞ¡°.¡±¿Ï¶¨ÊÇ·ÇIPv4¸ñÊ½ 
+				//å¯èƒ½æœ‰ä»£ç† 
+				if (result.IndexOf(".") == -1)    //æ²¡æœ‰â€œ.â€è‚¯å®šæ˜¯éIPv4æ ¼å¼ 
 					result = null;
 				else {
 					if (result.IndexOf(",") != -1) {
-						//ÓĞ¡°,¡±£¬¹À¼Æ¶à¸ö´úÀí¡£È¡µÚÒ»¸ö²»ÊÇÄÚÍøµÄIP¡£ 
+						//æœ‰â€œ,â€ï¼Œä¼°è®¡å¤šä¸ªä»£ç†ã€‚å–ç¬¬ä¸€ä¸ªä¸æ˜¯å†…ç½‘çš„IPã€‚ 
 						result = result.Replace(" ", "").Replace("'", "");
 						string[] temparyip = result.Split(",;".ToCharArray());
 						for (int i = 0; i < temparyip.Length; i++) {
@@ -74,13 +74,13 @@ namespace NPiculet.Toolkit
 								&& temparyip[i].Substring(0, 7) != "172.16.") {
 
 
-								return temparyip[i];    //ÕÒµ½²»ÊÇÄÚÍøµÄµØÖ· 
+								return temparyip[i];    //æ‰¾åˆ°ä¸æ˜¯å†…ç½‘çš„åœ°å€ 
 							}
 						}
-					} else if (IsIPv4(result)) //´úÀí¼´ÊÇIP¸ñÊ½ 
+					} else if (IsIPv4(result)) //ä»£ç†å³æ˜¯IPæ ¼å¼ 
 						return result;
 					else
-						result = null;    //´úÀíÖĞµÄÄÚÈİ ·ÇIP£¬È¡IP 
+						result = null;    //ä»£ç†ä¸­çš„å†…å®¹ éIPï¼Œå–IP 
 				}
 
 			}
@@ -97,7 +97,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ÅĞ¶ÏÊÇ·ñÊÇIPv4µØÖ·
+		/// åˆ¤æ–­æ˜¯å¦æ˜¯IPv4åœ°å€
 		/// </summary>
 		/// <param name="ip"></param>
 		/// <returns></returns>

@@ -1,9 +1,18 @@
-using System.Web.UI.WebControls;
+ï»¿using System.Web.UI.WebControls;
 
 namespace System.Web.UI
 {
+	/// <summary>
+	/// é¡µé¢å¤„ç†æ‰©å±•
+	/// </summary>
 	public static class PageExtension
 	{
+		/// <summary>
+		/// é‡æ–°å®šå‘é¡µé¢å¹¶ä¼ å‚
+		/// </summary>
+		/// <param name="page"></param>
+		/// <param name="navigateUrl"></param>
+		/// <param name="parameters"></param>
 		public static void Redirect(this Page page, string navigateUrl, params ListItem[] parameters)
 		{
 			string url = navigateUrl;
@@ -22,6 +31,12 @@ namespace System.Web.UI
 			page.Response.Redirect(page.ResolveUrl(url), false);
 		}
 
+		/// <summary>
+		/// é‡æ–°å®šå‘é¡µé¢å¹¶ä¼ å‚
+		/// </summary>
+		/// <param name="userControl"></param>
+		/// <param name="navigateUrl"></param>
+		/// <param name="parameters"></param>
 		public static void Redirect(this UserControl userControl, string navigateUrl, params ListItem[] parameters)
 		{
 			string url = navigateUrl;
@@ -41,7 +56,7 @@ namespace System.Web.UI
 		}
 
 		/// <summary>
-		/// µ¯³öÌáÊ¾¿ò¡£
+		/// å¼¹å‡ºæç¤ºæ¡†ã€‚
 		/// </summary>
 		/// <param name="page"></param>
 		/// <param name="msg"></param>
@@ -51,7 +66,7 @@ namespace System.Web.UI
 		}
 
 		/// <summary>
-		/// µ¯³öÌáÊ¾¿ò¡£
+		/// å¼¹å‡ºæç¤ºæ¡†ã€‚
 		/// </summary>
 		/// <param name="userControl"></param>
 		/// <param name="msg"></param>
@@ -61,7 +76,7 @@ namespace System.Web.UI
 		}
 
 		/// <summary>
-		/// Ö´ĞĞ Javascript ½Å±¾¡£
+		/// æ‰§è¡Œ Javascript è„šæœ¬ã€‚
 		/// </summary>
 		/// <param name="page"></param>
 		/// <param name="js"></param>
@@ -71,7 +86,7 @@ namespace System.Web.UI
 		}
 
 		/// <summary>
-		/// Ö´ĞĞ Javascript ½Å±¾¡£
+		/// æ‰§è¡Œ Javascript è„šæœ¬ã€‚
 		/// </summary>
 		/// <param name="userControl"></param>
 		/// <param name="js"></param>
@@ -81,7 +96,7 @@ namespace System.Web.UI
 		}
 
 		/// <summary>
-		/// Ìí¼ÓÊôĞÔ
+		/// æ·»åŠ å±æ€§
 		/// </summary>
 		/// <param name="control"></param>
 		/// <param name="sKey"></param>

@@ -37,9 +37,7 @@
 				</a>
 			</div>
 			<div class="col-xs-3">
-				<a href="./EntRegStep1.aspx">
-					<input type="button" class="btn btn-warning" value="注册" />
-				</a>
+				<asp:HyperLink runat="server" NavigateUrl="~/member/RegStep1.aspx" CssClass="btn btn-warning">注册</asp:HyperLink>
 			</div>
 			<div class="col-xs-6" style="text-align: right;">
 				<a href="FindPassStep1.aspx">忘记密码</a>

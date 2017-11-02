@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Linq.Expressions;
 using NPiculet.Base.EF;
 using NPiculet.Data;
 using NPiculet.Toolkit;
@@ -76,6 +77,30 @@ namespace NPiculet.Logic.Business
 
 			using (var db = new NPiculetEntities()) {
 				return db.sys_member_info.Any(a => a.IsDel == 0 && a.Account == account);
+			}
+		}
+
+		/// <summary>
+		/// 会员是否存在。
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public bool MemberInfoExist(Expression<Func<sys_member_info, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_member_info.Any(predicate);
+			}
+		}
+
+		/// <summary>
+		/// 会员是否存在。
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
+		public bool MemberDataExist(Expression<Func<sys_member_data, bool>> predicate)
+		{
+			using (var db = new NPiculetEntities()) {
+				return db.sys_member_data.Any(predicate);
 			}
 		}
 

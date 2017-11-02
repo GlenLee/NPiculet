@@ -28,10 +28,7 @@ namespace NPiculet.Toolkit
 					return ConvertToJson(value, filter);
 
 				case TypeCode.Boolean:
-					if (typeof(T).Equals(typeof(bool)) && Convert.ToBoolean(value)) {
-						return "true";
-					}
-					return "false";
+					return Convert.ToBoolean(value) ? "true" : "false";
 
 				case TypeCode.DateTime:
 					//return "\"" + Convert.ToDateTime(value).ToString("yyyy-MM-ddTH:mm:ss.fffffff") + "\"";

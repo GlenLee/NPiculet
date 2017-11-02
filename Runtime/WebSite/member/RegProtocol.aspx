@@ -9,6 +9,3 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="content" Runat="Server">
 	<asp:Literal runat="server" ID="protocol"></asp:Literal>
 </asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="footer" Runat="Server">
-</asp:Content>
