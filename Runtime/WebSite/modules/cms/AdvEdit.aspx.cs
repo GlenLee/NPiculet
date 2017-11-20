@@ -67,6 +67,7 @@ namespace modules.info
 				model.Title = this.txtTitle.Text;
 
 				int defaultWidth = new ConfigManager().GetConfig<int>("ImageWidth");
+				if (defaultWidth < 1) defaultWidth = 1000;
 
 				if (!string.IsNullOrEmpty(this.BannerImage.FileName)) {
 					//清理老图像
@@ -75,7 +76,7 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
-					model.Image = FileWebKit.SaveZoomImage(this.BannerImage.PostedFile, defaultWidth > 0 ? defaultWidth : 1000);
+					model.Image = FileWebKit.SaveZoomImage(this.BannerImage.PostedFile, defaultWidth);
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
@@ -86,7 +87,7 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
-					model.Cover = FileWebKit.SaveZoomImage(this.BannerCover.PostedFile, defaultWidth > 0 ? defaultWidth : 1000);
+					model.Cover = FileWebKit.SaveZoomImage(this.BannerCover.PostedFile, defaultWidth);
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
@@ -121,12 +122,16 @@ namespace modules.info
 			}
 		}
 
-		protected void Position_OnSelectedIndexChanged(object sender, EventArgs e) {
+		protected void Position_OnSelectedIndexChanged(object sender, EventArgs e)
+		{
 			SetControlStatus();
 		}
 
-		private void SetControlStatus() {
-			this.phCover.Visible = this.Position.SelectedValue == "ad.top";
+		private void SetControlStatus()
+		{
+			this.phCover.Visible = this.Position.SelectedValue == "Cover";
+			this.phDescription.Visible = this.Position.SelectedValue == "PopupWin";
+			this.phDate.Visible = this.phCover.Visible || this.phDescription.Visible;
 		}
 	}
 }

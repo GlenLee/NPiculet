@@ -21,7 +21,7 @@ namespace modules.info
 		private void BindData()
 		{
 			using (var db = new NPiculetEntities()) {
-				var query = (from a in db.cms_friendlinks_info orderby a.OrderBy select a);
+				var query = (from a in db.cms_friendlinks_info orderby a.Sort select a);
 
 				this.nPager.RecordCount = query.Count();
 

@@ -69,7 +69,7 @@ public partial class modules_cms_PageEdit : AdminPage
 				ShowThumb(model.Thumb);
 
 				//处理置顶
-				this.OrderBy.Checked = model.OrderBy == 0;
+				this.Sort.Checked = model.Sort == 0;
 			}
 
 			this.btnView.Visible = true;
@@ -101,8 +101,7 @@ public partial class modules_cms_PageEdit : AdminPage
 				//更新新图
 				if (this.Thumb.PostedFile.ContentLength > 0) {
 					if (FileKit.IsImage(this.Thumb.PostedFile.FileName)) {
-						int defaultWidth = new ConfigManager().GetConfig<int>("ImageWidth");
-						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, defaultWidth > 0 ? defaultWidth : 1000);
+						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, 1200);
 					} else {
 						this.Alert("您上传的不是图片！");
 					}
@@ -111,7 +110,7 @@ public partial class modules_cms_PageEdit : AdminPage
 			}
 
 			//处理置顶
-			model.OrderBy = this.OrderBy.Checked ? 0 : 1;
+			model.Sort = this.Sort.Checked ? 0 : 1;
 
 			//处理组信息
 			int gid = this.GroupId;
@@ -157,7 +156,7 @@ public partial class modules_cms_PageEdit : AdminPage
 
 		BindKit.BindModelToContainer(this.editor, model);
 
-		this.OrderBy.Checked = model.OrderBy == 0;
+		this.Sort.Checked = model.Sort == 0;
 
 		//保存日志和加积分
 		int point = ConvertKit.ConvertValue(new ConfigManager().GetConfig("NewsPoint"), 0);

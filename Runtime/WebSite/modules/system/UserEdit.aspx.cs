@@ -130,7 +130,7 @@ public partial class system_Admin_UserEdit : AdminPage
 				user.UserSn = Guid.NewGuid().ToString().ToLower();
 				user.IsEnabled = 1;
 				user.IsDel = 0;
-				user.OrderBy = maxOrderBy + 1;
+				user.Sort = maxOrderBy + 1;
 				user.Creator = this.CurrentUserName;
 				user.CreateDate = DateTime.Now;
 			} else {

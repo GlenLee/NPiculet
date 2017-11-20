@@ -1,4 +1,4 @@
-﻿<%@ Page Title="宣传编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="AdvEdit.aspx.cs" Inherits="modules.info.AdvEdit" %>
+﻿<%@ Page Title="留言板信息" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="MsgBoardEdit.aspx.cs" Inherits="modules_cms_MsgBoardEdit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">
@@ -10,7 +10,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="AdvList.aspx"><i class="fa fa-arrow-left"></i>返回</a></li>
+			<li><a href="MsgBoardList.aspx"><i class="fa fa-arrow-left"></i>返回</a></li>
 			<li><asp:LinkButton ID="btnSave" runat="server" OnClick="btnSave_Click"><i class="fa fa-check"></i>保存</asp:LinkButton></li>
 		</ul>
 	</div>
@@ -81,60 +81,30 @@
 				<td class="td">
 					<asp:TextBox ID="Sort" runat="server" CssClass="form-control" Width="100px" MaxLength="6"></asp:TextBox></td>
 			</tr>
-<asp:PlaceHolder runat="server" ID="phDate">
-			<tr>
-				<td class="th">时效</td>
-				<td class="td">
-					开始时间：<asp:TextBox ID="StartDate" runat="server" CssClass="input-large" Width="120px"></asp:TextBox> - 结束时间：<asp:TextBox ID="EndDate" runat="server" CssClass="input-large" Width="120px"></asp:TextBox>
-					<script type="text/javascript">
-						$('#<%= this.StartDate.ClientID %>').datepicker({});
-						$('#<%= this.EndDate.ClientID %>').datepicker({});
-					</script>
-				</td>
-			</tr>
-</asp:PlaceHolder>
-<asp:PlaceHolder runat="server" ID="phDescription" Visible="False">
-			<tr>
-				<td class="th">描述</td>
-				<td class="td">
-					<script id="editorContent" type="text/plain" style="width:90%;height:300px;"></script>
-					<asp:HiddenField runat="server" ID="Description"/>
-					<script type="text/javascript">
-						var editor = UE.getEditor('editorContent');
-						var contentControl = document.getElementById("<%= this.Description.ClientID %>");
-
-						editor.addListener("ready", function () {
-							editor.setHeight(300);
-							editor.setContent(contentControl.value);
-						});
-
-						function save() {
-							contentControl.value = editor.getContent();
-						}
-					</script>
-				</td>
-			</tr>
-</asp:PlaceHolder>
-<asp:PlaceHolder runat="server" ID="phCover" Visible="False">
-			<tr>
-				<td class="th">延时</td>
-				<td class="td">
-					<asp:TextBox ID="Delay" runat="server" CssClass="form-control" Width="100px" MaxLength="6"></asp:TextBox>（秒）
-					<div class="caption">经过一段时间自动关闭全屏广告，可设为 0 表示不自动关闭。</div>
-				</td>
-			</tr>
-			<tr>
-				<td class="th">附加样式</td>
-				<td class="td">
-					<asp:TextBox ID="Css" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
-			</tr>
-			<tr>
-				<td class="th">附加脚本</td>
-				<td class="td">
-					<asp:TextBox ID="Script" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
-			</tr>
-</asp:PlaceHolder>
+			<asp:PlaceHolder runat="server" ID="phCover" Visible="False">
+				<tr>
+					<td class="th">时效</td>
+					<td class="td">
+						开始时间：<asp:TextBox ID="StartDate" runat="server" CssClass="form-control" Width="120px"></asp:TextBox> - 结束时间：<asp:TextBox ID="EndDate" runat="server" CssClass="form-control" Width="120px"></asp:TextBox>
+						<script type="text/javascript">
+							$('#<%= this.StartDate.ClientID %>').datepicker({});
+							$('#<%= this.EndDate.ClientID %>').datepicker({});
+						</script>
+					</td>
+				</tr>
+				<tr>
+					<td class="th">附加样式</td>
+					<td class="td">
+						<asp:TextBox ID="Css" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
+				</tr>
+				<tr>
+					<td class="th">附加脚本</td>
+					<td class="td">
+						<asp:TextBox ID="Script" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6"></asp:TextBox></td>
+				</tr>
+			</asp:PlaceHolder>
 		</table>
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
 </asp:Content>
+

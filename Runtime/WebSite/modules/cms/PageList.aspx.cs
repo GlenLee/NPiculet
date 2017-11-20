@@ -118,7 +118,7 @@ public partial class modules_cms_PageList : AdminPage
 	/// <returns></returns>
 	protected string GetOrderByString()
 	{
-		string top = Convert.ToString(Eval("OrderBy"));
+		string top = Convert.ToString(Eval("Sort"));
 		return top == "0" ? "置顶" : "";
 	}
 

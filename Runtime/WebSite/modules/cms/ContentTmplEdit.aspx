@@ -5,6 +5,8 @@
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.all.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<link href="../../scripts/libs/icheck/skins/polaris/polaris.css" rel="stylesheet" />
+	<script src="../../scripts/libs/icheck/icheck.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" runat="Server">
@@ -62,54 +64,48 @@
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
 	<asp:PlaceHolder ID="phFields" runat="server">
-		<div class="panel panel-info" id="_userList" runat="server">
-			<div class="panel-heading">
-				<h4 class="panel-title">自定义字段</h4>
-			</div>
-			<div class="panel-body">
-				<asp:GridView runat="server" ID="fields" AutoGenerateColumns="False" ShowFooter="True" DataKeyNames="Id"
-					CssClass="table table-primary" OnRowDeleting="fields_OnRowDeleting" OnRowCommand="fields_OnRowCommand">
-					<Columns>
-						<asp:TemplateField HeaderText="名称">
-							<ItemTemplate>
-								<asp:TextBox runat="server" ID="Name" CssClass="form-control" Text='<%# Eval("Name") %>'></asp:TextBox>
-							</ItemTemplate>
-							<FooterTemplate>
-								<asp:TextBox runat="server" ID="Name" CssClass="form-control"></asp:TextBox>
-							</FooterTemplate>
-						</asp:TemplateField>
-						<asp:TemplateField HeaderText="编码">
-							<ItemTemplate>
-								<asp:TextBox runat="server" ID="Code" CssClass="form-control" Text='<%# Eval("Code") %>'></asp:TextBox>
-							</ItemTemplate>
-							<FooterTemplate>
-								<asp:TextBox runat="server" ID="Code" CssClass="form-control"></asp:TextBox>
-							</FooterTemplate>
-						</asp:TemplateField>
-						<asp:TemplateField HeaderText="类型">
-							<ItemTemplate>
-								<asp:TextBox runat="server" ID="Type" CssClass="form-control" Text='<%# Eval("Type") %>'></asp:TextBox>
-							</ItemTemplate>
-							<FooterTemplate>
-								<asp:TextBox runat="server" ID="Type" CssClass="form-control"></asp:TextBox>
-							</FooterTemplate>
-						</asp:TemplateField>
-						<asp:TemplateField>
-							<ItemTemplate>
-								<asp:HiddenField runat="server" ID="Id" Value='<%# Eval("Id") %>'/>
-								<asp:LinkButton runat="server" CommandName="Delete" Text="删除" OnClientClick="return confirm('确定要删除吗？');"></asp:LinkButton>
-							</ItemTemplate>
-							<FooterTemplate>
-								<asp:LinkButton runat="server" CommandName="Add" Text="新增"></asp:LinkButton>
-							</FooterTemplate>
-						</asp:TemplateField>
-					</Columns>
-				</asp:GridView>
-			</div>
-			<div class="panel-footer">
-				<asp:LinkButton ID="btnSaveField" runat="server" OnClick="btnSaveField_Click">保存</asp:LinkButton>
-			</div>
-		</div>
+		<asp:GridView runat="server" ID="fields" AutoGenerateColumns="False" ShowFooter="True" DataKeyNames="Id"
+			CssClass="table table-primary" OnRowDeleting="fields_OnRowDeleting" OnRowCommand="fields_OnRowCommand">
+			<Columns>
+				<asp:TemplateField HeaderText="自定义字段">
+					<ItemTemplate>
+						<asp:TextBox runat="server" ID="Name" CssClass="form-control" Text='<%# Eval("Name") %>'></asp:TextBox>
+					</ItemTemplate>
+					<FooterTemplate>
+						<asp:TextBox runat="server" ID="Name" CssClass="form-control"></asp:TextBox>
+					</FooterTemplate>
+				</asp:TemplateField>
+				<asp:TemplateField HeaderText="编码">
+					<ItemTemplate>
+						<asp:TextBox runat="server" ID="Code" CssClass="form-control" Text='<%# Eval("Code") %>'></asp:TextBox>
+					</ItemTemplate>
+					<FooterTemplate>
+						<asp:TextBox runat="server" ID="Code" CssClass="form-control"></asp:TextBox>
+					</FooterTemplate>
+				</asp:TemplateField>
+				<asp:TemplateField HeaderText="类型">
+					<ItemTemplate>
+						<asp:TextBox runat="server" ID="Type" CssClass="form-control" Text='<%# Eval("Type") %>'></asp:TextBox>
+					</ItemTemplate>
+					<FooterTemplate>
+						<asp:TextBox runat="server" ID="Type" CssClass="form-control"></asp:TextBox>
+					</FooterTemplate>
+				</asp:TemplateField>
+				<asp:TemplateField>
+					<HeaderStyle Width="80px"></HeaderStyle>
+					<HeaderTemplate>
+						<asp:LinkButton ID="btnSaveField" runat="server" OnClick="btnSaveField_Click">保存</asp:LinkButton>
+					</HeaderTemplate>
+					<ItemTemplate>
+						<asp:HiddenField runat="server" ID="Id" Value='<%# Eval("Id") %>'/>
+						<asp:LinkButton runat="server" CommandName="Delete" Text="删除" OnClientClick="return confirm('确定要删除吗？');"></asp:LinkButton>
+					</ItemTemplate>
+					<FooterTemplate>
+						<asp:LinkButton runat="server" CommandName="Add" Text="新增"></asp:LinkButton>
+					</FooterTemplate>
+				</asp:TemplateField>
+			</Columns>
+		</asp:GridView>
 	</asp:PlaceHolder>
 	<script>
 			$("input[type=checkbox]").iCheck("check");

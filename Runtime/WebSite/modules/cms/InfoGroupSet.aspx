@@ -59,6 +59,7 @@
 							<asp:ListItem Value="Content">单页</asp:ListItem>
 							<asp:ListItem Value="List">列表</asp:ListItem>
 							<asp:ListItem Value="Image">图片列表</asp:ListItem>
+							<asp:ListItem Value="Picture">照片列表</asp:ListItem>
 							<asp:ListItem Value="External">外部链接</asp:ListItem>
 						</asp:DropDownList></td>
 					</tr>
@@ -80,9 +81,9 @@
 					<tr>
 						<td class="th">排序</td>
 						<td class="td">
-							<asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
-							<asp:RequiredFieldValidator ID="r2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
-							<asp:RegularExpressionValidator ID="re2" runat="server" ControlToValidate="OrderBy" Display="Dynamic" ErrorMessage="只能是数字" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
+							<asp:TextBox ID="Sort" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox>
+							<asp:RequiredFieldValidator ID="r2" runat="server" ControlToValidate="Sort" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
+							<asp:RegularExpressionValidator ID="re2" runat="server" ControlToValidate="Sort" Display="Dynamic" ErrorMessage="只能是数字" ForeColor="Red" ValidationExpression="\d+"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>
