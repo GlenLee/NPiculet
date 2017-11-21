@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-10-19 12:03:18
+Date: 2017-11-21 17:30:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,6 +71,61 @@ CREATE TABLE `bas_dataapi_info` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for bas_deputy_info
+-- ----------------------------
+DROP TABLE IF EXISTS `bas_deputy_info`;
+CREATE TABLE `bas_deputy_info` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Duty` varchar(16) DEFAULT NULL,
+  `Name` varchar(32) DEFAULT NULL,
+  `Sex` varchar(8) DEFAULT NULL,
+  `Region` varchar(32) DEFAULT NULL,
+  `Nation` varchar(32) DEFAULT NULL,
+  `NativePlace` varchar(32) DEFAULT NULL,
+  `Education` varchar(32) DEFAULT NULL,
+  `Party` varchar(128) DEFAULT NULL,
+  `Profession` varchar(128) DEFAULT NULL,
+  `Org` varchar(255) DEFAULT NULL,
+  `Job` varchar(255) DEFAULT NULL,
+  `Description` text,
+  `Photo` varchar(255) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
+  `CreateDate` datetime DEFAULT NULL,
+  `Creator` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bas_deputy_info
+-- ----------------------------
+INSERT INTO `bas_deputy_info` VALUES ('1', '主任', '测试0', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', null, '~/styles/images/head.jpg', '1', '2017-11-06 20:43:02', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('2', '副主任', '测试1', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '1', '2017-11-06 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('3', '副主任', '测试2', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '2', '2017-11-07 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('4', '副主任', '测试3', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '3', '2017-11-08 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('5', null, '测试4', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '4', '2017-11-09 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('6', null, '测试5', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '5', '2017-11-10 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('7', null, '测试6', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '6', '2017-11-11 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('8', null, '测试7', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '7', '2017-11-12 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('9', null, '测试8', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '8', '2017-11-13 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('10', null, '测试9', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '9', '2017-11-14 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('11', null, '测试10', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '10', '2017-11-15 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('12', null, '测试11', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '11', '2017-11-16 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('13', null, '测试12', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '12', '2017-11-17 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('14', null, '测试13', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '13', '2017-11-18 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('15', null, '测试14', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '14', '2017-11-19 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('16', null, '测试15', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '15', '2017-11-20 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('17', null, '测试16', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '16', '2017-11-21 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('18', null, '测试17', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '17', '2017-11-22 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('19', null, '测试18', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '18', '2017-11-23 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('20', null, '测试19', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '19', '2017-11-24 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('21', null, '测试20', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '20', '2017-11-25 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('22', null, '测试21', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '21', '2017-11-26 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('23', null, '测试22', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '22', '2017-11-27 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('24', null, '测试23', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '23', '2017-11-28 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('25', null, '测试24', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '24', '2017-11-29 20:43:00', '管理员');
+INSERT INTO `bas_deputy_info` VALUES ('26', null, '测试25', '男', '红河州代表团', '汉', '昆明', '大学本科', '中国共产党', '无', '无', '无', '', '~/styles/images/head.jpg', '25', '2017-11-30 20:43:00', '管理员');
+
+-- ----------------------------
 -- Table structure for bas_dict_group
 -- ----------------------------
 DROP TABLE IF EXISTS `bas_dict_group`;
@@ -84,11 +139,11 @@ CREATE TABLE `bas_dict_group` (
   `EntityCode` varchar(128) DEFAULT NULL COMMENT '实体数据表编码',
   `IsDel` int(11) NOT NULL COMMENT '是否已删除',
   `IsEnabled` int(11) NOT NULL COMMENT '是否已启用',
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
   `Creator` varchar(32) DEFAULT NULL COMMENT '创建人',
   `CreateDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='字典分组';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='字典分组';
 
 -- ----------------------------
 -- Records of bas_dict_group
@@ -97,6 +152,10 @@ INSERT INTO `bas_dict_group` VALUES ('1', 'SystemLog', '系统日志分类', '�
 INSERT INTO `bas_dict_group` VALUES ('2', 'EntNature', '企业性质', '下拉列表', '', '0', null, '0', '1', null, '管理员', '2017-09-06 00:00:00');
 INSERT INTO `bas_dict_group` VALUES ('3', 'UserType', '用户类型', '下拉列表', '', '0', null, '0', '1', null, '管理员', '2017-09-06 00:00:00');
 INSERT INTO `bas_dict_group` VALUES ('4', 'AdPosition', '广告位置', '下拉列表', '', '0', null, '0', '1', null, '管理员', '2017-09-06 00:00:00');
+INSERT INTO `bas_dict_group` VALUES ('5', 'FieldType', '字段类型', '下拉列表', '', '0', null, '0', '1', null, '管理员', '2017-10-30 22:18:21');
+INSERT INTO `bas_dict_group` VALUES ('6', 'ExtLinkType', '外链类型', '下拉列表', '', '0', null, '0', '1', null, '管理员', '2017-11-03 13:35:16');
+INSERT INTO `bas_dict_group` VALUES ('7', 'Region', '所属代表团', '下拉列表', '', '0', null, '1', '1', null, '管理员', '2017-11-04 23:44:14');
+INSERT INTO `bas_dict_group` VALUES ('8', 'Duty', '人大职能', '下拉列表', '', '0', null, '1', '1', null, '管理员', '2017-11-06 21:38:43');
 
 -- ----------------------------
 -- Table structure for bas_dict_item
@@ -110,11 +169,11 @@ CREATE TABLE `bas_dict_item` (
   `Value` varchar(255) DEFAULT NULL COMMENT '属性值',
   `Memo` varchar(255) DEFAULT NULL,
   `IsEnabled` int(11) NOT NULL COMMENT '是否已启用',
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
   `Creator` varchar(32) DEFAULT NULL COMMENT '创建人',
   `CreateDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='字典项';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='字典项';
 
 -- ----------------------------
 -- Records of bas_dict_item
@@ -131,6 +190,17 @@ INSERT INTO `bas_dict_item` VALUES ('9', 'UserType', '0', '普通用户', '', ''
 INSERT INTO `bas_dict_item` VALUES ('10', 'UserType', '1', '管理员', '', '', '1', null, '管理员', '2017-09-05 21:58:54');
 INSERT INTO `bas_dict_item` VALUES ('11', 'AdPosition', 'ad.top', '首页顶部广告', '', '', '1', null, '管理员', '2017-09-06 10:18:19');
 INSERT INTO `bas_dict_item` VALUES ('12', 'AdPosition', 'ad.lb', '轮播广告', '', '', '1', null, '管理员', '2017-09-06 10:19:08');
+INSERT INTO `bas_dict_item` VALUES ('13', 'FieldType', 'Text', '文本', 'text', '', '1', '1', '管理员', '2017-10-30 22:19:14');
+INSERT INTO `bas_dict_item` VALUES ('14', 'FieldType', 'Number', '数字', 'number', '', '1', '3', '管理员', '2017-10-30 22:19:44');
+INSERT INTO `bas_dict_item` VALUES ('15', 'FieldType', 'Dict', '字典', 'dict', '', '1', '4', '管理员', '2017-10-30 22:19:57');
+INSERT INTO `bas_dict_item` VALUES ('16', 'FieldType', 'RadioBox', '单选框', 'radio', '', '1', '5', '管理员', '2017-10-30 22:20:41');
+INSERT INTO `bas_dict_item` VALUES ('17', 'FieldType', 'CheckBox', '复选框', 'checkbox', '', '1', '6', '管理员', '2017-10-30 22:20:59');
+INSERT INTO `bas_dict_item` VALUES ('18', 'FieldType', 'SelectUserDialog', '选择用户', 'userdialog', '', '1', '7', '管理员', '2017-10-30 22:23:27');
+INSERT INTO `bas_dict_item` VALUES ('19', 'FieldType', 'SelectRoleDialog', '选择角色', 'roledialog', '', '1', '8', '管理员', '2017-10-30 22:23:45');
+INSERT INTO `bas_dict_item` VALUES ('20', 'FieldType', 'SelectOrgDialog', '选择组织机构', 'orgdialog', '', '1', '9', '管理员', '2017-10-30 22:24:07');
+INSERT INTO `bas_dict_item` VALUES ('21', 'FieldType', 'LongText', '长文本', 'longtext', '', '1', '2', '管理员', '2017-11-02 10:00:49');
+INSERT INTO `bas_dict_item` VALUES ('22', 'AdPosition', 'ad.middle', '首页中部广告', '', '', '1', null, '管理员', '2017-11-02 10:39:59');
+INSERT INTO `bas_dict_item` VALUES ('24', 'ExtLinkType', 'BusinessLink', '业务平台', '', '', '1', '1', '管理员', '2017-11-03 13:36:56');
 
 -- ----------------------------
 -- Table structure for bas_notice_info
@@ -209,20 +279,20 @@ CREATE TABLE `cms_adv_info` (
   `Script` text,
   `Click` int(11) NOT NULL,
   `IsEnabled` int(11) NOT NULL,
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
   `StartDate` datetime DEFAULT NULL,
   `EndDate` datetime DEFAULT NULL,
   `Delay` int(11) DEFAULT NULL,
   `Creator` varchar(32) DEFAULT NULL,
   `CreateDate` datetime NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cms_adv_info
 -- ----------------------------
 INSERT INTO `cms_adv_info` VALUES ('37', 'ad.lb', '轮播广告1', '~/uploads/thumb/201710/HA05W3634959.png', null, 'http://pcx.cn', '演示的数据', '', '', '0', '1', null, null, null, null, '管理员', '2016-08-29 20:53:21');
-INSERT INTO `cms_adv_info` VALUES ('46', 'ad.top', 'Top', '~/uploads/thumb/201710/HA18X1947762.jpg', null, 'http://pcx.cn', '演示的数据', '', '', '0', '1', null, '2017-10-01 00:00:00', '2017-10-10 00:00:00', '0', '管理员', '2016-08-29 20:58:37');
+INSERT INTO `cms_adv_info` VALUES ('46', 'ad.middle', '首页中部广告', '~/uploads/thumb/201711/HB02K4230614.jpg', null, 'http://pcx.cn', '演示的数据', '', '', '0', '1', null, null, null, null, '管理员', '2016-08-29 20:58:37');
 INSERT INTO `cms_adv_info` VALUES ('48', 'ad.lb', '轮播广告2', '~/uploads/thumb/201710/HA05W3737793.jpg', null, '', '', '', '', '0', '1', null, null, null, null, '管理员', '2017-10-05 22:37:38');
 
 -- ----------------------------
@@ -243,19 +313,36 @@ CREATE TABLE `cms_content_group` (
   `IsEnabled` int(11) NOT NULL,
   `Point` decimal(12,2) DEFAULT NULL,
   `Comment` text,
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
+  `CreateDate` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cms_content_group
 -- ----------------------------
-INSERT INTO `cms_content_group` VALUES ('1', 'Home', '首页栏目', '', '0', '0', '', null, '', null, '1', null, null, '10');
-INSERT INTO `cms_content_group` VALUES ('2', 'Publish', '发布日志', 'List', '1', '0', '', null, '', null, '1', null, null, '1');
-INSERT INTO `cms_content_group` VALUES ('11', 'News', '本站动态', 'List', '1', '0', '', null, '', null, '1', null, null, '0');
-INSERT INTO `cms_content_group` VALUES ('24', 'Other', '其他', '', '0', '0', '', null, '', null, '1', null, null, '9999');
-INSERT INTO `cms_content_group` VALUES ('25', 'FriendLinks', '友情链接', 'Content', '24', '0', '/24', null, '', null, '1', null, '', '20');
-INSERT INTO `cms_content_group` VALUES ('27', 'Protocol', '注册协议', 'Content', '24', '0', '/24', null, '', null, '1', null, '', '10');
+INSERT INTO `cms_content_group` VALUES ('1', 'Home', '首页栏目', '', '0', '0', '', '', '', null, '1', null, '', '10', null);
+INSERT INTO `cms_content_group` VALUES ('2', 'Publish', '发布日志', 'List', '1', '0', '', '', '', null, '1', null, '', '1', null);
+INSERT INTO `cms_content_group` VALUES ('3', 'News', '本站动态', 'List', '1', '0', '', '', '', null, '1', null, '', '0', null);
+INSERT INTO `cms_content_group` VALUES ('4', 'Other', '其他', '', '0', '0', '', '', '', null, '1', null, '', '9999', null);
+
+-- ----------------------------
+-- Table structure for cms_content_link
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_content_link`;
+CREATE TABLE `cms_content_link` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `PageId` int(11) DEFAULT NULL,
+  `GroupCode` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cms_content_link
+-- ----------------------------
+INSERT INTO `cms_content_link` VALUES ('1', '15', 'tzgg');
+INSERT INTO `cms_content_link` VALUES ('2', '15', 'ImageNews');
+INSERT INTO `cms_content_link` VALUES ('3', '15', 'rddt');
 
 -- ----------------------------
 -- Table structure for cms_content_page
@@ -263,6 +350,7 @@ INSERT INTO `cms_content_group` VALUES ('27', 'Protocol', '注册协议', 'Conte
 DROP TABLE IF EXISTS `cms_content_page`;
 CREATE TABLE `cms_content_page` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Type` varchar(16) DEFAULT NULL,
   `GroupCode` varchar(32) NOT NULL,
   `OrgId` int(11) DEFAULT NULL,
   `UserId` int(11) DEFAULT NULL,
@@ -271,11 +359,12 @@ CREATE TABLE `cms_content_page` (
   `Content` longtext,
   `Thumb` varchar(128) DEFAULT NULL,
   `Source` varchar(128) DEFAULT NULL,
+  `Url` varchar(512) DEFAULT NULL,
   `Click` int(11) NOT NULL,
   `IsEnabled` int(11) NOT NULL,
   `Author` varchar(32) DEFAULT NULL,
   `Point` decimal(12,2) DEFAULT NULL,
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
   `CreateDate` datetime NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -283,9 +372,9 @@ CREATE TABLE `cms_content_page` (
 -- ----------------------------
 -- Records of cms_content_page
 -- ----------------------------
-INSERT INTO `cms_content_page` VALUES ('1', 'News', '2', '1', '2.x 版本已发布', '', '<p>+ 升级更好的 EF 支持</p><p>+ 修正 1.x 发现的所有BUG</p><p>+ 更强大的CMS系统，以及支持内容模板<br/></p><p><br/></p>', null, '', '15', '1', '管理员', null, '1', '2017-09-12 23:32:02');
-INSERT INTO `cms_content_page` VALUES ('2', 'News', '2', '1', '前端登录测试用户：user，密码：user', '', '', null, '', '5', '1', '管理员', null, '0', '2017-09-12 23:34:35');
-INSERT INTO `cms_content_page` VALUES ('3', 'Publish', null, '1', 'NPiculet B/S Framework 2.0.1 Release', '', '介绍及源代码请查阅 GitHub<br/>', null, '', '1', '1', '管理员', null, '1', '2017-10-19 10:38:59');
+INSERT INTO `cms_content_page` VALUES ('1', null, 'News', '2', '1', '2.x 版本已发布', null, '<p>+ 升级更好的 EF 支持</p><p>+ 修正 1.x 发现的所有BUG</p><p>+ 更强大的CMS系统，以及支持内容模板<br/></p><p><br/></p>', null, null, null, '0', '1', '管理员', null, '0', '2017-09-12 23:32:02');
+INSERT INTO `cms_content_page` VALUES ('2', null, 'News', '2', '1', '前端登录测试用户：user，密码：user', null, null, null, null, null, '2', '1', '管理员', null, '0', '2017-09-12 23:34:35');
+INSERT INTO `cms_content_page` VALUES ('3', null, 'Publish', null, '1', 'NPiculet B/S Framework 2.0.1 Release', null, '介绍及源代码请查阅 GitHub', null, null, null, '0', '1', '管理员', null, '0', '2017-10-19 10:38:59');
 
 -- ----------------------------
 -- Table structure for cms_content_tmpl
@@ -305,7 +394,7 @@ CREATE TABLE `cms_content_tmpl` (
 -- ----------------------------
 -- Records of cms_content_tmpl
 -- ----------------------------
-INSERT INTO `cms_content_tmpl` VALUES ('1', '示范模板', '', '0', '1', '2017-10-12 00:31:10', '管理员');
+INSERT INTO `cms_content_tmpl` VALUES ('1', '演示模板', '<p>{{DocCode}}<br/></p><hr/><p>{{Content}}</p>', '0', '1', '2017-10-12 10:59:07', '管理员');
 
 -- ----------------------------
 -- Table structure for cms_content_tmpl_field
@@ -320,11 +409,12 @@ CREATE TABLE `cms_content_tmpl_field` (
   `CreateDate` datetime DEFAULT NULL,
   `Creator` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cms_content_tmpl_field
 -- ----------------------------
+INSERT INTO `cms_content_tmpl_field` VALUES ('1', '1', '档案号', 'DocCode', '', '2017-10-12 11:03:36', '管理员');
 
 -- ----------------------------
 -- Table structure for cms_content_tmpl_value
@@ -356,7 +446,7 @@ CREATE TABLE `cms_friendlinks_info` (
   `Url` text,
   `Click` int(11) NOT NULL,
   `IsEnabled` int(11) NOT NULL,
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
   `Creator` varchar(32) DEFAULT NULL,
   `CreateDate` datetime NOT NULL,
   PRIMARY KEY (`Id`)
@@ -365,10 +455,59 @@ CREATE TABLE `cms_friendlinks_info` (
 -- ----------------------------
 -- Records of cms_friendlinks_info
 -- ----------------------------
-INSERT INTO `cms_friendlinks_info` VALUES ('8', null, '百度', null, 'http://www.baidu.com/', '0', '1', null, '管理员', '2016-03-30 01:06:52');
-INSERT INTO `cms_friendlinks_info` VALUES ('9', null, '阿里巴巴', null, 'http://www.alibaba.com/', '0', '1', null, '管理员', '2016-03-30 01:07:34');
-INSERT INTO `cms_friendlinks_info` VALUES ('10', null, '腾讯', null, 'http://www.tencent.com/', '0', '1', null, '管理员', '2016-03-30 01:08:42');
-INSERT INTO `cms_friendlinks_info` VALUES ('11', '', '仅仅是开始', '', 'http://pcx.cn/', '0', '1', null, '管理员', '2016-03-30 01:08:42');
+INSERT INTO `cms_friendlinks_info` VALUES ('8', 'BusinessLink', '外部地址1', null, 'http://pcx.cn', '0', '1', '0', '管理员', '2016-03-30 01:06:52');
+INSERT INTO `cms_friendlinks_info` VALUES ('9', 'BusinessLink', '外部地址2', null, 'http://pcx.cn', '0', '1', '1', '管理员', '2016-03-30 01:07:34');
+INSERT INTO `cms_friendlinks_info` VALUES ('10', 'BusinessLink', '外部地址3', null, 'http://pcx.cn', '0', '1', '2', '管理员', '2016-03-30 01:08:42');
+INSERT INTO `cms_friendlinks_info` VALUES ('11', 'BusinessLink', '外部地址4', '', 'http://pcx.cn', '0', '1', '3', '管理员', '2016-03-30 01:08:42');
+
+-- ----------------------------
+-- Table structure for cms_msgboard_group
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_msgboard_group`;
+CREATE TABLE `cms_msgboard_group` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(64) DEFAULT NULL,
+  `Code` varchar(64) DEFAULT NULL,
+  `Type` varchar(16) DEFAULT NULL,
+  `Config` text,
+  `CreateDate` datetime DEFAULT NULL,
+  `Creator` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cms_msgboard_group
+-- ----------------------------
+INSERT INTO `cms_msgboard_group` VALUES ('1', '主任信箱', 'zrxx', null, '[{\"Name\":\"测试111\",\"Code\":\"111\",\"Type\":\"radio\",\"Show\":false},{\"Name\":\"测试222\",\"Code\":\"222\",\"Type\":\"dict\",\"Show\":true}]', '2017-10-31 14:58:09', '管理员');
+INSERT INTO `cms_msgboard_group` VALUES ('2', '建言献策', 'jyxc', null, '', '2017-11-20 22:16:36', '管理员');
+INSERT INTO `cms_msgboard_group` VALUES ('3', '网上信访', 'wsxf', null, '', '2017-11-20 22:16:54', '管理员');
+
+-- ----------------------------
+-- Table structure for cms_msgboard_record
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_msgboard_record`;
+CREATE TABLE `cms_msgboard_record` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `ReplyId` int(11) DEFAULT NULL,
+  `GroupCode` varchar(32) DEFAULT NULL,
+  `Author` varchar(32) DEFAULT NULL,
+  `IdCard` varchar(32) DEFAULT NULL,
+  `Tel` varchar(32) DEFAULT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Ownership` varchar(255) DEFAULT NULL,
+  `MsgTitle` varchar(255) DEFAULT NULL,
+  `MsgContent` text,
+  `IsAnonymous` int(11) DEFAULT NULL,
+  `IsPublic` int(11) DEFAULT NULL,
+  `Fields` text,
+  `Status` int(11) DEFAULT NULL,
+  `CreateDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cms_msgboard_record
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for cms_points_log
@@ -388,14 +527,11 @@ CREATE TABLE `cms_points_log` (
   `CreateDate` datetime DEFAULT NULL COMMENT '操作时间',
   `Creator` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='操作日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志表';
 
 -- ----------------------------
 -- Records of cms_points_log
 -- ----------------------------
-INSERT INTO `cms_points_log` VALUES ('1', 'Point', '1', '2', 'cms_content_page', '1', null, '发布文章，增加积分', '0.00', 'NPiculet 上线...还很远', '2017-09-12 23:32:02', '管理员');
-INSERT INTO `cms_points_log` VALUES ('2', 'Point', '1', '2', 'cms_content_page', '2', null, '发布文章，增加积分', '0.00', 'Just Demo', '2017-09-12 23:34:35', '管理员');
-INSERT INTO `cms_points_log` VALUES ('3', 'Point', '1', '0', 'cms_content_page', '3', null, '发布文章，增加积分', '0.00', 'NPiculet B/S Framework 2.0.0 Release', '2017-10-19 10:38:59', '管理员');
 
 -- ----------------------------
 -- Table structure for hrs_calendar_info
@@ -1324,11 +1460,12 @@ CREATE TABLE `sys_action_log` (
   `Status` varchar(16) DEFAULT NULL COMMENT '记录状态',
   `Date` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COMMENT='操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='操作日志表';
 
 -- ----------------------------
 -- Records of sys_action_log
 -- ----------------------------
+INSERT INTO `sys_action_log` VALUES ('1', 'Login', 'admin', 'NPiculet.Authorization.LoginKit', '', null, null, 'Administrator登录成功！', null, '2017-11-21 17:25:37');
 
 -- ----------------------------
 -- Table structure for sys_admin_info
@@ -1419,7 +1556,6 @@ CREATE TABLE `sys_config` (
   `ConfigValue` varchar(255) DEFAULT NULL COMMENT '配置值',
   `Creator` varchar(32) DEFAULT NULL,
   `CreateDate` datetime DEFAULT NULL,
-  `IsEnabled` int(11) NOT NULL COMMENT '是否启用',
   PRIMARY KEY (`Id`),
   KEY `IDX_ConfigType` (`ConfigType`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
@@ -1427,18 +1563,18 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 -- Records of sys_config
 -- ----------------------------
-INSERT INTO `sys_config` VALUES ('1', null, null, 'PlatformName', 'NPiculet信息化系统开发框架', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('2', null, null, 'WebSiteName', 'NPiculet信息化系统开发框架', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('3', null, null, 'CompanyName', 'pcx.cn', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('4', null, null, 'DomainName', 'www.pcx.cn', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('5', null, null, 'ICP', '滇ICP备14000796号-1', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('6', null, null, 'Tel', '', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('7', null, null, 'ServiceTel', '', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('8', null, null, 'PostCode', '', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('9', null, null, 'EMail', '', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('10', null, null, 'Address', '', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('15', null, null, 'NewsEditLimit', '', '管理员', '2017-10-18 23:19:28', '1');
-INSERT INTO `sys_config` VALUES ('16', null, null, 'ImageWidth', '1000', '管理员', '2017-10-18 23:19:28', '1');
+INSERT INTO `sys_config` VALUES ('1', null, null, 'PlatformName', 'NPiculet信息化系统开发框架', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('2', null, null, 'WebSiteName', 'NPiculet信息化系统开发框架', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('3', null, null, 'CompanyName', 'pcx.cn', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('4', null, null, 'DomainName', 'www.pcx.cn', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('5', null, null, 'ICP', '滇ICP备14000796号-1', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('6', null, null, 'Tel', '', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('7', null, null, 'ServiceTel', '', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('8', null, null, 'PostCode', '', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('9', null, null, 'EMail', '', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('10', null, null, 'Address', '', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('15', null, null, 'NewsEditLimit', '', '管理员', '2017-10-12 10:07:13');
+INSERT INTO `sys_config` VALUES ('16', '', '', 'ImageWidth', '1000', '管理员', '2017-10-18 23:19:28');
 
 -- ----------------------------
 -- Table structure for sys_link_user_org
@@ -1536,7 +1672,6 @@ CREATE TABLE `sys_member_info` (
   `PassAnswer` varchar(255) DEFAULT NULL COMMENT '密码回答',
   `FailedCount` int(11) DEFAULT NULL COMMENT '登陆错误次数',
   `FailedDate` datetime DEFAULT NULL COMMENT '登陆错误时间',
-  `OrderBy` int(11) DEFAULT NULL,
   `IsEnabled` int(11) NOT NULL COMMENT '是否启用',
   `IsDel` int(11) NOT NULL COMMENT '是否已删除',
   `Status` varchar(16) DEFAULT NULL,
@@ -1551,9 +1686,9 @@ CREATE TABLE `sys_member_info` (
 -- ----------------------------
 -- Records of sys_member_info
 -- ----------------------------
-INSERT INTO `sys_member_info` VALUES ('1', '9b8298e8a03d4b85b0b11e55787e0ab5', 'test', '123', '测试', null, '个人用户', null, null, null, null, null, null, null, null, null, null, null, '1', '0', '外挂', null, null, null, '2017-01-01 00:00:00');
-INSERT INTO `sys_member_info` VALUES ('2', '1a495283e1274e2a8dbd306bc8ad6af1', 'user', 'user', '野生动物', null, '个人用户', null, null, null, null, null, null, null, null, null, null, null, '1', '0', '0', null, null, null, '2017-01-01 00:00:00');
-INSERT INTO `sys_member_info` VALUES ('3', 'e5552be4a58c4b0ea491ebeef07e6fdc', 'qy01', 'qy01', '企业用户', null, '企业用户', null, null, null, null, null, null, null, null, null, null, null, '1', '0', '0', null, null, null, '2017-01-01 00:00:00');
+INSERT INTO `sys_member_info` VALUES ('1', '9b8298e8a03d4b85b0b11e55787e0ab5', 'test', '123', '测试', null, '个人用户', null, null, null, null, null, null, null, null, null, null, '1', '0', '外挂', null, null, null, '2017-01-01 00:00:00');
+INSERT INTO `sys_member_info` VALUES ('2', '1a495283e1274e2a8dbd306bc8ad6af1', 'user', 'user', '野生动物', null, '个人用户', null, null, null, null, null, null, null, null, null, null, '1', '0', '0', null, null, null, '2017-01-01 00:00:00');
+INSERT INTO `sys_member_info` VALUES ('3', 'e5552be4a58c4b0ea491ebeef07e6fdc', 'qy01', 'qy01', '企业用户', null, '企业用户', null, null, null, null, null, null, null, null, null, null, '1', '0', '0', null, null, null, '2017-01-01 00:00:00');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1574,15 +1709,15 @@ CREATE TABLE `sys_menu` (
   `Url` longtext COMMENT '页面地址',
   `Target` varchar(32) DEFAULT NULL COMMENT '目标',
   `Comment` longtext COMMENT '备注',
-  `OrderBy` int(11) DEFAULT NULL COMMENT '排序',
+  `Sort` int(11) DEFAULT NULL COMMENT '排序',
   `IsEnabled` int(11) NOT NULL COMMENT '是否启用',
   `IsDel` int(11) NOT NULL COMMENT '是否已删除',
   `Creator` varchar(32) DEFAULT NULL COMMENT '创建人',
   `CreateDate` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`Id`),
   KEY `IDX_ParentId` (`ParentId`),
-  KEY `IDX_OrderBy` (`OrderBy`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+  KEY `IDX_OrderBy` (`Sort`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -1600,7 +1735,7 @@ INSERT INTO `sys_menu` VALUES ('15', '1', '1', '/1', '信息管理', '', '', '1'
 INSERT INTO `sys_menu` VALUES ('16', '15', '1', '/1/15', '广告管理', '', '', '1', '0', '2', '0', 'cms/AdvList.aspx', 'mainFrame', '', '80', '1', '0', '管理员', '2017-07-30 00:00:00');
 INSERT INTO `sys_menu` VALUES ('19', '7', '1', '/1/7', '栏目配置', '', '', '1', '0', '2', '0', 'cms/InfoGroupSet.aspx', 'mainFrame', '配置栏目', '998', '1', '0', '管理员', '2017-07-30 00:00:00');
 INSERT INTO `sys_menu` VALUES ('37', '1', '1', '/1', '置顶栏目', '', '', '1', '0', '1', '0', '', 'mainFrame', '', '200', '1', '0', '管理员', '2017-07-30 00:00:00');
-INSERT INTO `sys_menu` VALUES ('38', '37', '1', '/1/37', '本站动态', '1,11', '', '2', '0', '2', '0', 'cms/PageList.aspx?gid=11', 'mainFrame', '', '10', '1', '0', '管理员', '2017-07-30 00:00:00');
+INSERT INTO `sys_menu` VALUES ('38', '37', '1', '/1/37', '本站动态', '1,3', '', '2', '0', '2', '0', 'cms/PageList.aspx?gid=3', 'mainFrame', '', '10', '1', '0', '管理员', '2017-07-30 00:00:00');
 INSERT INTO `sys_menu` VALUES ('39', '37', '1', '/1/37', '发布日志', '1,2', '', '2', '0', '2', '0', 'cms/PageList.aspx?gid=2', 'mainFrame', '', '20', '1', '0', '管理员', '2017-07-30 00:00:00');
 INSERT INTO `sys_menu` VALUES ('48', '7', '1', '/1/7', '系统日志', '', '', '1', '0', '2', '0', 'system/SystemLogList.aspx', 'mainFrame', '配置栏目', '997', '1', '0', '管理员', '2017-07-30 23:15:41');
 INSERT INTO `sys_menu` VALUES ('49', '15', '1', '/1/15', '积分管理', '', '', '1', '0', '2', '0', 'system/PointSet.aspx', 'mainFrame', '', '999', '1', '0', '管理员', '2017-08-01 18:12:47');
@@ -1613,6 +1748,8 @@ INSERT INTO `sys_menu` VALUES ('121', '118', '1', '/1/118', '用户类型', '3',
 INSERT INTO `sys_menu` VALUES ('122', '118', '1', '/1/118', '广告位置', '4', '', '3', '0', '2', '0', 'system/DictItemList.aspx?group=AdPosition&fix=true&cols=', 'mainFrame', '', '40', '1', '0', '管理员', '2017-09-25 23:43:51');
 INSERT INTO `sys_menu` VALUES ('123', '1', '1', '/1', '会员管理', '', '', '1', null, '1', '0', '', 'mainFrame', '', '300', '1', '0', '管理员', '2017-10-18 23:54:53');
 INSERT INTO `sys_menu` VALUES ('124', '123', '1', '/1/123', '会员管理', '', '', '1', null, '2', '0', 'member/MemberList.aspx', 'mainFrame', '', '10', '1', '0', '管理员', '2017-10-18 23:55:15');
+INSERT INTO `sys_menu` VALUES ('125', '7', '1', '/1/7', '留言板分组管理', '', '', '1', null, '2', '0', 'cms/MsgBoardGroupList.aspx', 'mainFrame', '', '130', '1', '0', '管理员', '2017-11-21 17:20:02');
+INSERT INTO `sys_menu` VALUES ('126', '15', '1', '/1/15', '留言管理', '', '', '1', null, '2', '0', 'cms/MsgBoardList.aspx', 'mainFrame', '', '200', '1', '0', '管理员', '2017-11-21 17:20:35');
 
 -- ----------------------------
 -- Table structure for sys_org_group
@@ -1654,7 +1791,7 @@ CREATE TABLE `sys_org_info` (
   `Tel` varchar(128) DEFAULT NULL,
   `Memo` longtext COMMENT '备注',
   `Point` decimal(12,2) DEFAULT NULL,
-  `OrderBy` int(11) DEFAULT NULL COMMENT '排序',
+  `Sort` int(11) DEFAULT NULL COMMENT '排序',
   `IsEnabled` int(11) NOT NULL COMMENT '是否启用',
   `IsDel` int(11) NOT NULL COMMENT '是否已删除',
   `Creator` varchar(32) DEFAULT NULL COMMENT '创建人',
@@ -1663,7 +1800,7 @@ CREATE TABLE `sys_org_info` (
   KEY `IDX_GroupCode` (`GroupCode`),
   KEY `IDX_IsEnabled` (`IsEnabled`),
   KEY `IDX_IsDel` (`IsDel`),
-  KEY `IDX_OrderBy` (`OrderBy`)
+  KEY `IDX_OrderBy` (`Sort`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='组织机构表';
 
 -- ----------------------------
@@ -1694,6 +1831,7 @@ CREATE TABLE `sys_role_info` (
 -- Records of sys_role_info
 -- ----------------------------
 INSERT INTO `sys_role_info` VALUES ('1', null, '系统管理员', '', '1', '0', '管理员', '2016-03-10 15:51:50');
+INSERT INTO `sys_role_info` VALUES ('2', null, 'test', '', '1', '1', '管理员', '2017-09-05 21:05:41');
 
 -- ----------------------------
 -- Table structure for sys_user_data
@@ -1733,6 +1871,10 @@ CREATE TABLE `sys_user_data` (
 -- Records of sys_user_data
 -- ----------------------------
 INSERT INTO `sys_user_data` VALUES ('1', '1', 'admin', '', '', '', '', '', '', null, null, '', '', null, null, null, null, null, null, null, null, null, null, '0');
+INSERT INTO `sys_user_data` VALUES ('2', '11', 'test', '', '', '', '', '', '', null, null, null, '', null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `sys_user_data` VALUES ('3', '6', 'shangxy', 'x3', '', '男', '', '', '', null, null, null, '', null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `sys_user_data` VALUES ('4', '4', 'changy', '', '', '', '', '', '', null, null, null, '', null, null, null, null, null, null, null, null, null, null, '1');
+INSERT INTO `sys_user_data` VALUES ('5', '9', 'yangk', '', '', '', '', '', '', null, null, null, '', null, null, null, null, null, null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for sys_user_info
@@ -1751,7 +1893,7 @@ CREATE TABLE `sys_user_info` (
   `LastLogoutDate` datetime DEFAULT NULL COMMENT '最后登出时间',
   `FailedCount` int(11) DEFAULT NULL COMMENT '登陆错误次数',
   `FailedDate` datetime DEFAULT NULL COMMENT '登陆错误时间',
-  `OrderBy` int(11) DEFAULT NULL,
+  `Sort` int(11) DEFAULT NULL,
   `IsEnabled` int(11) NOT NULL COMMENT '是否启用',
   `IsDel` int(11) NOT NULL COMMENT '是否已删除',
   `Updater` varchar(32) DEFAULT NULL,
@@ -1767,3 +1909,12 @@ CREATE TABLE `sys_user_info` (
 -- ----------------------------
 INSERT INTO `sys_user_info` VALUES ('1', 'admin', '0', 'admin', '123', '管理员', null, null, null, null, null, null, '0', '1', '0', null, null, null, null);
 INSERT INTO `sys_user_info` VALUES ('2', 'lisa', '0', 'lisa', '123', '李萨', null, null, null, null, null, null, '0', '1', '0', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('3', 'wangjl', '0', 'wangjl', '123', '王进龙', null, null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('4', 'changy', '', 'changy', '123', '常银', '2', null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('5', 'lij', '0', 'lij', '123', '李俊', null, null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('6', 'shangxy', '', 'shangxy', '123', '商晓亚', '2', null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('7', 'wangxb', '0', 'wangxb', '123', '王行波', null, null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('8', 'zhouzj', '0', 'zhouzj', '123', '周祉君', null, null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('9', 'yangk', '', 'yangk', '123', '杨凯', '2', null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('10', 'lixl', '0', 'lixl', '123', '李新雷', null, null, null, null, null, null, '0', '1', '1', null, null, null, null);
+INSERT INTO `sys_user_info` VALUES ('11', 'a61649ab-3b05-4007-93d8-168f3f76cfaa', '', 'test', '123', 'test', null, null, null, null, null, null, '1', '1', '1', null, null, '管理员', '2017-09-05 22:02:16');

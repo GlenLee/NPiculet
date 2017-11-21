@@ -94,6 +94,13 @@
 					</asp:DropDownList>
 				</td>
 			</tr>
+			<tr>
+				<td class="th">图片宽度</td>
+				<td class="td">
+					<asp:TextBox ID="ImageWidth" runat="server" CssClass="form-control" MaxLength="12"></asp:TextBox>
+					<div class="caption">注：新闻图片超过此宽度会被压缩</div>
+				</td>
+			</tr>
 		</table>
 	</asp:PlaceHolder>
 </asp:Content>
