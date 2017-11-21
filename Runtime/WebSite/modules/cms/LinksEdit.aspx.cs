@@ -5,6 +5,7 @@ using System.Linq;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
+using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 namespace modules.info
@@ -65,7 +66,9 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
-					model.Image = FileWebKit.SaveZoomImage(this.AdvImage.PostedFile, 1024, 1024);
+					int defaultWidth = new ConfigManager().GetConfig<int>("ImageWidth");
+					if (defaultWidth < 1) defaultWidth = 1000;
+					model.Image = FileWebKit.SaveZoomImage(this.AdvImage.PostedFile, defaultWidth);
 				}
 
 				db.SaveChanges();

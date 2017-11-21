@@ -95,7 +95,9 @@ public partial class modules_cms_ContentEdit : AdminPage
 				//更新新图
 				if (this.Thumb.PostedFile.ContentLength > 0) {
 					if (FileKit.IsImage(this.Thumb.PostedFile.FileName)) {
-						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, 1200);
+						int defaultWidth = new ConfigManager().GetConfig<int>("ImageWidth");
+						if (defaultWidth < 1) defaultWidth = 1000;
+						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, defaultWidth);
 					} else {
 						this.Alert("您上传的不是图片！");
 					}

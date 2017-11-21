@@ -4,6 +4,7 @@ using NPiculet.Base.EF;
 using NPiculet.Cms.Business;
 using NPiculet.Logic.Base;
 using NPiculet.Logic.Business;
+using NPiculet.Logic.Sys;
 using NPiculet.Toolkit;
 
 namespace modules.info
@@ -65,6 +66,9 @@ namespace modules.info
 
 				model.Title = this.txtTitle.Text;
 
+				int defaultWidth = new ConfigManager().GetConfig<int>("ImageWidth");
+				if (defaultWidth < 1) defaultWidth = 1000;
+
 				if (!string.IsNullOrEmpty(this.BannerImage.FileName)) {
 					//清理老图像
 					if (!string.IsNullOrEmpty(this.PreviewImage.ImageUrl)) {
@@ -72,7 +76,7 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
-					model.Image = FileWebKit.SaveZoomImage(this.BannerImage.PostedFile, 1200);
+					model.Image = FileWebKit.SaveZoomImage(this.BannerImage.PostedFile, defaultWidth);
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
@@ -83,7 +87,7 @@ namespace modules.info
 						if (f.Exists) f.Delete();
 					}
 					//更新新图
-					model.Cover = FileWebKit.SaveZoomImage(this.BannerCover.PostedFile, 1200);
+					model.Cover = FileWebKit.SaveZoomImage(this.BannerCover.PostedFile, defaultWidth);
 					//model.Image = FileWebKit.SaveFile(this.AdvImage.PostedFile);
 				}
 
