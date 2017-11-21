@@ -47,34 +47,47 @@ public partial class modules_cms_PageList : AdminPage
 		string editUrl = "PageEdit.aspx?";
 		this.btnAdd.NavigateUrl = editUrl + (string.IsNullOrEmpty(code) ? "gid=" + gid : "group=" + code);
 
-		//查询数据
-		var where = LinQKit.CreateWhere<cms_content_page>(a => a.GroupCode == cg.GroupCode);
-
-		if (!string.IsNullOrEmpty(this.txtKeywords.Text)) {
-			string key = this.txtKeywords.Text;
-			where = where.And(q => q.Title.Contains(key) || q.Content.Contains(key));
-		}
-
-		//检查编辑权限
-		var user = this.CurrentUserInfo;
-		if (user.Id > 1) {
-			switch (limit) {
-				case "Org": //限制在根组织机构
-					var orgId = user.Organization.Id;
-					where = where.And(q => q.OrgId == orgId);
-					break;
-				case "User": //限制在用户自身
-					var userId = user.Id;
-					where = where.And(q => q.UserId == userId);
-					break;
-			}
-		}
-
 		int count;
-		var dt = _cbus.GetPageList(out count, this.nPager.CurrentPage, this.nPager.PageSize, where).ToList();
 
-		this.list.DataSource = dt;
-		this.list.DataBind();
+		using (var db = new NPiculetEntities()) {
+			var query = (from a in db.cms_content_page
+				where a.IsEnabled == 1 && (a.GroupCode == cg.GroupCode || (from b in db.cms_content_link where b.GroupCode == cg.GroupCode select b.PageId).Contains(a.Id))
+				select a);
+
+			//查询数据
+			//var where = LinQKit.CreateWhere<cms_content_page>(a => a.GroupCode == cg.GroupCode);
+			var where = LinQKit.True<cms_content_page>();
+
+			if (!string.IsNullOrEmpty(this.txtKeywords.Text)) {
+				string key = this.txtKeywords.Text;
+				where = where.And(q => q.Title.Contains(key) || q.Content.Contains(key));
+			}
+
+			//检查编辑权限
+			var user = this.CurrentUserInfo;
+			if (user.Id > 1) {
+				switch (limit) {
+					case "Org": //限制在根组织机构
+						var orgId = user.Organization.Id;
+						where = where.And(q => q.OrgId == orgId);
+						break;
+					case "User": //限制在用户自身
+						var userId = user.Id;
+						where = where.And(q => q.UserId == userId);
+						break;
+				}
+			}
+
+			if (where != null) query = query.SafeWhere(where);
+
+			count = query.Count();
+			var dt = query.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).Pagination(this.nPager.CurrentPage, this.nPager.PageSize).ToList();
+
+			this.list.DataSource = dt;
+			this.list.DataBind();
+		}
+
+		//var dt = _cbus.GetPageList(out count, this.nPager.CurrentPage, this.nPager.PageSize, where).ToList();
 
 		this.nPager.RecordCount = count;
 	}
@@ -118,7 +131,7 @@ public partial class modules_cms_PageList : AdminPage
 	/// <returns></returns>
 	protected string GetOrderByString()
 	{
-		string top = Convert.ToString(Eval("OrderBy"));
+		string top = Convert.ToString(Eval("Sort"));
 		return top == "0" ? "置顶" : "";
 	}
 

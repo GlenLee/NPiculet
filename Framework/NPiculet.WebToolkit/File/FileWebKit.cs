@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -9,10 +9,10 @@ namespace NPiculet.Toolkit
 {
 	public static class FileWebKit
 	{
-		#region Ë½ÓĞ¹¤¾ßÀà
+		#region ç§æœ‰å·¥å…·ç±»
 
 		/// <summary>
-		/// »ñÈ¡ĞÂÎÄ¼şÂ·¾¶
+		/// è·å–æ–°æ–‡ä»¶è·¯å¾„
 		/// </summary>
 		/// <param name="dirName"></param>
 		/// <param name="fileName"></param>
@@ -31,7 +31,7 @@ namespace NPiculet.Toolkit
 		#endregion
 
 		/// <summary>
-		/// ±£´æÎÄ¼ş
+		/// ä¿å­˜æ–‡ä»¶
 		/// </summary>
 		/// <param name="hpf"></param>
 		/// <returns></returns>
@@ -41,7 +41,7 @@ namespace NPiculet.Toolkit
 				string fileName = StringKit.GetStringByShortDate() + Path.GetExtension(hpf.FileName).ToLower();
 				string filePath = GetNewFilePath("files", fileName);
 
-				//ÉÏ´«ËõÂÔÍ¼
+				//ä¸Šä¼ ç¼©ç•¥å›¾
 				string path = HttpContext.Current.Server.MapPath(filePath);
 				hpf.SaveAs(path);
 
@@ -51,7 +51,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ±£´æËõÂÔÍ¼
+		/// ä¿å­˜ç¼©ç•¥å›¾
 		/// </summary>
 		/// <param name="hpf"></param>
 		/// <param name="w"></param>
@@ -64,7 +64,7 @@ namespace NPiculet.Toolkit
 					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
 					string fileName, thumbPath;
 
-					//ÉÏ´«ËõÂÔÍ¼
+					//ä¸Šä¼ ç¼©ç•¥å›¾
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
 						switch (fileExt) {
 							case ".jpg":
@@ -100,7 +100,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ±£´æËõÂÔÍ¼£¬²¢Ö»¸ù¾İ¿í¶ÈµÈ±ÈËõ·Å¡£
+		/// ä¿å­˜ç¼©ç•¥å›¾ï¼Œå¹¶åªæ ¹æ®å®½åº¦ç­‰æ¯”ç¼©æ”¾ã€‚
 		/// </summary>
 		/// <param name="hpf"></param>
 		/// <param name="w"></param>
@@ -112,7 +112,7 @@ namespace NPiculet.Toolkit
 					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
 					string fileName, thumbPath;
 
-					//ÉÏ´«ËõÂÔÍ¼
+					//ä¸Šä¼ ç¼©ç•¥å›¾
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
 						switch (fileExt) {
 							case ".jpg":
@@ -148,7 +148,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ±£´æ¸ßÖÊÁ¿Ëõ·ÅÍ¼£¬²¢Ö»¸ù¾İ¿í¶ÈµÈ±ÈËõ·Å¡£
+		/// ä¿å­˜é«˜è´¨é‡ç¼©æ”¾å›¾ï¼Œå¹¶åªæ ¹æ®å®½åº¦ç­‰æ¯”ç¼©æ”¾ã€‚
 		/// </summary>
 		/// <param name="hpf"></param>
 		/// <param name="w"></param>
@@ -161,7 +161,7 @@ namespace NPiculet.Toolkit
 					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
 					string fileName, thumbPath;
 
-					//ÉÏ´«ËõÂÔÍ¼
+					//ä¸Šä¼ ç¼©ç•¥å›¾
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
 						switch (fileExt) {
 							case ".jpg":
@@ -198,7 +198,7 @@ namespace NPiculet.Toolkit
 
 
 		/// <summary>
-		/// ±£´æ¸ßÖÊÁ¿Ëõ·ÅÍ¼£¬²¢Ö»¸ù¾İ¿í¶ÈµÈ±ÈËõ·Å¡£
+		/// ä¿å­˜é«˜è´¨é‡ç¼©æ”¾å›¾ï¼Œå¹¶åªæ ¹æ®å®½åº¦ç­‰æ¯”ç¼©æ”¾ã€‚
 		/// </summary>
 		/// <param name="hpf"></param>
 		/// <param name="w"></param>
@@ -210,7 +210,7 @@ namespace NPiculet.Toolkit
 					string fileExt = Path.GetExtension(hpf.FileName).ToLower();
 					string fileName, thumbPath;
 
-					//ÉÏ´«ËõÂÔÍ¼
+					//ä¸Šä¼ ç¼©ç•¥å›¾
 					using (Image bmp = Image.FromStream(hpf.InputStream)) {
 						switch (fileExt) {
 							case ".jpg":

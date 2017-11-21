@@ -88,7 +88,7 @@ public partial class modules_info_InfoGroupSet : AdminPage
 		this.GroupName.Text = String.Empty;
 		this.Point.Text = String.Empty;
 		this.Comment.Text = String.Empty;
-		this.OrderBy.Text = String.Empty;
+		this.Sort.Text = String.Empty;
 
 		SetControlStatus();
 	}

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="友链编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksEdit.aspx.cs" Inherits="modules.info.LinksEdit" %>
+﻿<%@ Page Title="外链编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksEdit.aspx.cs" Inherits="modules.info.LinksEdit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">
@@ -22,19 +22,24 @@
 		<table class="table table-primary">
 			<tr>
 				<td class="th">类型</td>
-				<td class="td">友情链接</td>
+				<td class="td"><asp:DropDownList runat="server" ID="Type" CssClass="form-control"/></td>
 			</tr>
 			<tr>
 				<td class="th">描述</td>
 				<td class="td">
-					<asp:TextBox ID="Description" runat="server" CssClass="form-control" Width="500px" MaxLength="512"></asp:TextBox>
+					<asp:TextBox ID="Description" runat="server" CssClass="form-control" MaxLength="512"></asp:TextBox>
 					<asp:RequiredFieldValidator ID="r1" runat="server" ControlToValidate="Description" Display="Dynamic" ErrorMessage="必填" ForeColor="Red"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
 			<tr>
 				<td class="th">链接</td>
 				<td class="td">
-					<asp:TextBox ID="Url" runat="server" CssClass="form-control" Width="500px" MaxLength="512"></asp:TextBox></td>
+					<asp:TextBox ID="Url" runat="server" CssClass="form-control" MaxLength="512"></asp:TextBox></td>
+			</tr>
+			<tr>
+				<td class="th">排序</td>
+				<td class="td">
+					<asp:TextBox ID="Sort" runat="server" CssClass="form-control" MaxLength="8"></asp:TextBox></td>
 			</tr>
 			<tr>
 				<td class="th">图片</td>
@@ -43,7 +48,7 @@
 						<tr>
 							<td>
 								<asp:FileUpload ID="AdvImage" runat="server" Width="400px" />
-								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片，图片大于1024会自动压缩。</div>
+								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片。</div>
 							</td>
 							<td style="padding: 4px">
 								<asp:HyperLink ID="ImageHyperLink" runat="server" CssClass="thumb-link">

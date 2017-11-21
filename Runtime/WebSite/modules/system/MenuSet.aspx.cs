@@ -57,7 +57,7 @@ public partial class System_MenuSet : AdminPage
 			}
 		}
 		this.Target.SelectedIndex = 0;
-		this.OrderBy.Text = "0";
+		this.Sort.Text = "0";
 		this.promptControl.Hide();
 
 		SetControlStatus();
@@ -99,12 +99,12 @@ public partial class System_MenuSet : AdminPage
 	/// <param name="parentId"></param>
 	private void BuildTree(TreeNode node, int parentId)
 	{
-		var query = (from a in _menus where a.ParentId == parentId orderby a.OrderBy select a);
+		var query = (from a in _menus where a.ParentId == parentId orderby a.Sort select a);
 		foreach (var menu in query) {
 
 			var tn = new TreeNode();
 			//tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(menu.Type)) + ")</span>";
-			tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + Convert.ToString(menu.OrderBy) + ")</span>";
+			tn.Text = Convert.ToString(menu.Name) + " <span style=\"color:#999;\">(" + Convert.ToString(menu.Sort) + ")</span>";
 			tn.Value = Convert.ToString(menu.Id);
 
 			if (!Convert.ToBoolean(menu.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span>";
@@ -322,6 +322,7 @@ public partial class System_MenuSet : AdminPage
 						BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
 						BindInfoGroupList();
 						BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
+						InfoGroupList_SelectedIndexChanged(this, e);
 					}
 					break;
 				case 3:

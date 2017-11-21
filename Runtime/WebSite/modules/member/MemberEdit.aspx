@@ -55,9 +55,6 @@
 						<td class="td"><asp:TextBox ID="Password" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="r3" runat="server" Display="Dynamic"
 								ErrorMessage="必填" ForeColor="red" ControlToValidate="Password"></asp:RequiredFieldValidator>
-							<asp:RegularExpressionValidator ID="re3"
-								runat="server" ControlToValidate="Password" Display="Dynamic" ErrorMessage="应输入英文或数字，最长32位"
-								ValidationExpression="\w+"></asp:RegularExpressionValidator>
 						</td>
 					</tr>
 					<tr>

@@ -37,7 +37,7 @@
 			</asp:BoundField>
 			<asp:BoundField DataField="Value" HeaderText="属性值">
 			</asp:BoundField>
-			<asp:BoundField DataField="OrderBy" HeaderText="排序">
+			<asp:BoundField DataField="Sort" HeaderText="排序">
 				<HeaderStyle Width="70px" />
 			</asp:BoundField>
 			<asp:BoundField DataField="CreateDate" DataFormatString="{0:yyyy-MM-dd HH:mm}" HeaderText="创建时间">

@@ -111,9 +111,9 @@ namespace NPiculet.Logic.Base
 			//检查登陆状态
 			var admin = LoginKit.GetCurrentAdmin();
 			if (admin == null) {
-				admin = LoginKit.AdminExist("admin");
-				LoginKit.AdminLogin(admin);
-				//Response.Redirect(LoginKit.AdminLoginUrl);
+				//admin = LoginKit.AdminExist("admin");
+				//LoginKit.AdminLogin(admin);
+				Response.Redirect(LoginKit.AdminLoginUrl);
 			}
 			base.OnInit(e);
 		}

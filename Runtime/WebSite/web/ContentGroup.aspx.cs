@@ -33,7 +33,7 @@ public partial class web_ContentGroup : System.Web.UI.Page {
 			var query = (from a in db.cms_content_group
 				join b in db.cms_content_group on a.ParentId equals b.Id
 				where a.IsEnabled == 1 && b.GroupCode == groupCode
-				orderby a.OrderBy, a.Id
+				orderby a.Sort, a.Id
 				select a).ToList();
 
 			count = query.Count;

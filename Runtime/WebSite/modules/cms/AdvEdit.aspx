@@ -2,8 +2,6 @@
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">
-	<link href="../../scripts/libs/datepicker/jquery.datetimepicker.css" rel="stylesheet" />
-	<script src="../../scripts/libs/datepicker/jquery.datetimepicker.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.all.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -38,17 +36,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="th">链接</td>
-				<td class="td">
-					<asp:TextBox ID="Url" runat="server" CssClass="form-control" MaxLength="1024"></asp:TextBox></td>
-			</tr>
-			<tr>
-				<td class="th">排序</td>
-				<td class="td">
-					<asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="100px" MaxLength="6"></asp:TextBox></td>
-			</tr>
-			<tr>
-				<td class="th">Banner图</td>
+				<td class="th">头部Banner</td>
 				<td class="td">
 					<table cellpadding="0" cellspacing="0" style="border: 0;">
 						<tr>
@@ -65,7 +53,6 @@
 					</table>
 				</td>
 			</tr>
-<asp:PlaceHolder runat="server" ID="phCover" Visible="False">
 			<tr>
 				<td class="th">宣传大图</td>
 				<td class="td">
@@ -85,22 +72,28 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="th">延时</td>
+				<td class="th">链接</td>
 				<td class="td">
-					<asp:TextBox ID="Delay" runat="server" CssClass="form-control inline" Width="100px" MaxLength="6"></asp:TextBox>（秒）
-					<div class="caption">经过一段时间自动关闭全屏广告，可设为 0 表示不自动关闭。</div>
-				</td>
+					<asp:TextBox ID="Url" runat="server" CssClass="form-control" MaxLength="1024"></asp:TextBox></td>
 			</tr>
+			<tr>
+				<td class="th">排序</td>
+				<td class="td">
+					<asp:TextBox ID="Sort" runat="server" CssClass="form-control" Width="100px" MaxLength="6"></asp:TextBox></td>
+			</tr>
+<asp:PlaceHolder runat="server" ID="phDate">
 			<tr>
 				<td class="th">时效</td>
 				<td class="td">
-					开始时间：<asp:TextBox ID="StartDate" runat="server" CssClass="form-control inline" Width="120px"></asp:TextBox> - 结束时间：<asp:TextBox ID="EndDate" runat="server" CssClass="form-control inline" Width="120px"></asp:TextBox>
+					开始时间：<asp:TextBox ID="StartDate" runat="server" CssClass="input-large" Width="120px"></asp:TextBox> - 结束时间：<asp:TextBox ID="EndDate" runat="server" CssClass="input-large" Width="120px"></asp:TextBox>
 					<script type="text/javascript">
-						$('#<%= this.StartDate.ClientID %>').datetimepicker({ lang: 'ch', format: "Y-m-d", timepicker: false });
-						$('#<%= this.EndDate.ClientID %>').datetimepicker({ lang: 'ch', format: "Y-m-d", timepicker: false });
+						$('#<%= this.StartDate.ClientID %>').datepicker({});
+						$('#<%= this.EndDate.ClientID %>').datepicker({});
 					</script>
 				</td>
 			</tr>
+</asp:PlaceHolder>
+<asp:PlaceHolder runat="server" ID="phDescription" Visible="False">
 			<tr>
 				<td class="th">描述</td>
 				<td class="td">
@@ -121,6 +114,15 @@
 					</script>
 				</td>
 			</tr>
+</asp:PlaceHolder>
+<asp:PlaceHolder runat="server" ID="phCover" Visible="False">
+			<tr>
+				<td class="th">延时</td>
+				<td class="td">
+					<asp:TextBox ID="Delay" runat="server" CssClass="form-control" Width="100px" MaxLength="6"></asp:TextBox>（秒）
+					<div class="caption">经过一段时间自动关闭全屏广告，可设为 0 表示不自动关闭。</div>
+				</td>
+			</tr>
 			<tr>
 				<td class="th">附加样式</td>
 				<td class="td">
@@ -135,17 +137,4 @@
 		</table>
 		<asp:HiddenField ID="Id" runat="server" />
 	</asp:PlaceHolder>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('.thumb-link').on('click', function () {
-				$.alert({
-					title: '图片预览',
-					body: '<center><img src="' + $('.thumb-image').attr('src') + '"/></center>',
-					width: 'large'
-				});
-				return false;
-			});
-		});
-	</script>
 </asp:Content>
-

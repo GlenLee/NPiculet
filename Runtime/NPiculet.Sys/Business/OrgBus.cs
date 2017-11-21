@@ -72,9 +72,9 @@ namespace NPiculet.Logic.Business
 		{
 			using (var db = new NPiculetEntities()) {
 				if (predicate == null) {
-					return db.sys_org_info.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
+					return db.sys_org_info.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).ToList();
 				} else {
-					return db.sys_org_info.Where(predicate).OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
+					return db.sys_org_info.Where(predicate).OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).ToList();
 				}
 			}
 		}

@@ -7,11 +7,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using NPiculet.Logic.Base;
+using NPiculet.Logic.Business;
 
-public partial class RegStep1 : System.Web.UI.Page
+public partial class RegStep1 : NormalPage
 {
-	NPiculetEntities db = new NPiculetEntities();
-
 	protected void Page_Load(object sender, EventArgs e)
 	{
 
@@ -21,82 +21,66 @@ public partial class RegStep1 : System.Web.UI.Page
 	{
 		if (Page.IsValid) {
 
-			var nickname = this.Nickname.Text.Trim().FormatSqlParm();
+			var nickname = this.Nickname.Text;
 
-			var existname = db.sys_member_data.Count(x => x.Nickname == nickname);
+			var mbus = new MemberBus();
+			//var existname = mbus.MemberInfoExist(a => a.Name == nickname);
 
-			if (existname > 0) {
-				this.Alert("名称已存在，请重新输入！");
-				this.Name.Focus();
-				return;
-			}
+			//if (existname) {
+			//	this.Alert("名称已存在，请重新输入！");
+			//	this.Name.Focus();
+			//	return;
+			//}
 
 			//if (!string.IsNullOrEmpty(this.Mobile.Text.Trim())) {
-			//	var mobile = this.Mobile.Text.Trim().FormatSqlParm();
-			//	var m = db.sys_member_data.Count(x => x.Mobile == mobile);
+			//	var mobile = this.Mobile.Text;
+			//	var m = mbus.MemberDataExist(x => x.Mobile == mobile);
 
-			//	if (m > 0) {
+			//	if (m) {
 			//		this.Alert("手机号码已经存在,不能重复注册!");
 			//		return;
-
 			//	}
 			//}
 
-			var account = this.Account.Text.Trim().FormatSqlParm();
-			var exist = db.sys_member_info.Count(x => x.Account == account);
+			var account = this.Account.Text;
+			var exist = mbus.MemberExist(account);
 
-			if (exist > 0) {
+			if (exist) {
 				this.Alert("帐号已存在，请重新输入！");
-			} else {
-				try {
-					sys_member_info user = new sys_member_info();
-					//用户主信息
+				return;
+			}
 
-					user.MemberSn = Guid.NewGuid().ToString().Replace("-", "");
-					user.Account = this.Account.Text.Trim().FormatSqlParm();
-					user.Password = this.Password.Text.Trim().FormatSqlParm();
-					user.Name = this.Name.Text.Trim().FormatSqlParm();
-					user.MemberLevel = "个人用户";
-					user.IsEnabled = 1;
-					user.Status = "0";
-					user.IsDel = 0;
-					user.CreateDate = DateTime.Now;
+			try {
+				sys_member_info member = new sys_member_info();
+				//用户主信息
 
-					db.sys_member_info.Add(user);
+				member.Id = 0;
+				member.MemberSn = Guid.NewGuid().ToString().Replace("-", "");
+				member.Account = this.Account.Text;
+				member.Password = this.Password.Text;
+				member.Name = this.Name.Text;
+				member.MemberLevel = "个人用户";
+				member.IsEnabled = 1;
+				member.Status = "0";
+				member.IsDel = 0;
+				member.CreateDate = DateTime.Now;
 
-					db.SaveChanges();
+				mbus.SaveMember(member);
 
-					//用户资料
-					sys_member_data data = new sys_member_data();
+				//用户资料
+				sys_member_data data = new sys_member_data();
 
-					data.MemberId = user.Id;
-					data.MemberAccount = user.Account;
-					data.Mobile = this.Mobile.Text.Trim().FormatSqlParm();
-					data.Nickname = this.Name.Text.Trim().FormatSqlParm();
+				data.MemberId = member.Id;
+				data.MemberAccount = member.Account;
+				data.Mobile = this.Mobile.Text;
+				data.Nickname = this.Name.Text;
 
-					db.sys_member_data.Add(data);
-					db.SaveChanges();
+				mbus.SaveMemberData(data);
 
-					Response.Redirect("RegStep2.aspx?account=" + user.Account);
-				} catch (Exception ex) {
-					Logger.Error("(o゜▽゜)o☆[BINGO!]", ex);
-					this.Alert("注册失败，请重新输入。");
-					return;
-				}
-
-
-				//修补错误数据
-				// dbus.FixData();
-
-				//展示信息
-				//this.CcfbCode.Text = user.UserSn;
-
-				//this.txtName.Text = user.Name;
-				//this.txtAccount.Text = user.Account;
-				//this.result.Text = user.Name + "[" + user.UserSn + "]";
-
-				//this.step1.Visible = false;
-				//this.step2.Visible = true;
+				Response.Redirect("RegStep2.aspx?account=" + member.Account);
+			} catch (Exception ex) {
+				Logger.Error("(o゜▽゜)o☆[BINGO!]", ex);
+				this.Alert("注册失败，请重新输入。");
 			}
 		}
 	}

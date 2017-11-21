@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 Name: TreeViewKit Class
 Date: 2010-6-21
 Author: iSLeeCN
@@ -13,20 +13,20 @@ using System.Collections;
 namespace NPiculet.Toolkit
 {
 	/// <summary>
-	/// Ê÷¿Ø¼ş´¦ÀíÀà£¬´¦ÀíÊ÷¿Ø¼şÖĞµÄÍ¨ÓÃÊÂÎñ¡£
+	/// æ ‘æ§ä»¶å¤„ç†ç±»ï¼Œå¤„ç†æ ‘æ§ä»¶ä¸­çš„é€šç”¨äº‹åŠ¡ã€‚
 	/// </summary>
 	public static class TreeViewKit
 	{
 		/// <summary>
-		/// ½¨Á¢Ê÷¿Ø¼ş¡£
+		/// å»ºç«‹æ ‘æ§ä»¶ã€‚
 		/// </summary>
-		/// <param name="tree">Ê÷¿Ø¼ş</param>
-		/// <param name="node">µ±Ç°½Úµã</param>
-		/// <param name="dv">Êı¾İÊÓÍ¼</param>
-		/// <param name="text">½ÚµãÎÄ±¾×Ö¶Î</param>
-		/// <param name="val">½ÚµãÖµ×Ö¶Î</param>
-		/// <param name="filterString">¹ıÂË¹æÔò</param>
-		/// <param name="parentVal">¸¸½ÚµãÖµ</param>
+		/// <param name="tree">æ ‘æ§ä»¶</param>
+		/// <param name="node">å½“å‰èŠ‚ç‚¹</param>
+		/// <param name="dv">æ•°æ®è§†å›¾</param>
+		/// <param name="text">èŠ‚ç‚¹æ–‡æœ¬å­—æ®µ</param>
+		/// <param name="val">èŠ‚ç‚¹å€¼å­—æ®µ</param>
+		/// <param name="filterString">è¿‡æ»¤è§„åˆ™</param>
+		/// <param name="parentVal">çˆ¶èŠ‚ç‚¹å€¼</param>
 		public static void BuildTree(TreeView tree, TreeNode node, DataView dv, string text, string val, string filterString, string parentVal)
 		{
 			if (node == null) {
@@ -47,25 +47,25 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ½¨Á¢Ê÷¿Ø¼ş¡£
+		/// å»ºç«‹æ ‘æ§ä»¶ã€‚
 		/// </summary>
-		/// <param name="tree">Ê÷¿Ø¼ş</param>
-		/// <param name="node">µ±Ç°½Úµã</param>
-		/// <param name="dt">Êı¾İ±í</param>
-		/// <param name="text">½ÚµãÎÄ±¾×Ö¶Î</param>
-		/// <param name="val">½ÚµãÖµ×Ö¶Î</param>
-		/// <param name="filterString">¹ıÂË¹æÔò</param>
-		/// <param name="parentVal">¸¸½ÚµãÖµ</param>
+		/// <param name="tree">æ ‘æ§ä»¶</param>
+		/// <param name="node">å½“å‰èŠ‚ç‚¹</param>
+		/// <param name="dt">æ•°æ®è¡¨</param>
+		/// <param name="text">èŠ‚ç‚¹æ–‡æœ¬å­—æ®µ</param>
+		/// <param name="val">èŠ‚ç‚¹å€¼å­—æ®µ</param>
+		/// <param name="filterString">è¿‡æ»¤è§„åˆ™</param>
+		/// <param name="parentVal">çˆ¶èŠ‚ç‚¹å€¼</param>
 		public static void BuildTree(TreeView tree, TreeNode node, DataTable dt, string text, string val, string filterString, string parentVal)
 		{
 			BuildTree(tree, node, dt.DefaultView, text, val, filterString, parentVal);
 		}
 
 		/// <summary>
-		/// Õ¹¿ª½Úµã¡£
+		/// å±•å¼€èŠ‚ç‚¹ã€‚
 		/// </summary>
-		/// <param name="tree">Ê÷¿Ø¼ş</param>
-		/// <param name="valuePath">ÖµÂ·¾¶</param>
+		/// <param name="tree">æ ‘æ§ä»¶</param>
+		/// <param name="valuePath">å€¼è·¯å¾„</param>
 		public static void ExpandNode(TreeView tree, string valuePath)
 		{
 			string[] vals = valuePath.Split('/');
@@ -84,10 +84,10 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡Ê÷¿Ø¼şÖĞÑ¡ÖĞµÄ½Úµã£¬²¢½«½ÚµãÌî³äµ½´«ÈëµÄ results ÁĞ±íÖĞ¡£
+		/// è·å–æ ‘æ§ä»¶ä¸­é€‰ä¸­çš„èŠ‚ç‚¹ï¼Œå¹¶å°†èŠ‚ç‚¹å¡«å……åˆ°ä¼ å…¥çš„ results åˆ—è¡¨ä¸­ã€‚
 		/// </summary>
-		/// <param name="nodes">½Úµã¼¯</param>
-		/// <param name="results">½á¹ûÁĞ±í</param>
+		/// <param name="nodes">èŠ‚ç‚¹é›†</param>
+		/// <param name="results">ç»“æœåˆ—è¡¨</param>
 		public static void GetTreeValues(TreeNodeCollection nodes, List<TreeNode> results)
 		{
 			foreach (TreeNode node in nodes) {
@@ -99,10 +99,10 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡Ê÷¿Ø¼şÖĞÑ¡ÖĞµÄ½Úµã£¬²¢½«½ÚµãÌî³äµ½´«ÈëµÄ results ÁĞ±íÖĞ¡£
+		/// è·å–æ ‘æ§ä»¶ä¸­é€‰ä¸­çš„èŠ‚ç‚¹ï¼Œå¹¶å°†èŠ‚ç‚¹å¡«å……åˆ°ä¼ å…¥çš„ results åˆ—è¡¨ä¸­ã€‚
 		/// </summary>
-		/// <param name="tree">Ê÷¿Ø¼ş</param>
-		/// <param name="results">½á¹ûÁĞ±í</param>
+		/// <param name="tree">æ ‘æ§ä»¶</param>
+		/// <param name="results">ç»“æœåˆ—è¡¨</param>
 		public static void GetTreeValues(TreeView tree, List<TreeNode> results)
 		{
 			foreach (TreeNode node in tree.Nodes) {
@@ -115,10 +115,10 @@ namespace NPiculet.Toolkit
 
         private static void CreateTreeView(TreeView tv, DataTable dtTreeView, string fldValue, string fldText, string fldParent, string fldToolTip, bool dynNavigator, string target, string navigatePage, string navigateKey, string nodePICURL)
         {
-            //¼ÓÈë¸¸½Úµã
+            //åŠ å…¥çˆ¶èŠ‚ç‚¹
             DataView dvTree = new DataView(dtTreeView);
 
-            //¹ıÂËParentID,µÃµ½µ±Ç°µÄËùÓĞ×Ó½Úµã
+            //è¿‡æ»¤ParentID,å¾—åˆ°å½“å‰çš„æ‰€æœ‰å­èŠ‚ç‚¹
             dvTree.RowFilter = fldParent + "=''";
             if (dvTree.Count == 0)
             {
@@ -149,7 +149,7 @@ namespace NPiculet.Toolkit
                     Node.SelectAction = TreeNodeSelectAction.None;
                 else
                     Node.SelectAction = TreeNodeSelectAction.SelectExpand;
-                AddTreeNode(tv, Node, dtTreeView, fldValue, fldText, fldParent, fldToolTip, dynNavigator, target, navigatePage, navigateKey, nodePICURL);    //ÔÙ´Îµİ¹é
+                AddTreeNode(tv, Node, dtTreeView, fldValue, fldText, fldParent, fldToolTip, dynNavigator, target, navigatePage, navigateKey, nodePICURL);    //å†æ¬¡é€’å½’
             }
         }
 
@@ -159,7 +159,7 @@ namespace NPiculet.Toolkit
                 return;
             DataView dvTree = new DataView(dtTreeView);
 
-            //¹ıÂËParentID,µÃµ½µ±Ç°µÄËùÓĞ×Ó½Úµã
+            //è¿‡æ»¤ParentID,å¾—åˆ°å½“å‰çš„æ‰€æœ‰å­èŠ‚ç‚¹
             dvTree.RowFilter = fldParent + "='" + pNode.Value + "'";
             if (dvTree.Count == 0)
                 return;
@@ -191,13 +191,13 @@ namespace NPiculet.Toolkit
                     else
                         Node.NavigateUrl = navigatePage + "?" + navigateKey + "=" + Node.Value + "&d=" + DateTime.Now.Millisecond.ToString();
                 }
-                pNode.ChildNodes.Add(Node);//Ìí¼Óµ±Ç°½ÚµãµÄ×Ó½Úµã
+                pNode.ChildNodes.Add(Node);//æ·»åŠ å½“å‰èŠ‚ç‚¹çš„å­èŠ‚ç‚¹
                 //Node.Expanded = true;
                 if (!tv.ShowCheckBoxes.ToString().ToLower().Equals("none"))
                     Node.SelectAction = TreeNodeSelectAction.None;
                 else
                     Node.SelectAction = TreeNodeSelectAction.SelectExpand;
-                AddTreeNode(tv, Node, dtTreeView, fldValue, fldText, fldParent, fldToolTip, dynNavigator, target, navigatePage, navigateKey, nodePICURL);    //ÔÙ´Îµİ¹é
+                AddTreeNode(tv, Node, dtTreeView, fldValue, fldText, fldParent, fldToolTip, dynNavigator, target, navigatePage, navigateKey, nodePICURL);    //å†æ¬¡é€’å½’
             }
 
         }

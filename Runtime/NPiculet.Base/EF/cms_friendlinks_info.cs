@@ -21,7 +21,7 @@ namespace NPiculet.Base.EF
         public string Url { get; set; }
         public int Click { get; set; }
         public int IsEnabled { get; set; }
-        public Nullable<int> OrderBy { get; set; }
+        public Nullable<int> Sort { get; set; }
         public string Creator { get; set; }
         public System.DateTime CreateDate { get; set; }
     }

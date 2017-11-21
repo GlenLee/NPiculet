@@ -93,7 +93,7 @@ namespace NPiculet.Cms.Business
 
 				count = query.Count();
 
-				return query.OrderByDescending(a => a.CreateDate).ThenBy(a => a.OrderBy).Pagination(curPage, pageSize).ToList();
+				return query.OrderByDescending(a => a.CreateDate).ThenBy(a => a.Sort).Pagination(curPage, pageSize).ToList();
 			}
 		}
 

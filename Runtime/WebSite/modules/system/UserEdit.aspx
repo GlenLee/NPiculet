@@ -2,8 +2,8 @@
 <%@ Register src="../common/Prompt.ascx" tagname="Prompt" tagprefix="uc" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="header">
-	<link href="../../scripts/libs/datepicker/jquery.datetimepicker.css" rel="stylesheet" />
-	<script src="../../scripts/libs/datepicker/jquery.datetimepicker.min.js"></script>
+	<link href="../../scripts/plugin/jquery.datetimepicker.css" rel="stylesheet" />
+	<script src="../../scripts/plugin/jquery.datetimepicker.min.js"></script>
 	<style type="text/css">
 		.org-list table { width:100%; }
 		.org-list table td { width:20%; }

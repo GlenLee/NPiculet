@@ -15,12 +15,12 @@ namespace NPiculet.Base.EF
     public partial class sys_app
     {
         public int Id { get; set; }
+        public string Platform { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string Key { get; set; }
         public string Creator { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public int IsEnabled { get; set; }
-        public string Platform { get; set; }
     }
 }

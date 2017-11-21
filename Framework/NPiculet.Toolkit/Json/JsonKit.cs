@@ -32,6 +32,17 @@ namespace NPiculet.Toolkit
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
+		public static JObject SerializeObject(object obj)
+		{
+			//return JSON.SerializeDynamic(obj, Options.MillisecondsSinceUnixEpoch);
+			return JObject.FromObject(obj);
+		}
+
+		/// <summary>
+		/// 序列化动态对象
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public static string SerializeDynamic(object obj)
 		{
 			//return JSON.SerializeDynamic(obj, Options.MillisecondsSinceUnixEpoch);

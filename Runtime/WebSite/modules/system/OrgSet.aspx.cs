@@ -42,17 +42,17 @@ public partial class modules_system_OrgSet : AdminPage
 	}
 
 	private void BuildTree(TreeNode node, int parentId) {
-		var query = (from a in _orgs where a.ParentId == parentId orderby a.OrderBy select a).ToList();
+		var query = (from a in _orgs where a.ParentId == parentId orderby a.Sort select a).ToList();
 		foreach (var org in query) {
 
 			//string code = Convert.ToString(dr["Code"]);
 
 			var tn = new TreeNode();
 			//tn.Text = Convert.ToString(dr["Name"]) + " <span style=\"color:#999;\">(" + (string.IsNullOrEmpty(code) ? "" : code + " / ") + GetTypeName(Convert.ToInt32(dr["Type"])) + ")</span>";
-			tn.Text = Convert.ToString(org.OrgName) + " <span style=\"color:#999;\">(" + Convert.ToString(org.OrderBy) + ")</span>";
+			tn.Text = Convert.ToString(org.OrgName) + " <span style=\"color:#999;\">(" + Convert.ToString(org.Sort) + ")</span>";
 			tn.Value = Convert.ToString(org.Id);
 
-			if (!Convert.ToBoolean(org.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span> <span style=\"color:#999;\">(" + Convert.ToString(org.OrderBy) + ")</span>";
+			if (!Convert.ToBoolean(org.IsEnabled)) tn.Text = "<span style=\"color:red;\">" + tn.Text + "</span> <span style=\"color:#999;\">(" + Convert.ToString(org.Sort) + ")</span>";
 			if (node == null) {
 				this.tree.Nodes.Add(tn);
 			} else {
@@ -77,7 +77,7 @@ public partial class modules_system_OrgSet : AdminPage
 			}
 		}
 		this.OrgType.Value = "1";
-		this.OrderBy.Text = "0";
+		this.Sort.Text = "0";
 		this.promptControl.Hide();
 
 		SetControlStatus();

@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.ComponentModel;
 
 namespace NPiculet.Toolkit
@@ -6,10 +6,10 @@ namespace NPiculet.Toolkit
 	public class ConvertKit
 	{
 		/// <summary>
-		/// ½«Öµ×ªÎªÖ¸¶¨µÄÊı¾İÀàĞÍ¡£
+		/// å°†å€¼è½¬ä¸ºæŒ‡å®šçš„æ•°æ®ç±»å‹ã€‚
 		/// </summary>
-		/// <param name="val">ĞèÒª×ª»»ÀàĞÍµÄÖµ</param>
-		/// <param name="defaultValue">Êı¾İÀàĞÍ</param>
+		/// <param name="val">éœ€è¦è½¬æ¢ç±»å‹çš„å€¼</param>
+		/// <param name="defaultValue">æ•°æ®ç±»å‹</param>
 		public static T ConvertValue<T>(object val, T defaultValue)
 		{
 			Type type = typeof(T);
@@ -34,23 +34,23 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ×ª»»µ±Ç°Ä£ĞÍÖĞ×ÓÏîµÄÖµ¡£
+		/// è½¬æ¢å½“å‰æ¨¡å‹ä¸­å­é¡¹çš„å€¼ã€‚
 		/// </summary>
-		/// <param name="val">ĞèÒª×ª»»ÀàĞÍµÄÖµ</param>
-		/// <param name="type">Êı¾İÀàĞÍ</param>
+		/// <param name="val">éœ€è¦è½¬æ¢ç±»å‹çš„å€¼</param>
+		/// <param name="type">æ•°æ®ç±»å‹</param>
 		public static object ConvertValue(object val, Type type)
 		{
 			try {
 				if (SystemKit.IsNullableType(type)) {
 					var nullableConverter = new NullableConverter(type);
-					//´¦Àí²¼¶ûĞÍ×ª»»ÎªÊı×Ö
+					//å¤„ç†å¸ƒå°”å‹è½¬æ¢ä¸ºæ•°å­—
 					if (type == typeof(int?) && val is bool) {
 						return (bool)val ? 1 : 0;
 					}
 					if (type == typeof(bool?) && val is int) {
 						return (int)val == 1;
 					}
-					//·µ»ØÖµ
+					//è¿”å›å€¼
 					return nullableConverter.ConvertFrom(val);
 				} else if (type.Equals(typeof(Guid))) {
 					var guidConverter = new GuidConverter();
@@ -68,10 +68,10 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// ×ª»»µ±Ç°Ä£ĞÍÖĞ×ÓÏîµÄÖµ¡£
+		/// è½¬æ¢å½“å‰æ¨¡å‹ä¸­å­é¡¹çš„å€¼ã€‚
 		/// </summary>
-		/// <typeparam name="T">Êı¾İÀàĞÍ</typeparam>
-		/// <param name="val">ĞèÒª×ª»»ÀàĞÍµÄÖµ</param>
+		/// <typeparam name="T">æ•°æ®ç±»å‹</typeparam>
+		/// <param name="val">éœ€è¦è½¬æ¢ç±»å‹çš„å€¼</param>
 		/// <returns></returns>
 		public static T ConvertValue<T>(object val)
 		{
@@ -96,7 +96,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡Ä³¸öÀàĞÍµÄÄ¬ÈÏÖµ
+		/// è·å–æŸä¸ªç±»å‹çš„é»˜è®¤å€¼
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
@@ -106,7 +106,7 @@ namespace NPiculet.Toolkit
 		}
 
 		/// <summary>
-		/// »ñÈ¡Ä³¸öÀàĞÍµÄÄ¬ÈÏÖµ
+		/// è·å–æŸä¸ªç±»å‹çš„é»˜è®¤å€¼
 		/// </summary>
 		/// <returns></returns>
 		public static object GetDefault(Type type)

@@ -52,7 +52,7 @@
 					</tr>
 					<tr>
 						<td class="th">排序</td>
-						<td class="td"><asp:TextBox ID="OrderBy" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox></td>
+						<td class="td"><asp:TextBox ID="Sort" runat="server" CssClass="form-control" Width="200px" MaxLength="8" Text="0"></asp:TextBox></td>
 					</tr>
 					<tr>
 						<td class="th">备注</td>

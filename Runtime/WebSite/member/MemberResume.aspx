@@ -5,9 +5,9 @@
 <%@ Register Src="~/modules/common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <script type="text/javascript" charset="utf-8" src="modules/../scripts/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="modules/../scripts/ueditor/ueditor.all.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="modules/../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../scripts/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../scripts/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="nav" runat="Server">

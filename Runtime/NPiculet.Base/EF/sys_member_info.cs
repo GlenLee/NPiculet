@@ -31,7 +31,6 @@ namespace NPiculet.Base.EF
         public string PassAnswer { get; set; }
         public Nullable<int> FailedCount { get; set; }
         public Nullable<System.DateTime> FailedDate { get; set; }
-        public Nullable<int> OrderBy { get; set; }
         public int IsEnabled { get; set; }
         public int IsDel { get; set; }
         public string Status { get; set; }

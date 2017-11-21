@@ -10,7 +10,7 @@ using NPiculet.Draw2D;
 using NPiculet.Toolkit;
 using NPiculet.Log;
 
-public partial class test : System.Web.UI.Page
+public partial class _default : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{

@@ -28,7 +28,7 @@ namespace NPiculet.Base.EF
         public string Url { get; set; }
         public string Target { get; set; }
         public string Comment { get; set; }
-        public Nullable<int> OrderBy { get; set; }
+        public Nullable<int> Sort { get; set; }
         public int IsEnabled { get; set; }
         public int IsDel { get; set; }
         public string Creator { get; set; }

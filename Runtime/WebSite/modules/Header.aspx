@@ -5,8 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Header</title>
 	<link href="../styles/fonts/font-awesome.min.css" rel="stylesheet" />
-	<link href="../styles/sui/css/sui.min.css" rel="stylesheet" />
-	<script src="../scripts/lib/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script src="../scripts/libs/jquery/jquery-1.12.4.min.js" type="text/javascript"></script>
 	<style type="text/css">
 		html, body { margin:0;padding:0;width:100%;height:100%;font-size:14px;color:#666;background-color:#fff; }
 		div, p, input { box-sizing:border-box; }
@@ -39,7 +38,7 @@
 		<ul>
 			<li class="button"><a href="../AboutUs" target="_blank"><i class="fa fa-info"></i></a></li>
 			<li class="button"><a href="Logout.aspx" target="_top"><i class="fa fa-sign-out"></i></a></li>
-			<li class="info"><i class="sui-icon icon-tb-myfill"></i>您好，<asp:Label ID="loginName" runat="server"></asp:Label></li>
+			<li class="info"><i class="fa fa-user"></i>您好，<asp:Label ID="loginName" runat="server"></asp:Label></li>
 		</ul>
 	</div>
 </div>

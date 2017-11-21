@@ -20,16 +20,36 @@ namespace NPiculet.Logic.Business
 		/// <param name="targetId"></param>
 		public DataTable GetAuthList(string targetType, string targetId)
 		{
-			string sql = @"SELECT DISTINCT sm.`Id`, sm.`Name`, sm.`ParentId`, sm.`RootId`, sm.`Path`, sm.`Depth`, sm.`OrderBy`, 1 AS `IsAuth` FROM sys_menu sm
+			string sql = @"SELECT DISTINCT sm.`Id`, sm.`Name`, sm.`ParentId`, sm.`RootId`, sm.`Path`, sm.`Depth`, sm.`Sort`, 1 AS `IsAuth` FROM sys_menu sm
 	INNER JOIN (SELECT m.`Id`, m.`Name`, m.`ParentId`, m.`RootId`, m.`Path`, m.`Depth` FROM sys_menu m
 WHERE m.`IsDel`=0 and m.`IsEnabled`=1 and EXISTS(SELECT * FROM sys_authorization a WHERE m.`Id`=a.`FunctionId`";
 
 			sql += string.Format(" and a.`TargetType`='{0}' and a.`TargetId`='{1}'", targetType, targetId);
 
 			sql += ")) t ON sm.`Id`=t.`Id` OR sm.`Id`=t.`ParentId` OR sm.`Id`=t.`RootId`";
-			sql += " ORDER BY sm.`OrderBy`";
+			sql += " ORDER BY sm.`Sort`";
 
 			return DbHelper.Query(sql);
+		}
+
+		/// <summary>
+		/// 获取授权菜单列表
+		/// </summary>
+		/// <param name="targetType"></param>
+		/// <param name="targetId"></param>
+		/// <returns></returns>
+		public List<sys_menu> GetAuthMenuList(string targetType, int targetId) {
+			using (var db = new NPiculetEntities()) {
+				var query = (from all in db.sys_menu
+					from t in (from m in db.sys_menu
+						where (from a in db.sys_authorization where a.TargetType == targetType && a.TargetId == targetId select a.FunctionId).Contains(m.Id)
+						select m)
+					where all.Id == t.Id || all.Id == t.ParentId || all.Id == t.RootId
+					orderby all.Sort
+					select all);
+
+				return query.ToList();
+			}
 		}
 
 		/// <summary>
@@ -40,14 +60,14 @@ WHERE m.`IsDel`=0 and m.`IsEnabled`=1 and EXISTS(SELECT * FROM sys_authorization
 		/// <returns></returns>
 		public DataTable GetFullAuthList(string targetType, string targetId)
 		{
-			string sql = @"SELECT DISTINCT m.`Id`, m.`Name`, m.`ParentId`, m.`RootId`, m.`Path`, m.`Depth`, m.`OrderBy`, Count(a.`Id`) AS `IsAuth` FROM sys_menu m
+			string sql = @"SELECT DISTINCT m.`Id`, m.`Name`, m.`ParentId`, m.`RootId`, m.`Path`, m.`Depth`, m.`Sort`, Count(a.`Id`) AS `IsAuth` FROM sys_menu m
 	LEFT JOIN sys_authorization a ON m.`Id`=a.`FunctionId`";
 
 			sql += string.Format(" and a.`TargetType`='{0}' and a.`TargetId`='{1}'", targetType, targetId);
 
 			sql += " WHERE m.`IsDel`=0";
-			sql += " GROUP BY m.`Id`, m.`Name`, m.`ParentId`, m.`RootId`, m.`Path`, m.`Depth`, m.`OrderBy`";
-			sql += " ORDER BY m.`OrderBy`";
+			sql += " GROUP BY m.`Id`, m.`Name`, m.`ParentId`, m.`RootId`, m.`Path`, m.`Depth`, m.`Sort`";
+			sql += " ORDER BY m.`Sort`";
 
 			return DbHelper.Query(sql);
 		}

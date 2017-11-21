@@ -27,7 +27,7 @@ public partial class web_ContentView : System.Web.UI.Page
 				this.btnPrevTitle.Text = string.Format(url, prev.Id, prev.Title.Left(60, "…"));
 			}
 			//下一条
-			var next = db.cms_content_page.OrderBy(o => o.OrderBy).FirstOrDefault(x => x.Id > id);
+			var next = db.cms_content_page.OrderBy(o => o.Sort).FirstOrDefault(x => x.Id > id);
 			if (next != null) {
 				this.phNextLink.Visible = true;
 				this.btnNextTitle.Text = string.Format(url, next.Id, next.Title.Left(60, "…"));

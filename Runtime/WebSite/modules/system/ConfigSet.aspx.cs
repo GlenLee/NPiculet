@@ -56,40 +56,31 @@ public partial class system_Admin_ConfigSet : AdminPage
 	{
 		if (Page.IsValid) {
 			foreach (Control control in this.container.Controls) {
+				var config = new sys_config();
+
 				TextBox tb = control as TextBox;
 				if (tb != null) {
-					var config = new sys_config();
 					config.ConfigCode = tb.ID;
 					config.ConfigValue = tb.Text;
-					config.IsEnabled = 1;
-					config.Creator = this.CurrentUserName;
-					config.CreateDate = DateTime.Now;
-
-					_cbus.Save(config, a => a.ConfigCode == tb.ID);
 				}
 
 				CheckBox cb = control as CheckBox;
 				if (cb != null) {
-					var config = new sys_config();
 					config.ConfigCode = cb.ID;
 					config.ConfigValue = cb.Checked ? "1" : "0";
-					config.IsEnabled = 1;
-					config.Creator = this.CurrentUserName;
-					config.CreateDate = DateTime.Now;
-
-					_cbus.Save(config, a => a.ConfigCode == cb.ID);
 				}
 
 				DropDownList ddl = control as DropDownList;
 				if (ddl != null) {
-					var config = new sys_config();
 					config.ConfigCode = ddl.ID;
 					config.ConfigValue = ddl.SelectedValue;
-					config.IsEnabled = 1;
+				}
+
+				if (!string.IsNullOrEmpty(config.ConfigCode)) {
 					config.Creator = this.CurrentUserName;
 					config.CreateDate = DateTime.Now;
 
-					_cbus.Save(config, a => a.ConfigCode == ddl.ID);
+					_cbus.Save(config, a => a.ConfigCode == tb.ID);
 				}
 			}
 

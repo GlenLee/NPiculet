@@ -27,6 +27,26 @@
 				<td class="th">栏目</td>
 				<td class="td"><asp:Literal ID="GroupName" runat="server"></asp:Literal></td>
 			</tr>
+<asp:PlaceHolder runat="server" ID="phThumb">
+			<tr>
+				<td class="th">缩略图</td>
+				<td class="td">
+					<table cellpadding="0" cellspacing="0" style="border:0;">
+						<tr>
+							<td>
+								<asp:FileUpload ID="Thumb" runat="server" Width="400px" />
+								<div class="caption">注：支持 .jpg .png .bmp .gif 格式的图片。</div>
+							</td>
+							<td style="padding:4px">
+								<asp:HyperLink ID="ThumbHyperLink" runat="server" CssClass="thumb-link" Target="_blank">
+									<asp:Image ID="PreviewThumb" runat="server" Width="40px" Height="40px" Visible="false" CssClass="thumb-image" />
+								</asp:HyperLink>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+</asp:PlaceHolder>
 			<tr>
 				<td class="th">内容</td>
 				<td class="td" style="height:300px; overflow:scroll">

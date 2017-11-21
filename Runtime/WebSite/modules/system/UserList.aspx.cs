@@ -30,7 +30,7 @@ public partial class system_Admin_UserList : AdminPage
 			whereString += string.Format(" and (Account LIKE '%{0}%' or Name LIKE '%{0}%')", key);
 
 		int count;
-		DataTable dt = _bus.GetUserList(out count, this.nPager.CurrentPage, this.nPager.PageSize, whereString, "OrderBy, CreateDate DESC");
+		DataTable dt = _bus.GetUserList(out count, this.nPager.CurrentPage, this.nPager.PageSize, whereString, "Sort, CreateDate DESC");
 
 		this.nPager.RecordCount = count;
 
@@ -40,13 +40,9 @@ public partial class system_Admin_UserList : AdminPage
 
 	protected void list_RowDeleting(object sender, GridViewDeleteEventArgs e)
 	{
-		if (e.RowIndex > -1) {
-			if (this.list.DataKeys.Count > e.RowIndex) {
-				int id = ConvertKit.ConvertValue(this.list.DataKeys[e.RowIndex]["Id"], 0);
-				_bus.Delete(id);
-			}
-			BindData();
-		}
+		int dataId = GridViewKit.GetDataKey<int>(this.list, e.RowIndex, "Id");
+		_bus.Delete(dataId);
+		BindData();
 	}
 
 	protected string GetStatusString(string enabled)
