@@ -121,7 +121,7 @@ namespace NPiculet.Logic.Business
 		{
 			string sql = @"SELECT * FROM (SELECT u.Id, u.UserSn, u.Type, u.Account, u.Password, u.Name, u.OrgId
 	, u.LoginTimes, u.LastLoginDate, u.LastLogoutDate
-	, u.FailedCount, u.FailedDate, u.IsEnabled, u.IsDel, u.OrderBy, u.Creator, u.CreateDate
+	, u.FailedCount, u.FailedDate, u.IsEnabled, u.IsDel, u.Sort, u.Creator, u.CreateDate
 	, d.Nickname, d.Birthday, d.Sex, d.Email, d.Mobile, d.Address, d.MemberCard
 	, d.IdCard, d.Education, d.QQ, d.Weixin, d.Weibo, d.Interest, d.PointCurrent, d.PointTotal
 	, d.Exp, d.Cash, d.Cost, d.HeadIcon, d.Memo
@@ -129,7 +129,7 @@ FROM sys_user_info u
 	LEFT JOIN sys_user_data d ON u.Account=d.UserAccount AND d.IsDel=0
 WHERE u.IsDel=0) t";
 			if (!string.IsNullOrEmpty(whereString)) sql += " WHERE " + whereString;
-			sql += (string.IsNullOrEmpty(orderBy)) ? " ORDER BY OrderBy, Id DESC" : " ORDER BY " + orderBy;
+			sql += (string.IsNullOrEmpty(orderBy)) ? " ORDER BY Sort, Id DESC" : " ORDER BY " + orderBy;
 
 			using (var db = DbHelper.Create()) {
 				var val = db.GetDataValue("SELECT COUNT(*) FROM sys_user_info WHERE IsDel=0" + (string.IsNullOrEmpty(whereString) ? "" : " and (" + whereString + ")"));
@@ -177,7 +177,7 @@ WHERE u.IsDel=0) t";
 		/// <returns></returns>
 		public int GetMaxOrderBy()
 		{
-			string sql = "SELECT MAX(OrderBy) FROM sys_user_info";
+			string sql = "SELECT MAX(Sort) FROM sys_user_info";
 			object val = DbHelper.QueryValue(sql);
 			return val == DBNull.Value ? 0 : (int)val;
 		}

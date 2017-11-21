@@ -12,17 +12,22 @@ namespace NPiculet.Base.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class bas_dict_item
+    public partial class cms_msgboard_record
     {
         public int Id { get; set; }
+        public Nullable<int> ReplyId { get; set; }
         public string GroupCode { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string Value { get; set; }
-        public string Memo { get; set; }
-        public int IsEnabled { get; set; }
-        public Nullable<int> Sort { get; set; }
-        public string Creator { get; set; }
+        public string Author { get; set; }
+        public string IdCard { get; set; }
+        public string Tel { get; set; }
+        public string Address { get; set; }
+        public string Ownership { get; set; }
+        public string MsgTitle { get; set; }
+        public string MsgContent { get; set; }
+        public Nullable<int> IsAnonymous { get; set; }
+        public Nullable<int> IsPublic { get; set; }
+        public string Fields { get; set; }
+        public Nullable<int> Status { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
     }
 }

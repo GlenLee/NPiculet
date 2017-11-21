@@ -22,7 +22,7 @@ namespace NPiculet.Logic.Business
 		public List<sys_menu> GetMenuList(Expression<Func<sys_menu, bool>> predicate)
 		{
 			using (var db = new NPiculetEntities()) {
-				return db.sys_menu.Where(predicate).OrderBy(a => a.OrderBy).ToList();
+				return db.sys_menu.Where(predicate).OrderBy(a => a.Sort).ToList();
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace NPiculet.Logic.Business
    INNER JOIN sys_link_user_role R ON A.TargetId=R.RoleId AND R.UserId=" + userId + @"
   WHERE sys_menu.Id=FunctionId AND A.TargetType='Role' AND A.FunctionType='Menu')
  )";
-			sql += " ORDER BY OrderBy";
+			sql += " ORDER BY Sort";
 			return DbHelper.Query(sql);
 		}
 
@@ -70,7 +70,7 @@ namespace NPiculet.Logic.Business
    INNER JOIN sys_link_user_role R ON A.TargetId=R.RoleId AND R.UserId=" + userId + @"
   WHERE sys_menu.Id=FunctionId AND A.TargetType='Role' AND A.FunctionType='Menu')
  )";
-			sql += " ORDER BY OrderBy";
+			sql += " ORDER BY Sort";
 			return DbHelper.Query(sql);
 		}
 

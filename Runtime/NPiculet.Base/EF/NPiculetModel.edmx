@@ -42,7 +42,7 @@
           <Property Name="EntityCode" Type="varchar" MaxLength="128" />
           <Property Name="IsDel" Type="int" Nullable="false" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
           <Property Name="CreateDate" Type="datetime" Precision="0" />
         </EntityType>
@@ -57,7 +57,7 @@
           <Property Name="Value" Type="varchar" MaxLength="255" />
           <Property Name="Memo" Type="varchar" MaxLength="255" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
           <Property Name="CreateDate" Type="datetime" Precision="0" />
         </EntityType>
@@ -116,7 +116,7 @@
           <Property Name="Script" Type="text" />
           <Property Name="Click" Type="int" Nullable="false" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="StartDate" Type="datetime" Precision="0" />
           <Property Name="EndDate" Type="datetime" Precision="0" />
           <Property Name="Delay" Type="int" />
@@ -140,13 +140,23 @@
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="Point" Type="decimal" Precision="12" Scale="2" />
           <Property Name="Comment" Type="text" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
+          <Property Name="CreateDate" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="cms_content_link">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageId" Type="int" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="32" />
         </EntityType>
         <EntityType Name="cms_content_page">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="16" />
           <Property Name="GroupCode" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="OrgId" Type="int" />
           <Property Name="UserId" Type="int" />
@@ -155,11 +165,12 @@
           <Property Name="Content" Type="longtext" />
           <Property Name="Thumb" Type="varchar" MaxLength="128" />
           <Property Name="Source" Type="varchar" MaxLength="128" />
+          <Property Name="Url" Type="varchar" MaxLength="512" />
           <Property Name="Click" Type="int" Nullable="false" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="Author" Type="varchar" MaxLength="32" />
           <Property Name="Point" Type="decimal" Precision="12" Scale="2" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="CreateDate" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="cms_content_tmpl">
@@ -208,9 +219,41 @@
           <Property Name="Url" Type="text" />
           <Property Name="Click" Type="int" Nullable="false" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
           <Property Name="CreateDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_msgboard_group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="64" />
+          <Property Name="Code" Type="varchar" MaxLength="64" />
+          <Property Name="Type" Type="varchar" MaxLength="16" />
+          <Property Name="Config" Type="text" />
+          <Property Name="CreateDate" Type="datetime" Precision="0" />
+          <Property Name="Creator" Type="varchar" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="cms_msgboard_record">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReplyId" Type="int" />
+          <Property Name="GroupCode" Type="varchar" MaxLength="32" />
+          <Property Name="Author" Type="varchar" MaxLength="32" />
+          <Property Name="IdCard" Type="varchar" MaxLength="32" />
+          <Property Name="Tel" Type="varchar" MaxLength="32" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="Ownership" Type="varchar" MaxLength="255" />
+          <Property Name="MsgTitle" Type="varchar" MaxLength="255" />
+          <Property Name="MsgContent" Type="text" />
+          <Property Name="IsAnonymous" Type="int" />
+          <Property Name="IsPublic" Type="int" />
+          <Property Name="Fields" Type="text" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreateDate" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="cms_points_log">
           <Key>
@@ -299,7 +342,6 @@
           <Property Name="ConfigValue" Type="varchar" MaxLength="255" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
           <Property Name="CreateDate" Type="datetime" Precision="0" />
-          <Property Name="IsEnabled" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sys_link_user_org">
           <Key>
@@ -367,7 +409,6 @@
           <Property Name="PassAnswer" Type="varchar" MaxLength="255" />
           <Property Name="FailedCount" Type="int" />
           <Property Name="FailedDate" Type="datetime" Precision="0" />
-          <Property Name="OrderBy" Type="int" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="IsDel" Type="int" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="16" />
@@ -394,7 +435,7 @@
           <Property Name="Url" Type="longtext" />
           <Property Name="Target" Type="varchar" MaxLength="32" />
           <Property Name="Comment" Type="longtext" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="IsDel" Type="int" Nullable="false" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
@@ -432,7 +473,7 @@
           <Property Name="Tel" Type="varchar" MaxLength="128" />
           <Property Name="Memo" Type="longtext" />
           <Property Name="Point" Type="decimal" Precision="12" Scale="2" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="IsDel" Type="int" Nullable="false" />
           <Property Name="Creator" Type="varchar" MaxLength="32" />
@@ -496,7 +537,7 @@
           <Property Name="LastLogoutDate" Type="datetime" Precision="0" />
           <Property Name="FailedCount" Type="int" />
           <Property Name="FailedDate" Type="datetime" Precision="0" />
-          <Property Name="OrderBy" Type="int" />
+          <Property Name="Sort" Type="int" />
           <Property Name="IsEnabled" Type="int" Nullable="false" />
           <Property Name="IsDel" Type="int" Nullable="false" />
           <Property Name="Updater" Type="varchar" MaxLength="32" />
@@ -513,11 +554,14 @@
           <EntitySet Name="bas_region_info" EntityType="Self.bas_region_info" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_adv_info" EntityType="Self.cms_adv_info" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_group" EntityType="Self.cms_content_group" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="cms_content_link" EntityType="Self.cms_content_link" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_page" EntityType="Self.cms_content_page" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_tmpl" EntityType="Self.cms_content_tmpl" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_tmpl_field" EntityType="Self.cms_content_tmpl_field" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_content_tmpl_value" EntityType="Self.cms_content_tmpl_value" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_friendlinks_info" EntityType="Self.cms_friendlinks_info" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="cms_msgboard_group" EntityType="Self.cms_msgboard_group" Schema="npiculet" store:Type="Tables" />
+          <EntitySet Name="cms_msgboard_record" EntityType="Self.cms_msgboard_record" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="cms_points_log" EntityType="Self.cms_points_log" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_action_detail" EntityType="Self.sys_action_detail" Schema="npiculet" store:Type="Tables" />
           <EntitySet Name="sys_action_log" EntityType="Self.sys_action_log" Schema="npiculet" store:Type="Tables" />
@@ -549,8 +593,14 @@
           <EntitySet Name="bas_region_info" EntityType="NPiculetModel.bas_region_info" />
           <EntitySet Name="cms_adv_info" EntityType="NPiculetModel.cms_adv_info" />
           <EntitySet Name="cms_content_group" EntityType="NPiculetModel.cms_content_group" />
+          <EntitySet Name="cms_content_link" EntityType="NPiculetModel.cms_content_link" />
           <EntitySet Name="cms_content_page" EntityType="NPiculetModel.cms_content_page" />
+          <EntitySet Name="cms_content_tmpl" EntityType="NPiculetModel.cms_content_tmpl" />
+          <EntitySet Name="cms_content_tmpl_field" EntityType="NPiculetModel.cms_content_tmpl_field" />
+          <EntitySet Name="cms_content_tmpl_value" EntityType="NPiculetModel.cms_content_tmpl_value" />
           <EntitySet Name="cms_friendlinks_info" EntityType="NPiculetModel.cms_friendlinks_info" />
+          <EntitySet Name="cms_msgboard_group" EntityType="NPiculetModel.cms_msgboard_group" />
+          <EntitySet Name="cms_msgboard_record" EntityType="NPiculetModel.cms_msgboard_record" />
           <EntitySet Name="cms_points_log" EntityType="NPiculetModel.cms_points_log" />
           <EntitySet Name="sys_action_detail" EntityType="NPiculetModel.sys_action_detail" />
           <EntitySet Name="sys_action_log" EntityType="NPiculetModel.sys_action_log" />
@@ -560,17 +610,14 @@
           <EntitySet Name="sys_config" EntityType="NPiculetModel.sys_config" />
           <EntitySet Name="sys_link_user_org" EntityType="NPiculetModel.sys_link_user_org" />
           <EntitySet Name="sys_link_user_role" EntityType="NPiculetModel.sys_link_user_role" />
+          <EntitySet Name="sys_member_data" EntityType="NPiculetModel.sys_member_data" />
+          <EntitySet Name="sys_member_info" EntityType="NPiculetModel.sys_member_info" />
           <EntitySet Name="sys_menu" EntityType="NPiculetModel.sys_menu" />
           <EntitySet Name="sys_org_group" EntityType="NPiculetModel.sys_org_group" />
           <EntitySet Name="sys_org_info" EntityType="NPiculetModel.sys_org_info" />
           <EntitySet Name="sys_role_info" EntityType="NPiculetModel.sys_role_info" />
           <EntitySet Name="sys_user_data" EntityType="NPiculetModel.sys_user_data" />
           <EntitySet Name="sys_user_info" EntityType="NPiculetModel.sys_user_info" />
-          <EntitySet Name="sys_member_data" EntityType="NPiculetModel.sys_member_data" />
-          <EntitySet Name="sys_member_info" EntityType="NPiculetModel.sys_member_info" />
-          <EntitySet Name="cms_content_tmpl" EntityType="NPiculetModel.cms_content_tmpl" />
-          <EntitySet Name="cms_content_tmpl_field" EntityType="NPiculetModel.cms_content_tmpl_field" />
-          <EntitySet Name="cms_content_tmpl_value" EntityType="NPiculetModel.cms_content_tmpl_value" />
         </EntityContainer>
         <EntityType Name="bas_attachment">
           <Key>
@@ -609,7 +656,7 @@
           <Property Name="EntityCode" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="IsDel" Type="Int32" Nullable="false" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
         </EntityType>
@@ -624,7 +671,7 @@
           <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Memo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
         </EntityType>
@@ -683,7 +730,7 @@
           <Property Name="Script" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Click" Type="Int32" Nullable="false" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" />
           <Property Name="EndDate" Type="DateTime" />
           <Property Name="Delay" Type="Int32" />
@@ -707,13 +754,23 @@
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="Point" Type="Decimal" />
           <Property Name="Comment" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="cms_content_link">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageId" Type="Int32" />
+          <Property Name="GroupCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="cms_content_page">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="GroupCode" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="OrgId" Type="Int32" />
           <Property Name="UserId" Type="Int32" />
@@ -722,12 +779,48 @@
           <Property Name="Content" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="Thumb" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Source" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="Click" Type="Int32" Nullable="false" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="Author" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Point" Type="Decimal" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Template" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="IsEnabled" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl_field">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cms_content_tmpl_value">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemplateId" Type="Int32" />
+          <Property Name="FieldId" Type="Int32" />
+          <Property Name="DataId" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="cms_friendlinks_info">
           <Key>
@@ -740,9 +833,41 @@
           <Property Name="Url" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Click" Type="Int32" Nullable="false" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cms_msgboard_group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Config" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cms_msgboard_record">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReplyId" Type="Int32" />
+          <Property Name="GroupCode" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="IdCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Tel" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Ownership" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MsgTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MsgContent" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="IsAnonymous" Type="Int32" />
+          <Property Name="IsPublic" Type="Int32" />
+          <Property Name="Fields" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" />
         </EntityType>
         <EntityType Name="cms_points_log">
           <Key>
@@ -800,13 +925,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Platform" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="Code" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Key" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="Platform" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_authorization">
           <Key>
@@ -831,7 +956,6 @@
           <Property Name="ConfigValue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="sys_link_user_org">
           <Key>
@@ -848,6 +972,64 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_member_data">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberAccount" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Nickname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MemberCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="IdCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Education" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
+          <Property Name="QQ" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Weixin" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Weibo" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Interest" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PointCurrent" Type="Decimal" />
+          <Property Name="PointTotal" Type="Decimal" />
+          <Property Name="Exp" Type="Decimal" />
+          <Property Name="Cash" Type="Decimal" />
+          <Property Name="Cost" Type="Decimal" />
+          <Property Name="HeadIcon" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="IsDel" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sys_member_info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberSn" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="MemberLevel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="MemberLevelStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BindSource" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="BindDate" Type="DateTime" />
+          <Property Name="LoginTimes" Type="Int32" />
+          <Property Name="LastLoginDate" Type="DateTime" />
+          <Property Name="LastLogoutDate" Type="DateTime" />
+          <Property Name="PassQuestion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PassAnswer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FailedCount" Type="Int32" />
+          <Property Name="FailedDate" Type="DateTime" />
+          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="IsDel" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" />
+          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" />
         </EntityType>
         <EntityType Name="sys_menu">
           <Key>
@@ -867,7 +1049,7 @@
           <Property Name="Url" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="Target" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Comment" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="IsDel" Type="Int32" Nullable="false" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
@@ -905,7 +1087,7 @@
           <Property Name="Tel" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="Memo" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="Point" Type="Decimal" />
-          <Property Name="OrderBy" Type="Int32" />
+          <Property Name="Sort" Type="Int32" />
           <Property Name="IsEnabled" Type="Int32" Nullable="false" />
           <Property Name="IsDel" Type="Int32" Nullable="false" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
@@ -969,107 +1151,13 @@
           <Property Name="LastLogoutDate" Type="DateTime" />
           <Property Name="FailedCount" Type="Int32" />
           <Property Name="FailedDate" Type="DateTime" />
-          <Property Name="OrderBy" Type="Int32" />
-          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="IsDel" Type="Int32" Nullable="false" />
-          <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDate" Type="DateTime" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="sys_member_data">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberId" Type="Int32" Nullable="false" />
-          <Property Name="MemberAccount" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Nickname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Birthday" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MemberCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="IdCard" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Education" Type="String" MaxLength="62" FixedLength="false" Unicode="false" />
-          <Property Name="QQ" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Weixin" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Weibo" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Interest" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="PointCurrent" Type="Decimal" />
-          <Property Name="PointTotal" Type="Decimal" />
-          <Property Name="Exp" Type="Decimal" />
-          <Property Name="Cash" Type="Decimal" />
-          <Property Name="Cost" Type="Decimal" />
-          <Property Name="HeadIcon" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Memo" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="IsDel" Type="Int32" />
-        </EntityType>
-        <EntityType Name="sys_member_info">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberSn" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="MemberLevel" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="MemberLevelStatus" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BindSource" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="BindDate" Type="DateTime" />
-          <Property Name="LoginTimes" Type="Int32" />
-          <Property Name="LastLoginDate" Type="DateTime" />
-          <Property Name="LastLogoutDate" Type="DateTime" />
-          <Property Name="PassQuestion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PassAnswer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FailedCount" Type="Int32" />
-          <Property Name="FailedDate" Type="DateTime" />
-          <Property Name="OrderBy" Type="Int32" />
-          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
-          <Property Name="IsDel" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDate" Type="DateTime" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" />
-        </EntityType>
-        <EntityType Name="cms_content_tmpl">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Template" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="Sort" Type="Int32" />
-          <Property Name="IsEnabled" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="IsDel" Type="Int32" Nullable="false" />
+          <Property Name="Updater" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" />
           <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="cms_content_tmpl_field">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemplateId" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Code" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="CreateDate" Type="DateTime" />
-          <Property Name="Creator" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="cms_content_tmpl_value">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TemplateId" Type="Int32" />
-          <Property Name="FieldId" Type="Int32" />
-          <Property Name="DataId" Type="Int32" />
-          <Property Name="Type" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1107,7 +1195,7 @@
               <MappingFragment StoreEntitySet="bas_dict_group">
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="EntityCode" ColumnName="EntityCode" />
@@ -1125,7 +1213,7 @@
               <MappingFragment StoreEntitySet="bas_dict_item">
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="Memo" ColumnName="Memo" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -1187,7 +1275,7 @@
                 <ScalarProperty Name="Delay" ColumnName="Delay" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="Click" ColumnName="Click" />
                 <ScalarProperty Name="Script" ColumnName="Script" />
@@ -1205,7 +1293,8 @@
           <EntitySetMapping Name="cms_content_group">
             <EntityTypeMapping TypeName="NPiculetModel.cms_content_group">
               <MappingFragment StoreEntitySet="cms_content_group">
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Point" ColumnName="Point" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
@@ -1222,15 +1311,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_link">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_link">
+              <MappingFragment StoreEntitySet="cms_content_link">
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="cms_content_page">
             <EntityTypeMapping TypeName="NPiculetModel.cms_content_page">
               <MappingFragment StoreEntitySet="cms_content_page">
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Point" ColumnName="Point" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="Click" ColumnName="Click" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="Thumb" ColumnName="Thumb" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
@@ -1239,6 +1338,45 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="OrgId" ColumnName="OrgId" />
                 <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_tmpl">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl">
+              <MappingFragment StoreEntitySet="cms_content_tmpl">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_tmpl_field">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl_field">
+              <MappingFragment StoreEntitySet="cms_content_tmpl_field">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_content_tmpl_value">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl_value">
+              <MappingFragment StoreEntitySet="cms_content_tmpl_value">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="DataId" ColumnName="DataId" />
+                <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1248,13 +1386,47 @@
               <MappingFragment StoreEntitySet="cms_friendlinks_info">
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="Click" ColumnName="Click" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_msgboard_group">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_msgboard_group">
+              <MappingFragment StoreEntitySet="cms_msgboard_group">
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Config" ColumnName="Config" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cms_msgboard_record">
+            <EntityTypeMapping TypeName="NPiculetModel.cms_msgboard_record">
+              <MappingFragment StoreEntitySet="cms_msgboard_record">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Fields" ColumnName="Fields" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="MsgContent" ColumnName="MsgContent" />
+                <ScalarProperty Name="MsgTitle" ColumnName="MsgTitle" />
+                <ScalarProperty Name="Ownership" ColumnName="Ownership" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+                <ScalarProperty Name="ReplyId" ColumnName="ReplyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1317,13 +1489,13 @@
           <EntitySetMapping Name="sys_app">
             <EntityTypeMapping TypeName="NPiculetModel.sys_app">
               <MappingFragment StoreEntitySet="sys_app">
-                <ScalarProperty Name="Platform" ColumnName="Platform" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Platform" ColumnName="Platform" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1344,7 +1516,6 @@
           <EntitySetMapping Name="sys_config">
             <EntityTypeMapping TypeName="NPiculetModel.sys_config">
               <MappingFragment StoreEntitySet="sys_config">
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
@@ -1373,6 +1544,66 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sys_member_data">
+            <EntityTypeMapping TypeName="NPiculetModel.sys_member_data">
+              <MappingFragment StoreEntitySet="sys_member_data">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="HeadIcon" ColumnName="HeadIcon" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Cash" ColumnName="Cash" />
+                <ScalarProperty Name="Exp" ColumnName="Exp" />
+                <ScalarProperty Name="PointTotal" ColumnName="PointTotal" />
+                <ScalarProperty Name="PointCurrent" ColumnName="PointCurrent" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="Weibo" ColumnName="Weibo" />
+                <ScalarProperty Name="Weixin" ColumnName="Weixin" />
+                <ScalarProperty Name="QQ" ColumnName="QQ" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+                <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
+                <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_member_info">
+            <EntityTypeMapping TypeName="NPiculetModel.sys_member_info">
+              <MappingFragment StoreEntitySet="sys_member_info">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="FailedDate" ColumnName="FailedDate" />
+                <ScalarProperty Name="FailedCount" ColumnName="FailedCount" />
+                <ScalarProperty Name="PassAnswer" ColumnName="PassAnswer" />
+                <ScalarProperty Name="PassQuestion" ColumnName="PassQuestion" />
+                <ScalarProperty Name="LastLogoutDate" ColumnName="LastLogoutDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
+                <ScalarProperty Name="BindDate" ColumnName="BindDate" />
+                <ScalarProperty Name="BindSource" ColumnName="BindSource" />
+                <ScalarProperty Name="MemberLevelStatus" ColumnName="MemberLevelStatus" />
+                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="MemberSn" ColumnName="MemberSn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sys_menu">
             <EntityTypeMapping TypeName="NPiculetModel.sys_menu">
               <MappingFragment StoreEntitySet="sys_menu">
@@ -1380,7 +1611,7 @@
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Target" ColumnName="Target" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
@@ -1419,7 +1650,7 @@
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="Point" ColumnName="Point" />
                 <ScalarProperty Name="Memo" ColumnName="Memo" />
                 <ScalarProperty Name="Tel" ColumnName="Tel" />
@@ -1491,7 +1722,7 @@
                 <ScalarProperty Name="Updater" ColumnName="Updater" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
                 <ScalarProperty Name="FailedDate" ColumnName="FailedDate" />
                 <ScalarProperty Name="FailedCount" ColumnName="FailedCount" />
                 <ScalarProperty Name="LastLogoutDate" ColumnName="LastLogoutDate" />
@@ -1503,105 +1734,6 @@
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="UserSn" ColumnName="UserSn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_member_data">
-            <EntityTypeMapping TypeName="NPiculetModel.sys_member_data">
-              <MappingFragment StoreEntitySet="sys_member_data">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="HeadIcon" ColumnName="HeadIcon" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Cash" ColumnName="Cash" />
-                <ScalarProperty Name="Exp" ColumnName="Exp" />
-                <ScalarProperty Name="PointTotal" ColumnName="PointTotal" />
-                <ScalarProperty Name="PointCurrent" ColumnName="PointCurrent" />
-                <ScalarProperty Name="Interest" ColumnName="Interest" />
-                <ScalarProperty Name="Weibo" ColumnName="Weibo" />
-                <ScalarProperty Name="Weixin" ColumnName="Weixin" />
-                <ScalarProperty Name="QQ" ColumnName="QQ" />
-                <ScalarProperty Name="Education" ColumnName="Education" />
-                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
-                <ScalarProperty Name="MemberCard" ColumnName="MemberCard" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Nickname" ColumnName="Nickname" />
-                <ScalarProperty Name="MemberAccount" ColumnName="MemberAccount" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sys_member_info">
-            <EntityTypeMapping TypeName="NPiculetModel.sys_member_info">
-              <MappingFragment StoreEntitySet="sys_member_info">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="Updater" ColumnName="Updater" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="OrderBy" ColumnName="OrderBy" />
-                <ScalarProperty Name="FailedDate" ColumnName="FailedDate" />
-                <ScalarProperty Name="FailedCount" ColumnName="FailedCount" />
-                <ScalarProperty Name="PassAnswer" ColumnName="PassAnswer" />
-                <ScalarProperty Name="PassQuestion" ColumnName="PassQuestion" />
-                <ScalarProperty Name="LastLogoutDate" ColumnName="LastLogoutDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="LoginTimes" ColumnName="LoginTimes" />
-                <ScalarProperty Name="BindDate" ColumnName="BindDate" />
-                <ScalarProperty Name="BindSource" ColumnName="BindSource" />
-                <ScalarProperty Name="MemberLevelStatus" ColumnName="MemberLevelStatus" />
-                <ScalarProperty Name="MemberLevel" ColumnName="MemberLevel" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="MemberSn" ColumnName="MemberSn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cms_content_tmpl">
-            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl">
-              <MappingFragment StoreEntitySet="cms_content_tmpl">
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="Template" ColumnName="Template" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cms_content_tmpl_field">
-            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl_field">
-              <MappingFragment StoreEntitySet="cms_content_tmpl_field">
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cms_content_tmpl_value">
-            <EntityTypeMapping TypeName="NPiculetModel.cms_content_tmpl_value">
-              <MappingFragment StoreEntitySet="cms_content_tmpl_value">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="DataId" ColumnName="DataId" />
-                <ScalarProperty Name="FieldId" ColumnName="FieldId" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

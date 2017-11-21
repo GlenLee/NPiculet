@@ -62,4 +62,16 @@ public partial class modules_cms_MsgBoardList : AdminPage
 		var group = _mbus.GetGroup(a => a.Code == code);
 		return group == null ? "" : group.Name;
 	}
+
+	protected void list_OnRowCommand(object sender, GridViewCommandEventArgs e) {
+		switch (e.CommandName) {
+			case "Check":
+				int dataId = ConvertKit.ConvertValue(e.CommandArgument, 0);
+				using (var db = new NPiculetEntities()) {
+					db.cms_msgboard_record.Where(a => a.Id == dataId).UpdateFromQuery(a => new cms_msgboard_record() { Status = 1 });
+				}
+				DataBind();
+				break;
+		}
+	}
 }

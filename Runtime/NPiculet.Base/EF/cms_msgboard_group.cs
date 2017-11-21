@@ -12,15 +12,14 @@ namespace NPiculet.Base.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_app
+    public partial class cms_msgboard_group
     {
         public int Id { get; set; }
-        public string Platform { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public string Key { get; set; }
-        public string Creator { get; set; }
+        public string Type { get; set; }
+        public string Config { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
-        public int IsEnabled { get; set; }
+        public string Creator { get; set; }
     }
 }

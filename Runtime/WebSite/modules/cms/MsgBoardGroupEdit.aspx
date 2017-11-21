@@ -1,4 +1,4 @@
-﻿<%@ Page Title="留言板组编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="MsgBoardGroupEdit.aspx.cs" Inherits="modules_cms_MsgBoardGroupEdit" %>
+﻿<%@ Page Title="留言板分组编辑" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="MsgBoardGroupEdit.aspx.cs" Inherits="modules_cms_MsgBoardGroupEdit" %>
 <%@ Register Src="../common/Prompt.ascx" TagName="Prompt" TagPrefix="zx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">

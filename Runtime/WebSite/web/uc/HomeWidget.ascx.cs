@@ -24,13 +24,13 @@ public partial class web_uc_HomeWidget : System.Web.UI.UserControl
 
 			int pageSize = 8;
 
-			var group = db.cms_content_group.SingleOrDefault(g => g.GroupCode == this.GroupCode);
+			var group = db.cms_content_group.FirstOrDefault(g => g.GroupCode == this.GroupCode);
 			if (group != null) this.title.Text = group.GroupName;
 
 			var query = db.cms_content_page.Where(x => x.IsEnabled == 1 && x.GroupCode == this.GroupCode);
 
 			query = query
-				.OrderByDescending(x => x.OrderBy)
+				.OrderByDescending(x => x.Sort)
 				.ThenByDescending(x => x.CreateDate)
 				.Take(pageSize);
 

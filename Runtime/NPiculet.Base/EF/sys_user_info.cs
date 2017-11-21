@@ -26,7 +26,7 @@ namespace NPiculet.Base.EF
         public Nullable<System.DateTime> LastLogoutDate { get; set; }
         public Nullable<int> FailedCount { get; set; }
         public Nullable<System.DateTime> FailedDate { get; set; }
-        public Nullable<int> OrderBy { get; set; }
+        public Nullable<int> Sort { get; set; }
         public int IsEnabled { get; set; }
         public int IsDel { get; set; }
         public string Updater { get; set; }

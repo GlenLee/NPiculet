@@ -5,8 +5,6 @@
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.config.js"></script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/ueditor.all.js"> </script>
 	<script type="text/javascript" charset="utf-8" src="../../scripts/ueditor/lang/zh-cn/zh-cn.js"></script>
-	<link href="../../scripts/libs/icheck/skins/polaris/polaris.css" rel="stylesheet" />
-	<script src="../../scripts/libs/icheck/icheck.min.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" runat="Server">

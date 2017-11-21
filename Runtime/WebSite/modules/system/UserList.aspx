@@ -14,7 +14,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="searchbar" Runat="Server">
 	<ul class="searchbar-wrap">
 		<li><asp:TextBox ID="txtKeywords" runat="server" placeholder="搜索账号或名称"></asp:TextBox></li>
-		<li><asp:LinkButton ID="btnSearch" runat="server" OnClick="btnSearch_Click"><i class="sui-icon icon-tb-search"></i>搜索</asp:LinkButton></li>
+		<li><asp:LinkButton ID="btnSearch" runat="server" OnClick="btnSearch_Click"><i class="fa fa-search"></i>搜索</asp:LinkButton></li>
 	</ul>
 </asp:Content>
 

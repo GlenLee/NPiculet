@@ -25,7 +25,7 @@ namespace NPiculet.Base.EF
         public string Script { get; set; }
         public int Click { get; set; }
         public int IsEnabled { get; set; }
-        public Nullable<int> OrderBy { get; set; }
+        public Nullable<int> Sort { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> Delay { get; set; }

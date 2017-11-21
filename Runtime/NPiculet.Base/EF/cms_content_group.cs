@@ -27,6 +27,7 @@ namespace NPiculet.Base.EF
         public int IsEnabled { get; set; }
         public Nullable<decimal> Point { get; set; }
         public string Comment { get; set; }
-        public Nullable<int> OrderBy { get; set; }
+        public Nullable<int> Sort { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
     }
 }

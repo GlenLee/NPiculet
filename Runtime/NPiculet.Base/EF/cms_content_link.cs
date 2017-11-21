@@ -12,15 +12,10 @@ namespace NPiculet.Base.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_app
+    public partial class cms_content_link
     {
         public int Id { get; set; }
-        public string Platform { get; set; }
-        public string Name { get; set; }
-        public string Code { get; set; }
-        public string Key { get; set; }
-        public string Creator { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
-        public int IsEnabled { get; set; }
+        public Nullable<int> PageId { get; set; }
+        public string GroupCode { get; set; }
     }
 }

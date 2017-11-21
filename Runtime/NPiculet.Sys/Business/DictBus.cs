@@ -6,6 +6,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using NPiculet.Base.EF;
+using NPiculet.Cache;
 
 namespace NPiculet.Logic.Business
 {
@@ -61,6 +62,50 @@ namespace NPiculet.Logic.Business
 			}
 		}
 
+		#region 字典缓存
+
+		/// <summary>
+		/// 刷新缓存
+		/// </summary>
+		public void RefreshCache() {
+			new CacheManager<List<bas_dict_group>>().Clear();
+			new CacheManager<List<bas_dict_item>>().Clear();
+		}
+
+		/// <summary>
+		/// 获取字典组缓存
+		/// </summary>
+		/// <returns></returns>
+		public List<bas_dict_group> GetDictGroupCache()
+		{
+			var cache = new CacheManager<List<bas_dict_group>>();
+			if (cache.Count == 0) {
+				using (var db = new NPiculetEntities()) {
+					var list = (from a in db.bas_dict_group where a.IsDel == 0 && a.IsEnabled == 1 select a).ToList();
+					cache.Set("DictGroup", list);
+				}
+			}
+			return cache.Get("DictGroup").Value;
+		}
+
+		/// <summary>
+		/// 获取字典项缓存
+		/// </summary>
+		/// <returns></returns>
+		public List<bas_dict_item> GetDictItemCache()
+		{
+			var cache = new CacheManager<List<bas_dict_item>>();
+			if (cache.Count == 0) {
+				using (var db = new NPiculetEntities()) {
+					var list = (from a in db.bas_dict_item where a.IsEnabled == 1 select a).ToList();
+					cache.Set("DictItem", list);
+				}
+			}
+			return cache.Get("DictItem").Value;
+		}
+
+		#endregion
+
 		/// <summary>
 		/// 获取字典组信息
 		/// </summary>
@@ -81,11 +126,7 @@ namespace NPiculet.Logic.Business
 		public List<bas_dict_group> GetDictGroupList(Expression<Func<bas_dict_group, bool>> predicate = null)
 		{
 			using (var db = new NPiculetEntities()) {
-				if (predicate == null) {
-					return db.bas_dict_group.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
-				} else {
-					return db.bas_dict_group.Where(predicate).OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).ToList();
-				}
+				return db.bas_dict_group.SafeWhere(predicate).OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).ToList();
 			}
 		}
 
@@ -109,10 +150,7 @@ namespace NPiculet.Logic.Business
 		public List<bas_dict_item> GetDictItemList(Expression<Func<bas_dict_item, bool>> predicate = null)
 		{
 			using (var db = new NPiculetEntities()) {
-				if (predicate == null)
-					return db.bas_dict_item.OrderBy(a => a.OrderBy).ToList();
-				else
-					return db.bas_dict_item.Where(predicate).OrderBy(a => a.OrderBy).ToList();
+				return db.bas_dict_item.SafeWhere(predicate).OrderBy(a => a.Sort).ToList();
 			}
 		}
 
@@ -124,7 +162,7 @@ namespace NPiculet.Logic.Business
 		public List<bas_dict_item> GetActiveItemList(string groupCode)
 		{
 			using (var db = new NPiculetEntities()) {
-				return db.bas_dict_item.Where(a => a.IsEnabled == 1 && a.GroupCode == groupCode).OrderBy(a => a.OrderBy).ToList();
+				return db.bas_dict_item.Where(a => a.IsEnabled == 1 && a.GroupCode == groupCode).OrderBy(a => a.Sort).ToList();
 			}
 		}
 
@@ -136,7 +174,7 @@ namespace NPiculet.Logic.Business
 		public List<bas_dict_item> GetDictItemList(string groupCode)
 		{
 			using (var db = new NPiculetEntities()) {
-				return db.bas_dict_item.Where(a => a.GroupCode == groupCode).OrderBy(a => a.OrderBy).ToList();
+				return db.bas_dict_item.Where(a => a.GroupCode == groupCode).OrderBy(a => a.Sort).ToList();
 			}
 		}
 
@@ -168,8 +206,8 @@ namespace NPiculet.Logic.Business
 				var query = (from i in db.bas_dict_item
 					join g in db.bas_dict_group on i.GroupCode equals g.Code
 					where g.IsDel == 0
-					orderby i.GroupCode, i.OrderBy, i.CreateDate
-					select new { i.Id, i.GroupCode, i.Code, i.Name, i.Value, i.OrderBy, i.IsEnabled, i.CreateDate, GroupName = g.Name });
+					orderby i.GroupCode, i.Sort, i.CreateDate
+					select new { i.Id, i.GroupCode, i.Code, i.Name, i.Value, i.Sort, i.IsEnabled, i.CreateDate, GroupName = g.Name });
 
 				query = query.WhereIf(!string.IsNullOrEmpty(groupCode), q => q.GroupCode == groupCode);
 				query = query.WhereIf(!string.IsNullOrEmpty(keywords), q => q.Name.Contains(keywords) || q.Code.Contains(keywords));

@@ -72,9 +72,24 @@ namespace NPiculet.Cms.Business
 		{
 			using (var db = new NPiculetEntities()) {
 				if (predicate == null)
-					return db.cms_content_group.OrderBy(a => a.OrderBy).ToList();
+					return db.cms_content_group.OrderBy(a => a.Sort).ToList();
 				else
-					return db.cms_content_group.Where(predicate).OrderBy(a => a.OrderBy).ToList();
+					return db.cms_content_group.Where(predicate).OrderBy(a => a.Sort).ToList();
+			}
+		}
+
+		/// <summary>
+		/// 获取组对象
+		/// </summary>
+		/// <param name="groupCode"></param>
+		/// <returns></returns>
+		public cms_content_group GetParentGroup(string groupCode)
+		{
+			using (var db = new NPiculetEntities()) {
+				return (from a in db.cms_content_group
+					from b in db.cms_content_group
+					where a.Id == b.ParentId && b.GroupCode == groupCode
+					select a).FirstOrDefault();
 			}
 		}
 
@@ -89,7 +104,7 @@ namespace NPiculet.Cms.Business
 				return (from g in db.cms_content_group
 					join p in db.cms_content_group on g.ParentId equals p.Id
 					where p.GroupCode == parentGroupCode
-					orderby g.OrderBy
+					orderby g.Sort
 					select g).ToList();
 			}
 		}
@@ -174,15 +189,28 @@ namespace NPiculet.Cms.Business
 		/// <returns></returns>
 		public List<cms_content_page> GetPageList(out int count, int curPage, int pageSize, Expression<Func<cms_content_page, bool>> predicate = null) {
 			using (var db = new NPiculetEntities()) {
-				if (predicate == null) {
-					var query = db.cms_content_page;
-					count = query.Count();
-					return query.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
-				} else {
-					var query = db.cms_content_page.Where(predicate);
-					count = query.Count();
-					return query.OrderBy(a => a.OrderBy).ThenByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
-				}
+				var query = db.cms_content_page.SafeWhere(predicate);
+				count = query.Count();
+				return query.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
+			}
+		}
+
+		/// <summary>
+		/// 获取页面列表
+		/// </summary>
+		/// <param name="count"></param>
+		/// <param name="curPage"></param>
+		/// <param name="pageSize"></param>
+		/// <param name="groupCode"></param>
+		/// <returns></returns>
+		public List<cms_content_page> GetPageList(out int count, int curPage, int pageSize, string groupCode)
+		{
+			using (var db = new NPiculetEntities()) {
+				var query = (from a in db.cms_content_page
+					where a.IsEnabled == 1 && (a.GroupCode == groupCode || (from b in db.cms_content_link where b.GroupCode == groupCode select b.PageId).Contains(a.Id))
+					select a);
+				count = query.Count();
+				return query.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).Pagination(curPage, pageSize).ToList();
 			}
 		}
 

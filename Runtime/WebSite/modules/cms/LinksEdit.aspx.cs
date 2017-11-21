@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using NPiculet.Base.EF;
 using NPiculet.Logic.Base;
+using NPiculet.Logic.Business;
 using NPiculet.Toolkit;
 
 namespace modules.info
@@ -14,8 +15,15 @@ namespace modules.info
 		{
 			if (!Page.IsPostBack) {
 				this.Id.Value = WebParmKit.GetQuery("key", "");
+				BindType();
 				BindData();
 			}
+		}
+
+		private void BindType() {
+			var dbus = new DictBus();
+			var data = dbus.GetDictItemList("ExtLinkType");
+			BindKit.BindToListControl(this.Type, data, "Name", "Code");
 		}
 
 		private void BindData() {

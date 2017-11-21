@@ -7,7 +7,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="toolbar" runat="Server">
 	<div class="tools">
 		<ul class="toolbar">
-			<li><a href="MsgBoardEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>
+			<%--<li><a href="MsgBoardEdit.aspx"><i class="fa fa-plus"></i>新增</a></li>--%>
 		</ul>
 	</div>
 </asp:Content>
@@ -22,7 +22,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="Server">
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
-		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
+		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" OnRowCommand="list_OnRowCommand" CssClass="table table-primary">
 		<Columns>
 			<asp:TemplateField HeaderText="留言板">
 				<HeaderStyle Width="140px" />
@@ -31,12 +31,30 @@
 				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:BoundField DataField="Author" HeaderText="作者" />
-			<asp:BoundField DataField="Content" HeaderText="内容" />
-			<asp:BoundField DataField="Fields" HeaderText="字段" />
-			<asp:TemplateField HeaderText="编辑">
+			<asp:BoundField DataField="IdCard" HeaderText="身份证号" />
+			<asp:BoundField DataField="Tel" HeaderText="电话" />
+			<asp:BoundField DataField="Address" HeaderText="联系地址" />
+			<asp:BoundField DataField="Ownership" HeaderText="信件归属" />
+			<asp:BoundField DataField="MsgTitle" HeaderText="标题" />
+			<asp:BoundField DataField="MsgContent" HeaderText="内容" />
+			<asp:TemplateField HeaderText="公开">
 				<HeaderStyle Width="60px" />
-				<ItemStyle HorizontalAlign="Center" />
-				<ItemTemplate><a href="MsgBoardEdit.aspx?id=<%# Eval("Id") %>">编辑</a></ItemTemplate>
+				<ItemTemplate>
+					<%# Convert.ToString(Eval("IsPublic")) == "1" ? "公开" : "不公开" %>
+				</ItemTemplate>
+			</asp:TemplateField>
+			<asp:TemplateField HeaderText="状态">
+				<HeaderStyle Width="60px" />
+				<ItemTemplate>
+					<%# Convert.ToString(Eval("Status")) == "1" ? "发布" : "待审核" %>
+				</ItemTemplate>
+			</asp:TemplateField>
+			<asp:TemplateField HeaderText="审核">
+				<HeaderStyle Width="60px"></HeaderStyle>
+				<ItemStyle HorizontalAlign="Center"></ItemStyle>
+				<ItemTemplate>
+					<asp:LinkButton ID="btnCheck" runat="server" CommandName="Check" CommandArgument='<%# Eval("Id") %>'>审核</asp:LinkButton>
+				</ItemTemplate>
 			</asp:TemplateField>
 			<asp:TemplateField HeaderText="删除">
 				<HeaderStyle Width="60px"></HeaderStyle>

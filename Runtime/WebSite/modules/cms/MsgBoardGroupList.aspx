@@ -1,4 +1,4 @@
-﻿<%@ Page Title="留言板管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="MsgBoardGroupList.aspx.cs" Inherits="modules_cms_MsgBoardGroupList" %>
+﻿<%@ Page Title="留言板分组管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="MsgBoardGroupList.aspx.cs" Inherits="modules_cms_MsgBoardGroupList" %>
 <%@ Register TagPrefix="asp" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" runat="Server">

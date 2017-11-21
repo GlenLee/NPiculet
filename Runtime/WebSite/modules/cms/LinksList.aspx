@@ -1,4 +1,4 @@
-﻿<%@ Page Title="友链管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksList.aspx.cs" Inherits="modules.info.LinksList" %>
+﻿<%@ Page Title="外链管理" Language="C#" MasterPageFile="~/modules/ContentPage.master" AutoEventWireup="true" CodeFile="LinksList.aspx.cs" Inherits="modules.info.LinksList" %>
 <%@ Register TagPrefix="uc" Namespace="NPiculet.WebControls" Assembly="NPiculet.WebControls" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="header" Runat="Server">
@@ -19,8 +19,10 @@
 	<asp:GridView ID="list" runat="server" AutoGenerateColumns="False" Width="100%"
 		DataKeyNames="Id" OnRowDeleting="list_RowDeleting" CssClass="table table-primary">
 		<Columns>
+			<asp:BoundField DataField="TypeName" HeaderText="类型" />
 			<asp:BoundField DataField="Description" HeaderText="描述" />
 			<asp:BoundField DataField="Url" HeaderText="链接" />
+			<asp:BoundField DataField="Sort" HeaderText="排序" />
 			<asp:TemplateField HeaderText="编辑">
 				<HeaderStyle Width="50px" />
 				<ItemStyle HorizontalAlign="Center" />

@@ -37,8 +37,6 @@
 				<td class="th">字典项编码</td>
 				<td class="td">
 					<asp:TextBox ID="Code" runat="server" CssClass="form-control" Width="200px" MaxLength="32"></asp:TextBox>
-					<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="Dynamic"
-						ErrorMessage="必填" ForeColor="red" ControlToValidate="Code"></asp:RequiredFieldValidator>
 				</td>
 			</tr>
 			<tr>

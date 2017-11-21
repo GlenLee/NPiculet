@@ -322,6 +322,7 @@ public partial class System_MenuSet : AdminPage
 						BindKit.SelectItemInSingleListControl(this.InfoGroupCategory, categoryId, true);
 						BindInfoGroupList();
 						BindKit.SelectItemInSingleListControl(this.InfoGroupList, groupId, true);
+						InfoGroupList_SelectedIndexChanged(this, e);
 					}
 					break;
 				case 3:

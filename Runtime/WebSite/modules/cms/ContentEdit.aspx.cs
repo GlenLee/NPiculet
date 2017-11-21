@@ -55,6 +55,7 @@ public partial class modules_cms_ContentEdit : AdminPage
 		var model = _cbus.GetPage(a => a.GroupCode == group.GroupCode);
 		if (model != null) {
 			BindKit.BindModelToContainer(this.editor, model);
+			ShowThumb(model.Thumb);
 			this.btnView.Visible = true;
 		} else {
 			this.btnView.Visible = false;
@@ -85,6 +86,23 @@ public partial class modules_cms_ContentEdit : AdminPage
 			var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == gid);
 			model.GroupCode = group.GroupCode;
 
+			if (!string.IsNullOrEmpty(this.Thumb.FileName)) {
+				//清理老图像
+				if (!string.IsNullOrEmpty(this.PreviewThumb.ImageUrl)) {
+					var f = new FileInfo(Server.MapPath(this.PreviewThumb.ImageUrl));
+					if (f.Exists) f.Delete();
+				}
+				//更新新图
+				if (this.Thumb.PostedFile.ContentLength > 0) {
+					if (FileKit.IsImage(this.Thumb.PostedFile.FileName)) {
+						model.Thumb = FileWebKit.SaveZoomImage(this.Thumb.PostedFile, 1200);
+					} else {
+						this.Alert("您上传的不是图片！");
+					}
+				}
+				ShowThumb(model.Thumb);
+			}
+
 			_cbus.SavePage(model);
 
 			this.Id.Value = model.Id.ToString();
@@ -93,5 +111,20 @@ public partial class modules_cms_ContentEdit : AdminPage
 		}
 
 		InitControl();
+	}
+
+	/// <summary>
+	/// 显示缩略图
+	/// </summary>
+	/// <param name="thumbPath"></param>
+	private void ShowThumb(string thumbPath)
+	{
+		if (this.phThumb.Visible && !string.IsNullOrEmpty(thumbPath)) {
+			this.ThumbHyperLink.NavigateUrl = thumbPath;
+			this.PreviewThumb.ImageUrl = thumbPath;
+			this.PreviewThumb.Visible = true;
+		} else {
+			this.PreviewThumb.Visible = false;
+		}
 	}
 }

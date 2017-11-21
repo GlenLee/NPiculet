@@ -15,6 +15,7 @@ namespace NPiculet.Base.EF
     public partial class cms_content_page
     {
         public int Id { get; set; }
+        public string Type { get; set; }
         public string GroupCode { get; set; }
         public Nullable<int> OrgId { get; set; }
         public Nullable<int> UserId { get; set; }
@@ -23,11 +24,12 @@ namespace NPiculet.Base.EF
         public string Content { get; set; }
         public string Thumb { get; set; }
         public string Source { get; set; }
+        public string Url { get; set; }
         public int Click { get; set; }
         public int IsEnabled { get; set; }
         public string Author { get; set; }
         public Nullable<decimal> Point { get; set; }
-        public Nullable<int> OrderBy { get; set; }
+        public Nullable<int> Sort { get; set; }
         public System.DateTime CreateDate { get; set; }
     }
 }
