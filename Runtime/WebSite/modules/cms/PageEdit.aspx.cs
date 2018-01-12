@@ -60,22 +60,23 @@ public partial class modules_cms_PageEdit : AdminPage
 
 		//获取组数据
 		var group = _cbus.GetGroup(a => a.GroupCode == code || a.Id == gid);
-		if (group == null) {
-			this.AlertBeauty("没有找到数据，请检查数据完整性！");
-			this.btnSave.Visible = false;
-			this.btnPublish.Visible = false;
-			this.btnView.Visible = false;
-			return;
+		//if (group == null) {
+		//	this.AlertBeauty("没有找到数据，请检查数据完整性！");
+		//	this.btnSave.Visible = false;
+		//	this.btnPublish.Visible = false;
+		//	this.btnView.Visible = false;
+		//	return;
+		//}
+		if (group != null) {
+			this.Title = group.GroupName;
+			this.GroupName.Text = group.GroupName;
+			this.mGroupCode.Value = group.GroupCode;
 		}
-
-		this.Title = group.GroupName;
-		this.GroupName.Text = group.GroupName;
-		this.mGroupCode.Value = group.GroupCode;
 
 		//获取页数据
 		int dataId = WebParmKit.GetQuery("id", 0);
 		if (dataId > 0) {
-			var model = _cbus.GetPage(a => a.GroupCode == group.GroupCode && a.Id == dataId);
+			var model = _cbus.GetPage(a => a.Id == dataId);
 			if (model != null) {
 				BindKit.BindModelToContainer(this.editor, model);
 				this.InfoTitle.Text = model.Title;
@@ -227,7 +228,7 @@ public partial class modules_cms_PageEdit : AdminPage
 			//删除多余数据
 			var delete = hasdata.Except(links, new GroupCompare());
 			db.cms_content_link.RemoveRange(delete);
-			db.BulkSaveChanges();
+			db.SaveChanges();
 		}
 	}
 
@@ -335,7 +336,7 @@ public partial class modules_cms_PageEdit : AdminPage
 
 		model.Id = 0;
 		model.Title = this.InfoTitle.Text;
-		model.GroupCode = group.GroupCode;
+		model.GroupCode = group == null ? null : group.GroupCode;
 		model.Click = 0;
 		model.CreateDate = DateTime.Now;
 		model.IsEnabled = 0;
