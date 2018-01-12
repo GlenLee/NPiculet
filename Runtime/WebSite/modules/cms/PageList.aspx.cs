@@ -34,62 +34,116 @@ public partial class modules_cms_PageList : AdminPage
 		int gid = this.GroupId;
 		string code = this.GroupCode;
 
-		cms_content_group cg = _cbus.GetGroup(g => g.Id == gid || g.GroupCode == code);
+		//判断 GroupCode = ALL 的情况，可列出所有分类的数据
+		if (code.ToUpper() == "ALL") {
+			this.Page.Header.Title = "所有文章";
 
-		if (cg == null) {
-			this.btnAdd.Visible = false;
-			this.AlertBeauty("没有找到组数据，请检查菜单及栏目配置！");
-			return;
-		}
-		this.Page.Header.Title = cg.GroupName;
+			//新增页链接
+			string editUrl = "PageEdit.aspx?group=ALL";
+			this.btnAdd.NavigateUrl = editUrl;
 
-		//新增页链接
-		string editUrl = "PageEdit.aspx?";
-		this.btnAdd.NavigateUrl = editUrl + (string.IsNullOrEmpty(code) ? "gid=" + gid : "group=" + code);
+			int count;
 
-		int count;
+			using (var db = new NPiculetEntities()) {
+				var query = (from a in db.cms_content_page
+					select a);
 
-		using (var db = new NPiculetEntities()) {
-			var query = (from a in db.cms_content_page
-				where a.IsEnabled == 1 && (a.GroupCode == cg.GroupCode || (from b in db.cms_content_link where b.GroupCode == cg.GroupCode select b.PageId).Contains(a.Id))
-				select a);
+				//查询数据
+				//var where = LinQKit.CreateWhere<cms_content_page>(a => a.GroupCode == cg.GroupCode);
+				var where = LinQKit.True<cms_content_page>();
 
-			//查询数据
-			//var where = LinQKit.CreateWhere<cms_content_page>(a => a.GroupCode == cg.GroupCode);
-			var where = LinQKit.True<cms_content_page>();
-
-			if (!string.IsNullOrEmpty(this.txtKeywords.Text)) {
-				string key = this.txtKeywords.Text;
-				where = where.And(q => q.Title.Contains(key) || q.Content.Contains(key));
-			}
-
-			//检查编辑权限
-			var user = this.CurrentUserInfo;
-			if (user.Id > 1) {
-				switch (limit) {
-					case "Org": //限制在根组织机构
-						var orgId = user.Organization.Id;
-						where = where.And(q => q.OrgId == orgId);
-						break;
-					case "User": //限制在用户自身
-						var userId = user.Id;
-						where = where.And(q => q.UserId == userId);
-						break;
+				if (!string.IsNullOrEmpty(this.txtKeywords.Text)) {
+					string key = this.txtKeywords.Text;
+					where = where.And(q => q.Title.Contains(key) || q.Content.Contains(key));
 				}
+
+				//检查编辑权限
+				var user = this.CurrentUserInfo;
+				if (user.Id > 1) {
+					switch (limit) {
+						case "Org": //限制在根组织机构
+							var orgId = user.Organization.Id;
+							where = where.And(q => q.OrgId == orgId);
+							break;
+						case "User": //限制在用户自身
+							var userId = user.Id;
+							where = where.And(q => q.UserId == userId);
+							break;
+					}
+				}
+
+				if (where != null) query = query.SafeWhere(where);
+
+				count = query.Count();
+				var dt = query.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).Pagination(this.nPager.CurrentPage, this.nPager.PageSize).ToList();
+
+				this.list.DataSource = dt;
+				this.list.DataBind();
 			}
 
-			if (where != null) query = query.SafeWhere(where);
+			//var dt = _cbus.GetPageList(out count, this.nPager.CurrentPage, this.nPager.PageSize, where).ToList();
 
-			count = query.Count();
-			var dt = query.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).Pagination(this.nPager.CurrentPage, this.nPager.PageSize).ToList();
+			this.nPager.RecordCount = count;
 
-			this.list.DataSource = dt;
-			this.list.DataBind();
+		} else {
+			//如果不为 ALL，再读取分类数据
+			cms_content_group cg = _cbus.GetGroup(g => g.Id == gid || g.GroupCode == code);
+
+			if (cg == null) {
+				this.btnAdd.Visible = false;
+				this.AlertBeauty("没有找到组数据，请检查菜单及栏目配置！");
+				return;
+			}
+			this.Page.Header.Title = cg.GroupName;
+
+			//新增页链接
+			string editUrl = "PageEdit.aspx?";
+			this.btnAdd.NavigateUrl = editUrl + (string.IsNullOrEmpty(code) ? "gid=" + gid : "group=" + code);
+
+			int count;
+
+			using (var db = new NPiculetEntities()) {
+				var query = (from a in db.cms_content_page
+					where a.GroupCode == cg.GroupCode || (from b in db.cms_content_link where b.GroupCode == cg.GroupCode select b.PageId).Contains(a.Id)
+					select a);
+
+				//查询数据
+				//var where = LinQKit.CreateWhere<cms_content_page>(a => a.GroupCode == cg.GroupCode);
+				var where = LinQKit.True<cms_content_page>();
+
+				if (!string.IsNullOrEmpty(this.txtKeywords.Text)) {
+					string key = this.txtKeywords.Text;
+					where = where.And(q => q.Title.Contains(key) || q.Content.Contains(key));
+				}
+
+				//检查编辑权限
+				var user = this.CurrentUserInfo;
+				if (user.Id > 1) {
+					switch (limit) {
+						case "Org": //限制在根组织机构
+							var orgId = user.Organization.Id;
+							where = where.And(q => q.OrgId == orgId);
+							break;
+						case "User": //限制在用户自身
+							var userId = user.Id;
+							where = where.And(q => q.UserId == userId);
+							break;
+					}
+				}
+
+				if (where != null) query = query.SafeWhere(where);
+
+				count = query.Count();
+				var dt = query.OrderBy(a => a.Sort).ThenByDescending(a => a.CreateDate).Pagination(this.nPager.CurrentPage, this.nPager.PageSize).ToList();
+
+				this.list.DataSource = dt;
+				this.list.DataBind();
+			}
+
+			//var dt = _cbus.GetPageList(out count, this.nPager.CurrentPage, this.nPager.PageSize, where).ToList();
+
+			this.nPager.RecordCount = count;
 		}
-
-		//var dt = _cbus.GetPageList(out count, this.nPager.CurrentPage, this.nPager.PageSize, where).ToList();
-
-		this.nPager.RecordCount = count;
 	}
 
 	/// <summary>
